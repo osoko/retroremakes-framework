@@ -1,0 +1,2219 @@
+<html><head><title>retroremakes\rrfw reference</title>
+<link rel=stylesheet Type=text/css href='../../../../doc/bmxstyle.css'>
+</head><body>
+<table width=100% cellspacing=0><tr align=center><td class=small>&nbsp;</td>
+<td class=small width=1%><b>retroremakes.rrfw:</b></td>
+<td class=small width=1%><a href=#functions class=small>Functions</a></td>
+<td class=small width=1%><a href=#types class=small>Types</a></td>
+<td class=small width=1%><a href='../../../../mod/retroremakes.mod/rrfw.mod/rrfw.bmx' class=small>Source</a></td>
+<td class=small>&nbsp;</td></tr></table>
+<h1>retroremakes\rrfw</h1>
+<h2><a name=functions></a>Functions Summary</h2><table class=doc width=100%>
+<tr><td class=docleft width=1%><a href=#rrCircleToPoly>rrCircleToPoly</a></td><td class=docright>
+Checks for collisions between a circle and a standard polygon.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#rrCircleToTFormPoly>rrCircleToTFormPoly</a></td><td class=docright>
+Checks for collisions between a circle and a transformed polygon.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#rrDebugEnabled>rrDebugEnabled</a></td><td class=docright>
+Determine whether the <a href=#TGameEngine>TGameEngine</a> instance has debug enabled.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#rrDisableDebug>rrDisableDebug</a></td><td class=docright>
+Disable debug mode for the <a href=#TGameEngine>TGameEngine</a> instance.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#rrDrawPoly>rrDrawPoly</a></td><td class=docright>
+Draws a polygon at the specified coordinates.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#rrEnableDebug>rrEnableDebug</a></td><td class=docright>
+Enable debug mode for the <a href=#TGameEngine>TGameEngine</a> instance.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#rrEngineInitialise>rrEngineInitialise</a></td><td class=docright>
+Inititalise the <a href=#TGameEngine>TGameEngine</a> instance.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#rrEnginePaused>rrEnginePaused</a></td><td class=docright>
+Determine whether the <a href=#TGameEngine>TGameEngine</a> instance is paused.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#rrEngineRun>rrEngineRun</a></td><td class=docright>
+Run the <a href=#TGameEngine>TGameEngine</a> instance.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#rrEngineStop>rrEngineStop</a></td><td class=docright>
+Stop the <a href=#TGameEngine>TGameEngine</a> instance.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#rrGetDataDirectory>rrGetDataDirectory</a></td><td class=docright>
+Find the directory being used to store data written by the game.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#rrGetRenderFrameCount>rrGetRenderFrameCount</a></td><td class=docright>
+Determine how many frames have been rendered.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#rrGetUpdateFrameCount>rrGetUpdateFrameCount</a></td><td class=docright>
+Determine how many update loops have been run.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#rrLinesCross>rrLinesCross</a></td><td class=docright>
+Checks If two lines intersect.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#rrLineToCircle>rrLineToCircle</a></td><td class=docright>
+Checks For collision between a line And a circle.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#rrLineToPoly>rrLineToPoly</a></td><td class=docright>
+Checks for collisions between a line and a normal polygon.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#rrLineToTFormPoly>rrLineToTFormPoly</a></td><td class=docright>
+Checks for collisions between a line and a transformed polygon.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#rrLogError>rrLogError</a></td><td class=docright>
+Help function to log Error messages to the engine logfile.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#rrLogGlobal>rrLogGlobal</a></td><td class=docright>
+Help function to log Global messages to the engine logfile.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#rrLogInfo>rrLogInfo</a></td><td class=docright>
+Help function to log Info messages to the engine logfile.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#rrLogWarn>rrLogWarn</a></td><td class=docright>
+Help function to log Warn messages to the engine logfile.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#rrMakePackedScaler>rrMakePackedScaler</a></td><td class=docright>
+Create a packed 16bit Scale value.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#rrMakeRGBA>rrMakeRGBA</a></td><td class=docright>
+Create a packed 32bit RGBA colour value.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#rrPauseEngine>rrPauseEngine</a></td><td class=docright>
+Pause the <a href=#TGameEngine>TGameEngine</a> instance.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#rrPointInPoly>rrPointInPoly</a></td><td class=docright>
+Checks If the given point is in a normal polygon.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#rrPointInTFormPoly>rrPointInTFormPoly</a></td><td class=docright>
+Checks if the given point is in a transformed polygon.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#rrPointToPointDist>rrPointToPointDist</a></td><td class=docright>
+Calculate the Distance between two points.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#rrPolyToPoly>rrPolyToPoly</a></td><td class=docright>
+Checks for collisions between two standard polygons.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#rrPolyToTFormPoly>rrPolyToTFormPoly</a></td><td class=docright>
+Checks for collisions between a standard polygon and a transformed polygon.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#rrPopRenderState>rrPopRenderState</a></td><td class=docright>
+Pop the last render state off the stack.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#rrPushRenderState>rrPushRenderState</a></td><td class=docright>
+Push the current render state onto the stack.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#rrRC4>rrRC4</a></td><td class=docright>
+Encrypt or Decrypt a string using an RC4 cypher.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#rrServiceDebugRenderPrioritySort>rrServiceDebugRenderPrioritySort</a></td><td class=docright>
+Compare Function used to sort the <a href=#TGameService>TGameService</a> instances by <a href=#DebugRender>DebugRender</a> priorty.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#rrServiceDebugUpdatePrioritySort>rrServiceDebugUpdatePrioritySort</a></td><td class=docright>
+Compare Function used to sort the <a href=#TGameService>TGameService</a> instances by <a href=#DebugUpdate>DebugUpdate</a> priorty.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#rrServicePrioritySort>rrServicePrioritySort</a></td><td class=docright>
+Compare Function used to sort the <a href=#TGameService>TGameService</a> instances by priorty.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#rrServiceRenderPrioritySort>rrServiceRenderPrioritySort</a></td><td class=docright>
+Compare Function used to sort the <a href=#TGameService>TGameService</a> instances by <a href=#Render>Render</a> priorty.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#rrServiceStartPrioritySort>rrServiceStartPrioritySort</a></td><td class=docright>
+Compare Function used to sort the <a href=#TGameService>TGameService</a> instances by <a href=#Start>Start</a> priorty.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#rrServiceUpdatePrioritySort>rrServiceUpdatePrioritySort</a></td><td class=docright>
+Compare Function used to sort the <a href=#TGameService>TGameService</a> instances by <a href=#Update>Update</a> priorty.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#rrSetRGBA>rrSetRGBA</a></td><td class=docright>
+Sets the Colour and Alpha values to those in a 32bit RGBA colour value.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#rrSetScaler>rrSetScaler</a></td><td class=docright>
+Sets the scale to a packed 16bit Scale value.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#rrTakeScreenshot>rrTakeScreenshot</a></td><td class=docright>
+Take a screenshot of current front buffer.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#rrTFormGlobalToLocal>rrTFormGlobalToLocal</a></td><td class=docright>
+Transforms a point from Global / screen coordinates To Local / polygon / image coordinates.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#rrTFormLocalToGlobal>rrTFormLocalToGlobal</a></td><td class=docright>
+Transforms a point from Local / polygon / image coordinates To Global / screen coordinates.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#rrTFormPoly>rrTFormPoly</a></td><td class=docright>
+Returns a transformed polygon from a standard polygon.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#rrTFormPolyToTFormPoly>rrTFormPolyToTFormPoly</a></td><td class=docright>
+Checks For collisions between two transformed polygons.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#rrUnpackRGBA>rrUnpackRGBA</a></td><td class=docright>
+Unpack a packed 32bit RGBA colour value.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#rrUnpackScaler>rrUnpackScaler</a></td><td class=docright>
+Unpack a packed 16bit Scale value.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#rrUnpauseEngine>rrUnpauseEngine</a></td><td class=docright>
+Unpause the <a href=#TGameEngine>TGameEngine</a> instance.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#rrUseExeDirectoryForData>rrUseExeDirectoryForData</a></td><td class=docright>
+Specify whether data should be written to the executables directory.
+</td></tr>
+</table>
+<h2><a name=types></a>Types Summary</h2><table class=doc width=100%>
+<tr><td class=docleft width=1%><a href=#TAlphaFadeAnimation>TAlphaFadeAnimation</a></td><td class=docright>
+Undocumented type.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#TBlinkAnimation>TBlinkAnimation</a></td><td class=docright>
+Undocumented type.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#TColour>TColour</a></td><td class=docright>
+<a href=#TColour>TColour</a>.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#TColourHSV>TColourHSV</a></td><td class=docright>
+<a href=#TColourHSV>TColourHSV</a>.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#TColourOscillatorAnimation>TColourOscillatorAnimation</a></td><td class=docright>
+Undocumented type.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#TColourRGB>TColourRGB</a></td><td class=docright>
+<a href=#TColourRGB>TColourRGB</a>.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#TCompositeAnimation>TCompositeAnimation</a></td><td class=docright>
+Undocumented type.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#TDelayedAnimation>TDelayedAnimation</a></td><td class=docright>
+Undocumented type.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#TGameEngine>TGameEngine</a></td><td class=docright>
+<a href=#TGameEngine>TGameEngine</a>.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#TGameService>TGameService</a></td><td class=docright>
+&nbsp;
+</td></tr>
+<tr><td class=docleft width=1%><a href=#TGameSound>TGameSound</a></td><td class=docright>
+<a href=#TGameSound>TGameSound</a>.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#TGameSoundHandler>TGameSoundHandler</a></td><td class=docright>
+<a href=#TGameSoundHandler>TGameSoundHandler</a>.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#TGameState>TGameState</a></td><td class=docright>
+TGameState.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#TGameStateManager>TGameStateManager</a></td><td class=docright>
+TGameStateManager.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#TImageFontSprite>TImageFontSprite</a></td><td class=docright>
+Undocumented type.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#TImageSprite>TImageSprite</a></td><td class=docright>
+Undocumented type.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#TInputDevice>TInputDevice</a></td><td class=docright>
+Undocumented type.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#TJoystick>TJoystick</a></td><td class=docright>
+Undocumented type.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#TJoystickAxisMapping>TJoystickAxisMapping</a></td><td class=docright>
+Undocumented type.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#TJoystickButtonMapping>TJoystickButtonMapping</a></td><td class=docright>
+Undocumented type.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#TJoystickManager>TJoystickManager</a></td><td class=docright>
+Undocumented type.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#TJoystickMessageData>TJoystickMessageData</a></td><td class=docright>
+<a href=#TJoystickMessageData>TJoystickMessageData</a>.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#TKeyboard>TKeyboard</a></td><td class=docright>
+Undocumented type.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#TKeyboardMapping>TKeyboardMapping</a></td><td class=docright>
+Undocumented type.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#TKeyboardMessageData>TKeyboardMessageData</a></td><td class=docright>
+<a href=#TKeyboardMessageData>TKeyboardMessageData</a>.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#TLoopedAnimation>TLoopedAnimation</a></td><td class=docright>
+Undocumented type.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#TLoopedFrameAnimation>TLoopedFrameAnimation</a></td><td class=docright>
+Undocumented type.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#TMacroCommand>TMacroCommand</a></td><td class=docright>
+Undocumented type.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#TMakeInvisibleAnimation>TMakeInvisibleAnimation</a></td><td class=docright>
+Undocumented type.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#TMakeVisibleAnimation>TMakeVisibleAnimation</a></td><td class=docright>
+Undocumented type.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#TMessageChannel>TMessageChannel</a></td><td class=docright>
+Undocumented type.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#TMessageListener>TMessageListener</a></td><td class=docright>
+Undocumented type.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#TMouseAxisMapping>TMouseAxisMapping</a></td><td class=docright>
+Undocumented type.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#TMouseButtonMapping>TMouseButtonMapping</a></td><td class=docright>
+Undocumented type.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#TMouseMessageData>TMouseMessageData</a></td><td class=docright>
+Undocumented type.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#TPointToPointPathAnimation>TPointToPointPathAnimation</a></td><td class=docright>
+Undocumented type.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#TPolygon>TPolygon</a></td><td class=docright>
+Undocumented type.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#TPolygonSprite>TPolygonSprite</a></td><td class=docright>
+Undocumented type.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#TRenderState>TRenderState</a></td><td class=docright>
+<a href=#TRenderState>TRenderState</a>.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#TScaleOscillatorAnimation>TScaleOscillatorAnimation</a></td><td class=docright>
+Undocumented type.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#TSequentialAnimation>TSequentialAnimation</a></td><td class=docright>
+Undocumented type.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#TSetAlphaAnimation>TSetAlphaAnimation</a></td><td class=docright>
+Undocumented type.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#TSetColourAnimation>TSetColourAnimation</a></td><td class=docright>
+Undocumented type.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#TSetPositionAnimation>TSetPositionAnimation</a></td><td class=docright>
+Undocumented type.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#TSprite>TSprite</a></td><td class=docright>
+Undocumented type.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#TSpriteAnimation>TSpriteAnimation</a></td><td class=docright>
+Undocumented type.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#TSpriteAnimationManager>TSpriteAnimationManager</a></td><td class=docright>
+Undocumented type.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#TSpriteManager>TSpriteManager</a></td><td class=docright>
+<a href=#TSpriteManager>TSpriteManager</a>.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#TTimedAnimation>TTimedAnimation</a></td><td class=docright>
+Undocumented type.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#TVirtualControl>TVirtualControl</a></td><td class=docright>
+Undocumented type.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#TVirtualControlMapping>TVirtualControlMapping</a></td><td class=docright>
+Undocumented type.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#TVirtualGamepadManager>TVirtualGamepadManager</a></td><td class=docright>
+Undocumented type.
+</td></tr>
+</table>
+<h2
+>Methods
+</h2>
+<table class=doc width=100% cellspacing=3 id=AddCommand>
+<tr><td class=doctop colspan=2>Method AddCommand(command:TCommand)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Adds the command to the command stack (which may involve losing Redo or even.</td></tr>
+</table>
+<br>
+<h2
+ id=functionsdet>Functions
+</h2>
+<table class=doc width=100% cellspacing=3 id=rrCircleToPoly>
+<tr><td class=doctop colspan=2>Function rrCircleToPoly:Int(circle_x:Float, circle_y:Float, radius:Float, xy:Float[])</td></tr>
+<tr><td class=docleft width=1%>Returns</td><td class=docright>True if a collision occured.</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Checks for collisions between a circle and a standard polygon.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=rrCircleToTFormPoly>
+<tr><td class=doctop colspan=2>Function rrCircleToTFormPoly:Int(circle_x:Float, circle_y:Float, radius:Float,  xy:Float[], poly_x:Float = 0, poly_y:Float = 0, rot:Float = 0,  scale_x:Float = 1, scale_y:Float = 1,  handle_x:Float = 0, handle_y:Float = 0,  origin_x:Float = 0, origin_y:Float = 0)</td></tr>
+<tr><td class=docleft width=1%>Returns</td><td class=docright>True if a collision occured.</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Checks for collisions between a circle and a transformed polygon.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=rrDebugEnabled>
+<tr><td class=doctop colspan=2>Function rrDebugEnabled:Int()</td></tr>
+<tr><td class=docleft width=1%>Returns</td><td class=docright><b>True</b> if debug is enabled.</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Determine whether the <a href=#TGameEngine>TGameEngine</a> instance has debug enabled.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright><a href=#rrDebugEnabled>rrDebugEnabled</a> will return <b>True</b> if debug is enabled, or <b>False</b> if it is not.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=rrDisableDebug>
+<tr><td class=doctop colspan=2>Function rrDisableDebug()</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Disable debug mode for the <a href=#TGameEngine>TGameEngine</a> instance.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=rrDrawPoly>
+<tr><td class=doctop colspan=2>Function rrDrawPoly(xy:Float[], x:Float = 0, y:Float = 0, fill:Int = True)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Draws a polygon at the specified coordinates.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=rrEnableDebug>
+<tr><td class=doctop colspan=2>Function rrEnableDebug()</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Enable debug mode for the <a href=#TGameEngine>TGameEngine</a> instance.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=rrEngineInitialise>
+<tr><td class=doctop colspan=2>Function rrEngineInitialise()</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Inititalise the <a href=#TGameEngine>TGameEngine</a> instance.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=rrEnginePaused>
+<tr><td class=doctop colspan=2>Function rrEnginePaused:Int()</td></tr>
+<tr><td class=docleft width=1%>Returns</td><td class=docright><b>True</b> if the <a href=#TGameEngine>TGameEngine</a> instance is paused.</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Determine whether the <a href=#TGameEngine>TGameEngine</a> instance is paused.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright><a href=#rrEnginePased>rrEnginePased</a> will return <b>True</b> if debug is enabled, or <b>False</b> if it is not.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=rrEngineRun>
+<tr><td class=doctop colspan=2>Function rrEngineRun()</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Run the <a href=#TGameEngine>TGameEngine</a> instance.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=rrEngineStop>
+<tr><td class=doctop colspan=2>Function rrEngineStop()</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Stop the <a href=#TGameEngine>TGameEngine</a> instance.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=rrGetDataDirectory>
+<tr><td class=doctop colspan=2>Function rrGetDataDirectory:String()</td></tr>
+<tr><td class=docleft width=1%>Returns</td><td class=docright>directory path.</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Find the directory being used to store data written by the game.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=rrGetRenderFrameCount>
+<tr><td class=doctop colspan=2>Function rrGetRenderFrameCount:Int()</td></tr>
+<tr><td class=docleft width=1%>Returns</td><td class=docright>The amount of frames rendered since the <a href=#TGameEngine>TGameEngine</a> was started.</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Determine how many frames have been rendered.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=rrGetUpdateFrameCount>
+<tr><td class=doctop colspan=2>Function rrGetUpdateFrameCount:Int()</td></tr>
+<tr><td class=docleft width=1%>Returns</td><td class=docright>The amount of times the update loop has been run since the <a href=#TGameEngine>TGameEngine</a> was started.</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Determine how many update loops have been run.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=rrLinesCross>
+<tr><td class=doctop colspan=2>Function rrLinesCross:Int(x0:Float, y0:Float, x1:Float, y1:Float,  x2:Float, y2:Float, x3:Float, y3:Float)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Checks If two lines intersect.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=rrLineToCircle>
+<tr><td class=doctop colspan=2>Function rrLineToCircle:Int(x1:Float, y1:Float, x2:Float, y2:Float, px:Float, py:Float, r:Float)</td></tr>
+<tr><td class=docleft width=1%>Returns</td><td class=docright>True If a collision has occured.</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Checks For collision between a line And a circle.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=rrLineToPoly>
+<tr><td class=doctop colspan=2>Function rrLineToPoly:Int(line_x1:Float, line_y1:Float, line_x2:Float, line_y2:Float, xy:Float[], checkInside:Int = True)</td></tr>
+<tr><td class=docleft width=1%>Returns</td><td class=docright>True if a collision occured.</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Checks for collisions between a line and a normal polygon.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=rrLineToTFormPoly>
+<tr><td class=doctop colspan=2>Function rrLineToTFormPoly:Int(line_x1:Float, line_y1:Float, line_x2:Float, line_y2:Float,  xy:Float[], poly_x:Float = 0, poly_y:Float = 0,  rot:Float = 0, scale_x:Float = 1, scale_y:Float = 1,  handle_x:Float = 0, handle_y:Float = 0,  origin_x:Float = 0, origin_y:Float = 0,  checkInside:Int = True)</td></tr>
+<tr><td class=docleft width=1%>Returns</td><td class=docright>True if a collision occured.</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Checks for collisions between a line and a transformed polygon.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=rrLogError>
+<tr><td class=doctop colspan=2>Function rrLogError(message:String)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Help function to log Error messages to the engine logfile.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=rrLogGlobal>
+<tr><td class=doctop colspan=2>Function rrLogGlobal(message:String)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Help function to log Global messages to the engine logfile.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=rrLogInfo>
+<tr><td class=doctop colspan=2>Function rrLogInfo(message:String)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Help function to log Info messages to the engine logfile.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=rrLogWarn>
+<tr><td class=doctop colspan=2>Function rrLogWarn(message:String)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Help function to log Warn messages to the engine logfile.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=rrMakePackedScaler>
+<tr><td class=doctop colspan=2>Function rrMakePackedScaler:Short(x:Int, y:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Create a packed 16bit Scale value.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>Takes <b>x</b> and <b>y</b> values which should be in the range of 0 to 255.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=rrMakeRGBA>
+<tr><td class=doctop colspan=2>Function rrMakeRGBA:Int(red:Int, green:Int, blue:Int, alpha:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Create a packed 32bit RGBA colour value.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>Takes <b>red</b>, <b>green</b>, <b>blue</b> and <b>alpha</b> values which should be in the range of 0 to 255.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=rrPauseEngine>
+<tr><td class=doctop colspan=2>Function rrPauseEngine()</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Pause the <a href=#TGameEngine>TGameEngine</a> instance.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=rrPointInPoly>
+<tr><td class=doctop colspan=2>Function rrPointInPoly:Int(POINT_X:Float, POINT_Y:Float, xy:Float[])</td></tr>
+<tr><td class=docleft width=1%>Returns</td><td class=docright>True If a collision occured.</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Checks If the given point is in a normal polygon.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=rrPointInTFormPoly>
+<tr><td class=doctop colspan=2>Function rrPointInTFormPoly:Int(POINT_X:Float, POINT_Y:Float, xy:Float[],  poly_x:Float = 0, poly_y:Float = 0, rot:Float = 0,  scale_x:Float = 1, scale_y:Float = 1,  handle_x:Float = 0, handle_y:Float = 0,  origin_x:Float = 0, origin_y:Float = 0)</td></tr>
+<tr><td class=docleft width=1%>Returns</td><td class=docright>True if a collision occured.</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Checks if the given point is in a transformed polygon.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=rrPointToPointDist>
+<tr><td class=doctop colspan=2>Function rrPointToPointDist:Float(x1:Float, y1:Float, x2:Float, y2:Float)</td></tr>
+<tr><td class=docleft width=1%>Returns</td><td class=docright>The Distance between the two points as a Float.</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Calculate the Distance between two points.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=rrPolyToPoly>
+<tr><td class=doctop colspan=2>Function rrPolyToPoly:Int(p1_xy:Float[], p2_xy:Float[])</td></tr>
+<tr><td class=docleft width=1%>Returns</td><td class=docright>True if a collision occured.</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Checks for collisions between two standard polygons.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=rrPolyToTFormPoly>
+<tr><td class=doctop colspan=2>Function rrPolyToTFormPoly:Int(p1_xy:Float[], p2_xy:Float[],  p2_x:Float = 0, p2_y:Float = 0, rot:Float = 0,  scale_x:Float = 1, scale_y:Float = 1,  handle_x:Float = 0, handle_y:Float = 0,  origin_x:Float = 0, origin_y:Float = 0)</td></tr>
+<tr><td class=docleft width=1%>Returns</td><td class=docright>True if a collision occured.</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Checks for collisions between a standard polygon and a transformed polygon.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=rrPopRenderState>
+<tr><td class=doctop colspan=2>Function rrPopRenderState()</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Pop the last render state off the stack.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>Takes the values from the <a href=#TRenderState>TRenderState</a> popped off the stack and resets the
+render state using the <b>SetAlpha</b>, <b>SetBlend</b>, <b>SetClsColor</b>,
+<b>SetColor</b>, <b>SetHandle</b>, <b>SetImageFont</b>, <b>SetMaskColor</b>, <b>SetOrigin</b>, <b>SetRotation</b>
+and <b>SetScale</b> functions.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=rrPushRenderState>
+<tr><td class=doctop colspan=2>Function rrPushRenderState()</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Push the current render state onto the stack.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>Stores the values retrieved from <b>GetAlpha</b>, <b>GetBlend</b>, <b>GetClsColor</b>,
+<b>GetColor</b>, <b>GetHandle</b>, <b>GetImageFont</b>, <b>GetMaskColor</b>, <b>GetOrigin</b>, <b>GetRotation</b>
+and <b>GetScale</b>.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=rrRC4>
+<tr><td class=doctop colspan=2>Function rrRC4:String(inp:String, key:String)</td></tr>
+<tr><td class=docleft width=1%>Returns</td><td class=docright>Either an Encrypted or Decrypted String.</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Encrypt or Decrypt a string using an RC4 cypher.</td></tr>
+<tr><td class=docleft width=1%><a href=rrRC4.bmx class=small>Example</a></td><td class=docright><pre>' The key we're going to use to encrypt and decrypt the data, this can be any string
+Local key:String = "This is just a random string to use as an encryption key"
+
+' First we encrypt a string
+Local encrypted:String = rrRC4("I wonder what this looks like encrypted", key)
+Print "Encrypted: " + encrypted
+
+' We can decrypt it by running it through the rrRC4 function again using the same key
+Local decrypted:String = rrRC4(encrypted, key)
+Print "Decrypted: " + decrypted
+
+' If you use the wrong key then you can't decrypt the message
+Print "Wrong Key: " + rrRC4(encrypted, "This is definitely the wrong encryption key!")</pre></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=rrServiceDebugRenderPrioritySort>
+<tr><td class=doctop colspan=2>Function rrServiceDebugRenderPrioritySort:Int(o1:Object, o2:Object)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Compare Function used to sort the <a href=#TGameService>TGameService</a> instances by <a href=#DebugRender>DebugRender</a> priorty.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>Used by the TGameEngine instance when adding services the relevant Method TLists.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=rrServiceDebugUpdatePrioritySort>
+<tr><td class=doctop colspan=2>Function rrServiceDebugUpdatePrioritySort:Int(o1:Object, o2:Object)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Compare Function used to sort the <a href=#TGameService>TGameService</a> instances by <a href=#DebugUpdate>DebugUpdate</a> priorty.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>Used by the TGameEngine instance when adding services the relevant Method TLists.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=rrServicePrioritySort>
+<tr><td class=doctop colspan=2>Function rrServicePrioritySort:Int(o1Priority:Int, o2Priority:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Compare Function used to sort the <a href=#TGameService>TGameService</a> instances by priorty.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>Used by the TGameEngine instance when adding services the relevant Method TLists.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=rrServiceRenderPrioritySort>
+<tr><td class=doctop colspan=2>Function rrServiceRenderPrioritySort:Int(o1:Object, o2:Object)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Compare Function used to sort the <a href=#TGameService>TGameService</a> instances by <a href=#Render>Render</a> priorty.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>Used by the TGameEngine instance when adding services the relevant Method TLists.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=rrServiceStartPrioritySort>
+<tr><td class=doctop colspan=2>Function rrServiceStartPrioritySort:Int(o1:Object, o2:Object)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Compare Function used to sort the <a href=#TGameService>TGameService</a> instances by <a href=#Start>Start</a> priorty.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>Used by the TGameEngine instance when adding services the relevant Method TLists.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=rrServiceUpdatePrioritySort>
+<tr><td class=doctop colspan=2>Function rrServiceUpdatePrioritySort:Int(o1:Object, o2:Object)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Compare Function used to sort the <a href=#TGameService>TGameService</a> instances by <a href=#Update>Update</a> priorty.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>Used by the TGameEngine instance when adding services the relevant Method TLists.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=rrSetRGBA>
+<tr><td class=doctop colspan=2>Function rrSetRGBA(packedColour:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Sets the Colour and Alpha values to those in a 32bit RGBA colour value.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>Sets the Colour and Alpha values to those unpacked from a 32bit RGBA colour value.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=rrSetScaler>
+<tr><td class=doctop colspan=2>Function rrSetScaler(packedScale:Short)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Sets the scale to a packed 16bit Scale value.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>Sets the <b>x</b> and <b>y</b> values to those unpacked from a 16bit Scale value.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=rrTakeScreenshot>
+<tr><td class=doctop colspan=2>Function rrTakeScreenshot:String(myName:String = "screenshot")</td></tr>
+<tr><td class=docleft width=1%>Returns</td><td class=docright>The filename that the screenshot was saved as.</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Take a screenshot of current front buffer.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>The filename used is timestamped with the current value from <b>Millisecs()</b></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=rrTFormGlobalToLocal>
+<tr><td class=doctop colspan=2>Function rrTFormGlobalToLocal(POINT_X:Float Var, POINT_Y:Float Var,  tform_x:Float = 0, tform_y:Float = 0, rot:Float = 0,  scale_x:Float = 1, scale_y:Float = 1,  handle_x:Float = 0, handle_y:Float = 0,  origin_x:Float = 0, origin_y:Float = 0)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Transforms a point from Global / screen coordinates To Local / polygon / image coordinates.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=rrTFormLocalToGlobal>
+<tr><td class=doctop colspan=2>Function rrTFormLocalToGlobal(POINT_X:Float Var, POINT_Y:Float Var,  tform_x:Float = 0, tform_y:Float = 0, rot:Float = 0,  scale_x:Float = 1, scale_y:Float = 1,  handle_x:Float = 0, handle_y:Float = 0,  origin_x:Float = 0, origin_y:Float = 0)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Transforms a point from Local / polygon / image coordinates To Global / screen coordinates.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=rrTFormPoly>
+<tr><td class=doctop colspan=2>Function rrTFormPoly:Float[] (xy:Float[], tform_x:Float = 0, tform_y:Float = 0, rot:Float = 0,  scale_x:Float = 1, scale_y:Float = 1,  handle_x:Float = 0, handle_y:Float = 0,  origin_x:Float = 0, origin_y:Float = 0)</td></tr>
+<tr><td class=docleft width=1%>Returns</td><td class=docright>A Float array containing the transformed polygon.</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Returns a transformed polygon from a standard polygon.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=rrTFormPolyToTFormPoly>
+<tr><td class=doctop colspan=2>Function rrTFormPolyToTFormPoly:Int(p1_xy:Float[], p1_x:Float = 0, p1_y:Float = 0,  p1_rot:Float = 0, p1_scale_x:Float = 1, p1_scale_y:Float = 1,  p1_handle_x:Float = 0, p1_handle_y:Float = 0,  p1_origin_x:Float = 0, p1_origin_y:Float = 0,  p2_xy:Float[], p2_x:Float = 0, p2_y:Float = 0,  p2_rot:Float = 0, p2_scale_x:Float = 1, p2_scale_y:Float = 1,  p2_handle_x:Float = 0, p2_handle_y:Float = 0,  p2_origin_x:Float = 0, p2_origin_y:Float = 0)</td></tr>
+<tr><td class=docleft width=1%>Returns</td><td class=docright>True If a collision occured.</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Checks For collisions between two transformed polygons.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=rrUnpackRGBA>
+<tr><td class=doctop colspan=2>Function rrUnpackRGBA(packedColour:Int Var, red:Int Var, green:Int Var, blue:Int Var, alpha:Float Var)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Unpack a packed 32bit RGBA colour value.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>Sets the provided <b>red</b>, <b>green</b>, <b>blue</b> and <b>alpha</b> variables to the values in the 32bit RGBA colour value.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=rrUnpackScaler>
+<tr><td class=doctop colspan=2>Function rrUnpackScaler(packedScale:Short, x:Float Var, y:Float Var)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Unpack a packed 16bit Scale value.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>Sets the provided <b>x</b> and <b>y</b> variables to those unpacked from a 16bit Scale value.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=rrUnpauseEngine>
+<tr><td class=doctop colspan=2>Function rrUnpauseEngine()</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Unpause the <a href=#TGameEngine>TGameEngine</a> instance.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=rrUseExeDirectoryForData>
+<tr><td class=doctop colspan=2>Function rrUseExeDirectoryForData(bool:Int = True)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Specify whether data should be written to the executables directory.</td></tr>
+</table>
+<br>
+<h2
+ id=typesdet>Types
+</h2>
+<table class=doc width=100% cellspacing=3 id=TAlphaFadeAnimation>
+<tr><td class=doctop colspan=2>Type TAlphaFadeAnimation Extends TSpriteAnimation</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Undocumented type.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=TBlinkAnimation>
+<tr><td class=doctop colspan=2>Type TBlinkAnimation Extends TSpriteAnimation</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Undocumented type.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=TColour>
+<tr><td class=doctop colspan=2>Type TColour</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright><a href=#TColour>TColour</a>.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>Base class extended by the <a href=#TColourHSV>TColourHSV</a> and <a href=#TColourRGB>TColourRGB</a> colour classes.</td></tr>
+</table>
+<table class=doc width=90% align=center><tr ><th class=doctop colspan=2 align=left><a name=TColour_methods></a>Methods Summary</th></tr>
+<tr><td class=docleft width=1%><a href=#toArgb>toArgb</a></td><td class=docright>
+Convert the colour to a packed ARGB Int.
+</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=toArgb>
+<tr><td class=doctop colspan=2>Method toArgb:Int() Abstract</td></tr>
+<tr><td class=docleft width=1%>Returns</td><td class=docright>packed ARGB Int.</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Convert the colour to a packed ARGB Int.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=TColourHSV>
+<tr><td class=doctop colspan=2>Type TColourHSV Extends TColour</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright><a href=#TColourHSV>TColourHSV</a>.</td></tr>
+</table>
+<table class=doc width=90% align=center><tr ><th class=doctop colspan=2 align=left><a name=TColourHSV_fields></a>Fields Summary</th></tr><tr><td colspan=2>
+<a href=#a>a</a>
+, 
+<a href=#h>h</a>
+, 
+<a href=#s>s</a>
+, 
+<a href=#v>v</a>
+</td></tr>
+</table>
+<table class=doc width=90% align=center><tr ><th class=doctop colspan=2 align=left><a name=TColourHSV_methods></a>Methods Summary</th></tr>
+<tr><td class=docleft width=1%><a href=#Set>Set</a></td><td class=docright>
+Sets the current draw colour to this colour.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#SetWithoutAlpha>SetWithoutAlpha</a></td><td class=docright>
+Sets the current draw colour to this colour, but ignore the alpha.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#toARGB>toARGB</a></td><td class=docright>
+Converts the <a href=#TColourHSV>TColourHSV</a> colour to a packed ARGB Int.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#toRGB>toRGB</a></td><td class=docright>
+Converts the HSV colour to RGB format.
+</td></tr>
+</table>
+<table class=doc width=90% align=center><tr ><th class=doctop colspan=2 align=left><a name=TColourHSV_functions></a>Functions Summary</th></tr>
+<tr><td class=docleft width=1%><a href=#fromARGB>fromARGB</a></td><td class=docright>
+Creates a new <a href=#TColourHSV>TColourHSV</a> colour from a packed ARGB Int.
+</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=a>
+<tr><td class=doctop colspan=2>Field a:Float = 1.0</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Alpha component.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=h>
+<tr><td class=doctop colspan=2>Field h:Float</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Hue component.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=s>
+<tr><td class=doctop colspan=2>Field s:Float</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Saturation component.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=v>
+<tr><td class=doctop colspan=2>Field v:Float</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>? component.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=Set>
+<tr><td class=doctop colspan=2>Method Set()</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Sets the current draw colour to this colour.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=SetWithoutAlpha>
+<tr><td class=doctop colspan=2>Method SetWithoutAlpha()</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Sets the current draw colour to this colour, but ignore the alpha.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=toARGB>
+<tr><td class=doctop colspan=2>Method toARGB:Int()</td></tr>
+<tr><td class=docleft width=1%>Returns</td><td class=docright>a packed ARGB Int.</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Converts the <a href=#TColourHSV>TColourHSV</a> colour to a packed ARGB Int.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=toRGB>
+<tr><td class=doctop colspan=2>Method toRGB:TColourRGB()</td></tr>
+<tr><td class=docleft width=1%>Returns</td><td class=docright><a href=#TColourRGB>TColourRGB</a>.</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Converts the HSV colour to RGB format.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=fromARGB>
+<tr><td class=doctop colspan=2>Function fromARGB:TColourHSV(argb:Int)</td></tr>
+<tr><td class=docleft width=1%>Returns</td><td class=docright><a href=#TColourHSV>TColourHSV</a>.</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Creates a new <a href=#TColourHSV>TColourHSV</a> colour from a packed ARGB Int.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=TColourOscillatorAnimation>
+<tr><td class=doctop colspan=2>Type TColourOscillatorAnimation Extends TSpriteAnimation</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Undocumented type.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=TColourRGB>
+<tr><td class=doctop colspan=2>Type TColourRGB Extends TColour</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright><a href=#TColourRGB>TColourRGB</a>.</td></tr>
+</table>
+<table class=doc width=90% align=center><tr ><th class=doctop colspan=2 align=left><a name=TColourRGB_fields></a>Fields Summary</th></tr><tr><td colspan=2>
+<a href=#a>a</a>
+, 
+<a href=#b>b</a>
+, 
+<a href=#g>g</a>
+, 
+<a href=#r>r</a>
+</td></tr>
+</table>
+<table class=doc width=90% align=center><tr ><th class=doctop colspan=2 align=left><a name=TColourRGB_methods></a>Methods Summary</th></tr>
+<tr><td class=docleft width=1%><a href=#Set>Set</a></td><td class=docright>
+Sets the current draw colour to this colour.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#SetWithoutAlpha>SetWithoutAlpha</a></td><td class=docright>
+Sets the current draw colour to this colour, ignoring the alpha.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#toARGB>toARGB</a></td><td class=docright>
+Converts the <a href=#TColourRGB>TColourRGB</a> colour to a packed ARGB Int.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#toHSV>toHSV</a></td><td class=docright>
+Convert the RGB colour to HSV format.
+</td></tr>
+</table>
+<table class=doc width=90% align=center><tr ><th class=doctop colspan=2 align=left><a name=TColourRGB_functions></a>Functions Summary</th></tr>
+<tr><td class=docleft width=1%><a href=#fromARGB>fromARGB</a></td><td class=docright>
+Creates a new <a href=#TColourRGB>TColourRGB</a> colour from a packed ARGB Int.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#fromBGR>fromBGR</a></td><td class=docright>
+Creates a new <a href=#TColourRGB>TColourRGB</a> colour from a packed BGR Int.
+</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=a>
+<tr><td class=doctop colspan=2>Field a:Float = 1.0</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Alpha component.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=b>
+<tr><td class=doctop colspan=2>Field b:Float = 255.0</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Blue component.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=g>
+<tr><td class=doctop colspan=2>Field g:Float = 255.0</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Green component.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=r>
+<tr><td class=doctop colspan=2>Field r:Float = 255.0</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Red component.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=Set>
+<tr><td class=doctop colspan=2>Method Set()</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Sets the current draw colour to this colour.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=SetWithoutAlpha>
+<tr><td class=doctop colspan=2>Method SetWithoutAlpha()</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Sets the current draw colour to this colour, ignoring the alpha.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=toARGB>
+<tr><td class=doctop colspan=2>Method toARGB:Int()</td></tr>
+<tr><td class=docleft width=1%>Returns</td><td class=docright>A packed ARGB Int.</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Converts the <a href=#TColourRGB>TColourRGB</a> colour to a packed ARGB Int.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=toHSV>
+<tr><td class=doctop colspan=2>Method toHSV:TColourHSV()</td></tr>
+<tr><td class=docleft width=1%>Returns</td><td class=docright><a href=#TColourHSV>TColourHSV</a>.</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Convert the RGB colour to HSV format.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=fromARGB>
+<tr><td class=doctop colspan=2>Function fromARGB:TColourRGB(argb:Int, alpha:Int = True)</td></tr>
+<tr><td class=docleft width=1%>Returns</td><td class=docright><a href=#TColourHSV>TColourHSV</a>.</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Creates a new <a href=#TColourRGB>TColourRGB</a> colour from a packed ARGB Int.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=fromBGR>
+<tr><td class=doctop colspan=2>Function fromBGR:TColourRGB(argb:Int)</td></tr>
+<tr><td class=docleft width=1%>Returns</td><td class=docright><a href=#TColourHSV>TColourHSV</a>.</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Creates a new <a href=#TColourRGB>TColourRGB</a> colour from a packed BGR Int.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=TCompositeAnimation>
+<tr><td class=doctop colspan=2>Type TCompositeAnimation Extends TSpriteAnimation</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Undocumented type.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=TDelayedAnimation>
+<tr><td class=doctop colspan=2>Type TDelayedAnimation Extends TSpriteAnimation</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Undocumented type.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=TGameEngine>
+<tr><td class=doctop colspan=2>Type TGameEngine</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright><a href=#TGameEngine>TGameEngine</a>.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>The core of the RetroRemakes Framework.</td></tr>
+</table>
+<table class=doc width=90% align=center><tr ><th class=doctop colspan=2 align=left><a name=TGameEngine_globals></a>Globals Summary</th></tr><tr><td colspan=2>
+<a href=#instance>instance</a>
+</td></tr>
+</table>
+<table class=doc width=90% align=center><tr ><th class=doctop colspan=2 align=left><a name=TGameEngine_fields></a>Fields Summary</th></tr><tr><td colspan=2>
+<a href=#debugEnabled>debugEnabled</a>
+, 
+<a href=#debugRenderProfile>debugRenderProfile</a>
+, 
+<a href=#debugUpdateProfile>debugUpdateProfile</a>
+, 
+<a href=#enginePaused>enginePaused</a>
+, 
+<a href=#engineRunning>engineRunning</a>
+, 
+<a href=#gameDataDirectory_>gameDataDirectory_</a>
+, 
+<a href=#gameDirectory_>gameDirectory_</a>
+, 
+<a href=#gameExecutable_>gameExecutable_</a>
+, 
+<a href=#gameName_>gameName_</a>
+, 
+<a href=#LAllServices>LAllServices</a>
+, 
+<a href=#LDebugRenderServices>LDebugRenderServices</a>
+, 
+<a href=#LDebugUpdateServices>LDebugUpdateServices</a>
+, 
+<a href=#logfile>logfile</a>
+, 
+<a href=#LRenderServices>LRenderServices</a>
+, 
+<a href=#LStartServices>LStartServices</a>
+, 
+<a href=#LUpdateServices>LUpdateServices</a>
+, 
+<a href=#mainLoopProfile>mainLoopProfile</a>
+, 
+<a href=#renderFrameCount>renderFrameCount</a>
+, 
+<a href=#renderProfile>renderProfile</a>
+, 
+<a href=#updateFrameCount>updateFrameCount</a>
+, 
+<a href=#updateProfile>updateProfile</a>
+</td></tr>
+</table>
+<table class=doc width=90% align=center><tr ><th class=doctop colspan=2 align=left><a name=TGameEngine_methods></a>Methods Summary</th></tr>
+<tr><td class=docleft width=1%><a href=#AddService>AddService</a></td><td class=docright>
+Adds a <a href=#TGameService>TGameService</a> instance to the TGameEngine.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#CloseLog>CloseLog</a></td><td class=docright>
+Close the logfile used by the <a href=#TGameEngine>TGameEngine</a> instance.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#CreateLog>CreateLog</a></td><td class=docright>
+Create a TLogFile to be used by the <a href=#TGameEngine>TGameEngine</a> instance.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#DebugRender>DebugRender</a></td><td class=docright>
+Calls the <b>DebugRender</b> method for all necessary <a href=#TGameService>TGameService</a> instances.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#DebugUpdate>DebugUpdate</a></td><td class=docright>
+Calls the <b>DebugUpdate</b> method for all necessary <a href=#TGameService>TGameService</a> instances.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#GetAllServices>GetAllServices</a></td><td class=docright>
+Returns the names of all TGameServices registered with the <a href=#TGameEngine>TGameEngine</a> <a href=#LAllServices>LAllServices</a> <b>Tlist</b>.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#GetDataDirectory>GetDataDirectory</a></td><td class=docright>
+Gets the directory that this game's data should be stored in.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#GetDebug>GetDebug</a></td><td class=docright>
+Determine whether the <a href=#TGameEngine>TGameEngine</a> instance has debug enabled.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#GetDebugRenderServices>GetDebugRenderServices</a></td><td class=docright>
+Returns the names of all TGameServices registered with the <a href=#TGameEngine>TGameEngine</a> <a href=#LRenderServices>LRenderServices</a> <b>TList</b>.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#GetDebugUpdateServices>GetDebugUpdateServices</a></td><td class=docright>
+Returns the names of all TGameServices registered with the <a href=#TGameEngine>TGameEngine</a> <a href=#LDebugUpdateServices>LDebugUpdateServices</a> <b>TList</b>.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#GetPaused>GetPaused</a></td><td class=docright>
+Determine whether the <a href=#TGameEngine>TGameEngine</a> instance is paused?
+</td></tr>
+<tr><td class=docleft width=1%><a href=#GetRegisteredServices>GetRegisteredServices</a></td><td class=docright>
+Returns the names of all TGameServices registered with the <a href=#TGameEngine>TGameEngine</a> in a specified <b>Tlist</b>.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#GetRenderServices>GetRenderServices</a></td><td class=docright>
+Returns the names of all TGameServices registered with the <a href=#TGameEngine>TGameEngine</a> <a href=#LRenderServices>LRenderServices</a> <b>TList</b>.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#GetStartServices>GetStartServices</a></td><td class=docright>
+Returns the names of all TGameServices registered with the <a href=#TGameEngine>TGameEngine</a> <a href=#LStartServices>LStartServices</a> <b>TList</b>.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#GetUpdateServices>GetUpdateServices</a></td><td class=docright>
+Returns the names of all TGameServices registered with the <a href=#TGameEngine>TGameEngine</a> <a href=#LUpdateServices>LUpdateServices</a> <b>TList</b>.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#Initialise>Initialise</a></td><td class=docright>
+Initialise the TGameEngine instance.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#LogError>LogError</a></td><td class=docright>
+Write a LOG_ERROR message to the <a href=#TGameEngine>TGameEngine</a> log file.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#LogGlobal>LogGlobal</a></td><td class=docright>
+Write a LOG_GLOBAL message to the <a href=#TGameEngine>TGameEngine</a> log file.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#LogInfo>LogInfo</a></td><td class=docright>
+Write a LOG_INFO message to the <a href=#TGameEngine>TGameEngine</a> log file.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#LogWarn>LogWarn</a></td><td class=docright>
+Write a LOG_WARN message to the <a href=#TGameEngine>TGameEngine</a> log file.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#New>New</a></td><td class=docright>
+Create a new instance of <a href=#TGameEngine>TGameEngine</a>.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#RemoveService>RemoveService</a></td><td class=docright>
+Removes a <a href=#TGameService>TGameService</a> instance from the <a href=#TGameEngine>TGameEngine</a>.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#Render>Render</a></td><td class=docright>
+Calls the <b>Render</b> method for all necessary <a href=#TGameService>TGameService</a> instances.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#Run>Run</a></td><td class=docright>
+Runs the TGameEngine instance.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#SetDebug>SetDebug</a></td><td class=docright>
+Enable or Disable debug mode for the <a href=#TGameEngine>TGameEngine</a> instance.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#SetPaused>SetPaused</a></td><td class=docright>
+Pause or Unpause the <a href=#TGameEngine>TGameEngine</a> instance.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#Shutdown>Shutdown</a></td><td class=docright>
+Shutdown the TGameEngine instance.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#StartServices>StartServices</a></td><td class=docright>
+Calls the <b>Start</b> method for all necessary <a href=#TGameService>TGameService</a> instances.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#Stop>Stop</a></td><td class=docright>
+Flags the running TGameEngine instance to <b>Stop</b>.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#Update>Update</a></td><td class=docright>
+Calls the <b>Update</b> method for all necessary <a href=#TGameService>TGameService</a> instances.
+</td></tr>
+</table>
+<table class=doc width=90% align=center><tr ><th class=doctop colspan=2 align=left><a name=TGameEngine_functions></a>Functions Summary</th></tr>
+<tr><td class=docleft width=1%><a href=#GetInstance>GetInstance</a></td><td class=docright>
+Create a new instance of <a href=#TGameEngine>TGameEngine</a>.
+</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=instance>
+<tr><td class=doctop colspan=2>Global instance:TGameEngine</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>The <a href=#TGameEngine>TGameEngine</a> instance.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright><a href=#TGameEngine>TGameEngine</a> is a <b>Singleton Type</b> and when it is instantiated this <b>Global</b> holds
+a pointer to the instance.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=debugEnabled>
+<tr><td class=doctop colspan=2>Field debugEnabled:Int</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright><b>true</b> if debug is enabled.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=debugRenderProfile>
+<tr><td class=doctop colspan=2>Field debugRenderProfile:TProfilerSample</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Debug <a href=#TProfilerSample>TProfilerSample</a> for the <a href=#DebugRender>DebugRender</a> loop.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=debugUpdateProfile>
+<tr><td class=doctop colspan=2>Field debugUpdateProfile:TProfilerSample</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Debug <a href=#TProfilerSample>TProfilerSample</a> for the <a href=#DebugUpdate>DebugUpdate</a> loop.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=enginePaused>
+<tr><td class=doctop colspan=2>Field enginePaused:Int</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright><b>True</b> if the TGameEngine instance is paused by using <a href=#SetPaused>SetPaused</a>.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=engineRunning>
+<tr><td class=doctop colspan=2>Field engineRunning:Int</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright><b>True</b> if the TGameEngine instance is running.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=gameDataDirectory_>
+<tr><td class=doctop colspan=2>Field gameDataDirectory_:String</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>The data directory to be used for storing game generated files.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=gameDirectory_>
+<tr><td class=doctop colspan=2>Field gameDirectory_:String</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>The directory that the game was launched from.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=gameExecutable_>
+<tr><td class=doctop colspan=2>Field gameExecutable_:String</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>The name of the game executable.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=gameName_>
+<tr><td class=doctop colspan=2>Field gameName_:String</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>The name of the game.  This is the executable name with the.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=LAllServices>
+<tr><td class=doctop colspan=2>Field LAllServices:TList</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright><b>TList</b> containing all <a href=#TGameService>TGameService</a> instances that have registered with the <a href=#TGameEngine>TGameEngine</a> instance.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>Every instance of <a href=#TGameService>TGameService</a> that registers with the <a href=#TGameEngine>TGameEngine</a> instance is added to this <b>TList</b>.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=LDebugRenderServices>
+<tr><td class=doctop colspan=2>Field LDebugRenderServices:TList</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright><b>TList</b> containing all registered <a href=#TGameService>TGameService</a> instances that have a DebugRender Method.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>If a <a href=#TGameService>TGameService</a> instance that registers includes a <b>DebugRender</b> method, it is added to this <b>TList</b>
+<br>
+This TList is used in the main <a href=#DebugRender>DebugRender</a> loop.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=LDebugUpdateServices>
+<tr><td class=doctop colspan=2>Field LDebugUpdateServices:TList</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright><b>TList</b> containing all registered <a href=#TGameService>TGameService</a> instances that have a <b>DebugUpdate</b> Method.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>If a <a href=#TGameService>TGameService</a> instance that registers includes an <b>Update</b> method, it is added to this <b>TList</b>
+<br>
+This TList is used in the main <a href=#DebugUpdate>DebugUpdate</a> loop.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=logfile>
+<tr><td class=doctop colspan=2>Field logfile:TLogFile</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>This is the log file used by the Engine.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=LRenderServices>
+<tr><td class=doctop colspan=2>Field LRenderServices:TList</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright><b>TList</b> containing all registered <a href=#TGameService>TGameService</a> instances that have a <b>Render</b> Method.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>If a <a href=#TGameService>TGameService</a> instance that registers includes a <b>Render</b> method, it is added to this <b>TList</b>
+<br>
+This TList is used in the main <a href=#Render>Render</a> loop.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=LStartServices>
+<tr><td class=doctop colspan=2>Field LStartServices:TList</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright><b>TList</b> containing all registered <a href=#TGameService>TGameService</a> instances that have a <b>Start</b> Method.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>If a <a href=#TGameService>TGameService</a> instance that registers includes an <b>Start</b> method, it is added to this <b>TList</b>
+<br>
+This TList is used when the TGameEngine instance starts to run.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=LUpdateServices>
+<tr><td class=doctop colspan=2>Field LUpdateServices:TList</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright><b>TList</b> containing all registered <a href=#TGameService>TGameService</a> instances that have an <b>Update</b> Method.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>If a <a href=#TGameService>TGameService</a> instance that registers includes an <b>Update</b> method, it is added to this <b>TList</b>
+<br>
+This TList is used in the main <a href=#Update>Update</a> loop.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=mainLoopProfile>
+<tr><td class=doctop colspan=2>Field mainLoopProfile:TProfilerSample</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Debug <a href=#TProfilerSample>TProfilerSample</a> for the main loop.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=renderFrameCount>
+<tr><td class=doctop colspan=2>Field renderFrameCount:Int</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Counter showing how many time the <a href=#TGameEngine>TGameEngine</a> <a href=#Render>Render</a> method has been called.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=renderProfile>
+<tr><td class=doctop colspan=2>Field renderProfile:TProfilerSample</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Debug <a href=#TProfilerSample>TProfilerSample</a> for the <a href=#Render>Render</a> loop.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=updateFrameCount>
+<tr><td class=doctop colspan=2>Field updateFrameCount:Int</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Counter showing how many time the <a href=#TGameEngine>TGameEngine</a> <a href=#Update>Update</a> method has been called.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=updateProfile>
+<tr><td class=doctop colspan=2>Field updateProfile:TProfilerSample</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Debug <a href=#TProfilerSample>TProfilerSample</a> for the <a href=#Update>Update</a> loop.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=AddService>
+<tr><td class=doctop colspan=2>Method AddService(myService:TGameService)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Adds a <a href=#TGameService>TGameService</a> instance to the TGameEngine.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>When a child of <a href=#TGameService>TGameService</a> is instantiated, it registers itself with the
+<a href=#TGameEngine>TGameEngine</a> instance using this method.
+<br>
+This method uses Reflection to find out if they have the following methods:
+<table
+<tr><th>Method</th><th>Description</th></tr>
+<tr><td>DebugRender</td><td>Called during the main <a href=#TGameEngine>TGameEngine</a> <a href=#DebugRender>DebugRender</a> loop</td></tr>
+<tr><td>DebugUpdate</td><td>Called during the main <a href=#TGameEngine>TGameEngine</a> <a href=#DebugUpdate>DebugUpdate</a> loop</td></tr>
+<tr><td>Render</td><td>Called during the main <a href=#TGameEngine>TGameEngine</a> <a href=#Render>Render</a> loop</td></tr>
+<tr><td>Start</td><td>Called when the <a href=#TGameEngine>TGameEngine</a> instance is started</td></tr>
+<tr><td>Update</td><td>Called during the main <a href=#TGameEngine>TGameEngine</a> <a href=#Update>Update</a> loop</td></tr>
+</table></td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=CloseLog>
+<tr><td class=doctop colspan=2>Method CloseLog()</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Close the logfile used by the <a href=#TGameEngine>TGameEngine</a> instance.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=CreateLog>
+<tr><td class=doctop colspan=2>Method CreateLog()</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Create a TLogFile to be used by the <a href=#TGameEngine>TGameEngine</a> instance.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=DebugRender>
+<tr><td class=doctop colspan=2>Method DebugRender()</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Calls the <b>DebugRender</b> method for all necessary <a href=#TGameService>TGameService</a> instances.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>This method is called by the <a href=#TGameService>TGameService</a> <a href=#Render>Render</a> method only if
+debug is enabled by the <a href=#SetDebug>SetDebug</a> method, or	if this is a Debug build.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=DebugUpdate>
+<tr><td class=doctop colspan=2>Method DebugUpdate()</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Calls the <b>DebugUpdate</b> method for all necessary <a href=#TGameService>TGameService</a> instances.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>This method is called by the <a href=#TGameService>TGameService</a> <a href=#Update>Update</a> method only if
+debug is enabled by the <a href=#SetDebug>SetDebug</a> method, or	if this is a Debug build.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=GetAllServices>
+<tr><td class=doctop colspan=2>Method GetAllServices:String[] ()</td></tr>
+<tr><td class=docleft width=1%>Returns</td><td class=docright>String[]</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Returns the names of all TGameServices registered with the <a href=#TGameEngine>TGameEngine</a> <a href=#LAllServices>LAllServices</a> <b>Tlist</b>.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=GetDataDirectory>
+<tr><td class=doctop colspan=2>Method GetDataDirectory:String()</td></tr>
+<tr><td class=docleft width=1%>Returns</td><td class=docright>String.</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Gets the directory that this game's data should be stored in.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>The directory returned will have the same name as the game executable and,
+depending on the platform, will be situated in on of these paths
+<br>
+<table align="center">
+<tr><th>Platform</th><th>Example</th><th>Equivalent</th></tr>
+<tr><td>Linux</td><td>/home/username</td><td>~</td></tr>
+<tr><td>Mac OS</td><td>/Users/username/Library/Application Support</td><td>~/Library/Application Support</td></tr>
+<tr><td>Win32</td><td>C:\Documents and Settings\username\Application Data</td><td>&nbsp;</td></tr>
+</table></td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=GetDebug>
+<tr><td class=doctop colspan=2>Method GetDebug:Int()</td></tr>
+<tr><td class=docleft width=1%>Returns</td><td class=docright><b>True</b> if debug is enabled.</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Determine whether the <a href=#TGameEngine>TGameEngine</a> instance has debug enabled.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright><a href=#GetDebug>GetDebug</a> will return <b>True</b> if debug is enabled, or <b>False</b> if it is not.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=GetDebugRenderServices>
+<tr><td class=doctop colspan=2>Method GetDebugRenderServices:String[] ()</td></tr>
+<tr><td class=docleft width=1%>Returns</td><td class=docright>String[]</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Returns the names of all TGameServices registered with the <a href=#TGameEngine>TGameEngine</a> <a href=#LRenderServices>LRenderServices</a> <b>TList</b>.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=GetDebugUpdateServices>
+<tr><td class=doctop colspan=2>Method GetDebugUpdateServices:String[] ()</td></tr>
+<tr><td class=docleft width=1%>Returns</td><td class=docright>String[]</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Returns the names of all TGameServices registered with the <a href=#TGameEngine>TGameEngine</a> <a href=#LDebugUpdateServices>LDebugUpdateServices</a> <b>TList</b>.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=GetPaused>
+<tr><td class=doctop colspan=2>Method GetPaused:Int()</td></tr>
+<tr><td class=docleft width=1%>Returns</td><td class=docright><b>True</b> if paused.</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Determine whether the <a href=#TGameEngine>TGameEngine</a> instance is paused?</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright><a href=#GetPaused>GetPaused</a> will return <b>True</b> if the TGameEngine instance is paused,
+or <b>False</b> if it is not.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=GetRegisteredServices>
+<tr><td class=doctop colspan=2>Method GetRegisteredServices:String[] (list:TList)</td></tr>
+<tr><td class=docleft width=1%>Returns</td><td class=docright>String[]</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Returns the names of all TGameServices registered with the <a href=#TGameEngine>TGameEngine</a> in a specified <b>Tlist</b>.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=GetRenderServices>
+<tr><td class=doctop colspan=2>Method GetRenderServices:String[] ()</td></tr>
+<tr><td class=docleft width=1%>Returns</td><td class=docright>String[]</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Returns the names of all TGameServices registered with the <a href=#TGameEngine>TGameEngine</a> <a href=#LRenderServices>LRenderServices</a> <b>TList</b>.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=GetStartServices>
+<tr><td class=doctop colspan=2>Method GetStartServices:String[] ()</td></tr>
+<tr><td class=docleft width=1%>Returns</td><td class=docright>String[]</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Returns the names of all TGameServices registered with the <a href=#TGameEngine>TGameEngine</a> <a href=#LStartServices>LStartServices</a> <b>TList</b>.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=GetUpdateServices>
+<tr><td class=doctop colspan=2>Method GetUpdateServices:String[] ()</td></tr>
+<tr><td class=docleft width=1%>Returns</td><td class=docright>String[]</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Returns the names of all TGameServices registered with the <a href=#TGameEngine>TGameEngine</a> <a href=#LUpdateServices>LUpdateServices</a> <b>TList</b>.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=Initialise>
+<tr><td class=doctop colspan=2>Method Initialise()</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Initialise the TGameEngine instance.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>This method is called when the TGameEngine is instantiated
+<br>
+It instantiates the core <a href=#TGameService>TGameService</a> Types, starts logging and sets some default values.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=LogError>
+<tr><td class=doctop colspan=2>Method LogError(myEntry:String)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Write a LOG_ERROR message to the <a href=#TGameEngine>TGameEngine</a> log file.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=LogGlobal>
+<tr><td class=doctop colspan=2>Method LogGlobal(myEntry:String)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Write a LOG_GLOBAL message to the <a href=#TGameEngine>TGameEngine</a> log file.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=LogInfo>
+<tr><td class=doctop colspan=2>Method LogInfo(myEntry:String)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Write a LOG_INFO message to the <a href=#TGameEngine>TGameEngine</a> log file.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=LogWarn>
+<tr><td class=doctop colspan=2>Method LogWarn(myEntry:String)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Write a LOG_WARN message to the <a href=#TGameEngine>TGameEngine</a> log file.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=New>
+<tr><td class=doctop colspan=2>Method New()</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Create a new instance of <a href=#TGameEngine>TGameEngine</a>.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>Will Throw an exception if you try to create more than one instance.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=RemoveService>
+<tr><td class=doctop colspan=2>Method RemoveService(myService:TGameService)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Removes a <a href=#TGameService>TGameService</a> instance from the <a href=#TGameEngine>TGameEngine</a>.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>This method is usually called when the <a href=#TGameService>TGameService</a> is shutting down
+and removes a <a href=#TGameService>TGameService</a>.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=Render>
+<tr><td class=doctop colspan=2>Method Render()</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Calls the <b>Render</b> method for all necessary <a href=#TGameService>TGameService</a> instances.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>This method is called by the main loop and updates all
+<a href=#TGameService>TGameService</a> instances that are registered
+with the <a href=#TGameService>TGameService</a> and have a <b>Render</b> or <b>DebugRender</b> method.
+<br><br>
+The <b>DebugRender</b> method is only called if debug is enabled by the <a href=#SetDebug>SetDebug</a> or
+if this is a Debug build.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=Run>
+<tr><td class=doctop colspan=2>Method Run()</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Runs the TGameEngine instance.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>This method starts the main loop of the TGameEngine instance.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=SetDebug>
+<tr><td class=doctop colspan=2>Method SetDebug(value:Int = True)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Enable or Disable debug mode for the <a href=#TGameEngine>TGameEngine</a> instance.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright><b>True</b> to enable debug mode,
+or <b>False</b> to disable it.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=SetPaused>
+<tr><td class=doctop colspan=2>Method SetPaused(value:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Pause or Unpause the <a href=#TGameEngine>TGameEngine</a> instance.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright><b>True</b> to <i>Pause</i> the <a href=#TGameEngine>TGameEngine</a> instance,
+or <b>False</b> to <i>Unpase</i> it.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=Shutdown>
+<tr><td class=doctop colspan=2>Method Shutdown()</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Shutdown the TGameEngine instance.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>This method is called when the <a href=#TGameEngine>TGameEngine</a> has been flagged to <b>Stop</b>.
+It calls the <b>Shutdown</b> method for all registered TGameService instances, closes
+the log file and then <b>Ends</b> the program.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=StartServices>
+<tr><td class=doctop colspan=2>Method StartServices()</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Calls the <b>Start</b> method for all necessary <a href=#TGameService>TGameService</a> instances.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>This method starts all <a href=#TGameService>TGameService</a> instances that are registered
+with the <a href=#TGameService>TGameService</a> and have a <b>Start</b> method.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=Stop>
+<tr><td class=doctop colspan=2>Method Stop()</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Flags the running TGameEngine instance to <b>Stop</b>.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>This method stops the main loop of the TGameEngine instance.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=Update>
+<tr><td class=doctop colspan=2>Method Update()</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Calls the <b>Update</b> method for all necessary <a href=#TGameService>TGameService</a> instances.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>This method is called by the main loop and updates all
+<a href=#TGameService>TGameService</a> instances that are registered
+with the <a href=#TGameService>TGameService</a> and have a <b>Update</b> or <b>DebugUpdate</b> method.
+<br><br>
+The <b>DebugUpdate</b> method is only called if debug is enabled by the <a href=#SetDebug>SetDebug</a> or
+if this is a Debug build.
+<br><br>
+The <a href=#Update>Update</a> loop uses the <a href=#TFixedTimestep>TFixedTimestep</a> <a href=#TGameService>TGameService</a> to ensure that the
+<a href=#Update>Update</a> loop is run at the same rate regardless of the speed of the machine
+the engine is running on.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=GetInstance>
+<tr><td class=doctop colspan=2>Function GetInstance:TGameEngine()</td></tr>
+<tr><td class=docleft width=1%>Returns</td><td class=docright><a href=#TGameEngine>TGameEngine</a>.</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Create a new instance of <a href=#TGameEngine>TGameEngine</a>.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>Returns a new instance of <a href=#TGameEngine>TGameEngine</a>, or if one already
+exists returns that instance instead.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=TGameService>
+<tr><td class=doctop colspan=2>Type TGameService</td></tr>
+</table>
+<table class=doc width=90% align=center><tr ><th class=doctop colspan=2 align=left><a name=TGameService_fields></a>Fields Summary</th></tr><tr><td colspan=2>
+<a href=#debugRenderMethod>debugRenderMethod</a>
+, 
+<a href=#debugRenderPriority>debugRenderPriority</a>
+, 
+<a href=#debugRenderProfiler>debugRenderProfiler</a>
+, 
+<a href=#debugUpdateMethod>debugUpdateMethod</a>
+, 
+<a href=#debugUpdatePriority>debugUpdatePriority</a>
+, 
+<a href=#debugUpdateProfiler>debugUpdateProfiler</a>
+, 
+<a href=#name>name</a>
+, 
+<a href=#renderMethod>renderMethod</a>
+, 
+<a href=#renderPriority>renderPriority</a>
+, 
+<a href=#renderProfiler>renderProfiler</a>
+, 
+<a href=#startMethod>startMethod</a>
+, 
+<a href=#startPriority>startPriority</a>
+, 
+<a href=#updateMethod>updateMethod</a>
+, 
+<a href=#updatePriority>updatePriority</a>
+, 
+<a href=#updateProfiler>updateProfiler</a>
+</td></tr>
+</table>
+<table class=doc width=90% align=center><tr ><th class=doctop colspan=2 align=left><a name=TGameService_methods></a>Methods Summary</th></tr>
+<tr><td class=docleft width=1%><a href=#AddService>AddService</a></td><td class=docright>
+Add the <a href=#TGameService>TGameService</a> instance to the <a href=#TGameEngine>TGameEngine</a>.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#GetDebugRenderPriority>GetDebugRenderPriority</a></td><td class=docright>
+Get the <a href=#DebugRender>DebugRender</a> priority of the <a href=#TGameService>TGameService</a> instance.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#GetDebugUpdatePriority>GetDebugUpdatePriority</a></td><td class=docright>
+Get the <a href=#DebugUpdate>DebugUpdate</a> priority of the <a href=#TGameService>TGameService</a> instance.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#GetRenderPriority>GetRenderPriority</a></td><td class=docright>
+Get the <a href=#Render>Render</a> priority of the <a href=#TGameService>TGameService</a> instance.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#GetStartPriority>GetStartPriority</a></td><td class=docright>
+Get the Start priority of the <a href=#TGameService>TGameService</a> instance.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#GetUpdatePriority>GetUpdatePriority</a></td><td class=docright>
+Get the Update priority of the <a href=#TGameService>TGameService</a> instance.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#Initialise>Initialise</a></td><td class=docright>
+Initialise the <a href=#TGameService>TGameService</a> instance.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#RemoveService>RemoveService</a></td><td class=docright>
+Remove the <a href=#TGameService>TGameService</a> instance from the <a href=#TGameEngine>TGameEngine</a>.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#SetDebugRenderPriority>SetDebugRenderPriority</a></td><td class=docright>
+Set the <a href=#DebugRender>DebugRender</a> priority of the <a href=#TGameService>TGameService</a> instance.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#SetDebugUpdatePriority>SetDebugUpdatePriority</a></td><td class=docright>
+Set the <a href=#DebugUpdate>DebugUpdate</a> priority of the <a href=#TGameService>TGameService</a> instance.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#SetPaused>SetPaused</a></td><td class=docright>
+Tell the service to either Pause or Resume.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#SetRenderPriority>SetRenderPriority</a></td><td class=docright>
+Get the <a href=#Render>Render</a> priority of the <a href=#TGameService>TGameService</a> instance.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#SetStartPriority>SetStartPriority</a></td><td class=docright>
+Set the <a href=#Start>Start</a> priority of the <a href=#TGameService>TGameService</a> instance.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#SetUpdatePriority>SetUpdatePriority</a></td><td class=docright>
+Set the <a href=#Update>Update</a> priority of the <a href=#TGameService>TGameService</a> instance.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#Shutdown>Shutdown</a></td><td class=docright>
+Shuts down the <a href=#TGameService>TGameService</a> instance.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#ToString>ToString</a></td><td class=docright>
+Returns the name of the TGameService.
+</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=debugRenderMethod>
+<tr><td class=doctop colspan=2>Field debugRenderMethod:TMethod</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Pointer to the <a href=#TGameService>TGameService</a> <a href=#DebugRender>DebugRender</a> method.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>To optimise the <a href=#TGameEngine>TGameEngine</a> main loop, these <b>TMethod</b> pointers
+are populated using <b>Reflection</b> when the <a href=#TGameService>TGameService</a> instance registers
+itself with the TGameEngine instance.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=debugRenderPriority>
+<tr><td class=doctop colspan=2>Field debugRenderPriority:Int = 0</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>The priority of this <a href=#TGameService>TGameService</a> instance's <a href=#DebugRender>DebugRender</a> method.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>All game services are put into a TList for each of the main
+TGameService methods.
+These TLists are sorted by priority so you can ensure that the methods
+are run in a particular order.  This is not a requirement for most services.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=debugRenderProfiler>
+<tr><td class=doctop colspan=2>Field debugRenderProfiler:TProfilerSample</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Debug <a href=#TProfilerSample>TProfilerSample</a> for the <a href=#DebugRender>DebugRender</a> method.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=debugUpdateMethod>
+<tr><td class=doctop colspan=2>Field debugUpdateMethod:TMethod</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Pointer to the <a href=#TGameService>TGameService</a> <a href=#DebugUpdate>DebugUpdate</a> method.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>To optimise the <a href=#TGameEngine>TGameEngine</a> main loop, these <b>TMethod</b> pointers
+are populated using <b>Reflection</b> when the <a href=#TGameService>TGameService</a> instance registers
+itself with the TGameEngine instance.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=debugUpdatePriority>
+<tr><td class=doctop colspan=2>Field debugUpdatePriority:Int = 0</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>The priority of this <a href=#TGameService>TGameService</a> instance's <a href=#DebugUpdate>DebugUpdate</a> method.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>All game services are put into a TList for each of the main
+TGameService methods.
+These TLists are sorted by priority so you can ensure that the methods
+are run in a particular order.  This is not a requirement for most services.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=debugUpdateProfiler>
+<tr><td class=doctop colspan=2>Field debugUpdateProfiler:TProfilerSample</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Debug <a href=#TProfilerSample>TProfilerSample</a> for the <a href=#DebugUpdate>DebugUpdate</a> method.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=name>
+<tr><td class=doctop colspan=2>Field name:String = "Game Service with No Name"</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>The human readable name of the <a href=#TGameService>TGameService</a> instance.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=renderMethod>
+<tr><td class=doctop colspan=2>Field renderMethod:TMethod</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Pointer to the <a href=#TGameService>TGameService</a> <a href=#Render>Render</a> method.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>To optimise the <a href=#TGameEngine>TGameEngine</a> main loop, these <b>TMethod</b> pointers
+are populated using <b>Reflection</b> when the <a href=#TGameService>TGameService</a> instance registers
+itself with the TGameEngine instance.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=renderPriority>
+<tr><td class=doctop colspan=2>Field renderPriority:Int = 0</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>The priority of this <a href=#TGameService>TGameService</a> instance's <a href=#Render>Render</a> method.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>All game services are put into a TList for each of the main
+TGameService methods.
+These TLists are sorted by priority so you can ensure that the methods
+are run in a particular order.  This is not a requirement for most services.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=renderProfiler>
+<tr><td class=doctop colspan=2>Field renderProfiler:TProfilerSample</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Debug <a href=#TProfilerSample>TProfilerSample</a> for the <a href=#Render>Render</a> method.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=startMethod>
+<tr><td class=doctop colspan=2>Field startMethod:TMethod</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Pointer to the <a href=#TGameService>TGameService</a> <a href=#Start>Start</a> method.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>To optimise the <a href=#TGameEngine>TGameEngine</a> main loop, these <b>TMethod</b> pointers
+are populated using <b>Reflection</b> when the <a href=#TGameService>TGameService</a> instance registers
+itself with the TGameEngine instance.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=startPriority>
+<tr><td class=doctop colspan=2>Field startPriority:Int = 0</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>The priority of this <a href=#TGameService>TGameService</a> instance's <a href=#Start>Start</a> method.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>All game services are put into a TList for each of the main
+TGameService methods.
+These TLists are sorted by priority so you can ensure that the methods
+are run in a particular order.  This is not a requirement for most services.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=updateMethod>
+<tr><td class=doctop colspan=2>Field updateMethod:TMethod</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Pointer to the <a href=#TGameService>TGameService</a> <a href=#Update>Update</a> method.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>To optimise the <a href=#TGameEngine>TGameEngine</a> main loop, these <b>TMethod</b> pointers
+are populated using <b>Reflection</b> when the <a href=#TGameService>TGameService</a> instance registers
+itself with the TGameEngine instance.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=updatePriority>
+<tr><td class=doctop colspan=2>Field updatePriority:Int = 0</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>The priority of this <a href=#TGameService>TGameService</a> instance's <a href=#Update>Update</a> method.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>All game services are put into a TList for each of the main
+TGameService methods.
+These TLists are sorted by priority so you can ensure that the methods
+are run in a particular order.  This is not a requirement for most services.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=updateProfiler>
+<tr><td class=doctop colspan=2>Field updateProfiler:TProfilerSample</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Debug#TProfilerSample for the #Update method.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=AddService>
+<tr><td class=doctop colspan=2>Method AddService(service:TGameService)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Add the <a href=#TGameService>TGameService</a> instance to the <a href=#TGameEngine>TGameEngine</a>.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>This is adds a <a href=#TGameService>TGameService</a> instance to the <a href=#TGameEngine>TGameEngine</a> instance and
+also write a LOG_INFO message to the <a href=#TGameEngine>TGameEngine</a> log file.  It also populates
+the <a href=#updateMethod>updateMethod</a>, <a href=#renderMethod>renderMethod</a>, <a href=#startMethod>startMethod</a>, <a href=#debugUpdateMethod>debugUpdateMethod</a> and
+<a href=#debugRenderMethod>debugRenderMethod</a> Fields with a pointer to those Methods if they exist.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=GetDebugRenderPriority>
+<tr><td class=doctop colspan=2>Method GetDebugRenderPriority:Int()</td></tr>
+<tr><td class=docleft width=1%>Returns</td><td class=docright>the <a href=#DebugRender>DebugRender</a> priority.</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Get the <a href=#DebugRender>DebugRender</a> priority of the <a href=#TGameService>TGameService</a> instance.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=GetDebugUpdatePriority>
+<tr><td class=doctop colspan=2>Method GetDebugUpdatePriority:Int()</td></tr>
+<tr><td class=docleft width=1%>Returns</td><td class=docright>the <a href=#DebugUpdate>DebugUpdate</a> priority.</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Get the <a href=#DebugUpdate>DebugUpdate</a> priority of the <a href=#TGameService>TGameService</a> instance.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=GetRenderPriority>
+<tr><td class=doctop colspan=2>Method GetRenderPriority:Int()</td></tr>
+<tr><td class=docleft width=1%>Returns</td><td class=docright>the <a href=#Render>Render</a> priority.</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Get the <a href=#Render>Render</a> priority of the <a href=#TGameService>TGameService</a> instance.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=GetStartPriority>
+<tr><td class=doctop colspan=2>Method GetStartPriority:Int()</td></tr>
+<tr><td class=docleft width=1%>Returns</td><td class=docright>the <a href=#Start>Start</a> priority.</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Get the Start priority of the <a href=#TGameService>TGameService</a> instance.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=GetUpdatePriority>
+<tr><td class=doctop colspan=2>Method GetUpdatePriority:Int()</td></tr>
+<tr><td class=docleft width=1%>Returns</td><td class=docright>the <a href=#Update>Update</a> priority.</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Get the Update priority of the <a href=#TGameService>TGameService</a> instance.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=Initialise>
+<tr><td class=doctop colspan=2>Method Initialise()</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Initialise the <a href=#TGameService>TGameService</a> instance.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>This uses the <a href=#AddService>AddService</a> method to register itself with the
+<a href=#TGameEngine>TGameEngine</a> instance and also writes a LOG_INFO message to the <a href=#TGameEngine>TGameEngine</a>
+log file.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=RemoveService>
+<tr><td class=doctop colspan=2>Method RemoveService(service:TGameService)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Remove the <a href=#TGameService>TGameService</a> instance from the <a href=#TGameEngine>TGameEngine</a>.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>This is called by the <a href=#Shutdown>Shutdown</a> Method and removes the <a href=#TGameService>TGameService</a>
+instance from the TGameEngine instance.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=SetDebugRenderPriority>
+<tr><td class=doctop colspan=2>Method SetDebugRenderPriority(priority:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Set the <a href=#DebugRender>DebugRender</a> priority of the <a href=#TGameService>TGameService</a> instance.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=SetDebugUpdatePriority>
+<tr><td class=doctop colspan=2>Method SetDebugUpdatePriority(priority:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Set the <a href=#DebugUpdate>DebugUpdate</a> priority of the <a href=#TGameService>TGameService</a> instance.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=SetPaused>
+<tr><td class=doctop colspan=2>Method SetPaused(value:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Tell the service to either Pause or Resume.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>Overload this method if specific actions are required on the
+Services part when the TGameEngine instance Pauses or Resumes
+returns:</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=SetRenderPriority>
+<tr><td class=doctop colspan=2>Method SetRenderPriority(priority:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Get the <a href=#Render>Render</a> priority of the <a href=#TGameService>TGameService</a> instance.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=SetStartPriority>
+<tr><td class=doctop colspan=2>Method SetStartPriority(priority:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Set the <a href=#Start>Start</a> priority of the <a href=#TGameService>TGameService</a> instance.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=SetUpdatePriority>
+<tr><td class=doctop colspan=2>Method SetUpdatePriority(priority:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Set the <a href=#Update>Update</a> priority of the <a href=#TGameService>TGameService</a> instance.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=Shutdown>
+<tr><td class=doctop colspan=2>Method Shutdown()</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Shuts down the <a href=#TGameService>TGameService</a> instance.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>This is called by the <a href=#TGameEngine>TGameEngine</a> instance and also writes
+when it shuts down.  It also writes a LOG_INFO message to the <a href=#TGameEngine>TGameEngine</a>
+log file.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=ToString>
+<tr><td class=doctop colspan=2>Method ToString:String()</td></tr>
+<tr><td class=docleft width=1%>Returns</td><td class=docright>String.</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Returns the name of the TGameService.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=TGameSound>
+<tr><td class=doctop colspan=2>Type TGameSound</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright><a href=#TGameSound>TGameSound</a>.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=TGameSoundHandler>
+<tr><td class=doctop colspan=2>Type TGameSoundHandler Extends TGameService</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright><a href=#TGameSoundHandler>TGameSoundHandler</a>.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>The <a href=#TGameSoundHandler>TGameSoundHandler</a> service manages audio channels and sounds.  When the
+service starts it allocates a specific number of channels and then uses/reuses these
+channels as necessary.  It currently uses the OpenAL driver.</td></tr>
+</table>
+<table class=doc width=90% align=center><tr ><th class=doctop colspan=2 align=left><a name=TGameSoundHandler_consts></a>Constants Summary</th></tr><tr><td colspan=2>
+<a href=#MAX_CHANNELS>MAX_CHANNELS</a>
+</td></tr>
+</table>
+<table class=doc width=90% align=center><tr ><th class=doctop colspan=2 align=left><a name=TGameSoundHandler_globals></a>Globals Summary</th></tr><tr><td colspan=2>
+<a href=#activeChannels>activeChannels</a>
+, 
+<a href=#channelsAllocated>channelsAllocated</a>
+, 
+<a href=#idleChannels>idleChannels</a>
+, 
+<a href=#maxChannels>maxChannels</a>
+, 
+<a href=#maxUsed>maxUsed</a>
+, 
+<a href=#soundPaused>soundPaused</a>
+, 
+<a href=#soundsPlayed>soundsPlayed</a>
+</td></tr>
+</table>
+<table class=doc width=90% align=center><tr ><th class=doctop colspan=2 align=left><a name=TGameSoundHandler_fields></a>Fields Summary</th></tr><tr><td colspan=2>
+<a href=#masterVolume>masterVolume</a>
+, 
+<a href=#volumeSettings>volumeSettings</a>
+</td></tr>
+</table>
+<table class=doc width=90% align=center><tr ><th class=doctop colspan=2 align=left><a name=TGameSoundHandler_methods></a>Methods Summary</th></tr>
+<tr><td class=docleft width=1%><a href=#AllocAllChannels>AllocAllChannels</a></td><td class=docright>
+Allocates all Audio Channels.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#GetActiveChannels>GetActiveChannels</a></td><td class=docright>
+Get the number of currently active channels.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#GetIdleChannels>GetIdleChannels</a></td><td class=docright>
+Get the number of currently idle channels.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#GetMasterVolume>GetMasterVolume</a></td><td class=docright>
+Gets the current master volume.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#GetMaxChannels>GetMaxChannels</a></td><td class=docright>
+Get the current max channels setting.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#GetMaxUsedChannels>GetMaxUsedChannels</a></td><td class=docright>
+Get the maximum number of channels that have been used.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#GetMusicVolume>GetMusicVolume</a></td><td class=docright>
+Gets the current volume setting for Music channels.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#GetNumSoundsLoaded>GetNumSoundsLoaded</a></td><td class=docright>
+Get the number of sounds currently loaded.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#GetSfxVolume>GetSfxVolume</a></td><td class=docright>
+Gets the current volume setting for SFX channels.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#Initialise>Initialise</a></td><td class=docright>
+Initialises the instance of <a href=#TGameSoundHandler>TGameSoundHandler</a>.  This method is called automatically on instantiation.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#PauseSound>PauseSound</a></td><td class=docright>
+Pause all sound channels.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#ResetSoundHandler>ResetSoundHandler</a></td><td class=docright>
+Resets the audio handler.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#ResumeSound>ResumeSound</a></td><td class=docright>
+Resume all paused sound channels.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#SetChannelVolumes>SetChannelVolumes</a></td><td class=docright>
+Sets the volume for all channels.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#SetDefaultVolumes>SetDefaultVolumes</a></td><td class=docright>
+Sets default volumes.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#SetMasterVolume>SetMasterVolume</a></td><td class=docright>
+Sets the Master Volume for all audio channels.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#SetMaxChannels>SetMaxChannels</a></td><td class=docright>
+Set the max number of channels that can be used.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#SetMusicVolume>SetMusicVolume</a></td><td class=docright>
+Sets the volume for music channels.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#SetSfxVolume>SetSfxVolume</a></td><td class=docright>
+Sets the volume for SFX channels.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#Shutdown>Shutdown</a></td><td class=docright>
+Shuts down the instance of <a href=#TGameSoundHandler>TGameSoundHandler</a>.  This method is called automatically by the <a href=#TGameEngine>TGameEngine</a> instance.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#Start>Start</a></td><td class=docright>
+Starts the instance of <a href=#TGameSoundHandler>TGameSoundHandler</a>.  This method is called automatically by the <a href=#TGameEngine>TGameEngine</a> instance.
+</td></tr>
+</table>
+<table class=doc width=90% align=center><tr ><th class=doctop colspan=2 align=left><a name=TGameSoundHandler_functions></a>Functions Summary</th></tr>
+<tr><td class=docleft width=1%><a href=#GetInstance>GetInstance</a></td><td class=docright>
+Get the instance of the <a href=#TGameSoundHandler>TGameSoundHandler</a>.
+</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=MAX_CHANNELS>
+<tr><td class=doctop colspan=2>Const MAX_CHANNELS:Int</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>The default number of channels that will be allocated when the service starts.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=activeChannels>
+<tr><td class=doctop colspan=2>Global activeChannels:Int</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>The current number of active audio channels.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=channelsAllocated>
+<tr><td class=doctop colspan=2>Global channelsAllocated:Int</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>The current number of audio channels allocated.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=idleChannels>
+<tr><td class=doctop colspan=2>Global idleChannels:Int</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>The current number of idle audio channels.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=maxChannels>
+<tr><td class=doctop colspan=2>Global maxChannels:Int</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>The maximum number of channels that will be allocated.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=maxUsed>
+<tr><td class=doctop colspan=2>Global maxUsed:Int</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>The maximum number of channels that have been used.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=soundPaused>
+<tr><td class=doctop colspan=2>Global soundPaused:Int</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>True if the sound engine is paused.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=soundsPlayed>
+<tr><td class=doctop colspan=2>Global soundsPlayed:Int</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>The total number of sounds played.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=masterVolume>
+<tr><td class=doctop colspan=2>Field masterVolume:Float = 100</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>The current master volume.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=volumeSettings>
+<tr><td class=doctop colspan=2>Field volumeSettings:Float[] = [0.8, 1.0]</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Array containing the volume settings for SFX and Music (0.0 to 1.0)</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=AllocAllChannels>
+<tr><td class=doctop colspan=2>Method AllocAllChannels()</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Allocates all Audio Channels.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>This is called automatically when the <a href=#TGameSoundHandler>TGameSoundHandler</a> starts.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=GetActiveChannels>
+<tr><td class=doctop colspan=2>Method GetActiveChannels:Int()</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Get the number of currently active channels.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=GetIdleChannels>
+<tr><td class=doctop colspan=2>Method GetIdleChannels:Int()</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Get the number of currently idle channels.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=GetMasterVolume>
+<tr><td class=doctop colspan=2>Method GetMasterVolume:Int()</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Gets the current master volume.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>Volume is in the range of 0 to 100
+returns: Int.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=GetMaxChannels>
+<tr><td class=doctop colspan=2>Method GetMaxChannels:Int()</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Get the current max channels setting.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=GetMaxUsedChannels>
+<tr><td class=doctop colspan=2>Method GetMaxUsedChannels:Int()</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Get the maximum number of channels that have been used.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=GetMusicVolume>
+<tr><td class=doctop colspan=2>Method GetMusicVolume:Float()</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Gets the current volume setting for Music channels.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>Volume is in the range of 0.0 to 1.0 and is used as a multiplier of the Master Volume
+returns: Float.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=GetNumSoundsLoaded>
+<tr><td class=doctop colspan=2>Method GetNumSoundsLoaded:Int()</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Get the number of sounds currently loaded.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=GetSfxVolume>
+<tr><td class=doctop colspan=2>Method GetSfxVolume:Float()</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Gets the current volume setting for SFX channels.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>Volume is in the range of 0.0 to 1.0 and is used as a multiplier of the Master Volume
+returns: Float.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=Initialise>
+<tr><td class=doctop colspan=2>Method Initialise()</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Initialises the instance of <a href=#TGameSoundHandler>TGameSoundHandler</a>.  This method is called automatically on instantiation.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=PauseSound>
+<tr><td class=doctop colspan=2>Method PauseSound(pause:Int = True)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Pause all sound channels.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=ResetSoundHandler>
+<tr><td class=doctop colspan=2>Method ResetSoundHandler()</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Resets the audio handler.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=ResumeSound>
+<tr><td class=doctop colspan=2>Method ResumeSound()</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Resume all paused sound channels.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=SetChannelVolumes>
+<tr><td class=doctop colspan=2>Method SetChannelVolumes()</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Sets the volume for all channels.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>Uses the master volume and MUSIC and SFX volumes to set each audio channel's volume.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=SetDefaultVolumes>
+<tr><td class=doctop colspan=2>Method SetDefaultVolumes()</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Sets default volumes.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>Sets Master, Music and SFX volumes to their default values.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=SetMasterVolume>
+<tr><td class=doctop colspan=2>Method SetMasterVolume(vol:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Sets the Master Volume for all audio channels.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>Volume is in the range of 0-100.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=SetMaxChannels>
+<tr><td class=doctop colspan=2>Method SetMaxChannels(value:Int)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Set the max number of channels that can be used.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=SetMusicVolume>
+<tr><td class=doctop colspan=2>Method SetMusicVolume(vol:Float)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Sets the volume for music channels.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>Volume is in the range of 0.0 to 1.0 and is used as a multiplier of the Master Volume.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=SetSfxVolume>
+<tr><td class=doctop colspan=2>Method SetSfxVolume(vol:Float)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Sets the volume for SFX channels.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>Volume is in the range of 0.0 to 1.0 and is used as a multiplier of the Master Volume.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=Shutdown>
+<tr><td class=doctop colspan=2>Method Shutdown()</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Shuts down the instance of <a href=#TGameSoundHandler>TGameSoundHandler</a>.  This method is called automatically by the <a href=#TGameEngine>TGameEngine</a> instance.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=Start>
+<tr><td class=doctop colspan=2>Method Start()</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Starts the instance of <a href=#TGameSoundHandler>TGameSoundHandler</a>.  This method is called automatically by the <a href=#TGameEngine>TGameEngine</a> instance.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=GetInstance>
+<tr><td class=doctop colspan=2>Function GetInstance:TGameSoundHandler()</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Get the instance of the <a href=#TGameSoundHandler>TGameSoundHandler</a>.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>Either returns the current instance of <a href=#TGameSoundHandler>TGameSoundHandler</a> or creates and returns a new instance
+returns: <a href=#TGameSoundHandler>TGameSoundHandler</a>.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=TGameState>
+<tr><td class=doctop colspan=2>Type TGameState</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>TGameState.</td></tr>
+</table>
+<table class=doc width=90% align=center><tr ><th class=doctop colspan=2 align=left><a name=TGameState_fields></a>Fields Summary</th></tr><tr><td colspan=2>
+<a href=#link>link</a>
+</td></tr>
+</table>
+<table class=doc width=90% align=center><tr ><th class=doctop colspan=2 align=left><a name=TGameState_methods></a>Methods Summary</th></tr>
+<tr><td class=docleft width=1%><a href=#Enter>Enter</a></td><td class=docright>
+Enter the Game State.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#Initialise>Initialise</a></td><td class=docright>
+Initialises the Game State.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#Leave>Leave</a></td><td class=docright>
+Leave the Game State.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#Render>Render</a></td><td class=docright>
+Renders the Game State.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#Shutdown>Shutdown</a></td><td class=docright>
+Shutdown the Game State.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#Update>Update</a></td><td class=docright>
+Updates the Game State.
+</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=link>
+<tr><td class=doctop colspan=2>Field link:TLink</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>TLink used by TGameStateManager.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=Enter>
+<tr><td class=doctop colspan=2>Method Enter()</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Enter the Game State.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>This method is called when you switch to this TGameState
+instance.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=Initialise>
+<tr><td class=doctop colspan=2>Method Initialise()</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Initialises the Game State.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>This method is called for all instances of TGameState when TGameEngine
+starts running.  The Graphics device has been created by this time.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=Leave>
+<tr><td class=doctop colspan=2>Method Leave()</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Leave the Game State.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>This method is called when you switch to another TGameState
+instance.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=Render>
+<tr><td class=doctop colspan=2>Method Render()</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Renders the Game State.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>This method is called for the current TGameState
+instance by the main TGameEngine Render loop.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=Shutdown>
+<tr><td class=doctop colspan=2>Method Shutdown()</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Shutdown the Game State.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>This method is called for each TGameState instance
+when the TGameEngine is shutting down.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=Update>
+<tr><td class=doctop colspan=2>Method Update()</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Updates the Game State.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>This method is called for the current TGameState
+instance by the main TGameEngine Update loop.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=TGameStateManager>
+<tr><td class=doctop colspan=2>Type TGameStateManager Extends TGameService</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>TGameStateManager.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>TGameStateManager is a TGameService which handles registering and
+switching between TGameStates.</td></tr>
+</table>
+<table class=doc width=90% align=center><tr ><th class=doctop colspan=2 align=left><a name=TGameStateManager_globals></a>Globals Summary</th></tr><tr><td colspan=2>
+<a href=#instance>instance</a>
+</td></tr>
+</table>
+<table class=doc width=90% align=center><tr ><th class=doctop colspan=2 align=left><a name=TGameStateManager_fields></a>Fields Summary</th></tr><tr><td colspan=2>
+<a href=#currentState>currentState</a>
+, 
+<a href=#gameStates>gameStates</a>
+, 
+<a href=#loopStates>loopStates</a>
+</table>
+<table class=doc width=100% cellspacing=3 id=instance>
+<tr><td class=doctop colspan=2>Global instance:TGameStateManager		' This holds the singleton instance of this Type</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>The TGameStateManager instance.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>TGameStateManager is a Singleton Type.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=currentState>
+<tr><td class=doctop colspan=2>Field currentState:TGameState</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>The currently active TGameState.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=gameStates>
+<tr><td class=doctop colspan=2>Field gameStates:TList</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>TList containing all registered TGameStates.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=loopStates>
+<tr><td class=doctop colspan=2>Field loopStates:Int = False</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Whether to loop TGameStates or not.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>This allows you to loop forwards or backwards through all TGameStates
+using the NextGameState() and PreviousGameState() methods.  Default setting
+is to not loop, in which case the Engine will be shutdown once all
+TGameStates have been used (good for demos, etc.)</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=TImageFontSprite>
+<tr><td class=doctop colspan=2>Type TImageFontSprite Extends TSprite</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Undocumented type.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=TImageSprite>
+<tr><td class=doctop colspan=2>Type TImageSprite Extends TSprite</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Undocumented type.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=TInputDevice>
+<tr><td class=doctop colspan=2>Type TInputDevice</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Undocumented type.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=TJoystick>
+<tr><td class=doctop colspan=2>Type TJoystick</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Undocumented type.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=TJoystickAxisMapping>
+<tr><td class=doctop colspan=2>Type TJoystickAxisMapping Extends TVirtualControlMapping</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Undocumented type.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=TJoystickButtonMapping>
+<tr><td class=doctop colspan=2>Type TJoystickButtonMapping Extends TVirtualControlMapping</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Undocumented type.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=TJoystickManager>
+<tr><td class=doctop colspan=2>Type TJoystickManager Extends TInputDevice</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Undocumented type.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=TJoystickMessageData>
+<tr><td class=doctop colspan=2>Type TJoystickMessageData Extends TMessageData</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright><a href=#TJoystickMessageData>TJoystickMessageData</a>.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>The <a href=#TJoystickMessageData>TJoystickMessageData</a> object is used by the <a href=#TJoystick>TJoystick</a> input device handler
+to pass messages about the current polled joystick state via the <a href=#TMessageService>TMessageService</a> Service.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=TKeyboard>
+<tr><td class=doctop colspan=2>Type TKeyboard Extends TInputDevice</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Undocumented type.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=TKeyboardMapping>
+<tr><td class=doctop colspan=2>Type TKeyboardMapping Extends TVirtualControlMapping</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Undocumented type.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=TKeyboardMessageData>
+<tr><td class=doctop colspan=2>Type TKeyboardMessageData Extends TMessageData</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright><a href=#TKeyboardMessageData>TKeyboardMessageData</a>.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>The <a href=#TKeyboardMessageData>TKeyboardMessageData</a> object is used by the <a href=#TKeyboard>TKeyboard</a> input device handler
+to pass messages about keystate changes via the <a href=#TMessageService>TMessageService</a> Service.</td></tr>
+</table>
+<table class=doc width=90% align=center><tr ><th class=doctop colspan=2 align=left><a name=TKeyboardMessageData_fields></a>Fields Summary</th></tr><tr><td colspan=2>
+<a href=#key>key</a>
+, 
+<a href=#keyHits>keyHits</a>
+, 
+<a href=#keyState>keyState</a>
+</table>
+<table class=doc width=100% cellspacing=3 id=key>
+<tr><td class=doctop colspan=2>Field key:Int</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>The ASCII number of the <b>key</b> that this message is related to.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=keyHits>
+<tr><td class=doctop colspan=2>Field keyHits:Int</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>The number of the times <b>key</b> has been hit since the last update.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=keyState>
+<tr><td class=doctop colspan=2>Field keyState:Int</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>The current state of the <b>key</b>.  True if the <b>key</b> is currently down.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=TLoopedAnimation>
+<tr><td class=doctop colspan=2>Type TLoopedAnimation Extends TSpriteAnimation</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Undocumented type.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=TLoopedFrameAnimation>
+<tr><td class=doctop colspan=2>Type TLoopedFrameAnimation Extends TSpriteAnimation</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Undocumented type.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=TMacroCommand>
+<tr><td class=doctop colspan=2>Type TMacroCommand Extends TCommand Final</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Undocumented type.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=TMakeInvisibleAnimation>
+<tr><td class=doctop colspan=2>Type TMakeInvisibleAnimation Extends TSpriteAnimation</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Undocumented type.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=TMakeVisibleAnimation>
+<tr><td class=doctop colspan=2>Type TMakeVisibleAnimation Extends TSpriteAnimation</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Undocumented type.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=TMessageChannel>
+<tr><td class=doctop colspan=2>Type TMessageChannel</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Undocumented type.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=TMessageListener>
+<tr><td class=doctop colspan=2>Type TMessageListener</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Undocumented type.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=TMouseAxisMapping>
+<tr><td class=doctop colspan=2>Type TMouseAxisMapping Extends TVirtualControlMapping</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Undocumented type.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=TMouseButtonMapping>
+<tr><td class=doctop colspan=2>Type TMouseButtonMapping Extends TVirtualControlMapping</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Undocumented type.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=TMouseMessageData>
+<tr><td class=doctop colspan=2>Type TMouseMessageData Extends TMessageData</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Undocumented type.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=TPointToPointPathAnimation>
+<tr><td class=doctop colspan=2>Type TPointToPointPathAnimation Extends TSpriteAnimation</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Undocumented type.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=TPolygon>
+<tr><td class=doctop colspan=2>Type TPolygon</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Undocumented type.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=TPolygonSprite>
+<tr><td class=doctop colspan=2>Type TPolygonSprite Extends TSprite</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Undocumented type.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=TRenderState>
+<tr><td class=doctop colspan=2>Type TRenderState</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright><a href=#TRenderState>TRenderState</a>.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>Simple stack based method of saving and restoring various render settings.</td></tr>
+</table>
+<table class=doc width=90% align=center><tr ><th class=doctop colspan=2 align=left><a name=TRenderState_globals></a>Globals Summary</th></tr><tr><td colspan=2>
+<a href=#renderStateStack>renderStateStack</a>
+</td></tr>
+</table>
+<table class=doc width=90% align=center><tr ><th class=doctop colspan=2 align=left><a name=TRenderState_functions></a>Functions Summary</th></tr>
+<tr><td class=docleft width=1%><a href=#Pop>Pop</a></td><td class=docright>
+Pop the last render state off the stack.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#Push>Push</a></td><td class=docright>
+Push the current render state onto the stack.
+</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=renderStateStack>
+<tr><td class=doctop colspan=2>Global renderStateStack:TStack</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Stack used to store render states.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=Pop>
+<tr><td class=doctop colspan=2>Function Pop()</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Pop the last render state off the stack.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>Takes the values from the <a href=#TRenderState>TRenderState</a> popped off the stack and resets the
+render state using the <b>SetAlpha</b>, <b>SetBlend</b>, <b>SetClsColor</b>,
+<b>SetColor</b>, <b>SetHandle</b>, <b>SetImageFont</b>, <b>SetMaskColor</b>, <b>SetOrigin</b>, <b>SetRotation</b>
+and <b>SetScale</b> functions.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=Push>
+<tr><td class=doctop colspan=2>Function Push()</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Push the current render state onto the stack.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>Stores the values retrieved from <b>GetAlpha</b>, <b>GetBlend</b>, <b>GetClsColor</b>,
+<b>GetColor</b>, <b>GetHandle</b>, <b>GetImageFont</b>, <b>GetMaskColor</b>, <b>GetOrigin</b>, <b>GetRotation</b>
+and <b>GetScale</b>.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=TScaleOscillatorAnimation>
+<tr><td class=doctop colspan=2>Type TScaleOscillatorAnimation Extends TSpriteAnimation</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Undocumented type.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=TSequentialAnimation>
+<tr><td class=doctop colspan=2>Type TSequentialAnimation Extends TSpriteAnimation</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Undocumented type.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=TSetAlphaAnimation>
+<tr><td class=doctop colspan=2>Type TSetAlphaAnimation Extends TSpriteAnimation</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Undocumented type.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=TSetColourAnimation>
+<tr><td class=doctop colspan=2>Type TSetColourAnimation Extends TSpriteAnimation</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Undocumented type.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=TSetPositionAnimation>
+<tr><td class=doctop colspan=2>Type TSetPositionAnimation Extends TSpriteAnimation</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Undocumented type.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=TSprite>
+<tr><td class=doctop colspan=2>Type TSprite</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Undocumented type.</td></tr>
+</table>
+<table class=doc width=90% align=center><tr ><th class=doctop colspan=2 align=left><a name=TSprite_methods></a>Methods Summary</th></tr>
+<tr><td class=docleft width=1%><a href=#Interpolate>Interpolate</a></td><td class=docright>
+Interpolate between previous and current positions.
+</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=Interpolate>
+<tr><td class=doctop colspan=2>Method Interpolate(tweening:Double)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Interpolate between previous and current positions.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>Uses the tweening value from the TFixedTimeStep service to interpolate
+between the previous and current positions and using that as a render position
+for the sprite.  This has the effect of smoothing out any timing anomalies.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=TSpriteAnimation>
+<tr><td class=doctop colspan=2>Type TSpriteAnimation</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Undocumented type.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=TSpriteAnimationManager>
+<tr><td class=doctop colspan=2>Type TSpriteAnimationManager</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Undocumented type.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=TSpriteManager>
+<tr><td class=doctop colspan=2>Type TSpriteManager</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright><a href=#TSpriteManager>TSpriteManager</a>.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>Manager class for handling sprites.</td></tr>
+</table>
+<table class=doc width=90% align=center><tr ><th class=doctop colspan=2 align=left><a name=TSpriteManager_methods></a>Methods Summary</th></tr>
+<tr><td class=docleft width=1%><a href=#AddSprite>AddSprite</a></td><td class=docright>
+Add a sprite to the manager.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#GetHidden>GetHidden</a></td><td class=docright>
+Get the current hidden status.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#HideSprites>HideSprites</a></td><td class=docright>
+Hide/Unhide all sprites.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#PurgeSprites>PurgeSprites</a></td><td class=docright>
+Remove all sprites from the manager.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#RemoveSprite>RemoveSprite</a></td><td class=docright>
+Remove a sprite from the manager.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#Render>Render</a></td><td class=docright>
+Render all sprites to the screen.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#Update>Update</a></td><td class=docright>
+Update positions and animations of all sprites.
+</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=AddSprite>
+<tr><td class=doctop colspan=2>Method AddSprite(sprite:TSprite)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Add a sprite to the manager.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=GetHidden>
+<tr><td class=doctop colspan=2>Method GetHidden:Int()</td></tr>
+<tr><td class=docleft width=1%>Returns</td><td class=docright><a href=#True>True</a> if sprites are hidden, <a href=#False>False</a> if they are unhiddent.</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Get the current hidden status.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=HideSprites>
+<tr><td class=doctop colspan=2>Method HideSprites(hide:Int = True)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Hide/Unhide all sprites.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright><a href=#True>True</a> hides all sprites, <a href=#False>False</a> unhides them.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=PurgeSprites>
+<tr><td class=doctop colspan=2>Method PurgeSprites()</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Remove all sprites from the manager.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=RemoveSprite>
+<tr><td class=doctop colspan=2>Method RemoveSprite(sprite:TSprite)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Remove a sprite from the manager.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=Render>
+<tr><td class=doctop colspan=2>Method Render()</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Render all sprites to the screen.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>Call this once per render frame to draw all sprites.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=Update>
+<tr><td class=doctop colspan=2>Method Update()</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Update positions and animations of all sprites.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>Call this once per logic update frame to update all sprites.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=TTimedAnimation>
+<tr><td class=doctop colspan=2>Type TTimedAnimation Extends TSpriteAnimation</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Undocumented type.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=TVirtualControl>
+<tr><td class=doctop colspan=2>Type TVirtualControl</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Undocumented type.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=TVirtualControlMapping>
+<tr><td class=doctop colspan=2>Type TVirtualControlMapping</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Undocumented type.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=TVirtualGamepadManager>
+<tr><td class=doctop colspan=2>Type TVirtualGamepadManager Extends TInputDevice</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Undocumented type.</td></tr>
+</table>
+<br>
+</body></html>
