@@ -972,3 +972,4 @@ endrem
 Function rrUseExeDirectoryForData(bool:Int = True)
 	TGameEngine.exeDirectoryForData_ = bool
 End Function
+
