@@ -74,12 +74,6 @@ Type TGraphicsService Extends TGameService
 		FindGraphicsModes()
 		
 		Set()
-		
-		'Load some engine default Image Fonts
-		rrLoadResourceImageFont(My.Resources.src.Media.Fonts.VeraMoBd_ttf, 10)
-		rrLoadResourceImageFont(My.Resources.src.Media.Fonts.VeraMoBI_ttf, 10)
-		rrLoadResourceImageFont(My.Resources.src.Media.Fonts.VeraMoIt_ttf, 10)
-		rrLoadResourceImageFont(My.Resources.src.Media.Fonts.VeraMono_ttf, 10)
 	End Method
 	
 	Method Set()

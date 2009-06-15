@@ -1,7 +1,7 @@
-﻿rem
+Rem
 	bbdoc: #TGameEngine
 	about: The core of the RetroRemakes Framework.
-endrem
+EndRem
 Type TGameEngine
 
 	' Default value used if ini file setting is not defined.

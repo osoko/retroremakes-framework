@@ -49,8 +49,6 @@ Type TFramesPerSecond Extends TGameService
 	End Method
 	
 	Method Start()
-		rrLoadResourceImageFont(My.Resources.src.Media.Fonts.VeraMono_ttf, 12)
-		displayFont = rrGetResourceImageFont(My.Resources.src.Media.Fonts.VeraMono_ttf, 12)
 		Reset()
 	End Method
 	

@@ -1,25 +1,10 @@
-﻿Rem
-This file was created by the BLIde solution explorer and should not be modified from outside BLIde
-EndRem
-'------------------------------------------------------------------------------------------------------------------------------------------------------
-'#Region &HFF Program Info
-'Program: RetroRemakes Framework
-'Version: 0
-'Subversion: 2
-'Revision: 0
-'#EndRegion &HFF
-
-
-
-'------------------------------------------------------------------------------------------------------------------------------------------------------
-'#Region &H01 Compile Options
 SuperStrict
-'#EndRegion &H01
 
+Rem
+bbdoc: RetroRemakes Framework
+EndRem
+Module retroremakes.rrfw
 
-
-'------------------------------------------------------------------------------------------------------------------------------------------------------
-'#Region &H0F Framework
 Import brl.linkedlist
 Import muttley.inifilehandler
 Import muttley.logfilehandler
@@ -62,16 +47,6 @@ Import brl.hook
 Import dbs.d3d9max2d
 Import dbs.dx9graphics
 Import gman.zipengine
-'#EndRegion &H0F
-
-
-
-'------------------------------------------------------------------------------------------------------------------------------------------------------
-'#Region &HAF Imports
-
-'#EndRegion &HAF
-
-
 
 '------------------------------------------------------------------------------------------------------------------------------------------------------
 '#Region &H04 MyNamespace
@@ -93,13 +68,10 @@ TYPE z_945cf79f_634f_4d34_8a04_fc23da246f63_3_2 abstract  'Resource folder
 End Type
 
 
-TYPE z_945cf79f_634f_4d34_8a04_fc23da246f63_3_3 abstract  'Resource folder
-    Const VeraMoBd_ttf:String = "incbin::src\Media\Fonts\VeraMoBd.ttf" 'String constant containing the value: "<b><font color=#0000AA>incbin::src\Media\Fonts\VeraMoBd.ttf</font></b>"
-    Const VeraMoBI_ttf:String = "incbin::src\Media\Fonts\VeraMoBI.ttf" 'String constant containing the value: "<b><font color=#0000AA>incbin::src\Media\Fonts\VeraMoBI.ttf</font></b>"
-    Const VeraMoIt_ttf:String = "incbin::src\Media\Fonts\VeraMoIt.ttf" 'String constant containing the value: "<b><font color=#0000AA>incbin::src\Media\Fonts\VeraMoIt.ttf</font></b>"
-    Const VeraMono_ttf:String = "incbin::src\Media\Fonts\VeraMono.ttf" 'String constant containing the value: "<b><font color=#0000AA>incbin::src\Media\Fonts\VeraMono.ttf</font></b>"
-End Type
 
+TYPE z_945cf79f_634f_4d34_8a04_fc23da246f63_3_3 abstract  'Resource folder
+
+End Type
 
 TYPE z_blide_bg945cf79f_634f_4d34_8a04_fc23da246f63 Abstract
     Const Name:string = "RetroRemakes Framework" 'This string contains the name of the program
@@ -157,10 +129,6 @@ Include "src\Includes\Misc\DataValidation.bmx"
 Include "src\Includes\Misc\StringManipulation.bmx"
 Include "src\Includes\Misc\Logging.bmx"
 Include "src\Includes\Timing\TPrecisionCounter.bmx"
-Incbin "src\Media\Fonts\VeraMoBd.ttf"
-Incbin "src\Media\Fonts\VeraMoBI.ttf"
-Incbin "src\Media\Fonts\VeraMoIt.ttf"
-Incbin "src\Media\Fonts\VeraMono.ttf"
 Include "src\Services\TGameService.bmx"
 Include "src\Services\Audio\TGameSoundHandler.bmx"
 Include "src\Services\Debug\TConsole.bmx"
