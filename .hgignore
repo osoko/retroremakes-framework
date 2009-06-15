@@ -5,7 +5,3 @@ syntax: glob
 *.a
 *.o
 *.s
-
-# switch to regexp syntax.
-#syntax: regexp
-#^/.bmx/$
