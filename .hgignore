@@ -1,0 +1,11 @@
+# use glob syntax.
+syntax: glob
+
+*.i
+*.a
+*.o
+*.s
+
+# switch to regexp syntax.
+#syntax: regexp
+#^/.bmx/$
