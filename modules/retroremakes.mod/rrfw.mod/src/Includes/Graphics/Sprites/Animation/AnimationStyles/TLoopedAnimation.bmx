@@ -76,9 +76,9 @@ Type TLoopedAnimation Extends TSpriteAnimation
 	End Method
 		
 	Method Reset()
+		Super.Reset()
 		loopsRemaining = animationLoops
 		LoopReset()
-		Super.Reset()
 	End Method
 	
 	Method Update:Int(sprite:TSprite)

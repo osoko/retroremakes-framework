@@ -49,38 +49,16 @@ Import dbs.dx9graphics
 Import gman.zipengine
 
 '------------------------------------------------------------------------------------------------------------------------------------------------------
-'#Region &H04 MyNamespace
-'GUI
-'guid:945cf79f_634f_4d34_8a04_fc23da246f63
 Private
-TYPE z_945cf79f_634f_4d34_8a04_fc23da246f63_3_0 abstract  'Resource folder
-    Global src:z_945cf79f_634f_4d34_8a04_fc23da246f63_3_1 '<b>Resource folder</b>
-End Type
 
-
-TYPE z_945cf79f_634f_4d34_8a04_fc23da246f63_3_1 abstract  'Resource folder
-    Global Media:z_945cf79f_634f_4d34_8a04_fc23da246f63_3_2 '<b>Resource folder</b>
-End Type
-
-
-TYPE z_945cf79f_634f_4d34_8a04_fc23da246f63_3_2 abstract  'Resource folder
-    Global Fonts:z_945cf79f_634f_4d34_8a04_fc23da246f63_3_3 '<b>Resource folder</b>
-End Type
-
-
-
-TYPE z_945cf79f_634f_4d34_8a04_fc23da246f63_3_3 abstract  'Resource folder
-
-End Type
-
-TYPE z_blide_bg945cf79f_634f_4d34_8a04_fc23da246f63 Abstract
+Type Application Abstract
     Const Name:string = "RetroRemakes Framework" 'This string contains the name of the program
     Const MajorVersion:Int = 0  'This Const contains the major version number of the program
     Const MinorVersion:Int = 2  'This Const contains the minor version number of the program
     Const Revision:Int =  0  'This Const contains the revision number of the current program version
     Const VersionString:String = MajorVersion + "." + MinorVersion + "." + Revision   'This string contains the assembly version in format (MAJOR.MINOR.REVISION)
     Const AssemblyInfo:String = Name + " " + MajorVersion + "." + MinorVersion + "." + Revision   'This string represents the available assembly info.
-    ?win32
+    ?Win32
     Const Platform:String = "Win32" 'This constant contains "Win32", "MacOs" or "Linux" depending on the current running platoform for your game or application.
     ?
     ?MacOs
@@ -96,21 +74,18 @@ TYPE z_blide_bg945cf79f_634f_4d34_8a04_fc23da246f63 Abstract
     Const Architecture:String = "x86" 
     ?
     ?debug
-    Const DebugOn : Int = True    'This const will have the integer value of TRUE if the application was build on debug mode, or false if it was build on release mode
+    Const DebugOn:Int = True    'This const will have the integer value of TRUE if the application was build on debug mode, or false if it was build on release mode
     ?
     ?not debug
-    Const DebugOn : Int = False
+    Const DebugOn:Int = False
     ?
 EndType
 
 
-Type z_My_945cf79f_634f_4d34_8a04_fc23da246f63 Abstract 'This type has all the run-tima binary information of your assembly
-    Global Application:z_blide_bg945cf79f_634f_4d34_8a04_fc23da246f63  'This item has all the currently available assembly version information.
-    Global Resources:z_945cf79f_634f_4d34_8a04_fc23da246f63_3_0  'This item has all the currently available incbined files names and relative location.
+Type My Abstract
+    Global Application:Application
 End Type
 
-
-Global My:z_My_945cf79f_634f_4d34_8a04_fc23da246f63 'This GLOBAL has all the run-time binary information of your assembly, and embeded resources shortcuts.
 Public
 '#EndRegion &H04 MyNamespace
 
@@ -152,7 +127,6 @@ Include "src\Services\States\TGameState.bmx"
 Include "src\Services\States\TGameStateManager.bmx"
 Include "src\Services\Timing\TFixedTimestep.bmx"
 Include "src\Services\Timing\TFramesPerSecond.bmx"
-Include "src\Services\World\TWorldManager.bmx"
 Include "src\Services\Resources\ResourceTypes\TResourceImageFont.bmx"
 Include "src\Services\Physics\TPhysicsManager.bmx"
 Include "src\Includes\Maths\PolygonCollisions.bmx"

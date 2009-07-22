@@ -9,8 +9,8 @@ Type TGameStateManager Extends TGameService
 		bbdoc: The TGameStateManager instance
 		about: TGameStateManager is a Singleton Type
 	endrem
-	Global instance:TGameStateManager		' This holds the singleton instance of this Type
-	
+	Global instance:TGameStateManager
+
 	
 	rem
 		bbdoc: The currently active TGameState.

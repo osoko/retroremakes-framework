@@ -4,35 +4,35 @@ Rem
 End Rem
 Type TSpriteAnimation
 
-	Field isFinished:Int
 	Field callBackFunction()
+	Field isFinished:Int
 	
+	Method Finished:Int()
+		If isFinished And callBackFunction
+			callBackFunction()
+		EndIf
+		Return isFinished
+	End Method
+	
+	Method Initialise()
+		Reset()
+	End Method
+
 	Method New()
 		Self.isFinished = False
 	End Method
 	
-	Method Initialse()
-		Reset()
-	End Method
-	
-	Method remove()
+	Method Remove()
 	End Method
 	
 	Method Reset()
 		Self.isFinished = False
 	End Method
 	
-	Method Update:Int(sprite:TSprite) Abstract
-	
 	Method SetCallBack(func())
 		callBackFunction = func
 	End Method
 	
-	Method Finished:Int()
-		If callBackFunction And isFinished
-			callBackFunction()
-		EndIf
-		Return isFinished
-	End Method
+	Method Update:Int(sprite:TSprite) Abstract
 	
 End Type

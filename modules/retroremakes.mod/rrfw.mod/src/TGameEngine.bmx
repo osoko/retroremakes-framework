@@ -16,7 +16,7 @@ Type TGameEngine
 
 	' Whether to use the current executable directory for writing to or not.
 	' If false, we will use an OS specific recommended directory.
-	Global exeDirectoryForData_:Int = False
+	Global exeDirectoryForData:Int = False
 
 	rem
 	bbdoc: @TList containing all #TGameService instances that have registered with the #TGameEngine instance
@@ -145,7 +145,7 @@ Type TGameEngine
 	
 	
 	rem
-	bbdoc: Create a new instance of #TGameEngine
+	bbdoc: Return an instance of #TGameEngine
 	returns: #TGameEngine
 	about: Returns a new instance of #TGameEngine, or if one already
 	exists returns that instance instead
@@ -298,7 +298,7 @@ Type TGameEngine
 	'Finds and/or creates the directory to store game data in
 	Method FindDataDirectory:String()
 		Local dir:String = gameDirectory_ + "/"
-		If Not exeDirectoryForData_
+		If Not exeDirectoryForData
 			Local AppDir:String = GetUserAppDir()
 			
 			Select FileType(AppDir + "/" + gameName_)
@@ -970,6 +970,6 @@ specific application data directory.
 returns:
 endrem
 Function rrUseExeDirectoryForData(bool:Int = True)
-	TGameEngine.exeDirectoryForData_ = bool
+	TGameEngine.exeDirectoryForData = bool
 End Function
 
