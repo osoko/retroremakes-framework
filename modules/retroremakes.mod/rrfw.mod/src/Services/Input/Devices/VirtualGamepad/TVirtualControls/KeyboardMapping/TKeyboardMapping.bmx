@@ -39,7 +39,7 @@ Type TKeyboardMapping Extends TVirtualControlMapping
 	
 	
 	Method Save(control:TVirtualControl)
-		Local section:String = "VirtualGamepad" + control.gamepad_.GetPaddedId()
+		Local section:String = "VirtualGamepad" + control.GetGamepad().GetPaddedId()
 		rrSetStringVariables(control.GetPaddedControlId(), [control.GetName(),  ..
 									"keyboard", String(keyboardButtonId_)], section)
 	End Method

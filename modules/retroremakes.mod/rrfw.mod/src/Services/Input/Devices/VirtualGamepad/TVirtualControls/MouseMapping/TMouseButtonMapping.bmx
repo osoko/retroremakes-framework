@@ -45,7 +45,7 @@ Type TMouseButtonMapping Extends TVirtualControlMapping
 	
 	
 	Method Save(control:TVirtualControl)
-		Local section:String = "VirtualGamepad" + control.gamepad_.GetPaddedId()
+		Local section:String = "VirtualGamepad" + control.GetGamepad().GetPaddedId()
 		rrSetStringVariables(control.GetPaddedControlId(), [control.GetName(),  ..
 									"mouse", "button", buttonNames[buttonId_].ToLower()], section)
 	End Method

@@ -2,7 +2,7 @@
 Rem
 	bbdoc:Undocumented type
 End Rem
-Type TVirtualControlMapping
+Type TVirtualControlMapping Abstract
 	
 	Field name_:String	' human readable version of the control mapping
 	

@@ -40,7 +40,7 @@ Type TJoystickButtonMapping Extends TVirtualControlMapping
 	
 	
 	Method Save(control:TVirtualControl)
-		Local section:String = "VirtualGamepad" + control.gamepad_.GetPaddedId()
+		Local section:String = "VirtualGamepad" + control.GetGamepad().GetPaddedId()
 		rrSetStringVariables(control.GetPaddedControlId(), [control.GetName(),  ..
 									"joystick", "button", String(joystickId_), String(buttonId_)], section)
 	End Method	

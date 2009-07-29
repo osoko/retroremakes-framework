@@ -122,7 +122,7 @@ Type TJoystickAxisMapping Extends TVirtualControlMapping
 	
 	
 	Method Save(control:TVirtualControl)
-		Local section:String = "VirtualGamepad" + control.gamepad_.GetPaddedId()
+		Local section:String = "VirtualGamepad" + control.GetGamepad().GetPaddedId()
 		Local axisName:String
 		Select axisId_
 			Case RR_JOY_X

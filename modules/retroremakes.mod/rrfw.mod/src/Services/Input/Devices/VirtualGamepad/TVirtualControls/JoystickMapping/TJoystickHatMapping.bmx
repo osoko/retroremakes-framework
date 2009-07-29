@@ -62,7 +62,7 @@ Type TJoystickHatMapping Extends TVirtualControlMapping
 	
 	
 	Method Save(control:TVirtualControl)
-		Local section:String = "VirtualGamepad" + control.gamepad_.GetPaddedId()
+		Local section:String = "VirtualGamepad" + control.GetGamepad().GetPaddedId()
 		rrSetStringVariables(control.GetPaddedControlId(), [control.GetName(),  ..
 									"joystick", "hat", String(joystickId_), String(hatId_)], section)
 	End Method
