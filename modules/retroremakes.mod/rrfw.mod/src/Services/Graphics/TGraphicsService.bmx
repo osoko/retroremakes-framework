@@ -57,7 +57,7 @@ Type TGraphicsService Extends TGameService
 	EndFunction
 
 	Method Initialise()
-		name = "Graphics Service"
+		SetName("Graphics Service")
 		startPriority = -9999	'has to be first as other services may rely on the Graphics Device
 		Super.Initialise()
 	End Method

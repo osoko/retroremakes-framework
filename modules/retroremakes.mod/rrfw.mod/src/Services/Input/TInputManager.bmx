@@ -33,7 +33,7 @@ Type TInputManager Extends TGameService
 '#End Region 
 
 	Method Initialise()
-		Self.name = "Input Manager"
+		SetName("Input Manager")
 		Super.Initialise()  'Call TGameService initialisation routines
 	End Method
 

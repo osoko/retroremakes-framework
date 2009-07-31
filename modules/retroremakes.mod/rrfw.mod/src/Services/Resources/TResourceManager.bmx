@@ -28,7 +28,7 @@ Type TResourceManager Extends TGameService
 
 	Method Initialise()
 		' Load ini file stuff here
-		Self.name = "Resource Manager"
+		SetName("Resource Manager")
 		Self.resources = CreateMap()
 		
 		Super.Initialise()  'Call TGameService initialisation routines

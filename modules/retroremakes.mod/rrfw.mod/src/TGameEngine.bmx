@@ -10,8 +10,10 @@ Type TGameEngine
 	endrem	
 	Global instance:TGameEngine
 
-	' Whether to use the current executable directory for writing to or not.
-	' If false, we will use an OS specific recommended directory.
+	rem
+		bbdoc: Whether to use the current executable directory for writing to or not.
+		about: If false, we will use an OS specific recommended directory (default).
+	endrem
 	Global exeDirectoryForData:Int = False
 
 	rem
@@ -21,155 +23,245 @@ Type TGameEngine
 	Field LAllServices:TList
 
 	rem
-	bbdoc: @TList containing all registered #TGameService instances that have a @Render Method
-	about: If a #TGameService instance that registers includes a @Render method, it is added to this @TList
-	<br>
-	This TList is used in the main #Render loop
+		bbdoc: @TList containing all registered #TGameService instances that have a @Render Method
+		about: If a #TGameService instance that registers includes a @Render method, it is added to this @TList
+		<br>
+		This TList is used in the main #Render loop
 	endrem	
 	Field LRenderServices:TList
 
 	rem
-	bbdoc: @TList containing all registered #TGameService instances that have an @Update Method
-	about: If a #TGameService instance that registers includes an @Update method, it is added to this @TList
-	<br>
-	This TList is used in the main #Update loop		
+		bbdoc: @TList containing all registered #TGameService instances that have an @Update Method
+		about: If a #TGameService instance that registers includes an @Update method, it is added to this @TList
+		<br>
+		This TList is used in the main #Update loop		
 	endrem
 	Field LUpdateServices:TList
 
 	rem
-	bbdoc: @TList containing all registered #TGameService instances that have a DebugRender Method
-	about: If a #TGameService instance that registers includes a @DebugRender method, it is added to this @TList
-	<br>
-	This TList is used in the main #DebugRender loop
+		bbdoc: @TList containing all registered #TGameService instances that have a DebugRender Method
+		about: If a #TGameService instance that registers includes a @DebugRender method, it is added to this @TList
+		<br>
+		This TList is used in the main #DebugRender loop
 	endrem	
 	Field LDebugRenderServices:TList
 	
 	rem
-	bbdoc: @TList containing all registered #TGameService instances that have a @DebugUpdate Method
-	about: If a #TGameService instance that registers includes an @Update method, it is added to this @TList
-	<br>
-	This TList is used in the main #DebugUpdate loop			
+		bbdoc: @TList containing all registered #TGameService instances that have a @DebugUpdate Method
+		about: If a #TGameService instance that registers includes an @Update method, it is added to this @TList
+		<br>
+		This TList is used in the main #DebugUpdate loop			
 	endrem	
 	Field LDebugUpdateServices:TList
 
 	rem
-	bbdoc: @TList containing all registered #TGameService instances that have a @Start Method
-	about: If a #TGameService instance that registers includes an @Start method, it is added to this @TList
-	<br>
-	This TList is used when the TGameEngine instance starts to run
+		bbdoc: @TList containing all registered #TGameService instances that have a @Start Method
+		about: If a #TGameService instance that registers includes an @Start method, it is added to this @TList
+		<br>
+		This TList is used when the TGameEngine instance starts to run
 	endrem	
 	Field LStartServices:TList
 	
 	rem
-	bbdoc: Counter showing how many time the #TGameEngine #Update method has been called
+		bbdoc: Counter showing how many time the #TGameEngine #Update method has been called
 	endrem
 	Field updateFrameCount:Int
-
-	rem
-	bbdoc: Counter showing how many time the #TGameEngine #Render method has been called
-	endrem
-	Field renderFrameCount:Int
+'#Region updateFrameCount Get/Set Methods
+	Rem
+		bbdoc: Get the updateFrameCount value in this TGameEngine object.
+	End Rem
+	Method GetUpdateFrameCount:Int()
+		Return Self.updateFrameCount
+	End Method
+	Rem
+		bbdoc: Set the updateFrameCount value for this TGameEngine object.
+	End Rem
+	Method SetUpdateFrameCount(value:Int)
+		Self.updateFrameCount = Value
+	End Method
+'#End Region 
 	
 	rem
-	bbdoc: @True if the TGameEngine instance is running
+		bbdoc: Counter showing how many time the #TGameEngine #Render method has been called
+	endrem
+	Field renderFrameCount:Int
+'#Region renderFrameCount Get/Set Methods
+	Rem
+		bbdoc: Get the renderFrameCount value in this TGameEngine object.
+	End Rem
+	Method GetRenderFrameCount:Int()
+		Return Self.renderFrameCount
+	End Method
+	Rem
+		bbdoc: Set the renderFrameCount value for this TGameEngine object.
+	End Rem
+	Method SetRenderFrameCount(value:Int)
+		Self.renderFrameCount = value
+	End Method
+'#End Region 
+	
+	rem
+		bbdoc: @True if the TGameEngine instance is running
 	endrem	
 	Field engineRunning:Int
+'#Region engineRunning Get/Set Methods
+	Rem
+		bbdoc: Get the engineRunning value in this TGameEngine object.
+	End Rem
+	Method GetEngineRunning:Int()
+		Return Self.engineRunning
+	End Method
+	Rem
+		bbdoc: Set the engineRunning value for this TGameEngine object.
+	End Rem
+	Method SetEngineRunning(value:Int)
+		Self.engineRunning = value
+	End Method
+'#End Region 
 
 	rem
-	bbdoc: @True if the TGameEngine instance is paused by using #SetPaused
+		bbdoc: @True if the TGameEngine instance is paused by using #SetPaused
 	endrem	
 	Field enginePaused:Int
-	'Global gameRunning:Int
 
 	rem
-	bbdoc: This is the log file used by the Engine
+		bbdoc: This is the log file used by the Engine
 	endrem	
 	Field logfile:TLogFile
 	
 	rem
-	bbdoc: @true if debug is enabled
+		bbdoc: @true if debug is enabled
 	endrem	
 	Field debugEnabled:Int	
 
-	' Some profilers for core engine routines, only required in debug mode
+	' Some profilers for core engine routines, only really required in debug mode
 	rem
-	bbdoc: Debug #TProfilerSample for the main loop
+		bbdoc: Debug #TProfilerSample for the main loop
 	endrem	
 	Field mainLoopProfile:TProfilerSample
 
 	rem
-	bbdoc: Debug #TProfilerSample for the #Update loop
+		bbdoc: Debug #TProfilerSample for the #Update loop
 	endrem	
 	Field updateProfile:TProfilerSample
 
 	rem
-	bbdoc: Debug #TProfilerSample for the #Render loop
+		bbdoc: Debug #TProfilerSample for the #Render loop
 	endrem	
 	Field renderProfile:TProfilerSample
 
 	rem
-	bbdoc: Debug #TProfilerSample for the #DebugUpdate loop
+		bbdoc: Debug #TProfilerSample for the #DebugUpdate loop
 	endrem	
 	Field debugUpdateProfile:TProfilerSample
 
 	rem
-	bbdoc: Debug #TProfilerSample for the #DebugRender loop
+		bbdoc: Debug #TProfilerSample for the #DebugRender loop
 	endrem	
 	Field debugRenderProfile:TProfilerSample
 	
 	rem
-	bbdoc: The directory that the game was launched from
+		bbdoc: The directory that the game was launched from
 	endrem
-	Field gameDirectory_:String
+	Field gameDirectory:String
+'#Region gameDirectory Get/Set Methods
+	Rem
+		bbdoc: Get the gameDirectory value in this TGameEngine object.
+	End Rem
+	Method GetGameDirectory:String()
+		Return Self.gameDirectory
+	End Method
+	Rem
+		bbdoc: Set the gameDirectory value for this TGameEngine object.
+	End Rem
+	Method SetGameDirectory(value:String)
+		Self.gameDirectory = value
+	End Method
+'#End Region 
 	
 	rem
-	bbdoc: The name of the game executable
+		bbdoc: The name of the game executable
 	endrem
-	Field gameExecutable_:String
+	Field gameExecutable:String
+'#Region gameExecutable Get/Set Methods
+	Rem
+		bbdoc: Get the gameExecutable value in this TGameEngine object.
+	End Rem
+	Method GetGameExecutable:String()
+		Return Self.gameExecutable
+	End Method
+	Rem
+		bbdoc: Set the gameExecutable value for this TGameEngine object.
+	End Rem
+	Method SetGameExecutable(value:String)
+		Self.gameExecutable = value
+	End Method
+'#End Region 
 	
 	rem
-	bbdoc: The name of the game.  This is the executable name with the
-	extension and directory stripped.
+		bbdoc: The name of the game.
+		about: This is the executable name with the extension and directory stripped.
 	endrem
-	Field gameName_:String
+	Field gameName:String
+'#Region gameName Get/Set Methods
+	Rem
+		bbdoc: Get the gameName value in this TGameEngine object.
+	End Rem
+	Method GetGameName:String()
+		Return Self.gameName
+	End Method
+	Rem
+		bbdoc: Set the gameName value for this TGameEngine object.
+	End Rem
+	Method SetGameName(value:String)
+		Self.gameName = value
+	End Method
+'#End Region 
 
 	rem
-	bbdoc: The data directory to be used for storing game generated files
+		bbdoc: The data directory to be used for storing game generated files
 	endrem	
-	Field gameDataDirectory_:String
+	Field gameDataDirectory:String
+'#Region gameDataDirectory Get/Set Methods
+	rem
+		bbdoc: Gets the directory that this game's data should be stored in
+		returns: String
+		about: The directory returned will have the same name as the game executable and,
+		depending on the platform, will be situated in on of these paths
+		<br />
+		<table align="center">
+		<tr><th>Platform</th><th>Example</th><th>Equivalent</th></tr>
+		<tr><td>Linux</td><td>/home/username</td><td>~</td></tr>
+		<tr><td>Mac OS</td><td>/Users/username/Library/Application Support</td><td>~/Library/Application Support</td></tr>
+		<tr><td>Win32</td><td>C:\Documents and Settings\username\Application Data</td><td>&nbsp;</td></tr>
+		</table>
+	endrem
+	Method GetGameDataDirectory:String()
+		Return Self.gameDataDirectory
+	End Method
+	Rem
+		bbdoc: Set the gameDataDirectory value for this TGameEngine object.
+	End Rem
+	Method SetGameDataDirectory(value:String)
+		Self.gameDataDirectory = value
+	End Method
+'#End Region 
 
 	
 	
 	rem
-	bbdoc: Return an instance of #TGameEngine
-	returns: #TGameEngine
-	about: Returns a new instance of #TGameEngine, or if one already
-	exists returns that instance instead
-	endrem	
-	Function GetInstance:TGameEngine()
-		If Not instance
-			Return New TGameEngine
-		Else
-			Return instance
-		EndIf
-	End Function	
-	
-	
-	
-	rem
-	bbdoc: Adds a #TGameService instance to the TGameEngine
-	returns:
-	about: When a child of #TGameService is instantiated, it registers itself with the
-	#TGameEngine instance using this method.<br>
-	This method uses Reflection to find out if they have the following methods:
-	<table>
-	<tr><th>Method</th><th>Description</th></tr>
-	<tr><td>DebugRender</td><td>Called during the main #TGameEngine #DebugRender loop</td></tr>
-	<tr><td>DebugUpdate</td><td>Called during the main #TGameEngine #DebugUpdate loop</td></tr>
-	<tr><td>Render</td><td>Called during the main #TGameEngine #Render loop</td></tr>
-	<tr><td>Start</td><td>Called when the #TGameEngine instance is started</td></tr>
-	<tr><td>Update</td><td>Called during the main #TGameEngine #Update loop</td></tr>
-	</table>
+		bbdoc: Adds a #TGameService instance to the TGameEngine
+		about: When a child of #TGameService is instantiated, it registers itself with the
+		#TGameEngine instance using this method.<br>
+		This method uses Reflection to find out if they have the following methods:
+		<table>
+		<tr><th>Method</th><th>Description</th></tr>
+		<tr><td>DebugRender</td><td>Called during the main #TGameEngine #DebugRender loop</td></tr>
+		<tr><td>DebugUpdate</td><td>Called during the main #TGameEngine #DebugUpdate loop</td></tr>
+		<tr><td>Render</td><td>Called during the main #TGameEngine #Render loop</td></tr>
+		<tr><td>Start</td><td>Called when the #TGameEngine instance is started</td></tr>
+		<tr><td>Update</td><td>Called during the main #TGameEngine #Update loop</td></tr>
+		</table>
 	endrem
 	Method AddService(myService:TGameService)
 		LogInfo("Adding Service ~q" + myService.ToString() + "~q")
@@ -223,8 +315,7 @@ Type TGameEngine
 	
 	
 	rem
-	bbdoc: Close the logfile used by the #TGameEngine instance
-	returns:
+		bbdoc: Close the logfile used by the #TGameEngine instance
 	endrem	
 	Method CloseLog()
 		logfile.Close()
@@ -233,12 +324,11 @@ Type TGameEngine
 	
 	
 	rem
-	bbdoc: Create a TLogFile to be used by the #TGameEngine instance
-	returns:
+		bbdoc: Create a TLogFile to be used by the #TGameEngine instance
 	endrem		
 	Method CreateLog()
-		Local logName:String = gameDataDirectory_ + "/" + gameName_ + ".log"
-		Local logDescription:String = gameName_ + " Log File"
+		Local logName:String = GetGameDataDirectory() + "/" + GetGameName() + ".log"
+		Local logDescription:String = GetGameName() + " Log File"
 		logfile = TLogFile.Create(logName, logDescription, LOG_ERROR)	' Logfile only shows errors by default
  		logfile.LogGlobal("Powered by the " + My.Application.Name + " v" + My.Application.VersionString + " (" + My.Application.Platform + "/" + My.Application.Architecture + ")")
 		logfile.LogGlobal("Project Home Page: http://code.google.com/p/retroremakes-framework/")
@@ -251,10 +341,9 @@ Type TGameEngine
 	
 	
 	rem
-	bbdoc: Calls the @DebugRender method for all necessary #TGameService instances
-	returns:
-	about: This method is called by the #TGameService #Render method only if
-	debug is enabled by the #SetDebug method, or	if this is a Debug build. 
+		bbdoc: Calls the @DebugRender method for all necessary #TGameService instances
+		about: This method is called by the #TGameService #Render method only if
+		debug is enabled by the #SetDebug method, or	if this is a Debug build. 
 	endrem		
 	Method DebugRender()
 		rrStartProfilerSample(debugRenderProfile)
@@ -271,10 +360,10 @@ Type TGameEngine
 	
 	
 	rem
-	bbdoc: Calls the @DebugUpdate method for all necessary #TGameService instances
-	returns:
-	about: This method is called by the #TGameService #Update method only if
-	debug is enabled by the #SetDebug method, or	if this is a Debug build. 
+		bbdoc: Calls the @DebugUpdate method for all necessary #TGameService instances
+		returns:
+		about: This method is called by the #TGameService #Update method only if
+		debug is enabled by the #SetDebug method, or	if this is a Debug build. 
 	endrem
 	Method DebugUpdate()
 		rrStartProfilerSample(debugUpdateProfile)
@@ -290,25 +379,28 @@ Type TGameEngine
 		
 	
 	
-	'Finds and/or creates the directory to store game data in
+	rem
+		bbdoc: Finds and creates if necessary the directory to write data to
+		about: Directory is used for log files, configuration files, saved high-score tables, etc.
+	endrem
 	Method FindDataDirectory:String()
-		Local dir:String = gameDirectory_ + "/"
+		Local dir:String = GetGameDirectory() + "/"
 		If Not exeDirectoryForData
 			Local AppDir:String = GetUserAppDir()
 			
-			Select FileType(AppDir + "/" + gameName_)
+			Select FileType(AppDir + "/" + GetGameName())
 				Case 0
 					'directory doesn't exist
-					If Not CreateDir(AppDir + "/" + gameName_)
-						Throw "Unable to create game data directory: " + AppDir + "/" + gameName_
+					If Not CreateDir(AppDir + "/" + GetGameName())
+						Throw "Unable to create game data directory: " + AppDir + "/" + GetGameName()
 					End If
-					dir = AppDir + "/" + gameName_ + "/"
+					dir = AppDir + "/" + GetGameName() + "/"
 				Case 1
 					'file of that name exists
-					Throw "Unable to create game data directory: " + AppDir + "/" + gameName_
+					Throw "Unable to create game data directory: " + AppDir + "/" + GetGameName()
 				Case 2
 					'directory already exists, no problem
-					dir = AppDir + "/" + gameName_ + "/"
+					dir = AppDir + "/" + GetGameName() + "/"
 			End Select
 		EndIf
 		Return dir
@@ -317,38 +409,19 @@ Type TGameEngine
 	
 	
 	rem
-	bbdoc: Returns the names of all TGameServices registered with the #TGameEngine #LAllServices @Tlist
-	returns: String[]
+		bbdoc: Returns the names of all TGameServices registered with the #TGameEngine #LAllServices @Tlist
+		returns: String[]
 	endrem		
 	Method GetAllServices:String[] ()
 		Return GetRegisteredServices(LAllServices)
-	End Method
-
-	
-	
-	rem
-	bbdoc: Gets the directory that this game's data should be stored in
-	returns: String
-	about: The directory returned will have the same name as the game executable and,
-	depending on the platform, will be situated in on of these paths
-	<br>
-	<table align="center">
-	<tr><th>Platform</th><th>Example</th><th>Equivalent</th></tr>
-	<tr><td>Linux</td><td>/home/username</td><td>~</td></tr>
-	<tr><td>Mac OS</td><td>/Users/username/Library/Application Support</td><td>~/Library/Application Support</td></tr>
-	<tr><td>Win32</td><td>C:\Documents and Settings\username\Application Data</td><td>&nbsp;</td></tr>
-	</table>
-	endrem
-	Method GetDataDirectory:String()
-		Return gameDataDirectory_
 	End Method
 					
 	
 	
 	rem
-	bbdoc: Determine whether the #TGameEngine instance has debug enabled
-	returns: @True if debug is enabled
-	about: #GetDebug will return @True if debug is enabled, or @False if it is not
+		bbdoc: Determine whether the #TGameEngine instance has debug enabled
+		returns: @True if debug is enabled
+		about: #GetDebug will return @True if debug is enabled, or @False if it is not
 	endrem
 	Method GetDebug:Int()
 		Return debugEnabled
@@ -357,8 +430,8 @@ Type TGameEngine
 	
 	
 	rem
-	bbdoc: Returns the names of all TGameServices registered with the #TGameEngine #LRenderServices @TList
-	returns: String[]
+		bbdoc: Returns the names of all TGameServices registered with the #TGameEngine #LRenderServices @TList
+		returns: String[]
 	endrem	
 	Method GetDebugRenderServices:String[] ()
 		Return GetRegisteredServices(LDebugRenderServices)
@@ -367,8 +440,8 @@ Type TGameEngine
 	
 	
 	rem
-	bbdoc: Returns the names of all TGameServices registered with the #TGameEngine #LDebugUpdateServices @TList
-	returns: String[]
+		bbdoc: Returns the names of all TGameServices registered with the #TGameEngine #LDebugUpdateServices @TList
+		returns: String[]
 	endrem	
 	Method GetDebugUpdateServices:String[] ()
 		Return GetRegisteredServices(LDebugUpdateServices)
@@ -377,8 +450,23 @@ Type TGameEngine
 	
 	
 	rem
-	bbdoc: Returns the names of all TGameServices registered with the #TGameEngine in a specified @Tlist
-	returns: String[]
+		bbdoc: Return an instance of #TGameEngine
+		returns: #TGameEngine
+		about: Returns a new instance of #TGameEngine, or if one already exists returns that instance instead
+	endrem	
+	Function GetInstance:TGameEngine()
+		If Not instance
+			Return New TGameEngine
+		Else
+			Return instance
+		EndIf
+	End Function
+	
+	
+		
+	rem
+		bbdoc: Returns the names of all TGameServices registered with the #TGameEngine in a specified @Tlist
+		returns: String[]
 	endrem			
 	Method GetRegisteredServices:String[] (list:TList)
 		Local _services:String[] = New String[list.Count()]
@@ -393,8 +481,8 @@ Type TGameEngine
 	
 	
 	rem
-	bbdoc: Returns the names of all TGameServices registered with the #TGameEngine #LStartServices @TList
-	returns: String[]
+		bbdoc: Returns the names of all TGameServices registered with the #TGameEngine #LStartServices @TList
+		returns: String[]
 	endrem	
 	Method GetStartServices:String[] ()
 		Return GetRegisteredServices(LStartServices)
@@ -403,8 +491,8 @@ Type TGameEngine
 	
 	
 	rem
-	bbdoc: Returns the names of all TGameServices registered with the #TGameEngine #LUpdateServices @TList
-	returns: String[]
+		bbdoc: Returns the names of all TGameServices registered with the #TGameEngine #LUpdateServices @TList
+		returns: String[]
 	endrem	
 	Method GetUpdateServices:String[] ()
 		Return GetRegisteredServices(LUpdateServices)
@@ -413,10 +501,10 @@ Type TGameEngine
 	
 	
 	rem
-	bbdoc: Determine whether the #TGameEngine instance is paused?
-	returns: @True if paused
-	about: #GetPaused will return @True if the TGameEngine instance is paused,
-	or @False if it is not
+		bbdoc: Determine whether the #TGameEngine instance is paused?
+		returns: @True if paused
+		about: #GetPaused will return @True if the TGameEngine instance is paused,
+		or @False if it is not
 	endrem
 	Method GetPaused:Int()
 		Return enginePaused
@@ -425,8 +513,8 @@ Type TGameEngine
 	
 	
 	rem
-	bbdoc: Returns the names of all TGameServices registered with the #TGameEngine #LRenderServices @TList
-	returns: String[]
+		bbdoc: Returns the names of all TGameServices registered with the #TGameEngine #LRenderServices @TList
+		returns: String[]
 	endrem	
 	Method GetRenderServices:String[] ()
 		Return GetRegisteredServices(LRenderServices)
@@ -434,11 +522,13 @@ Type TGameEngine
 
 	
 	
+	rem
+		bbdoc: Handler for keyboard input messages
+		about: Currently only used for catching F11 to take a screenshot
+	endrem
 	Method HandleKeyboardInput(message:TMessage)
 		Local data:TKeyboardMessageData = TKeyboardMessageData(message.data)
 		Select data.key
-			Case KEY_ESCAPE
-				'engineRunning = False
 			Case KEY_F11
 				rrTakeScreenshot()
 		End Select
@@ -447,11 +537,29 @@ Type TGameEngine
 	
 	
 	rem
-	bbdoc: Initialise the TGameEngine instance
-	returns:
-	about: This method is called when the TGameEngine is instantiated
-	<br> 
-	It instantiates the core #TGameService Types, starts logging and sets some default values
+		bbdoc: Increments the Render Frame Counter
+	endrem
+	Method IncrementRenderFrameCount()
+		SetRenderFrameCount(GetRenderFrameCount() + 1)
+	End Method
+	
+	
+		
+	rem
+		bbdoc: Increments the Update Frame Counter
+	endrem
+	Method IncrementUpdateFrameCount()
+		SetUpdateFrameCount(GetUpdateFrameCount() + 1)
+	End Method
+	
+	
+		
+	rem
+		bbdoc: Initialise the TGameEngine instance
+		returns:
+		about: This method is called when the TGameEngine is instantiated
+		<br /> 
+		It creates the core #TGameService Types, starts logging and sets some default values
 	endrem		
 	Method Initialise()
 		LAllServices = New TList					' All Services that have registered
@@ -461,8 +569,8 @@ Type TGameEngine
 		LDebugUpdateServices:TList = New TList	' Services that need to be updated each logic step	if Debug enabled
 		LStartServices:TList = New TList			' Services that need to be started when the engine is first run
 		
-		updateFrameCount = 0
-		renderFrameCount = 0
+		SetUpdateFrameCount(0)
+		SetRenderFrameCount(0)
 			
 		' Do we want to turn on debug mode?
 		' From the command line
@@ -470,20 +578,20 @@ Type TGameEngine
 			If i.ToLower() = "-debug" Then rrEnableDebug()
 		Next
 						
-		gameDirectory_:String = ExtractDir(AppArgs[0])
+		SetGameDirectory(ExtractDir(AppArgs[0]))
 		
-		gameExecutable_:String = StripDir(AppArgs[0])
+		SetGameExecutable(StripDir(AppArgs[0]))
 		
-		gameName_ = StripAll(AppArgs[0])
+		SetGameName(StripAll(AppArgs[0]))
 		
 		'Set the AppTitle.  This can be overridden but is a good default
-		AppTitle = gameName_ + " :: Powered by the RetroRemakes Framework"
+		AppTitle = GetGameName() + " :: Powered by the RetroRemakes Framework"
 		
-		gameDataDirectory_ = FindDataDirectory()		
+		SetGameDataDirectory(FindDataDirectory())
 		
 		CreateLog()	' start logfile
 		
-		TGameSettings.GetInstance().SetIniFilePath(gameDataDirectory_ + gameName_ + ".ini")
+		TGameSettings.GetInstance().SetIniFilePath(GetGameDataDirectory() + GetGameName() + ".ini")
 		TGameSettings.GetInstance().Load()
 
 		' See if debug mode has been enabled in the INI file.
@@ -492,9 +600,9 @@ Type TGameEngine
 			rrEnableDebug()
 		EndIf
 		
-		LogInfo("Game directory: " + gameDirectory_)
-		LogInfo("Executable: " + gameExecutable_)
-		LogInfo("Game Name: " + gameName_)		
+		LogInfo("Game directory: " + GetGameDirectory())
+		LogInfo("Executable: " + GetGameExecutable())
+		LogInfo("Game Name: " + GetGameName())
 
 		TResourceManager.GetInstance()
 		TFramesPerSecond.GetInstance()
@@ -528,8 +636,7 @@ Type TGameEngine
 	
 	
 	rem
-	bbdoc: Write a LOG_ERROR message to the #TGameEngine log file
-	returns:
+		bbdoc: Write a LOG_ERROR message to the #TGameEngine log file
 	endrem			
 	Method LogError(myEntry:String)
 		logfile.LogError(myEntry)
@@ -538,8 +645,7 @@ Type TGameEngine
 	
 	
 	rem
-	bbdoc: Write a LOG_GLOBAL message to the #TGameEngine log file
-	returns:
+		bbdoc: Write a LOG_GLOBAL message to the #TGameEngine log file
 	endrem			
 	Method LogGlobal(myEntry:String)
 		logfile.LogGlobal(myEntry)
@@ -548,8 +654,7 @@ Type TGameEngine
 	
 	
 	rem
-	bbdoc: Write a LOG_INFO message to the #TGameEngine log file
-	returns:
+		bbdoc: Write a LOG_INFO message to the #TGameEngine log file
 	endrem			
 	Method LogInfo(myEntry:String)
 		logfile.LogInfo(myEntry)
@@ -558,8 +663,7 @@ Type TGameEngine
 	
 
 	rem
-	bbdoc: Write a LOG_WARN message to the #TGameEngine log file
-	returns:
+		bbdoc: Write a LOG_WARN message to the #TGameEngine log file
 	endrem			
 	Method LogWarn(myEntry:String)
 		logfile.LogWarn(myEntry)
@@ -567,7 +671,9 @@ Type TGameEngine
 	
 	
 	
-	' 
+	rem
+		bbdoc: The listener method that any messages are delivered to
+	endrem
 	Method MessageListener(message:TMessage)
 		Select message.messageID
 			Case MSG_KEY
@@ -578,8 +684,8 @@ Type TGameEngine
 	
 	
 	rem
-	bbdoc: Create a new instance of #TGameEngine
-	about: Will Throw an exception if you try to create more than one instance
+		bbdoc: Create a new instance of #TGameEngine
+		about: Will Throw an exception if you try to create more than one instance
 	endrem
 	Method New()
 		If instance Throw "Cannot create multiple instances of Singleton Type"
@@ -600,10 +706,9 @@ Type TGameEngine
 	
 	
 	rem
-	bbdoc: Removes a #TGameService instance from the #TGameEngine
-	returns:
-	about: This method is usually called when the #TGameService is shutting down
-	and removes a #TGameService
+		bbdoc: Removes a #TGameService instance from the #TGameEngine
+		about: This method is usually called when the #TGameService is shutting down
+		and removes a #TGameService
 	endrem		
 	Method RemoveService(myService:TGameService)
 		LogInfo("Removing Service ~q" + myService.ToString() + "~q")
@@ -618,14 +723,13 @@ Type TGameEngine
 	
 	
 	rem
-	bbdoc: Calls the @Render method for all necessary #TGameService instances
-	returns:
-	about: This method is called by the main loop and updates all
-	#TGameService instances that are registered
-	with the #TGameService and have a @Render or @DebugRender method.
-	<br><br>
-	The @DebugRender method is only called if debug is enabled by the #SetDebug or
-	if this is a Debug build. 	
+		bbdoc: Calls the @Render method for all necessary #TGameService instances
+		about: This method is called by the main loop and updates all
+		#TGameService instances that are registered
+		with the #TGameService and have a @Render or @DebugRender method.
+		<br /><br />
+		The @DebugRender method is only called if debug is enabled by the #SetDebug or
+		if this is a Debug build. 	
 	endrem		
 	Method Render()
 		rrStartProfilerSample(renderProfile)
@@ -643,29 +747,28 @@ Type TGameEngine
 		If debugEnabled
 			DebugRender()
 		End If
-		renderFrameCount:+1
+		IncrementRenderFrameCount()
 		rrStopProfilerSample(renderProfile)
 	End Method
 		
 	
 	
 	rem
-	bbdoc: Runs the TGameEngine instance
-	returns:
-	about: This method starts the main loop of the TGameEngine instance.
+		bbdoc: Runs the TGameEngine instance
+		about: This method starts the main loop of the TGameEngine instance.
 	endrem		
 	Method Run()
 	
 	?Not Debug
 		Try
 	?
-			engineRunning = True
+			SetEngineRunning(True)
 			StartServices()
 			
 			LogInfo("Engine Running")
 	
 			' Main loop
-			While (engineRunning And Not AppTerminate())
+			While (GetEngineRunning() And Not AppTerminate())
 				rrStartProfilerSample(mainLoopProfile)
 				TGraphicsService.GetInstance().CheckIfActive()
 			
@@ -693,10 +796,9 @@ Type TGameEngine
 	
 	
 	rem
-	bbdoc: Enable or Disable debug mode for the #TGameEngine instance
-	returns:
-	about: @True to enable debug mode,
-	or @False to disable it
+		bbdoc: Enable or Disable debug mode for the #TGameEngine instance
+		about: @True to enable debug mode,
+		or @False to disable it
 	endrem		
 	Method SetDebug(value:Int = True)
 		debugEnabled = value
@@ -707,10 +809,9 @@ Type TGameEngine
 	
 	
 	rem
-	bbdoc: Pause or Unpause the #TGameEngine instance
-	returns:
-	about: @True to %Pause the #TGameEngine instance,
-	or @False to %Unpase it
+		bbdoc: Pause or Unpause the #TGameEngine instance
+		about: @True to %Pause the #TGameEngine instance,
+		or @False to %Unpase it
 	endrem		
 	Method SetPaused(value:Int)
 		enginePaused = value
@@ -726,11 +827,10 @@ Type TGameEngine
 	
 	
 	rem
-	bbdoc: Shutdown the TGameEngine instance
-	returns:
-	about: This method is called when the #TGameEngine has been flagged to @Stop.
-	It calls the @Shutdown method for all registered TGameService instances, closes
-	the log file and then @Ends the program
+		bbdoc: Shutdown the TGameEngine instance
+		about: This method is called when the #TGameEngine has been flagged to @Stop.
+		It calls the @Shutdown method for all registered TGameService instances, closes
+		the log file and then @Ends the program
 	endrem				
 	Method Shutdown()
 		LogGlobal("Engine Cleaning Up")
@@ -748,10 +848,9 @@ Type TGameEngine
 	
 	
 	rem
-	bbdoc: Calls the @Start method for all necessary #TGameService instances.
-	returns:
-	about: This method starts all #TGameService instances that are registered
-	with the #TGameService and have a @Start method.
+		bbdoc: Calls the @Start method for all necessary #TGameService instances.
+		about: This method starts all #TGameService instances that are registered
+		with the #TGameService and have a @Start method.
 	endrem		
 	Method StartServices()
 		For Local service:TGameService = EachIn LStartServices
@@ -763,29 +862,27 @@ Type TGameEngine
 	
 	
 	rem
-	bbdoc: Flags the running TGameEngine instance to @Stop
-	returns:
-	about: This method stops the main loop of the TGameEngine instance.
+		bbdoc: Flags the running TGameEngine instance to @Stop
+		about: This method stops the main loop of the TGameEngine instance.
 	endrem	
 	Method Stop()
-		engineRunning = False
+		SetEngineRunning(False)
 	End Method
 
 	
 	
 	rem
-	bbdoc: Calls the @Update method for all necessary #TGameService instances
-	returns:
-	about: This method is called by the main loop and updates all
-	#TGameService instances that are registered
-	with the #TGameService and have a @Update or @DebugUpdate method.
-	<br><br>
-	The @DebugUpdate method is only called if debug is enabled by the #SetDebug or
-	if this is a Debug build. 
-	<br><br>
-	The #Update loop uses the #TFixedTimestep #TGameService to ensure that the
-	#Update loop is run at the same rate regardless of the speed of the machine
-	the engine is running on.
+		bbdoc: Calls the @Update method for all necessary #TGameService instances
+		about: This method is called by the main loop and updates all
+		#TGameService instances that are registered
+		with the #TGameService and have a @Update or @DebugUpdate method.
+		<br /><br />
+		The @DebugUpdate method is only called if debug is enabled by the #SetDebug or
+		if this is a Debug build. 
+		<br /><br />
+		The #Update loop uses the #TFixedTimestep #TGameService to ensure that the
+		#Update loop is run at the same rate regardless of the speed of the machine
+		the engine is running on.
 	endrem		
 	Method Update()
 		
@@ -808,7 +905,7 @@ Type TGameEngine
 			If debugEnabled
 				DebugUpdate()
 			End If
-			updateFrameCount:+1
+			IncrementUpdateFrameCount()
 			rrStopProfilerSample(updateProfile)
 			
 		Wend

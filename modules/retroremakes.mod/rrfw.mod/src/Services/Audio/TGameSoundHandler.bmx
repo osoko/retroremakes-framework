@@ -97,7 +97,7 @@ Type TGameSoundHandler Extends TGameService
 	bbdoc: Initialises the instance of #TGameSoundHandler.  This method is called automatically on instantiation
 	endrem
 	Method Initialise()
-		name = "Game Sound Handler"
+		SetName("Game Sound Handler")
 		Super.Initialise()
 	End Method
 

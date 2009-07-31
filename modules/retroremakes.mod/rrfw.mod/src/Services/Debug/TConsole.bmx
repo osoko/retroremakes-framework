@@ -52,7 +52,7 @@ Type TConsole Extends TGameService
 
 	Method Initialise()
 		' Load ini file stuff here
-		Self.name = "Console"
+		SetName("Console")
 		
 		'Add some default colours
 		fgColour.r = 255

@@ -34,7 +34,7 @@ Type TProjectionMatrix Extends TGameService
 	EndFunction
 
 	Method Initialise()
-		name = "Projection Matrix"
+		SetName("Projection Matrix")
 		Super.Initialise()
 	End Method
 	

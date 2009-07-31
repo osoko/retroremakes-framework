@@ -28,7 +28,7 @@ Type TGameSettings Extends TGameService
 '#End Region 
 
 	Method Initialise()
-		Self.name = "Game Settings"
+		SetName("Game Settings")
 		Super.Initialise()  'Call TGameService initialisation routines
 	End Method
 

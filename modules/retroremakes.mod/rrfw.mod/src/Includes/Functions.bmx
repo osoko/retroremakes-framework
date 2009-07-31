@@ -27,7 +27,7 @@ End Function
 
 'console command stuff
 Function cmdQuit(parms:String[])
-	TGameEngine.GetInstance().engineRunning = False
+	TGameEngine.GetInstance().SetEngineRunning(False)
 End Function
 
 
@@ -117,8 +117,8 @@ Rem
 bbdoc: Find the directory being used to store data written by the game
 returns: directory path
 endrem
-Function rrGetDataDirectory:String()
-	Return TGameEngine.GetInstance().GetDataDirectory()
+Function rrGetGameDataDirectory:String()
+	Return TGameEngine.GetInstance().GetGameDataDirectory()
 End Function
 
 
@@ -128,7 +128,7 @@ bbdoc: Determine how many frames have been rendered
 returns: The amount of frames rendered since the #TGameEngine was started
 endrem
 Function rrGetRenderFrameCount:Int()
-	Return TGameEngine.GetInstance().renderFrameCount
+	Return TGameEngine.GetInstance().GetRenderFrameCount()
 End Function
 
 
@@ -138,7 +138,7 @@ bbdoc: Determine how many update loops have been run
 returns: The amount of times the update loop has been run since the #TGameEngine was started
 endrem
 Function rrGetUpdateFrameCount:Int()
-	Return TGameEngine.GetInstance().updateFrameCount
+	Return TGameEngine.GetInstance().GetUpdateFrameCount()
 End Function
 
 

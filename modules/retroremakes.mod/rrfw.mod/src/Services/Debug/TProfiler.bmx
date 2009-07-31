@@ -47,7 +47,7 @@ Type TProfiler Extends TGameService
 
 
 	Method Initialise()
-		name = "Profiler"
+		SetName("Profiler")
 		updatePriority = 1000
 		renderPriority = 1000
 		

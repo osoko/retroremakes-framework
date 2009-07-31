@@ -29,7 +29,7 @@ Type TPhysicsManager Extends TGameService
 '#End Region 
 
 	Method Initialise()
-		Self.name = "Chipmunk Physics"
+		SetName("Chipmunk Physics")
 		InitChipmunk()
 		Super.Initialise()  'Call TGameService initialisation routines
 	End Method

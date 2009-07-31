@@ -24,7 +24,7 @@ Type TColourOscillator Extends TGameService
 	EndFunction
 	
 	Method Initialise()
-		name = "Colour Oscillator"
+		SetName("Colour Oscillator")
 		Super.Initialise()
 	End Method
 

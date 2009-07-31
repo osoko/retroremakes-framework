@@ -28,7 +28,7 @@ Type TScoreService Extends TGameService
 '#End Region 
 
 	Method Initialise()
-		Self.name = "Score Service"
+		SetName("Score Service")
 	'	Local dataDir:String = TGameEngine.GetInstance().GetDataDirectory()
 		'highScoreTable_ = THighScoreTable.Create(dataDir + "hiscore.dat")
 		Super.Initialise()  'Call TGameService initialisation routines
@@ -42,7 +42,7 @@ Type TScoreService Extends TGameService
 	End Method
 	
 	Method CreateHighScoreTable(fileName:String = "hiscore.dat", nEntries:Int = 10)
-		Local dataDir:String = TGameEngine.GetInstance().GetDataDirectory()
+		Local dataDir:String = TGameEngine.GetInstance().GetGameDataDirectory()
 		highScoreTable_ = THighScoreTable.Create(dataDir + fileName, nEntries)
 	End Method
 	

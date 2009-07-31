@@ -43,7 +43,7 @@ Type TMessageService Extends TGameService
 '#End Region 
 
 	Method Initialise()
-		Self.name = "Message Service"
+		SetName("Message Service")
 		Super.Initialise()  'Call TGameService initialisation routines
 	End Method
 

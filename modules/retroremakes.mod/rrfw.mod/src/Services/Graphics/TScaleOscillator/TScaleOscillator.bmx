@@ -23,7 +23,7 @@ Type TScaleOscillator Extends TGameService
 	EndFunction
 	
 	Method Initialise()
-		name = "Scale Oscillator"
+		SetName("Scale Oscillator")
 		Super.Initialise()
 	End Method
 

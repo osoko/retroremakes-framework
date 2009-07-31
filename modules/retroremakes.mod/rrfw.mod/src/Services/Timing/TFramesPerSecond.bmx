@@ -41,7 +41,7 @@ Type TFramesPerSecond Extends TGameService
 	EndFunction
 	
 	Method Initialise()
-		name = "FPS Counter"
+		SetName("FPS Counter")
 		fpsTimer = CreateTimer(1)
 		AddHook(FlipHook, TFramesPerSecond.Hook, Null, 10000)
 		Reset()

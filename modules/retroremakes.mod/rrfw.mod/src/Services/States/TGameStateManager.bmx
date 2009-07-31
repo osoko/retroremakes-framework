@@ -69,7 +69,7 @@ Type TGameStateManager Extends TGameService
 	
 			
 	Method Initialise()
-		Self.name = "State Manager"
+		SetName("State Manager")
 		gameStates = New TList
 		Super.Initialise()  'Call TGameService initialisation routines
 	End Method
