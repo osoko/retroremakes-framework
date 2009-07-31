@@ -180,7 +180,7 @@ Function rrResetFPS()
 End Function
 
 Function rrGetFPS:String()
-	Return TFramesPerSecond.GetInstance().GetFPS()
+	Return TFramesPerSecond.fps
 End Function
 
 Function rrGetFPSTotals:String()

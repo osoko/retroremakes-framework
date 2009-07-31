@@ -123,6 +123,8 @@ Type TGraphicsService Extends TGameService
 		
 		EnablePolledInput()
 		TRenderState.Pop()
+		
+		TFramesPerSecond.GetInstance().Reset()
 	End Method
 
 	Method SetEngineGraphics(	newWidth:Int, newHeight:Int, newDepth:Int, newRefresh:Int,  ..

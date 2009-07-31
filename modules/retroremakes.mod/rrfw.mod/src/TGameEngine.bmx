@@ -6,7 +6,7 @@ Type TGameEngine
 	rem
 		bbdoc: The #TGameEngine instance
 		about: #TGameEngine is a @{Singleton Type} and when it is instantiated this @Global holds
-		a pointer to the instance
+		a reference to the instance
 	endrem	
 	Global instance:TGameEngine
 

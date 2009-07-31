@@ -213,6 +213,7 @@ Type TGameService Abstract
 	endrem	
 	Field updateProfiler:TProfilerSample	
 
+	
 	rem
 		bbdoc: Add the #TGameService instance to the #TGameEngine.
 		returns:
