@@ -10,3 +10,4 @@ syntax: glob
 *.o
 *.s
 *.BLIdeUS.layout
+commands.html

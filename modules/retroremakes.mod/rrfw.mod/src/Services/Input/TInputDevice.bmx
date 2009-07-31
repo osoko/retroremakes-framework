@@ -2,7 +2,7 @@
 Rem
 	bbdoc:Undocumented type
 End Rem
-Type TInputDevice
+Type TInputDevice Abstract
 
 	Field name:String = "Unidentified Input Device"
 

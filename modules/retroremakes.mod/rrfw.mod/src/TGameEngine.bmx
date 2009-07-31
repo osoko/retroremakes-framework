@@ -1,16 +1,12 @@
 Rem
-	bbdoc: #TGameEngine
-	about: The core of the RetroRemakes Framework.
+	bbdoc: The core of the RetroRemakes Framework.
 EndRem
 Type TGameEngine
 
-	' Default value used if ini file setting is not defined.
-	'Const DEFAULT_DEBUG_ENABLED:String = False
-
 	rem
-	bbdoc: The #TGameEngine instance
-	about: #TGameEngine is a @{Singleton Type} and when it is instantiated this @Global holds
-	a pointer to the instance
+		bbdoc: The #TGameEngine instance
+		about: #TGameEngine is a @{Singleton Type} and when it is instantiated this @Global holds
+		a pointer to the instance
 	endrem	
 	Global instance:TGameEngine
 
@@ -19,8 +15,8 @@ Type TGameEngine
 	Global exeDirectoryForData:Int = False
 
 	rem
-	bbdoc: @TList containing all #TGameService instances that have registered with the #TGameEngine instance
-	about: Every instance of #TGameService that registers with the #TGameEngine instance is added to this @TList
+		bbdoc: @TList containing all #TGameService instances that have registered with the #TGameEngine instance
+		about: Every instance of #TGameService that registers with the #TGameEngine instance is added to this @TList
 	endrem
 	Field LAllServices:TList
 
@@ -164,10 +160,9 @@ Type TGameEngine
 	bbdoc: Adds a #TGameService instance to the TGameEngine
 	returns:
 	about: When a child of #TGameService is instantiated, it registers itself with the
-	#TGameEngine instance using this method.
-	<br>
+	#TGameEngine instance using this method.<br>
 	This method uses Reflection to find out if they have the following methods:
-	<table
+	<table>
 	<tr><th>Method</th><th>Description</th></tr>
 	<tr><td>DebugRender</td><td>Called during the main #TGameEngine #DebugRender loop</td></tr>
 	<tr><td>DebugUpdate</td><td>Called during the main #TGameEngine #DebugUpdate loop</td></tr>
@@ -217,11 +212,11 @@ Type TGameEngine
 		EndIf
 		
 		' Sort the lists by relevant priority
-		SortList(LUpdateServices, True, rrServiceUpdatePrioritySort)
-		SortList(LRenderServices, True, rrServiceRenderPrioritySort)
-		SortList(LDebugUpdateServices, True, rrServiceDebugUpdatePrioritySort)
-		SortList(LDebugRenderServices, True, rrServiceDebugRenderPrioritySort)
-		SortList(LStartServices, True, rrServiceStartPrioritySort)
+		SortList(LUpdateServices, True, TGameService.UpdatePrioritySort)
+		SortList(LRenderServices, True, TGameService.RenderPrioritySort)
+		SortList(LDebugUpdateServices, True, TGameService.DebugUpdatePrioritySort)
+		SortList(LDebugRenderServices, True, TGameService.DebugRenderPrioritySort)
+		SortList(LStartServices, True, TGameService.StartPrioritySort)
 	
 	End Method	
 
@@ -823,153 +818,3 @@ Type TGameEngine
 	End Method
 	
 End Type
-
-
-'console command stuff
-Function cmdQuit(parms:String[])
-	TGameEngine.GetInstance().engineRunning = False
-End Function
-
-
-
-Function cmdServices(parms:String[])
-	Local services:String[] = TGameEngine.GetInstance().GetAllServices()
-	For Local i:String = EachIn services
-		TConsole.GetInstance().AddConsoleText(i)
-	Next
-End Function
-
-
-
-rem
-bbdoc: Determine whether the #TGameEngine instance has debug enabled
-returns: @True if debug is enabled
-about: #rrDebugEnabled will return @True if debug is enabled, or @False if it is not
-endrem
-Function rrDebugEnabled:Int()
-	Return TGameEngine.GetInstance().GetDebug()
-End Function
-
-
-
-rem
-bbdoc: Disable debug mode for the #TGameEngine instance
-returns:
-endrem
-Function rrDisableDebug()
-	TGameEngine.GetInstance().SetDebug(False)
-End Function
-
-
-
-rem
-bbdoc: Enable debug mode for the #TGameEngine instance
-returns:
-endrem
-Function rrEnableDebug()
-	TGameEngine.GetInstance().SetDebug(True)
-End Function
-
-
-
-Rem
-bbdoc: Inititalise the #TGameEngine instance.
-returns:
-endrem
-Function rrEngineInitialise()
-	TGameEngine.GetInstance()
-End Function
-
-
-
-rem
-bbdoc: Determine whether the #TGameEngine instance is paused
-returns: @True if the #TGameEngine instance is paused
-about: #rrEnginePased will return @True if debug is enabled, or @False if it is not
-endrem
-Function rrEnginePaused:Int()
-	Return TGameEngine.GetInstance().GetPaused()
-End Function
-
-
-
-rem
-bbdoc: Run the #TGameEngine instance
-returns:
-endrem
-Function rrEngineRun()
-	TGameEngine.GetInstance().Run()
-End Function
-
-
-
-rem
-bbdoc: Stop the #TGameEngine instance
-returns:
-endrem
-Function rrEngineStop()
-	TGameEngine.GetInstance().Stop()
-End Function
-
-
-
-Rem
-bbdoc: Find the directory being used to store data written by the game
-returns: directory path
-endrem
-Function rrGetDataDirectory:String()
-	Return TGameEngine.GetInstance().GetDataDirectory()
-End Function
-
-
-
-rem
-bbdoc: Determine how many frames have been rendered
-returns: The amount of frames rendered since the #TGameEngine was started
-endrem
-Function rrGetRenderFrameCount:Int()
-	Return TGameEngine.GetInstance().renderFrameCount
-End Function
-
-
-
-rem
-bbdoc: Determine how many update loops have been run
-returns: The amount of times the update loop has been run since the #TGameEngine was started
-endrem
-Function rrGetUpdateFrameCount:Int()
-	Return TGameEngine.GetInstance().updateFrameCount
-End Function
-
-
-
-rem
-bbdoc: Pause the #TGameEngine instance
-returns:
-endrem
-Function rrPauseEngine()
-	TGameEngine.GetInstance().SetPaused(True)
-End Function
-
-
-
-rem
-bbdoc: Unpause the #TGameEngine instance
-returns:
-endrem
-Function rrUnpauseEngine()
-	TGameEngine.GetInstance().SetPaused(False)
-End Function
-
-
-
-Rem
-bbdoc: Specify whether data should be written to the executables directory.
-The default is false, in which case the data will be written to an OS
-specific application data directory.
-returns:
-endrem
-Function rrUseExeDirectoryForData(bool:Int = True)
-	TGameEngine.exeDirectoryForData = bool
-End Function
-

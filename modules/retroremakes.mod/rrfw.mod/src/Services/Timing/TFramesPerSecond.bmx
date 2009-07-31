@@ -121,15 +121,3 @@ Type TFramesPerSecond Extends TGameService
 	End Method
 	
 EndType
-
-Function rrResetFPS()
-	TFramesPerSecond.GetInstance().Reset()
-End Function
-
-Function rrGetFPS:String()
-	Return TFramesPerSecond.GetInstance().GetFPS()
-End Function
-
-Function rrGetFPSTotals:String()
-	Return TFramesPerSecond.GetInstance().GetFPSTotals()
-End Function

@@ -2,7 +2,7 @@
 Rem
 	bbdoc:Undocumented type
 End Rem
-Type TSprite
+Type TSprite Abstract
 
 	Field animationManager_:TSpriteAnimationManager
 	

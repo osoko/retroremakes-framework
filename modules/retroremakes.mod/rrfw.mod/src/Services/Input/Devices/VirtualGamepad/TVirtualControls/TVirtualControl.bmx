@@ -1,5 +1,8 @@
 Rem
-	bbdoc:TVirtualControl
+	bbdoc: TVirtualControl
+	about: A virtual control is a mapping between a logical control belonging
+	to a virtual gamepad and a real input such as keyboard key, joystick axis,
+	etc.
 End Rem
 Type TVirtualControl
 	
@@ -198,7 +201,11 @@ Type TVirtualControl
 	End Method
 	
 	
-		
+	
+	rem
+		bbdoc: Work out which joystick axis has changed and in which direction it moved
+		from the provided message data
+	endrem	
 	Function FindJoystickAxis(data:TJoystickMessageData, axis:Int Var, direction:Int Var)
 		axis = 0
 		direction = 0
@@ -254,6 +261,10 @@ Type TVirtualControl
 
 
 
+	rem
+		bbdoc: Work out which mouse axis has changed and in which direction it moved
+		from the provided message data
+	endrem
 	Function FindMouseAxis(data:TMouseMessageData, axis:Int Var, direction:Int Var)
 		axis = 0
 		direction = 0
@@ -310,10 +321,10 @@ Type TVirtualControl
 	
 	
 	rem
-	bbdoc: Get the number of times this control has been pressed
-	about: The value returned is the amount of times the control has been
-	pressed since the last time this method was called.  Calling this method
-	also resets the hit counter to 0
+		bbdoc: Get the number of times this control has been pressed
+		about: The value returned is the amount of times the control has been
+		pressed since the last time this method was called.  Calling this method
+		also resets the hit counter to 0
 	endrem
 	Method GetHits:Int()
 		If Not GetControlMap()
@@ -325,6 +336,10 @@ Type TVirtualControl
 	
 	
 	
+	rem
+		bbdoc: Translate a string representation of a joystick axis into the
+		relavant constant
+	endrem
 	Function GetJoystickAxisId:Int(axis:String)
 		Select axis.ToLower()
 			Case "x"
@@ -354,6 +369,10 @@ Type TVirtualControl
 	
 	
 	
+	rem
+		bbdoc: Translate a string representation of a mouse axis into the
+		relavant constant
+	endrem	
 	Function GetMouseAxisId:Int(axis:String)
 		Select axis.ToLower()
 			Case "x"
@@ -369,6 +388,10 @@ Type TVirtualControl
 
 	
 	
+	rem
+		bbdoc: Translate a string representation of a mouse button into the
+		relavant constant
+	endrem	
 	Function GetMouseButtonId:Int(button:String)
 		Select button.ToLower()
 			Case "left"
@@ -384,6 +407,11 @@ Type TVirtualControl
 
 	
 
+	rem
+		bbdoc: Create a control identifier using a padded id value
+		about: This is used to identify a control when gamepad settings are
+		saved to a configuration file
+	endrem
 	Method GetPaddedControlId:String()
 		Local digits:String = String(GetId())
 		While digits.Length < 3
@@ -499,6 +527,9 @@ Type TVirtualControl
 	
 	
 		
+	rem
+		bbdoc: Set the default mapping for this control to the specified joystick axis and direction
+	endrem
 	Method SetDefaultJoystickAxisControl(port:Int, axis:String, direction:Int)
 		Local axisId:Int = GetJoystickAxisId(axis)
 		If axisId And (direction = -1 Or direction = 1)
@@ -513,6 +544,9 @@ Type TVirtualControl
 	
 	
 	
+	rem
+		bbdoc: Set the default mapping for this control to the specified joystick button
+	endrem	
 	Method SetDefaultJoystickButtonControl(port:Int, buttonId:Int)
 		If buttonId < TJoystickManager.GetInstance().GetJoystick(port).CountButtons()
 			SetDefaultControlMap(New TJoystickButtonMapping)
@@ -526,6 +560,9 @@ Type TVirtualControl
 	
 	
 		
+	rem
+		bbdoc: Set the default mapping for this control to the specified joystick hat direction
+	endrem	
 	Method SetDefaultJoystickHatControl(port:Int, hatId:Float)
 		SetDefaultControlMap(New TJoystickHatMapping)
 		TJoystickHatMapping(GetDefaultControlMap()).SetHatId(hatId)
@@ -537,6 +574,9 @@ Type TVirtualControl
 	
 	
 		
+	rem
+		bbdoc: Set the default mapping for this control to the specified key
+	endrem		
 	Method SetDefaultKeyboardControl(keyId:Int)
 		If keyId >= 0 And keyId < 256
 			SetDefaultControlMap(New TKeyboardMapping)
@@ -549,6 +589,9 @@ Type TVirtualControl
 	
 	
 		
+	rem
+		bbdoc: Set the default for this control to the specified mouse axis and direction
+	endrem	
 	Method SetDefaultMouseAxisControl(axis:String, direction:Int)
 		Local axisId:Int = GetMouseAxisId(axis)
 		If axisId And (direction = -1 Or direction = 1)
@@ -562,6 +605,9 @@ Type TVirtualControl
 		
 	
 	
+	rem
+		bbdoc: Set the default mapping for this control to the specified mouse button
+	endrem	
 	Method SetDefaultMouseButtonControl(button:String)
 		Local buttonId:Int = GetMouseButtonId(button)
 		If buttonId
@@ -575,6 +621,9 @@ Type TVirtualControl
 	
 	
 		
+	rem
+		bbdoc: Map this control to the specified joystick axis and direction
+	endrem	
 	Method SetJoystickAxisControl(port:Int, axis:String, direction:Int)
 		Local axisId:Int = GetJoystickAxisId(axis)
 		If axisId And (direction = -1 Or direction = 1)
@@ -586,6 +635,9 @@ Type TVirtualControl
 	
 	
 	
+	rem
+		bbdoc: Map this control to the specified joystick button
+	endrem	
 	Method SetJoystickButtonControl(port:Int, buttonId:Int)
 		If buttonId < TJoystickManager.GetInstance().GetJoystick(port).CountButtons()
 			SetControlMap(New TJoystickButtonMapping)
@@ -595,7 +647,10 @@ Type TVirtualControl
 	End Method
 	
 	
-		
+	
+	rem
+		bbdoc: Map this control to the specified joystick hat direction
+	endrem			
 	Method SetJoystickHatControl(port:Int, hatId:Float)
 		SetControlMap(New TJoystickHatMapping)
 		TJoystickHatMapping(GetControlMap()).SetHatId(hatId)
@@ -604,6 +659,9 @@ Type TVirtualControl
 	
 	
 		
+	rem
+		bbdoc: Map this control to the specified key
+	endrem		
 	Method SetKeyboardControl(keyId:Int)
 		If keyId >= 0 And keyId < 256
 			SetControlMap(New TKeyboardMapping)
@@ -613,6 +671,9 @@ Type TVirtualControl
 	
 	
 		
+	rem
+		bbdoc: Map this control to the specified mouse axis and direction
+	endrem		
 	Method SetMouseAxisControl(axis:String, direction:Int)
 		Local axisId:Int = GetMouseAxisId(axis)
 		If axisId And (direction = -1 Or direction = 1)
@@ -623,6 +684,9 @@ Type TVirtualControl
 
 	
 		
+	rem
+		bbdoc: Map this control to the specified mouse button
+	endrem		
 	Method SetMouseButtonControl(button:String)
 		Local buttonId:Int = GetMouseButtonId(button)
 		If buttonId
