@@ -83,7 +83,7 @@ Type TLoopedFrameAnimation Extends TSpriteAnimation
 	End Method
 
 	Method CalculateFramesPerUpdate()
-		framesPerUpdate = speed / TFixedTimestep.GetInstance().GetFrequency()
+		framesPerUpdate = speed / TFixedTimestep.GetInstance().GetUpdateFrequency()
 		If direction = -1
 			framesPerUpdate = -framesPerUpdate
 		End If

@@ -21,7 +21,7 @@ Type TPointToPointPathAnimation Extends TSpriteAnimation
 	End Method
 	
 	Method SetTransitionTime(time:Float)
-		tStep = (1.0 / time) * (1000 / TFixedTimestep.GetInstance().GetFrequency())
+		tStep = (1.0 / time) * (1000 / TFixedTimestep.GetInstance().GetUpdateFrequency())
 		t = 0.0
 	End Method
 	

@@ -6,8 +6,8 @@
       <FileName>src\Includes\Graphics\Sprites\Animation\AnimationStyles\TAlphaFadeAnimation.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>96</X>
+        <Y>32</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -54,8 +54,8 @@
       <FileName>src\Includes\Graphics\Sprites\Animation\AnimationStyles\TLoopedFrameAnimation.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>66</X>
+        <Y>85</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -78,8 +78,8 @@
       <FileName>src\Includes\Graphics\Sprites\Animation\AnimationStyles\TPointToPointPathAnimation.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>71</X>
+        <Y>23</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -358,8 +358,8 @@
       <FileName>src\Includes\Functions.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>12</X>
-        <Y>183</Y>
+        <X>0</X>
+        <Y>237</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -782,16 +782,16 @@
       <FileName>src\Services\Timing\TFixedTimestep.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>33</X>
-        <Y>68</Y>
+        <X>0</X>
+        <Y>220</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Timing\TFramesPerSecond.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>1</X>
-        <Y>18</Y>
+        <X>0</X>
+        <Y>395</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -814,8 +814,8 @@
       <FileName>rrfw.bmx</FileName>
       <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>18</X>
-        <Y>34</Y>
+        <X>0</X>
+        <Y>228</Y>
       </Caret_Position>
     </Included_File>
     <Compilation_Mode>GUI_Application</Compilation_Mode>

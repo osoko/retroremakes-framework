@@ -186,3 +186,52 @@ End Function
 Function rrGetFPSTotals:String()
 	Return TFramesPerSecond.GetInstance().GetFPSTotals()
 End Function
+
+
+Function rrCalculateFixedTimestep()
+	TFixedTimestep.GetInstance().Calculate()
+End Function
+
+
+
+Function rrCalculateRenderTweening()
+	TFixedTimestep.GetInstance().CalculateTweening()
+End Function
+
+
+
+Function rrGetDeltaTime:Double()
+	Return TFixedTimestep.GetInstance().GetDeltaTime()
+End Function
+
+
+
+Function rrGetUpdateFrequency:Double()
+	Return TFixedTimestep.GetInstance().GetUpdateFrequency()
+End Function
+
+
+
+Function rrResetFixedTimestep()
+	TFixedTimestep.GetInstance().Reset()
+End Function
+
+
+
+Function rrSetUpdateFrequency(freq:Double)
+	rrSetDoubleVariable("LOGIC_UPDATE_FREQUENCY", freq, "Engine")
+	TFixedTimestep.GetInstance().SetUpdateFrequency(freq)
+End Function
+
+
+
+Function rrStartFixedTimestep()
+	TFixedTimestep.GetInstance().Start()
+End Function
+
+
+
+Function rrTimeStepNeeded:Int()
+	Return TFixedTimestep.GetInstance().TimeStepNeeded()
+End Function
+

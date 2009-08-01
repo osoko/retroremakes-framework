@@ -30,7 +30,7 @@ Type TAlphaFadeAnimation Extends TSpriteAnimation
 	
 	Method SetTime(t:Float)
 		time = t
-		SetSpeed(Abs((startAlpha_ - endAlpha_) / time * (1000 / TFixedTimestep.GetInstance().GetFrequency())))
+		SetSpeed(Abs((startAlpha_ - endAlpha_) / time * (1000 / TFixedTimestep.GetInstance().GetUpdateFrequency())))
 	End Method
 	
 	Method SetSpeed(speed:Float)
