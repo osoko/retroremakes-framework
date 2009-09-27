@@ -24,6 +24,14 @@ Type TGameStateManager Extends TGameService
 		about:
 	endrem	
 	Field gameStates:TList
+	
+	
+	rem
+		bbdoc: TMap containg all registered TGameStates indexed by name
+		about:
+	endrem
+	Field gameStatesMap:TMap
+	
 
 	
 	rem
@@ -36,22 +44,33 @@ Type TGameStateManager Extends TGameService
 	Field loopStates:Int = False
 
 	
-	
-	Method AddGameState(state:TGameState)
-		If state.link Then Throw "You cannot add a game state more than once"
-		state.link = gameStates.AddLast(state)
-	End Method
+
+	Field nGameStates:Int = 0
 	
 	
 		
+	Method AddGameState(state:TGameState)
+		If Not state.name
+			state.name = "NamelessState" + nGameStates
+		EndIf
+		If state.link Then Throw "You cannot add a game state more than once"
+		If gameStatesMap.Contains(state.name) Then Throw "You cannot add a game state with the same name more than once"
+		state.link = gameStates.AddLast(state)
+		gameStatesMap.Insert(state.name, state)
+		nGameStates:+1
+		TGameEngine.GetInstance().LogInfo("Game State: ~q" + state.name + "~q added to Game State Manager")
+	End Method
+
+
+
 	Method DeleteGameState(State:TGameState)
 		If Not State.link Then Throw "You cannot delete a game state that hasn't been added"
 		State.Shutdown()
 		gameStates.Remove(State)
 	End Method
-	
-	
-		
+
+
+
 	Function GetInstance:TGameStateManager()
 		If Not instance
 			Return New TGameStateManager
@@ -71,6 +90,7 @@ Type TGameStateManager Extends TGameService
 	Method Initialise()
 		SetName("State Manager")
 		gameStates = New TList
+		gameStatesMap = New TMap
 		Super.Initialise()  'Call TGameService initialisation routines
 	End Method
 	
@@ -123,6 +143,17 @@ Type TGameStateManager Extends TGameService
 		If currentState Then currentState.Leave()
 		currentState = state
 		currentState.Enter()
+	End Method
+	
+	
+	
+	Method SetGameStateByName(stateName:String)
+		Local state:TGameState = TGameState(Self.gameStatesMap.ValueForKey(stateName))
+		If state
+			SetGameState(state)
+		Else
+			Throw "TGameState ~q" + stateName + "~q does not exist"
+		End If
 	End Method
 	
 	

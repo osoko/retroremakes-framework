@@ -11,6 +11,10 @@ Type TGameState
 	Field link:TLink
 
 	
+	
+	Field name:String
+	
+	
 		
 	rem
 		bbdoc: Initialises the Game State

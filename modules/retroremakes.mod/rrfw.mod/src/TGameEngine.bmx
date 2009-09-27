@@ -575,9 +575,18 @@ Type TGameEngine
 		' Do we want to turn on debug mode?
 		' From the command line
 		For Local i:String = EachIn AppArgs
-			If i.ToLower() = "-debug" Then rrEnableDebug()
+			Select i.ToLower()
+				Case "-debug"
+					debugEnabled = True
+				Case "-exedirectoryfordata"
+					exeDirectoryForData = True
+			End Select
 		Next
-						
+		
+		?Debug
+			debugEnabled = True
+		?
+					
 		SetGameDirectory(ExtractDir(AppArgs[0]))
 		
 		SetGameExecutable(StripDir(AppArgs[0]))
@@ -596,9 +605,9 @@ Type TGameEngine
 
 		' See if debug mode has been enabled in the INI file.
 		If rrGetBoolVariable("DEBUG_ENABLED", "false", "Engine")
-			debugEnabled = True
-			rrEnableDebug()
+			SetDebug()
 		EndIf
+		?
 		
 		LogInfo("Game directory: " + GetGameDirectory())
 		LogInfo("Executable: " + GetGameExecutable())

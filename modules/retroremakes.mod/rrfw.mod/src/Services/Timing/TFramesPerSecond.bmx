@@ -185,7 +185,7 @@ Type TFramesPerSecond Extends TGameService
 			</tr>					
 		</table>
 	endrem	
-	Field displayPosition:Int = FPS_POSITION_BOTTOM_RIGHT
+	Field displayPosition:Int = FPS_POSITION_TOP_LEFT
 '#Region displayPosition Get/Set Methods
 
 	Rem
