@@ -73,11 +73,11 @@ Type TInputRecorder Extends TGameService
 
 		'Subscribe to the input channel as this is what we're recording
 		rrSubscribeToChannel(CHANNEL_INPUT, Self)
-		rrLogInfo("Started recording input...")
+		TLogger.getInstance().LogInfo("[" + toString() + "] Started recording")
 	End Method
 	
 	Method StopRecording()
 		rrUnsubscribeFromChannel(CHANNEL_INPUT, Self)
-		rrLogInfo("Finsihed recording input.  Recording Length: " + recordingLength)
+		TLogger.getInstance().LogInfo("[" + toString() + "] Finished recording.  Recording Length: " + recordingLength)
 	End Method
 EndType

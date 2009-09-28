@@ -48,7 +48,7 @@ Type TMessageService Extends TGameService
 	End Method
 
 	Method Shutdown()
-		TGameEngine.GetInstance().LogGlobal(GetMessageStats())
+		TLogger.GetInstance().LogInfo("[" + ToString() + "] " + GetMessageStats())
 		Super.Shutdown()  'Call TGameService shutdown routines
 	End Method
 
@@ -132,7 +132,7 @@ Type TMessageService Extends TGameService
 			End If
 		Next
 		Local channel:TMessageChannel = New TMessageChannel
-		rrLogInfo("Message Service: Registering channel ~q" + name + "~q with ID: " + channelID)
+		TLogger.getInstance().LogInfo("[" + ToString() + "] Registering channel ~q" + name + "~q with ID: " + channelID)
 		channel.id = channelID
 		channel.name = name
 		LChannels.AddLast(channel)
@@ -142,7 +142,7 @@ Type TMessageService Extends TGameService
 	Method DeleteMessageChannel(channelID:Int, name:String)
 		For Local channel:TMessageChannel = EachIn LChannels
 			If channel.id = channelID
-				rrLogInfo("Message Service: Deleting channel ~q" + name + "~q with ID: " + channelID)
+				TLogger.getInstance().LogInfo("[" + ToString() + "] Deleting channel ~q" + name + "~q with ID: " + channelID)
 				ListRemove(LChannels, channel)
 				channel = Null
 				Return
@@ -179,10 +179,10 @@ Type TMessageService Extends TGameService
 
 	Method GetMessageStats:String()
 		Local stats:String
-		stats:+"Message Service Statistics: "
-		stats:+"Unicast(" + messagesSent + "), "
-		stats:+"Broadcast(" + messagesBroadcast + "), "
-		stats:+"Channels(" + channelsRegistered + ")"
+		stats:+"Statistics:  "
+		stats:+"Unicast:" + messagesSent + "  "
+		stats:+"Broadcast:" + messagesBroadcast + "  "
+		stats:+"Channels:" + channelsRegistered
 		Return stats
 	End Method
 EndType

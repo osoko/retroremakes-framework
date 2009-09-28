@@ -245,7 +245,7 @@ Type TGameService Abstract
 	endrem
 	Method Initialise()
 		AddService(Self)
-		TGameEngine.GetInstance().LogInfo("Initialised ~q" + Tostring() + "~q")
+		TLogger.GetInstance().LogInfo("[" + ToString() + "] Initialised")
 	End Method
 
 	
@@ -327,7 +327,7 @@ Type TGameService Abstract
 	endrem		
 	Method Shutdown()
 		RemoveService(Self)
-		TGameEngine.GetInstance().LogInfo("Shutdown: ~q" + ToString() + "~q")
+		TLogger.GetInstance().LogInfo("[" + ToString() + "] Shutdown")
 	End Method
 	
 	

@@ -26,7 +26,7 @@ Type TJoystickExample Extends TGameState
 	Method Initialise()
 		nJoysticks = rrGetJoystickCount()
 		If nJoysticks = 0
-			Notify("ERROR: No joysticks found.  Terminating.", True)
+			Notify("No joysticks found. Terminating program.", True)
 			rrEngineStop()
 		EndIf
 		deadzones = New Float[nJoysticks]

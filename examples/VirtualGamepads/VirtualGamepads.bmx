@@ -141,7 +141,7 @@ Type TMyState Extends TGameState
 			SetColor 255, 255, 255
 			
 			' Get the human readable name of the Control Mapping (will add helpers to speed this up)
-			Local controlMapping:TVirtualControlMapping = gamepad.GetControl(name).GetControlMapping()
+			Local controlMapping:TVirtualControlMapping = gamepad.GetControl(name).GetControlMap()
 			Local mappedControl:String
 			If controlMapping
 				mappedControl = controlMapping.GetName()

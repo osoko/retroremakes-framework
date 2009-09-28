@@ -115,7 +115,7 @@ Type TGameSoundHandler Extends TGameService
 	bbdoc: Shuts down the instance of #TGameSoundHandler.  This method is called automatically by the #TGameEngine instance
 	endrem
 	Method Shutdown()
-		TGameEngine.GetInstance().LogGlobal("AUDIO Channels Used (Peak/Max): " + maxUsed + "/" + maxChannels)
+		TLogger.GetInstance().LogInfo("[" + toString() + "] Channels used (Peak/Max): " + maxUsed + "/" + maxChannels)
 		'TGameEngine.GetInstance().LogGlobal("AUDIO Total Sounds Played: " + soundsPlayed)
 		Super.Shutdown()  'Call TGameService shutdown routines
 	End Method	

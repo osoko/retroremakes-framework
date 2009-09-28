@@ -5,7 +5,7 @@ Type TGameSettings Extends TGameService
 
 	Field iniFile:TINIFile
 	
-	Field iniFilePath_:String
+	Field iniFilePath:String
 		
 '#Region Constructors
 	Method New()
@@ -33,19 +33,19 @@ Type TGameSettings Extends TGameService
 	End Method
 
 	Method SetIniFilePath(path:String)
-		iniFilePath_ = path
+		iniFilePath = path
 	End Method
 	
 	Method Load()
-		TGameEngine.GetInstance().LogInfo("Attempting to load configuration file: " + iniFilePath_)
-		iniFile = TINIFile.Create(iniFilePath_)
+		TLogger.GetInstance().LogInfo("[" + toString() + "] Attempting to load configuration file: " + iniFilePath)
+		iniFile = TINIFile.Create(iniFilePath)
 		
 		iniFile.CreateMissingEntries()
 
 		If Not iniFile.Load()
-			TGameEngine.GetInstance().LogWarn("Unable to load INI file.  Default values will be used")
+			TLogger.GetInstance().LogWarning("["+ toString() + "] Unable to load INI file.  Default values will be used")
 		Else
-			TGameEngine.GetInstance().LogInfo("Configuration File Loaded")
+			TLogger.GetInstance().LogInfo("["+ toString() + "] Configuration file loaded")
 		End If		
 	End Method
 	

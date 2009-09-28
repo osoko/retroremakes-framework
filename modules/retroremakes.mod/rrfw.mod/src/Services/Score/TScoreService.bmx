@@ -4,7 +4,7 @@ Type TScoreService Extends TGameService
 	
 	Field LScores:TList = New TList	' List containing all currently running scores
 	
-	Field highScoreTable_:THighScoreTable
+	Field highScoreTable:THighScoreTable
 	Field paused:Int
 		
 '#Region Constructors
@@ -30,20 +30,20 @@ Type TScoreService Extends TGameService
 	Method Initialise()
 		SetName("Score Service")
 	'	Local dataDir:String = TGameEngine.GetInstance().GetDataDirectory()
-		'highScoreTable_ = THighScoreTable.Create(dataDir + "hiscore.dat")
+		'highScoreTable = THighScoreTable.Create(dataDir + "hiscore.dat")
 		Super.Initialise()  'Call TGameService initialisation routines
 	End Method
 
 	Method Shutdown()
-		If highScoreTable_
-			highScoreTable_.Save()
+		If highScoreTable
+			highScoreTable.Save()
 		EndIf
 		Super.Shutdown()  'Call TGameService shutdown routines
 	End Method
 	
 	Method CreateHighScoreTable(fileName:String = "hiscore.dat", nEntries:Int = 10)
 		Local dataDir:String = TGameEngine.GetInstance().GetGameDataDirectory()
-		highScoreTable_ = THighScoreTable.Create(dataDir + fileName, nEntries)
+		highScoreTable = THighScoreTable.Create(dataDir + fileName, nEntries)
 	End Method
 	
 	Method Update()
@@ -80,9 +80,9 @@ Type TScoreService Extends TGameService
 	End Method
 	
 	Method GetHighScoreTable:THighScoreTable()
-		If Not highScoreTable_
+		If Not highScoreTable
 			CreateHighScoreTable()
 		End If
-		Return highScoreTable_
+		Return highScoreTable
 	End Method
 EndType

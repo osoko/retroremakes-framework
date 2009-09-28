@@ -32,9 +32,9 @@ Type TJoystickManager Extends TInputDevice
 		pollProfiler = rrCreateProfilerSample("Joystick Manager: Poll")
 		nJoysticks = JoyCount()
 		If nJoysticks = 1
-			rrLogGlobal("Input Manager Found " + nJoysticks + " Joystick")
+			TLogger.getInstance().LogInfo("[" + toString() + "] Found " + nJoysticks + " Joystick")
 		Else
-			rrLogGlobal("Input Manager Found " + nJoysticks + " Joysticks")
+			TLogger.getInstance().LogInfo("[" + toString() + "] Found " + nJoysticks + " Joysticks")
 		EndIf
 		ProfileJoysticks()
 	End Method

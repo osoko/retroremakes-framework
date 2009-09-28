@@ -152,6 +152,7 @@ Type TProfiler Extends TGameService
 		Local tps:TProfilerSample = New TProfilerSample
 		tps.name = name_in
 		tps.link = ListAddLast(Lsamples, tps)
+		TLogger.getInstance().LogInfo("[" + toString() + "] Sample created: " + tps.name)
 		Return tps
 	End Method
 
@@ -246,7 +247,7 @@ Type TProfilerSample
 	
 	Method Start()
 		If(running)
-			DebugLog("Profiler: Sample '"+name+"' already started")
+			TLogger.getInstance().LogWarning("[" + toString() + "] Sample already started: " + name)
 			Return
 		End If
 		
@@ -264,7 +265,7 @@ Type TProfilerSample
 		
 	Method Stop()
 		If(Not running)
-			DebugLog("Profiler: Sample '"+name+"' is not started")
+			TLogger.getInstance().LogWarning("[" + toString() + "] Sample has not been started: " + name)
 			Return
 		End If
 		

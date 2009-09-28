@@ -68,13 +68,13 @@ Type TProjectionMatrix Extends TGameService
 	Method Enable()
 		enabled = True
 		rrSetBoolVariable("GFX_PROJECTION_ENABLED", "true", "Engine")
-		TGameEngine.GetInstance().LogInfo("Projection Matrix Enabled")
+		TLogger.GetInstance().LogInfo("[" + toString() + "] Projection Matrix enabled")
 	End Method
 	
 	Method Disable()
 		enabled = False
 		rrSetBoolVariable("GFX_PROJECTION_ENABLED", "false", "Engine")
-		TGameEngine.GetInstance().LogInfo("Projection Matrix Disabled")
+		TLogger.GetInstance().LogInfo("[" + toString() + "] Projection Matrix disabled")
 	End Method
 	
 	Method IsEnabled:Int()
@@ -83,7 +83,7 @@ Type TProjectionMatrix Extends TGameService
 	
 	Method Reset()
 		Set()
-		TGameEngine.GetInstance().LogInfo("Projection Matrix Resetting")
+		TLogger.GetInstance().LogInfo("[" + toString() + "] Projection Matrix resetting")
 	End Method
 	
 	Method Set()
@@ -98,7 +98,7 @@ Type TProjectionMatrix Extends TGameService
 				SetOpenGlMatrix()
 		End Select
 
-		TGameEngine.GetInstance().LogInfo("Projection Matrix Set to " + Width + " * " + Height + ", scale: " + scale)
+		TLogger.GetInstance().LogInfo("[" + toString() + "] Projection Matrix set to " + Width + " * " + Height + ", scale: " + scale)
 	End Method
 
 	Method SetDirectXMatrix(directXVersion:Int)

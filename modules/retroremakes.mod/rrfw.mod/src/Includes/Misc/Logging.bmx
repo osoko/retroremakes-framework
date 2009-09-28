@@ -1,28 +1,69 @@
+Rem
+bbdoc:Logs an Alert level message
+EndRem
+Function rrLogAlert(message:String)
+	TLogger.getInstance().LogAlert(message)
+End Function
 
-rem
-bbdoc: Help function to log Info messages to the engine logfile
-endrem
-Function rrLogInfo(message:String)
-	TGameEngine.GetInstance().LogInfo(message)
-EndFunction
 
-rem
-bbdoc: Help function to log Warn messages to the engine logfile
-endrem
-Function rrLogWarn(message:String)
-	TGameEngine.GetInstance().LogWarn(message)
-EndFunction
 
-rem
-bbdoc: Help function to log Error messages to the engine logfile
-endrem
+Rem
+bbdoc:Logs a Critical level message
+EndRem
+Function rrLogCritical(message:String)
+	TLogger.getInstance().LogCritical(message)
+End Function
+
+
+
+Rem
+bbdoc:Logs a Debug level message
+EndRem
+Function rrLogDebug(message:String)
+	TLogger.getInstance().LogDebug(message)
+End Function
+
+
+
+Rem
+bbdoc:Logs an Emergency level message
+EndRem
+Function rrLogEmergency(message:String)
+	TLogger.getInstance().LogEmergency(message)
+End Function
+
+
+
+Rem
+bbdoc:Logs an Error level message
+EndRem
 Function rrLogError(message:String)
-	TGameEngine.GetInstance().LogError(message)
-EndFunction
+	TLogger.getInstance().LogError(message)
+End Function
 
-rem
-bbdoc: Help function to log Global messages to the engine logfile
-endrem
-Function rrLogGlobal(message:String)
-	TGameEngine.GetInstance().LogGlobal(message)
-EndFunction
+
+
+Rem
+bbdoc:Logs an Info level message
+EndRem
+Function rrLogInfo(message:String)
+	TLogger.getInstance().LogInfo(message)
+End Function
+
+
+
+Rem
+bbdoc:Logs a Notice level message
+EndRem
+Function rrLogNotice(message:String)
+	TLogger.getInstance().LogNotice(message)
+End Function
+
+
+
+Rem
+bbdoc:Logs a Warning level message
+EndRem
+Function rrLogWarning(message:String)
+	TLogger.getInstance().LogWarning(message)
+End Function

@@ -58,7 +58,12 @@ Type TGameState
 	Method Shutdown()
 	End Method
 
-
+	
+	
+	Method ToString:String()
+		Return name
+	End Method
+	
 	
 	
 	rem

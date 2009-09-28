@@ -6,6 +6,12 @@ Type TInputDevice Abstract
 
 	Field name:String = "Unidentified Input Device"
 
+	Method ToString:String()
+		Return name
+	End Method
+	
+	
+	
 	Method Update()
 	End Method
 	

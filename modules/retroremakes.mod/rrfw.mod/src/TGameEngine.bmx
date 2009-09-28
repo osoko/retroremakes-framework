@@ -125,14 +125,24 @@ Type TGameEngine
 	Field enginePaused:Int
 
 	rem
-		bbdoc: This is the log file used by the Engine
+		bbdoc: This is the logger used by the Engine
 	endrem	
-	Field logfile:TLogFile
+	Field logger:TLogger
+	
+	rem
+		bbdoc: This is the log file writer used by the engin
+	endrem
+	Field logFile:TFileLogWriter
 	
 	rem
 		bbdoc: @true if debug is enabled
 	endrem	
-	Field debugEnabled:Int	
+	Field debugEnabled:Int
+	
+	rem
+		bbdoc: The debug level to use for the engines log file
+	endrem
+	Field debugLevel:Int
 
 	' Some profilers for core engine routines, only really required in debug mode
 	rem
@@ -264,14 +274,14 @@ Type TGameEngine
 		</table>
 	endrem
 	Method AddService(myService:TGameService)
-		LogInfo("Adding Service ~q" + myService.ToString() + "~q")
+		logger.LogInfo("[" + toString() + "] Adding service: " + myService.ToString())
 		ListAddLast(LAllServices, myService)
 
 		' use reflection to find out if this service has render, update or flip methods
 		Local myTTypeId:TTypeId = TTypeId.ForObject(Object(myService))
 		If myTTypeId.FindMethod("Update")
 		
-			LogInfo("Registered Service ~q" + myService.ToString() + "~q with the Update Manager, priority: " + myService.GetUpdatePriority())
+			logger.LogInfo("[" + toString() + "] Registered service ~q" + myService.ToString() + "~q with the Update manager, priority: " + myService.GetUpdatePriority())
 			ListAddLast(LUpdateServices, myService)
 			
 			' Create an update method profiler which will be used if debugging is enabled
@@ -279,13 +289,13 @@ Type TGameEngine
 		EndIf
 		
 		If myTTypeId.FindMethod("Render")
-			LogInfo("Registered Service ~q" + myService.ToString() + "~q with the Render Manager, priority: " + myService.GetRenderPriority())
+			logger.LogInfo("[" + toString() + "] Registered service ~q" + myService.ToString() + "~q with the Render manager, priority: " + myService.GetRenderPriority())
 			ListAddLast(LRenderServices, myService)
 			TGameService(myService).renderProfiler = rrCreateProfilerSample(myService.ToString() + ": Render")
 		EndIf
 		
 		If myTTypeId.FindMethod("DebugUpdate")
-			LogInfo("Registered Service ~q" + myService.ToString() + "~q with the DebugUpdate Manager, priority: " + myService.GetDebugUpdatePriority())
+			logger.LogInfo("[" + toString() + "] Registered service ~q" + myService.ToString() + "~q with the DebugUpdate Manager, priority: " + myService.GetDebugUpdatePriority())
 			ListAddLast(LDebugUpdateServices, myService)
 			
 			' Create an update method profiler which will be used if debugging is enabled
@@ -293,13 +303,13 @@ Type TGameEngine
 		EndIf
 		
 		If myTTypeId.FindMethod("DebugRender")
-			LogInfo("Registered Service ~q" + myService.ToString() + "~q with the DebugRender Manager, priority: " + myService.GetDebugRenderPriority())
+			logger.LogInfo("[" + toString() + "] Registered service ~q" + myService.ToString() + "~q with the DebugRender manager, priority: " + myService.GetDebugRenderPriority())
 			ListAddLast(LDebugRenderServices, myService)
 			TGameService(myService).debugRenderProfiler = rrCreateProfilerSample(myService.ToString() + ": DebugRender")
 		EndIf
 		
 		If myTTypeId.FindMethod("Start")
-			LogInfo("Registered Service ~q" + myService.ToString() + "~q with the Start Manager, priority: " + myService.GetStartPriority())
+			logger.LogInfo("[" + toString() + "] Registered service ~q" + myService.ToString() + "~q with the Start manager, priority: " + myService.GetStartPriority())
 			ListAddLast(LStartServices, myService)
 		EndIf
 		
@@ -318,7 +328,7 @@ Type TGameEngine
 		bbdoc: Close the logfile used by the #TGameEngine instance
 	endrem	
 	Method CloseLog()
-		logfile.Close()
+		logger.Close()
 	End Method
 		
 	
@@ -327,15 +337,18 @@ Type TGameEngine
 		bbdoc: Create a TLogFile to be used by the #TGameEngine instance
 	endrem		
 	Method CreateLog()
-		Local logName:String = GetGameDataDirectory() + "/" + GetGameName() + ".log"
-		Local logDescription:String = GetGameName() + " Log File"
-		logfile = TLogFile.Create(logName, logDescription, LOG_ERROR)	' Logfile only shows errors by default
- 		logfile.LogGlobal("Powered by the " + My.Application.Name + " v" + My.Application.VersionString + " (" + My.Application.Platform + "/" + My.Application.Architecture + ")")
-		logfile.LogGlobal("Project Home Page: http://code.google.com/p/retroremakes-framework/")
-		If debugEnabled
-			logfile.WriteEntry("Debug enabled", LOG_GLOBAL)
-			logfile.SetLevel(LOG_INFO)
-		EndIf
+		logger = TLogger.getInstance()
+		
+		logFile = New TFileLogWriter
+		logFile.setFilename(GetGameDataDirectory() + "/" + GetGameName() + ".log")
+		logFile.setLevel(LOGGER_INFO)
+		
+		logger.addWriter(logFile)
+		
+ 		logger.LogInfo("Powered by the " + My.Application.Name + " v" + My.Application.VersionString + " (" + My.Application.Platform + "/" + My.Application.Architecture + ")")
+		logger.LogInfo("Project Home Page: http://code.google.com/p/retroremakes-framework/")
+
+		logfile.SetLevel(debugLevel)
 	End Method
 		
 	
@@ -586,7 +599,13 @@ Type TGameEngine
 		?Debug
 			debugEnabled = True
 		?
-					
+		
+		If debugEnabled
+			debugLevel = LOGGER_DEBUG
+		Else
+			debugLevel = LOGGER_ERROR
+		End If
+		
 		SetGameDirectory(ExtractDir(AppArgs[0]))
 		
 		SetGameExecutable(StripDir(AppArgs[0]))
@@ -605,13 +624,13 @@ Type TGameEngine
 
 		' See if debug mode has been enabled in the INI file.
 		If rrGetBoolVariable("DEBUG_ENABLED", "false", "Engine")
-			SetDebug()
+			SetDebugLevel(LOGGER_DEBUG)
 		EndIf
 		?
 		
-		LogInfo("Game directory: " + GetGameDirectory())
-		LogInfo("Executable: " + GetGameExecutable())
-		LogInfo("Game Name: " + GetGameName())
+		logger.LogInfo("[" + toString() + "] Game directory: " + GetGameDirectory())
+		logger.LogInfo("[" + toString() + "] Executable: " + GetGameExecutable())
+		logger.LogInfo("[" + toString() + "] Game Name: " + GetGameName())
 
 		TResourceManager.GetInstance()
 		TFramesPerSecond.GetInstance()
@@ -639,45 +658,9 @@ Type TGameEngine
 		renderProfile = rrCreateProfilerSample("Engine: Render")
 		debugUpdateProfile = rrCreateProfilerSample("Engine: DebugUpdate")
 		debugRenderProfile = rrCreateProfilerSample("Engine: DebugRender")
-		LogGlobal("Engine Initialised")
+		logger.LogInfo("[" + toString() + "] Initialised")
 	End Method
 
-	
-	
-	rem
-		bbdoc: Write a LOG_ERROR message to the #TGameEngine log file
-	endrem			
-	Method LogError(myEntry:String)
-		logfile.LogError(myEntry)
-	End Method
-
-	
-	
-	rem
-		bbdoc: Write a LOG_GLOBAL message to the #TGameEngine log file
-	endrem			
-	Method LogGlobal(myEntry:String)
-		logfile.LogGlobal(myEntry)
-	End Method
-			
-	
-	
-	rem
-		bbdoc: Write a LOG_INFO message to the #TGameEngine log file
-	endrem			
-	Method LogInfo(myEntry:String)
-		logfile.LogInfo(myEntry)
-	End Method
-
-	
-
-	rem
-		bbdoc: Write a LOG_WARN message to the #TGameEngine log file
-	endrem			
-	Method LogWarn(myEntry:String)
-		logfile.LogWarn(myEntry)
-	End Method	
-	
 	
 	
 	rem
@@ -720,7 +703,7 @@ Type TGameEngine
 		and removes a #TGameService
 	endrem		
 	Method RemoveService(myService:TGameService)
-		LogInfo("Removing Service ~q" + myService.ToString() + "~q")
+		logger.LogInfo("[" + toString() + "] Removing service: " + myService.ToString())
 		ListRemove(LAllServices, myService)
 		ListRemove(LUpdateServices, myService)
 		ListRemove(LRenderServices, myService)
@@ -768,13 +751,11 @@ Type TGameEngine
 	endrem		
 	Method Run()
 	
-	?Not Debug
 		Try
-	?
 			SetEngineRunning(True)
 			StartServices()
 			
-			LogInfo("Engine Running")
+			logger.LogInfo("[" + toString() + "] Engine running")
 	
 			' Main loop
 			While (GetEngineRunning() And Not AppTerminate())
@@ -791,15 +772,14 @@ Type TGameEngine
 				rrStopProfilerSample(mainLoopProfile)
 			Wend
 			Shutdown()
-		
-		?Not Debug
-			Catch obj:Object
-				Local errorText:String = TTypeId.ForObject(obj).Name() + ":" + obj.ToString()
-				LogError(errorText)
-				Notify errorText
-				Shutdown()
-			End Try
-		?
+
+		Catch obj:Object
+			Local errorText:String = "[" + TTypeId.ForObject(obj).Name() + "] " + obj.ToString()
+			logger.LogError(errorText)
+			logger.LogError("[" + toString() + "] A fatal exception has occured, engine will be shutdown")
+			Notify errorText
+			Shutdown()
+		End Try
 	End Method
 			
 	
@@ -809,10 +789,10 @@ Type TGameEngine
 		about: @True to enable debug mode,
 		or @False to disable it
 	endrem		
-	Method SetDebug(value:Int = True)
-		debugEnabled = value
-		logfile.WriteEntry("Debug enabled", LOG_GLOBAL)
-		logfile.SetLevel(LOG_INFO)
+	Method SetDebugLevel(value:Int)
+		debugLevel = value
+		logger.LogInfo("[" + toString() + "] Setting debug level " + debugLevel)
+		logfile.SetLevel(debugLevel)
 	End Method
 
 	
@@ -825,10 +805,10 @@ Type TGameEngine
 	Method SetPaused(value:Int)
 		enginePaused = value
 		If value
-			LogInfo("Game Suspended")
+			logger.LogInfo("[" + toString() + "] Game suspended")
 			rrPauseSound(True)
 		Else
-			LogInfo("Game Resumed")
+			logger.LogInfo("[" + toString() + "] Game resumed")
 			rrPauseSound(False)
 		EndIf	
 	End Method
@@ -842,14 +822,14 @@ Type TGameEngine
 		the log file and then @Ends the program
 	endrem				
 	Method Shutdown()
-		LogGlobal("Engine Cleaning Up")
+		logger.LogInfo("[" + toString() + "] Cleaning up")
 		' TODO: Cleanup here
 		For Local myService:TGameService = EachIn LAllServices
-			LogInfo("Shutting down service ~q" + myService.ToString() + "~q")
+			logger.LogInfo("[" + toString() + "] Shutting down service: " + myService.ToString())
 			myService.Shutdown()
 			myService = Null
 		Next
-		LogGlobal("Engine Shutdown")
+		logger.LogInfo("[" + toString() + "] Shutdown")
 		CloseLog()
 		End
 	End Method
@@ -863,7 +843,7 @@ Type TGameEngine
 	endrem		
 	Method StartServices()
 		For Local service:TGameService = EachIn LStartServices
-			LogInfo("Starting Service ~q" + service.ToString() + "~q")
+			logger.LogInfo("[" + ToString() + "] Starting service: " + service.ToString())
 			service.startMethod.Invoke(service, Null)
 		Next
 	End Method
@@ -878,6 +858,12 @@ Type TGameEngine
 		SetEngineRunning(False)
 	End Method
 
+	
+	
+	Method ToString:String()
+		Return "Engine"
+	End Method
+	
 	
 	
 	rem

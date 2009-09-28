@@ -146,6 +146,8 @@ Type GSMainState Extends TGameState
 					If data.keyHits
 						Save()
 					End If
+				Case KEY_ESCAPE
+					TGameEngine.GetInstance().Stop()
 			End Select
 	EndMethod
 
@@ -156,8 +158,8 @@ Type GSMainState Extends TGameState
 		EndSelect
 	End Method
 			
-	Method SetColours(current:Int)
-		If current = activeOption
+	Method SetColours(Current:Int)
+		If Current = activeOption
 			rrSetOscillatorColours(activeOptionColour)
 		Else
 			SetColor(255, 255, 255)
@@ -196,16 +198,16 @@ Type GSMainState Extends TGameState
 		keyDelay = MilliSecs() + KEY_DELAY_MS
 	End Method
 	
-	Method DecrementInt:Int(current:Int, amount:Int)
-		current:-amount
-		If current < 0 Then current = 0
-		Return current
+	Method DecrementInt:Int(Current:Int, amount:Int)
+		Current:-amount
+		If Current < 0 Then Current = 0
+		Return Current
 	End Method
 	
-	Method DecrementFloat:Float(current:Float, amount:Float)
-		current:-amount
-		If current < 0.0 Then current = 0.0
-		Return current
+	Method DecrementFloat:Float(Current:Float, amount:Float)
+		Current:-amount
+		If Current < 0.0 Then Current = 0.0
+		Return Current
 	End Method	
 	
 	Method IncrementValue(amount:Int)
@@ -239,16 +241,16 @@ Type GSMainState Extends TGameState
 		keyDelay = MilliSecs() + KEY_DELAY_MS
 	End Method
 	
-	Method IncrementInt:Int(current:Int, amount:Int)
-		current:+amount
-		If current > 255 Then current = 255
-		Return current
+	Method IncrementInt:Int(Current:Int, amount:Int)
+		Current:+amount
+		If Current > 255 Then Current = 255
+		Return Current
 	End Method
 	
-	Method IncrementFloat:Float(current:Float, amount:Float)
-		current:+amount
-		If current < 0.0 Then current = 0.0
-		Return current
+	Method IncrementFloat:Float(Current:Float, amount:Float)
+		Current:+amount
+		If Current < 0.0 Then Current = 0.0
+		Return Current
 	End Method
 	
 	Method Save()

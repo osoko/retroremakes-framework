@@ -5,5 +5,4 @@ End Rem
 Type TInputSnapshot
 	Field timestamp:Int
 	Field message:TMessage
-	
 End Type

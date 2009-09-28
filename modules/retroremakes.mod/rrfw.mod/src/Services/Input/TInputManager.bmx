@@ -67,12 +67,12 @@ Type TInputManager Extends TGameService
 	End Method
 	
 	Method RegisterDevice(device:TInputDevice)
-		rrLogInfo("Registering ~q" + device.name + "~q with Input Manager")
+		TLogger.getInstance().LogInfo("[" + toString() + "] Registering device: " + device.name)
 		LInputDevices.AddLast(device)
 	End Method
 	
 	Method UnregisterDevice(device:TInputDevice)
-		rrLogInfo("Unregistering ~q" + device.name + "~q with Input Manager")
+		TLogger.getInstance().LogInfo("[" + toString() + "] Unregistering device: " + device.name)
 		LInputDevices.Remove(device)
 	End Method
 

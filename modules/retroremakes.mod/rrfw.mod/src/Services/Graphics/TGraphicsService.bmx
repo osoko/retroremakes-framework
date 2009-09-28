@@ -80,7 +80,7 @@ Type TGraphicsService Extends TGameService
 		'Kill the existing graphics device if it exists
 		If graphics_
 			TRenderState.Push()
-			TGameEngine.GetInstance().LogInfo("Closing existing graphics device")
+			TLogger.GetInstance().LogInfo("[" + toString() + "] Closing existing graphics device")
 			DisablePolledInput()
 			CloseGraphics(graphics_)
 			graphics_ = Null
@@ -90,29 +90,29 @@ Type TGraphicsService Extends TGameService
 			
 		?win32
 			If Driver.ToUpper() = "DIRECTX7"
-				TGameEngine.GetInstance().LogInfo("Enabling DirectX7 Graphics Driver")
+				TLogger.GetInstance().LogInfo("[" + toString() + "] Enabling DirectX7 graphics driver")
 				SetGraphicsDriver(D3D7Max2DDriver())
 			ElseIf Driver.ToUpper() = "DIRECTX9"
-				TGameEngine.GetInstance().LogInfo("Enabling DirectX9 Graphics Driver")
+				TLogger.GetInstance().LogInfo("[" + toString() + "] Enabling DirectX9 graphics driver")
 				SetGraphicsDriver(D3D9Max2DDriver())
 			ElseIf Driver.ToUpper() = "OPENGL"
 		?
-				TGameEngine.GetInstance().LogInfo("Enabling OpenGL Graphics Driver")
+				TLogger.GetInstance().LogInfo("[" + toString() + "] Enabling OpenGL graphics driver")
 				SetGraphicsDriver(GLMax2DDriver())
 		?Win32
 			EndIf
 		?
 		
 		If windowed
-			TGameEngine.GetInstance().LogInfo("Attempting to Set Windowed Graphics Mode: " + width + "x" + height)
+			TLogger.GetInstance().LogInfo("[" + toString() + "] Attempting to set windowed graphics mode: " + width + "x" + height)
 			graphics_ = CreateGraphics(width, height, 0, 60, graphicsFlags_)
 		Else
-			TGameEngine.GetInstance().LogInfo("Attempting to Set Graphics Mode: " + width + "x" + height + "x" + depth + "@" + hertz + "Hz")
+			TLogger.GetInstance().LogInfo("[" + toString() + "] Attempting to set full-screen graphics mode: " + width + "x" + height + "x" + depth + "@" + hertz + "Hz")
 			graphics_ = CreateGraphics(width, height, depth, hertz, graphicsFlags_)
 		EndIf
 		
 		If Not graphics_
-			Throw "Graphics Mode Unavailable: " + width + "x" + height + "x" + depth + "@" + hertz + "Hz"
+			Throw "Requested graphics mode unavailable: " + width + "x" + height + "x" + depth + "@" + hertz + "Hz"
 		EndIf
 		
 		SetGraphics(graphics_)
@@ -206,7 +206,7 @@ Type TGraphicsService Extends TGameService
 			If Not windowed
 				'When resuming from minimised full-screen display we need to recreate Grahics
 				'and set up the projection matrix again due to DirectX oddness
-				TGameEngine.GetInstance().LogInfo("Resetting Graphics Mode")
+				TLogger.GetInstance().LogInfo("[" + toString() + "] Resetting graphics mode")
 				Set()
 			EndIf
 			'Reset the fixed timestep timer so we don't have any glitches
@@ -224,7 +224,7 @@ Type TGraphicsService Extends TGameService
 		SetGraphicsDriver(GLMax2DDriver())
 		graphicsModes_ = ListFromArray(GraphicsModes())
 		
-		TGameEngine.GetInstance().LogInfo("OpenGL Graphics Modes Found: " + graphicsModes_.Count())
+		TLogger.GetInstance().LogInfo("[" + toString() + "] OpenGL graphics modes found: " + graphicsModes_.Count())
 		'DirectX modes if on Windows
 		?win32
 			SetGraphicsDriver(D3D7Max2DDriver())
@@ -237,7 +237,7 @@ Type TGraphicsService Extends TGameService
 				dxModes.AddLast(mode)
 			Next
 			
-			TGameEngine.GetInstance().LogInfo("DirectX Graphics Modes Found: " + dxModes.Count())
+			TLogger.GetInstance().LogInfo("[" + toString() + "] DirectX graphics modes found: " + dxModes.Count())
 			'Remove DirectX Modes that aren't available under OpenGL
 			
 			For Local findMode:TGraphicsMode = EachIn dxModes
@@ -283,9 +283,9 @@ Type TGraphicsService Extends TGameService
 		
 		' Now sort and deduplicate
 		graphicsModes_.Sort(True, TGraphicsService.GraphicsModeSort)
-		TGameEngine.GetInstance().LogInfo("Total Graphics Modes Found: " + graphicsModes_.Count())
+		TLogger.GetInstance().LogInfo("[" + toString() + "] Total graphics modes found: " + graphicsModes_.Count())
 		graphicsModes_ = DeDuplicateGraphicsModes(graphicsModes_)
-		TGameEngine.GetInstance().LogInfo("Final De-Duplicated Graphics Modes Found: " + graphicsModes_.Count())
+		TLogger.GetInstance().LogInfo("[" + toString() + "] Deduplicated graphics modes found: " + graphicsModes_.Count())
 	End Method
 	
 	Function GraphicsModeSort:Int(o1:Object, o2:Object)

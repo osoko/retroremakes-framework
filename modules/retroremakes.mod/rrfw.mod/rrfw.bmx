@@ -5,7 +5,7 @@ bbdoc: RetroRemakes Framework
 EndRem
 Module retroremakes.rrfw
 
-ModuleInfo "Version: 0.8.0"
+ModuleInfo "Version: 0.9.0"
 ModuleInfo "License: Artistic License 2.0"
 ModuleInfo "Author: Paul Maskelyne (Muttley) and others"
 ModuleInfo "Copyright: (C) 2007-2009 Paul Maskelyne"
@@ -57,7 +57,7 @@ Import koriolis.bufferedstream
 Import koriolis.zipstream
 
 Import muttley.inifilehandler
-Import muttley.logfilehandler
+Import muttley.logger
 
 Import pub.freejoy
 
@@ -71,7 +71,7 @@ Type Z9FTidiMC0vFnfyhMruuOv9Q8wGiAL0I Abstract
     Const MajorVersion:Int = 0
 	
 	'This Const contains the minor version number of the program
-    Const MinorVersion:Int = 8
+    Const MinorVersion:Int = 9
 	
 	'This string contains the name of the program
     Const Name:String = "RetroRemakes Framework"

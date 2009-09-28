@@ -48,7 +48,7 @@ Type TResourceManager Extends TGameService
 		newResource.Load(path)
 		newResource.IncRefCount()
 		resources.Insert(path, newResource)
-		rrLogInfo(ToString() + ": Loaded resource ~q" + path + "~q")
+		TLogger.getInstance().LogInfo("[" + toString() + "] Loaded resource: " + path)
 	End Method
 		
 	
@@ -58,7 +58,7 @@ Type TResourceManager Extends TGameService
 		newResource.Load(path, flags)
 		newResource.IncRefCount()
 		resources.Insert(path, newResource)
-		rrLogInfo(ToString() + ": Loaded resource ~q" + path + "~q")
+		TLogger.getInstance().LogInfo("[" + toString() + "] Loaded resource: " + path)
 	End Method
 	
 	
@@ -68,7 +68,7 @@ Type TResourceManager Extends TGameService
 		newResource.Load(path, cell_width, cell_height, first_cell, cell_count, flags)
 		newResource.IncRefCount()
 		resources.Insert(path, newResource)
-		rrLogInfo(ToString() + ": Loaded resource ~q" + path + "~q")
+		TLogger.getInstance().LogInfo("[" + toString() + "] Loaded resource: " + path)
 	End Method	
 	
 	
@@ -78,7 +78,7 @@ Type TResourceManager Extends TGameService
 		newResource.Load(path, size, style)
 		newResource.IncRefCount()
 		resources.Insert(path + String(size), newResource)
-		rrLogInfo(ToString() + ": Loaded resource ~q" + path + String(size) + "~q")
+		TLogger.getInstance().LogInfo("[" + toString() + "] Loaded resource: " + path)
 	End Method
 
 	
@@ -95,7 +95,7 @@ Type TResourceManager Extends TGameService
 			If autoFreeResources
 				resource.Free()
 				DeleteResource(path)
-				rrLogInfo(ToString() + ": Freeing resource ~q" + path + "~q")
+				TLogger.getInstance().LogInfo("[" + toString() + "] Freeing resource:  " + path)
 			End If
 		End If
 	End Method
@@ -141,28 +141,28 @@ Type TResourceManager Extends TGameService
 	
 	
 	Method GetResourceColourGen:TColourGen(path:String)
-		rrLogInfo(ToString() + ": Retrieving resource ~q" + path + "~q")
+		TLogger.getInstance().LogInfo("[" + toString() + "] Retrieving requested resource: " + path)
 		Return TResourceColourGen(GetResource(path)).GetResource()
 	End Method
 		
 	
 	
 	Method GetResourceImage:TImage(path:String)
-		rrLogInfo(ToString() + ": Retrieving resource ~q" + path + "~q")
+		TLogger.getInstance().LogInfo("[" + toString() + "] Retrieving requested resource: " + path)
 		Return TResourceImage(GetResource(path)).GetResource()
 	End Method
 	
 	
 	
 	Method GetResourceAnimImage:TImage(path:String)
-		rrLogInfo(ToString() + ": Retrieving resource ~q" + path + "~q")
+		TLogger.getInstance().LogInfo("[" + toString() + "] Retrieving requested resource: " + path)
 		Return TResourceAnimImage(GetResource(path)).GetResource()
 	End Method
 	
 	
 	
 	Method GetResourceImageFont:TImageFont(path:String, size:Int)
-		rrLogInfo(ToString() + ": Retrieving resource ~q" + path + String(size) + "~q")
+		TLogger.getInstance().LogInfo("[" + toString() + "] Retrieving requested resource: " + path)
 		Return TResourceImageFont(GetResource(path + String(size))).GetResource()
 	End Method
 	

@@ -41,37 +41,6 @@ End Function
 
 
 
-rem
-bbdoc: Determine whether the #TGameEngine instance has debug enabled
-returns: @True if debug is enabled
-about: #rrDebugEnabled will return @True if debug is enabled, or @False if it is not
-endrem
-Function rrDebugEnabled:Int()
-	Return TGameEngine.GetInstance().GetDebug()
-End Function
-
-
-
-rem
-bbdoc: Disable debug mode for the #TGameEngine instance
-returns:
-endrem
-Function rrDisableDebug()
-	TGameEngine.GetInstance().SetDebug(False)
-End Function
-
-
-
-rem
-bbdoc: Enable debug mode for the #TGameEngine instance
-returns:
-endrem
-Function rrEnableDebug()
-	TGameEngine.GetInstance().SetDebug(True)
-End Function
-
-
-
 Rem
 bbdoc: Inititalise the #TGameEngine instance.
 returns:

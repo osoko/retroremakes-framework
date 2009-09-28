@@ -385,7 +385,7 @@ Type TFramesPerSecond Extends TGameService
 		logfile.
 	endrem		
 	Method Shutdown()
-		TGameEngine.GetInstance().LogGlobal(GetFpsTotals())
+		TLogger.GetInstance().LogInfo("[" + toString() + "]" + GetFpsTotals())
 		Super.Shutdown()
 	End Method
 	

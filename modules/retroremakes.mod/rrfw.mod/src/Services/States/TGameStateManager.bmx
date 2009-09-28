@@ -58,7 +58,7 @@ Type TGameStateManager Extends TGameService
 		state.link = gameStates.AddLast(state)
 		gameStatesMap.Insert(state.name, state)
 		nGameStates:+1
-		TGameEngine.GetInstance().LogInfo("Game State: ~q" + state.name + "~q added to Game State Manager")
+		TLogger.GetInstance().LogInfo("[" + toString() + "] Added stae: " + state.name)
 	End Method
 
 
@@ -152,7 +152,7 @@ Type TGameStateManager Extends TGameService
 		If state
 			SetGameState(state)
 		Else
-			Throw "TGameState ~q" + stateName + "~q does not exist"
+			Throw "Game State ~q" + stateName + "~q does not exist"
 		End If
 	End Method
 	

@@ -180,7 +180,7 @@ Type TFixedTimestep Extends TGameService
 		that class for more details		
 	endrem		
 	Method Initialise()
-		SetName("Fixed Timestep Logic")
+		SetName("Fixed Timestep")
 		Super.Initialise()
 	End Method
 
