@@ -1,6 +1,8 @@
-'This BMX file was edited with BLIde ( http://www.blide.org )
 Rem
-	bbdoc:Undocumented type
+	bbdoc: Sprite animation style for moving from one XY position to another.
+	about: Allows you to set a start and end position for the sprite and a
+	transition time, the animation will then move the sprite at the correct
+	speed to get from A to B in the specified time.
 End Rem
 Type TPointToPointPathAnimation Extends TSpriteAnimation
 

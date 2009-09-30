@@ -1,6 +1,5 @@
-'This BMX file was edited with BLIde ( http://www.blide.org )
 Rem
-	bbdoc:Undocumented type
+	bbdoc: Base class for input devices that can be used by the engine.
 End Rem
 Type TInputDevice Abstract
 

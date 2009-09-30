@@ -1,6 +1,5 @@
-'This BMX file was edited with BLIde ( http://www.blide.org )
 Rem
-	bbdoc:Undocumented type
+	bbdoc: Keyboard input device.
 End Rem
 Type TKeyboard Extends TInputDevice
 

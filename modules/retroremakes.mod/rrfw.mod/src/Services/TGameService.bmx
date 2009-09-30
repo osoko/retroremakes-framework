@@ -1,5 +1,5 @@
 rem
-	bbdoc: #TGameService
+	bbdoc: Base class of services that can be registered with the engine
 	about: #TGameService is the parent type of all services provided by the framework
 	and can be extended easily to provide additional functionality to the framework
 endrem

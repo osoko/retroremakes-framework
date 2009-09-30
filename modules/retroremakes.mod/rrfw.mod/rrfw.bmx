@@ -10,7 +10,8 @@ ModuleInfo "License: Artistic License 2.0"
 ModuleInfo "Author: Paul Maskelyne (Muttley) and others"
 ModuleInfo "Copyright: (C) 2007-2009 Paul Maskelyne"
 ModuleInfo "E-Mail: muttley@muttleyville.org"
-ModuleInfo "Website: http://www.muttleyville.org"
+ModuleInfo "Website: http://code.google.com/p/retroremakes-framework/"
+ModuleInfo "Forum: http://www.muttleyville.org/forum/"
 
 Import bah.chipmunk
 Import bah.libxml
@@ -64,6 +65,8 @@ Import pub.freejoy
 
 
 Private
+
+
 
 Type Z9FTidiMC0vFnfyhMruuOv9Q8wGiAL0I Abstract
 	

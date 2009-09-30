@@ -6,6 +6,9 @@ Const RR_MOUSE_LEFT:Int = 1
 Const RR_MOUSE_RIGHT:Int = 2
 Const RR_MOUSE_MIDDLE:Int = 3
 
+rem
+	bbdoc: Class representing a mouse input device.
+endrem
 Type TMouse Extends TInputDevice
 
 	Global instance_:TMouse

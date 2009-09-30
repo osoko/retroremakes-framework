@@ -12,7 +12,7 @@ Const RR_JOY_HAT:Int = 512
 Const RR_JOY_WHEEL:Int = 1024
 
 Rem
-	bbdoc:Undocumented type
+	bbdoc: Joystick input device.
 End Rem
 Type TJoystick
 

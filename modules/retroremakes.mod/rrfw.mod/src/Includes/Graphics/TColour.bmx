@@ -1,8 +1,8 @@
 'Based on the Pub.Color module by Mikkel Fredborg
 
 rem
-bbdoc: #TColour
-about: Base class extended by the #TColourHSV and #TColourRGB colour classes
+bbdoc: Base class for colour formats.
+about: Base class extended by the #TColourHSV and #TColourRGB colour classes.
 endrem
 Type TColour
 	

@@ -1,6 +1,5 @@
-'This BMX file was edited with BLIde ( http://www.blide.org )
 Rem
-	bbdoc:Undocumented type
+	bbdoc: A mouse button that can be mapped to a #TVirtualControl
 End Rem
 Type TMouseButtonMapping Extends TVirtualControlMapping
 

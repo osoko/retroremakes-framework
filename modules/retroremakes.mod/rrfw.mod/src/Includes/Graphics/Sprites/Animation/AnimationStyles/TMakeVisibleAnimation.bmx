@@ -1,6 +1,6 @@
-'This BMX file was edited with BLIde ( http://www.blide.org )
 Rem
-	bbdoc:Undocumented type
+	bbdoc: Sprite animation style for un-hiding sprites.
+	about: Makes the sprite visible.
 End Rem
 Type TMakeVisibleAnimation Extends TSpriteAnimation
 

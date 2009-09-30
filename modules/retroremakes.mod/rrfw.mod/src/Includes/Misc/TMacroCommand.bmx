@@ -1,6 +1,5 @@
-'This BMX file was edited with BLIde ( http://www.blide.org )
 Rem
-	bbdoc:Undocumented type
+	bbdoc: Class representing #TCommand macros.
 End Rem
 Type TMacroCommand Extends TCommand Final
 

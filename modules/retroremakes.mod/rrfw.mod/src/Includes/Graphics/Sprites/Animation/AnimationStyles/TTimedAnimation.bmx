@@ -1,6 +1,6 @@
-'This BMX file was edited with BLIde ( http://www.blide.org )
 Rem
-	bbdoc:Undocumented type
+	bbdoc: Sprite animation style for timed animations.
+	about: Allows you to show an animation for a user-specified period of time.
 End Rem
 Type TTimedAnimation Extends TSpriteAnimation
 

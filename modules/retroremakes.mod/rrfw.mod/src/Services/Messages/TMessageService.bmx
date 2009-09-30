@@ -9,6 +9,9 @@ Const MSG_MOUSE:Int = 1005 ' Messages sent on a mouse input event
 Const MSG_JOYSTICK:Int = 1006 ' Messages sent on a joystick input event
 Const MSG_VIRTUAL_GAMEPAD:Int = 1007 ' Messages sent on a virtual gamepad input event
 
+rem
+	bbdoc: Service for transmitting messages
+endrem
 Type TMessageService Extends TGameService
 
 	Global instance:TMessageService		' This holds the singleton instance of this Type

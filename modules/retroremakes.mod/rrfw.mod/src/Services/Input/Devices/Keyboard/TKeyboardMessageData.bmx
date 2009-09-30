@@ -1,5 +1,5 @@
 Rem
-	bbdoc: #TKeyboardMessageData
+	bbdoc: Message data containing information about a keys current state.
 	about: The #TKeyboardMessageData object is used by the #TKeyboard input device handler
 	to pass messages about keystate changes via the #TMessageService Service
 End Rem

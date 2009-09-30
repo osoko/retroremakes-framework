@@ -1,7 +1,7 @@
 Rem
-	bbdoc: #TJoystickMessageData
+	bbdoc: Message payload containing information about a joystick devices current state.
 	about: The #TJoystickMessageData object is used by the #TJoystick input device handler
-	to pass messages about the current polled joystick state via the #TMessageService Service
+	to pass messages about the current polled joystick state via the #TMessageService Service.
 End Rem
 Type TJoystickMessageData Extends TMessageData
 	

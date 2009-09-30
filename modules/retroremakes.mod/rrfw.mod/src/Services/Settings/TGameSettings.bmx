@@ -1,4 +1,6 @@
-
+rem
+	bbdoc: Service for accessing saved engine and game settings.
+endrem
 Type TGameSettings Extends TGameService
 
 	Global instance:TGameSettings		' This holds the singleton instance of this Type
@@ -8,16 +10,20 @@ Type TGameSettings Extends TGameService
 	Field iniFilePath:String
 		
 '#Region Constructors
+	rem
+		bbdoc: Constructor
+	endrem
 	Method New()
 		If instance Throw "Cannot create multiple instances of this Singleton Type"
 		instance = Self
 		Self.Initialise()
 	EndMethod
 
-	Function Create:TGameSettings()
-		Return TGameSettings.GetInstance()		
-	End Function
-	
+	rem
+		bbdoc: Get an instance of TGameSettings
+		about: Either returns the existing instance if there is one
+		or returns a new instance
+	endrem	
 	Function GetInstance:TGameSettings()
 		If Not instance
 			Return New TGameSettings	
