@@ -91,7 +91,7 @@ Type TFixedTimestep Extends TGameService
 		animation, etc.
 	endrem 
 	Field tweening:Double
-'#Region tweening Get/Set Methods
+'#Region tweening Get/Set methods
 
 	Rem
 		bbdoc: Get the tweening value in this TFixedTimestep object.
