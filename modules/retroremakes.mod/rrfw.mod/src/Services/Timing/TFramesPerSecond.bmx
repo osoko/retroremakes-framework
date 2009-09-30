@@ -21,16 +21,19 @@ Type TFramesPerSecond Extends TGameService
 		bbdoc: Current FPS
 	endrem
 	Global fps:Int
-	
+
+		
 	rem
 		bbdoc: Average FPS
 	endrem	
 	Global fpsAvg:Int
 	
+	
 	rem
 		bbdoc: Counter used during the calculation of the current FPS
 	endrem	
 	Global fpsCounter:Int
+	
 	
 	rem
 		bbdoc: Flag used to skip first calculation when there is not enough data to
@@ -38,15 +41,18 @@ Type TFramesPerSecond Extends TGameService
 	endrem		
 	Global fpsFirstCalc:Int
 	
+	
 	rem
 		bbdoc: The time the last calculation was performed
 	endrem		
 	Global fpsLastTime:Int = MilliSecs()
 	
+	
 	rem
 		bbdoc: The maximum FPS that has been achieved
 	endrem		
 	Global fpsMax:Int
+	
 	
 	rem
 		bbdoc: The minimum FPS that has been achieved
@@ -55,16 +61,19 @@ Type TFramesPerSecond Extends TGameService
 	endrem		
 	Global fpsMin:Int
 	
+	
 	rem
 		bbdoc: The time we started monitoring the FPS
 		about: Used in the calculations for average FPS
 	endrem	
 	Global fpsStartTime:Int = MilliSecs()
 	
+	
 	rem
 		bbdoc: The total frame count
 	endrem	
 	Global fpsTotalFrames:Int = 0
+	
 	
 	rem
 		bbdoc: The #TFramesPerSecond service instance
@@ -78,42 +87,13 @@ Type TFramesPerSecond Extends TGameService
 		bbdoc: The colour to use for the FPS display font
 	endrem
 	Field displayColour:TColourRGB = New TColourRGB
-'#Region displayColour Get/Set Methods
-
-	Rem
-		bbdoc: Get the displayColour value in this TFramesPerSecond object.
-	End Rem
-	Method GetDisplayColour:TColourRGB()
-		Return Self.displayColour
-	End Method
+ 
 	
-	Rem
-		bbdoc: Set the displayColour value for this TFramesPerSecond object.
-	End Rem
-	Method SetDisplayColour(value:TColourRGB)
-		Self.displayColour = value
-	End Method
-	
-'#End Region 
-	
+	rem
+		bbdoc: The font to use for the FPS display
+	endrem
 	Field displayFont:TImageFont
-'#Region displayFont Get/Set Methods
 
-	Rem
-		bbdoc: Get the displayFont value in this TFramesPerSecond object.
-	End Rem
-	Method GetDisplayFont:TImageFont()
-		Return Self.displayFont
-	End Method
-	
-	Rem
-		bbdoc: Set the displayFont value for this TFramesPerSecond object.
-	End Rem
-	Method SetDisplayFont(value:TImageFont)
-		Self.displayFont = value
-	End Method
-	
-'#End Region 
 	
 	rem
 		bbdoc: The display mode to use for the FPS counts
@@ -141,23 +121,7 @@ Type TFramesPerSecond Extends TGameService
 		</table>
 	endrem
 	Field displayMode:Int = FPS_DISPLAY_NORMAL
-'#Region displayMode Get/Set Methods
 
-	Rem
-		bbdoc: Get the displayMode value in this TFramesPerSecond object.
-	End Rem
-	Method GetDisplayMode:Int()
-		Return Self.displayMode
-	End Method
-	
-	Rem
-		bbdoc: Set the displayMode value for this TFramesPerSecond object.
-	End Rem
-	Method SetDisplayMode(value:Int)
-		Self.displayMode = value
-	End Method
-	
-'#End Region 
 
 	rem
 		bbdoc: Where the FPS display should be positioned
@@ -186,25 +150,8 @@ Type TFramesPerSecond Extends TGameService
 		</table>
 	endrem	
 	Field displayPosition:Int = FPS_POSITION_TOP_LEFT
-'#Region displayPosition Get/Set Methods
 
-	Rem
-		bbdoc: Get the displayPosition value in this TFramesPerSecond object.
-	End Rem
-	Method GetDisplayPosition:Int()
-		Return Self.displayPosition
-	End Method
 	
-	Rem
-		bbdoc: Set the displayPosition value for this TFramesPerSecond object.
-	End Rem
-	Method SetDisplayPosition(value:Int)
-		Self.displayPosition = value
-	End Method
-	
-'#End Region 
-	
-
 	
 	rem
 		bbdoc: This method handles rendering the FPS display to the screen
@@ -265,7 +212,25 @@ Type TFramesPerSecond Extends TGameService
 	End Method
 	
 	
-		
+	
+	Rem
+		bbdoc: Get the displayColour value in this TFramesPerSecond object.
+	End Rem
+	Method GetDisplayColour:TColourRGB()
+		Return Self.displayColour
+	End Method
+	
+	
+	
+	Rem
+		bbdoc: Get the displayFont value in this TFramesPerSecond object.
+	End Rem
+	Method GetDisplayFont:TImageFont()
+		Return Self.displayFont
+	End Method
+	
+	
+				
 	rem
 		bbdoc: Get a string representation of the current FPS to display in normal mode
 	endrem	
@@ -285,6 +250,24 @@ Type TFramesPerSecond Extends TGameService
 	
 	
 	
+	Rem
+		bbdoc: Get the displayMode value in this TFramesPerSecond object.
+	End Rem
+	Method GetDisplayMode:Int()
+		Return Self.displayMode
+	End Method
+	
+	
+	
+	Rem
+		bbdoc: Get the displayPosition value in this TFramesPerSecond object.
+	End Rem
+	Method GetDisplayPosition:Int()
+		Return Self.displayPosition
+	End Method
+	
+	
+			
 	rem
 		bbdoc: Get a string representation of the average, minimum andmaximum FPS.
 	endrem
@@ -306,7 +289,6 @@ Type TFramesPerSecond Extends TGameService
 			Return instance
 		EndIf
 	EndFunction
-
 
 
 
@@ -375,12 +357,47 @@ Type TFramesPerSecond Extends TGameService
 		fpsAvg = 0
 		fpsCounter = 0
 		fpsTotalFrames = 0
-		'fpsStartTime = MilliSecs()
 		fpsFirstCalc = 1
 	End Method
 		
 	
 	
+	Rem
+		bbdoc: Set the displayColour value for this TFramesPerSecond object.
+	End Rem
+	Method SetDisplayColour(value:TColourRGB)
+		Self.displayColour = value
+	End Method
+	
+	
+		
+	Rem
+		bbdoc: Set the displayFont value for this TFramesPerSecond object.
+	End Rem
+	Method SetDisplayFont(value:TImageFont)
+		Self.displayFont = value
+	End Method
+	
+	
+		
+	Rem
+		bbdoc: Set the displayMode value for this TFramesPerSecond object.
+	End Rem
+	Method SetDisplayMode(value:Int)
+		Self.displayMode = value
+	End Method
+	
+	
+		
+	Rem
+		bbdoc: Set the displayPosition value for this TFramesPerSecond object.
+	End Rem
+	Method SetDisplayPosition(value:Int)
+		Self.displayPosition = value
+	End Method
+	
+	
+		
 	rem
 		bbdoc: Shutdown the #TFramesPerSecond service
 		about: This is overriden from #TGameService, see the documentation for

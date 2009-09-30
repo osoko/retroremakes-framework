@@ -1,3 +1,6 @@
+rem
+	bbdoc: Custom exception type
+endrem
 Type TEngineException Extends TBlitzException
 	Field error:String
 	
