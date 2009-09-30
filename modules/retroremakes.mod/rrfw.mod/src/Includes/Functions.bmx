@@ -204,3 +204,10 @@ Function rrTimeStepNeeded:Int()
 	Return TFixedTimestep.GetInstance().TimeStepNeeded()
 End Function
 
+
+rem
+bbdoc: Throw a TEngineException error
+endrem
+Function rrThrow(message:String)
+	Throw (TEngineException.Create(message))
+End Function

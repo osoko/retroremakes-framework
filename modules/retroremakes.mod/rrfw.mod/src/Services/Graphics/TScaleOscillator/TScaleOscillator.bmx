@@ -40,7 +40,7 @@ Type TScaleOscillator Extends TGameService
 	Method GenScaler:Short(sg:TScaleGen, offset:Float)
 		Local x:Int
 		Local y:Int
-		Local frameCount:Float = rrGetUpdateFrameCount()
+		Local frameCount:Float = TGameEngine.GetInstance().GetUpdateFrameCount()
 		
 		x = ( sg.x_hi - sg.x_lo ) Shr 1
 		y = ( sg.y_hi - sg.y_lo ) Shr 1

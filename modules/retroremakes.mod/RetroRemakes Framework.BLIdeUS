@@ -323,6 +323,14 @@
       </Caret_Position>
     </Included_File>
     <Included_File>
+      <FileName>src\Includes\Misc\TEngineException.bmx</FileName>
+      <Document_Active>false</Document_Active>
+      <Caret_Position>
+        <X>46</X>
+        <Y>7</Y>
+      </Caret_Position>
+    </Included_File>
+    <Included_File>
       <FileName>src\Includes\Misc\TMacroCommand.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
@@ -358,8 +366,8 @@
       <FileName>src\Includes\Functions.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>57</X>
-        <Y>17</Y>
+        <X>37</X>
+        <Y>208</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -414,8 +422,8 @@
       <FileName>src\Services\Graphics\TColourOscillator\TColourOscillator.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>30</X>
-        <Y>26</Y>
+        <X>27</X>
+        <Y>48</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -460,7 +468,7 @@
     </Included_File>
     <Included_File>
       <FileName>src\Services\Input\Devices\Joystick\TJoystickManager.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
         <X>10</X>
         <Y>18</Y>
@@ -476,7 +484,7 @@
     </Included_File>
     <Included_File>
       <FileName>src\Services\Input\Devices\Keyboard\TKeyboard.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
         <X>26</X>
         <Y>6</Y>
@@ -620,10 +628,10 @@
     </Included_File>
     <Included_File>
       <FileName>src\Services\Input\TInputManager.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>53</X>
-        <Y>69</Y>
+        <X>36</X>
+        <Y>22</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -764,7 +772,7 @@
     </Included_File>
     <Included_File>
       <FileName>src\Services\States\TGameState.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
         <X>0</X>
         <Y>60</Y>
@@ -772,10 +780,10 @@
     </Included_File>
     <Included_File>
       <FileName>src\Services\States\TGameStateManager.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>11</X>
-        <Y>61</Y>
+        <X>21</X>
+        <Y>56</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -790,32 +798,32 @@
       <FileName>src\Services\Timing\TFramesPerSecond.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>309</Y>
+        <X>17</X>
+        <Y>361</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Services\TGameService.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>27</X>
-        <Y>329</Y>
+        <X>59</X>
+        <Y>8</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\TGameEngine.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>37</X>
-        <Y>706</Y>
+        <X>9</X>
+        <Y>780</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>rrfw.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>43</X>
+        <Y>183</Y>
       </Caret_Position>
     </Included_File>
     <Compilation_Mode>GUI_Application</Compilation_Mode>

@@ -289,7 +289,7 @@ Type TFramesPerSecond Extends TGameService
 		bbdoc: Get a string representation of the average, minimum andmaximum FPS.
 	endrem
 	Method GetFpsTotals:String()
-		Return "FPS (Avg/Min/Max): " + fpsAvg + "/" + fpsMin + "/" + fpsMax
+		Return "Average:" + fpsAvg + "  Minimum:" + fpsMin + "  Maximum:" + fpsMax
 	End Method	
 
 	
@@ -316,6 +316,9 @@ Type TFramesPerSecond Extends TGameService
 	endrem	
 	Function Hook:Object(id:Int, data:Object, context:Object)
 		If id = FlipHook
+			If fpsTotalFrames = 0
+				fpsStartTime = MilliSecs()
+			End If
 			fpsCounter:+1
 			fpsTotalFrames:+1
 			Local time:Int = MilliSecs()
@@ -355,7 +358,7 @@ Type TFramesPerSecond Extends TGameService
 		bbdoc: Constructor
 	endrem
 	Method New()
-		If instance Throw "Cannot create multiple instances of this Singleton Type"
+		If instance Throw(TEngineException.Create("Cannot create multiple instances of this Singleton Type"))
 		instance = Self
 		Self.Initialise()
 	EndMethod
@@ -368,11 +371,11 @@ Type TFramesPerSecond Extends TGameService
 	Method Reset()
 		fps = 0
 		fpsMax = 0
-		fpsMin = 64738
+		fpsMin = 65535
 		fpsAvg = 0
 		fpsCounter = 0
 		fpsTotalFrames = 0
-		fpsStartTime = MilliSecs()
+		'fpsStartTime = MilliSecs()
 		fpsFirstCalc = 1
 	End Method
 		
@@ -385,7 +388,7 @@ Type TFramesPerSecond Extends TGameService
 		logfile.
 	endrem		
 	Method Shutdown()
-		TLogger.GetInstance().LogInfo("[" + toString() + "]" + GetFpsTotals())
+		TLogger.GetInstance().LogInfo("[" + toString() + "] Statistics: " + GetFpsTotals())
 		Super.Shutdown()
 	End Method
 	

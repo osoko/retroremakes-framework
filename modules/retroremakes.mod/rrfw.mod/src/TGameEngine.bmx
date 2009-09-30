@@ -342,9 +342,8 @@ Type TGameEngine
 		logFile = New TFileLogWriter
 		logFile.setFilename(GetGameDataDirectory() + "/" + GetGameName() + ".log")
 		logFile.setLevel(LOGGER_INFO)
-		
 		logger.addWriter(logFile)
-		
+				
  		logger.LogInfo("Powered by the " + My.Application.Name + " v" + My.Application.VersionString + " (" + My.Application.Platform + "/" + My.Application.Architecture + ")")
 		logger.LogInfo("Project Home Page: http://code.google.com/p/retroremakes-framework/")
 
@@ -405,12 +404,12 @@ Type TGameEngine
 				Case 0
 					'directory doesn't exist
 					If Not CreateDir(AppDir + "/" + GetGameName())
-						Throw "Unable to create game data directory: " + AppDir + "/" + GetGameName()
+						rrThrow ("Unable to create game data directory: " + AppDir + "/" + GetGameName())
 					End If
 					dir = AppDir + "/" + GetGameName() + "/"
 				Case 1
 					'file of that name exists
-					Throw "Unable to create game data directory: " + AppDir + "/" + GetGameName()
+					rrThrow ("Unable to create game data directory: " + AppDir + "/" + GetGameName())
 				Case 2
 					'directory already exists, no problem
 					dir = AppDir + "/" + GetGameName() + "/"
@@ -680,7 +679,7 @@ Type TGameEngine
 		about: Will Throw an exception if you try to create more than one instance
 	endrem
 	Method New()
-		If instance Throw "Cannot create multiple instances of Singleton Type"
+		If instance rrThrow ("Cannot create multiple instances of Singleton Type")
 		instance = Self
 		
 		' Automatically enable debug mode if we're running a debug version
@@ -776,8 +775,8 @@ Type TGameEngine
 		Catch obj:Object
 			Local errorText:String = "[" + TTypeId.ForObject(obj).Name() + "] " + obj.ToString()
 			logger.LogError(errorText)
-			logger.LogError("[" + toString() + "] A fatal exception has occured, engine will be shutdown")
-			Notify errorText
+			logger.LogError("[" + toString() + "] A fatal error has occured.")
+			Notify("A fatal error has occured: " + errorText, True)
 			Shutdown()
 		End Try
 	End Method

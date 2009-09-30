@@ -53,12 +53,17 @@ Type TGameStateManager Extends TGameService
 		If Not state.name
 			state.name = "NamelessState" + nGameStates
 		EndIf
+		
 		If state.link Then Throw "You cannot add a game state more than once"
+		
 		If gameStatesMap.Contains(state.name) Then Throw "You cannot add a game state with the same name more than once"
+		
 		state.link = gameStates.AddLast(state)
 		gameStatesMap.Insert(state.name, state)
+		
 		nGameStates:+1
-		TLogger.GetInstance().LogInfo("[" + toString() + "] Added stae: " + state.name)
+		
+		TLogger.GetInstance().LogInfo("[" + toString() + "] Added state: " + state.toString())
 	End Method
 
 
@@ -140,8 +145,12 @@ Type TGameStateManager Extends TGameService
 	
 	
 	Method SetGameState(state:TGameState)
-		If currentState Then currentState.Leave()
+		If currentState
+			TLogger.getInstance().LogInfo("[" + toString() + "] Leaving state: " + currentState.toString())
+			currentState.Leave()
+		EndIf
 		currentState = state
+		TLogger.getInstance().LogInfo("[" + toString() + "] Entering state: " + currentState.toString())
 		currentState.Enter()
 	End Method
 	
@@ -177,6 +186,7 @@ Type TGameStateManager Extends TGameService
 	Method Start()
 		'Run Start Method of all registered TStates
 		For Local state:TGameState = EachIn gameStates
+			TLogger.getInstance().LogInfo("[" + toString() + "] Initialising state: " + state.toString())
 			state.Initialise()
 		Next
 	End Method
@@ -187,6 +197,7 @@ Type TGameStateManager Extends TGameService
 		If Not currentState
 			If gameStates.Count() > 0
 				currentState = TGameState(gameStates.First())
+				TLogger.getInstance().LogInfo("[" + toString() + "] Entering state: " + currentState.toString())
 				currentState.Enter()
 			Else
 				Return

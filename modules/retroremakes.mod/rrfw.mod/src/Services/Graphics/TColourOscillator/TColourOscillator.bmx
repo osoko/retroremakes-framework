@@ -46,7 +46,7 @@ Type TColourOscillator Extends TGameService
 	
 	Method GenColours:TColourRGB(cg:TColourGen, offset:Float = 0.0)
 		Local colour:TColourRGB = New TColourRGB
-		Local frameCount:Float = rrGetUpdateFrameCount()
+		Local frameCount:Float = TGameEngine.GetInstance().GetUpdateFrameCount()
 		
 		colour.r = (cg.r_hi - cg.r_lo) Shr 1
 		colour.g = (cg.g_hi - cg.g_lo) Shr 1

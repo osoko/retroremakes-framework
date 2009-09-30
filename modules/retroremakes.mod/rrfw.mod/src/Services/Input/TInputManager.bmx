@@ -13,7 +13,7 @@ Type TInputManager Extends TGameService
 		
 '#Region Constructors
 	Method New()
-		If instance Throw "Cannot create multiple instances of this Singleton Type"
+		If instance rrThrow "Cannot create multiple instances of this Singleton Type"
 		instance = Self
 		updatePriority = -1000		'Check device first in each update loop
 		Self.Initialise()
@@ -67,12 +67,12 @@ Type TInputManager Extends TGameService
 	End Method
 	
 	Method RegisterDevice(device:TInputDevice)
-		TLogger.getInstance().LogInfo("[" + toString() + "] Registering device: " + device.name)
+		TLogger.getInstance().LogInfo("[" + toString() + "] Registering device handler: " + device.name)
 		LInputDevices.AddLast(device)
 	End Method
 	
 	Method UnregisterDevice(device:TInputDevice)
-		TLogger.getInstance().LogInfo("[" + toString() + "] Unregistering device: " + device.name)
+		TLogger.getInstance().LogInfo("[" + toString() + "] Unregistering device handler: " + device.name)
 		LInputDevices.Remove(device)
 	End Method
 
