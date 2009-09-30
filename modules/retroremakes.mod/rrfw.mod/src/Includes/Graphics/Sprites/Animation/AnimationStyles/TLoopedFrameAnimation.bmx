@@ -1,6 +1,7 @@
-'This BMX file was edited with BLIde ( http://www.blide.org )
 Rem
-	bbdoc:Undocumented type
+	bbdoc: Sprite animation style for looping image frame animations.
+	about: Allows you to loop the animation of frames of an AnimImage
+	at a set speed and direction 1 or more times.
 End Rem
 Type TLoopedFrameAnimation Extends TSpriteAnimation
 	Const DEFAULT_LOOP_COUNT:Int = -1 '-1 = forever

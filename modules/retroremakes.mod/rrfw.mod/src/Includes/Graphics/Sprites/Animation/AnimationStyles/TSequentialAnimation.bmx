@@ -1,6 +1,6 @@
-'This BMX file was edited with BLIde ( http://www.blide.org )
 Rem
-	bbdoc:Undocumented type
+	bbdoc: Sprite animation style for sequencing one or more animation styles.
+	about: Allows you to specify a sequence of animations to play in order.
 End Rem
 Type TSequentialAnimation Extends TSpriteAnimation
 

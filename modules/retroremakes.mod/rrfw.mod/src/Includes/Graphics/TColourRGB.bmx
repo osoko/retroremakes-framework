@@ -1,6 +1,6 @@
 rem
-bbdoc: #TColourRGB
-about:
+bbdoc: Colour class to handle RGB format colours
+about: Extends #TColour
 endrem
 Type TColourRGB Extends TColour
 

@@ -1,6 +1,7 @@
-'This BMX file was edited with BLIde ( http://www.blide.org )
 Rem
-	bbdoc:Undocumented type
+	bbdoc: Sprite animation style for looping animations.
+	about: Allows you to assign multiple animations to a sprite and loop through
+	them 1 or more times.
 End Rem
 Type TLoopedAnimation Extends TSpriteAnimation
 

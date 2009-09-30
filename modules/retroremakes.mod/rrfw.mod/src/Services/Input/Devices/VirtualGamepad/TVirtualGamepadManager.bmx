@@ -1,6 +1,5 @@
-'This BMX file was edited with BLIde ( http://www.blide.org )
 Rem
-	bbdoc:Undocumented type
+	bbdoc: Class for managing one or more virtual gamepads
 End Rem
 Type TVirtualGamepadManager Extends TInputDevice
 

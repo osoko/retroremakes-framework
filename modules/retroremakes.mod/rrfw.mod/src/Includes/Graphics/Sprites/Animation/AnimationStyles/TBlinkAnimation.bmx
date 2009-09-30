@@ -1,6 +1,6 @@
-'This BMX file was edited with BLIde ( http://www.blide.org )
 Rem
-	bbdoc:Undocumented type
+	bbdoc: Sprite animation style for blinking sprites.
+	about: Allows you to blink a sprite on and off at a specified speed.
 End Rem
 Type TBlinkAnimation Extends TSpriteAnimation
 

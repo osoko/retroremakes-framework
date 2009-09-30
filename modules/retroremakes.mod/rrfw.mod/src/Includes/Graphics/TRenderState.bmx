@@ -1,7 +1,7 @@
 'Viewport disabled as it was messing with the projection matrix for some reason
 
 rem
-bbdoc: #TRenderState
+bbdoc: Save and restore various render settings
 about: Simple stack based method of saving and restoring various render settings
 endrem
 Type TRenderState

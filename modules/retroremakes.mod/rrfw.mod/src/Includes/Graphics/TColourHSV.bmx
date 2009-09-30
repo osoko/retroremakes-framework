@@ -1,6 +1,6 @@
 Rem
-bbdoc: #TColourHSV
-about: 
+bbdoc: Colour class to handle HSV format colours
+about: Extends #TColour
 End Rem
 Type TColourHSV Extends TColour
 	

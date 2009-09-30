@@ -1,5 +1,5 @@
 rem
-bbdoc: #TGameSound
+bbdoc: Class representing a sound element.
 endrem
 Type TGameSound
 	Field gsFilename:String

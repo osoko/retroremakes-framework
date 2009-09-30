@@ -1,6 +1,5 @@
-'This BMX file was edited with BLIde ( http://www.blide.org )
 Rem
-	bbdoc:Undocumented type
+	bbdoc: Class for managing joystick devices
 End Rem
 Type TJoystickManager Extends TInputDevice
 

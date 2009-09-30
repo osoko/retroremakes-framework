@@ -1,6 +1,6 @@
-'This BMX file was edited with BLIde ( http://www.blide.org )
 Rem
-	bbdoc:Undocumented type
+	bbdoc: Sprite animation style for settings colours.
+	about: Allows you to set the sprite's colour as part of an animation.
 End Rem
 Type TSetColourAnimation Extends TSpriteAnimation
 

@@ -1,6 +1,5 @@
-'This BMX file was edited with BLIde ( http://www.blide.org )
 Rem
-	bbdoc:Undocumented type
+	bbdoc: Sprite animation style for applying colour oscillations.
 End Rem
 Type TColourOscillatorAnimation Extends TSpriteAnimation
 

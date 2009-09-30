@@ -1,6 +1,6 @@
 rem
-	bbdoc: #TFixedTimestep
-	about: #TFixedTimestep a #TGameService that manages the speed of the update
+	bbdoc: Game service for managing Fixed Timestep Logic with Render Tweening.
+	about: #TFixedTimestep is a #TGameService that manages the speed of the update
 	loop, and calculates a tweening value to smooth out any spikes in moving graphics.
 	<br />
 	This code was based on the Fix Your Timestep! article by Glenn Fiedler:
@@ -91,7 +91,7 @@ Type TFixedTimestep Extends TGameService
 		animation, etc.
 	endrem 
 	Field tweening:Double
-'#Region tweening Get/Set Methods
+'#Region tweening Get/Set methods
 
 	Rem
 		bbdoc: Get the tweening value in this TFixedTimestep object.

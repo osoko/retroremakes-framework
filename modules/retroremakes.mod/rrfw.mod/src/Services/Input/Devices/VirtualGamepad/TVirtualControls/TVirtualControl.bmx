@@ -1,5 +1,5 @@
 Rem
-	bbdoc: TVirtualControl
+	bbdoc: A control attached to a virtual gamepad
 	about: A virtual control is a mapping between a logical control belonging
 	to a virtual gamepad and a real input such as keyboard key, joystick axis,
 	etc.

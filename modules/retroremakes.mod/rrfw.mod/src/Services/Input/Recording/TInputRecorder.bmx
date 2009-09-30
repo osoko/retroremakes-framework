@@ -1,6 +1,5 @@
-'This BMX file was edited with BLIde ( http://www.blide.org )
 Rem
-	bbdoc:Undocumented type
+	bbdoc: Records all input which can then be replayed
 End Rem
 Type TInputRecorder Extends TGameService
 
