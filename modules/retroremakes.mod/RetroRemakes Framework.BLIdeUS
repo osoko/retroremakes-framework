@@ -326,8 +326,8 @@
       <FileName>src\Includes\Misc\TEngineException.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>46</X>
-        <Y>7</Y>
+        <X>29</X>
+        <Y>1</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -444,10 +444,10 @@
     </Included_File>
     <Included_File>
       <FileName>src\Services\Graphics\TGraphicsService.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>44</X>
-        <Y>382</Y>
+        <X>1</X>
+        <Y>16</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -470,7 +470,7 @@
       <FileName>src\Services\Input\Devices\Joystick\TJoystickManager.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>10</X>
+        <X>1</X>
         <Y>18</Y>
       </Caret_Position>
     </Included_File>
@@ -630,8 +630,8 @@
       <FileName>src\Services\Input\TInputManager.bmx</FileName>
       <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>36</X>
-        <Y>22</Y>
+        <X>18</X>
+        <Y>29</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -782,13 +782,13 @@
       <FileName>src\Services\States\TGameStateManager.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>11</X>
+        <X>1</X>
         <Y>61</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Timing\TFixedTimestep.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
         <X>76</X>
         <Y>1</Y>
@@ -796,10 +796,10 @@
     </Included_File>
     <Included_File>
       <FileName>src\Services\Timing\TFramesPerSecond.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>309</Y>
+        <X>27</X>
+        <Y>178</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -814,8 +814,8 @@
       <FileName>src\TGameEngine.bmx</FileName>
       <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>9</X>
-        <Y>780</Y>
+        <X>41</X>
+        <Y>68</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>

@@ -1,23 +1,23 @@
 Type TGraphicsService Extends TGameService
 	
-   Global instance:TGraphicsService
+	Global instance:TGraphicsService
 
-	Const DEFAULT_GFX_X:Int = 800
-	Const DEFAULT_GFX_Y:Int = 600
+	Const DEFAULT_DIRECT_X:String = "DirectX7"
 	Const DEFAULT_GFX_DEPTH:Int = 16
 	Const DEFAULT_GFX_REFRESH:Int = 60
-	Const DEFAULT_GFX_WINDOWED:String = "true"
 	Const DEFAULT_GFX_VBLANK:String = "false"
+	Const DEFAULT_GFX_WINDOWED:String = "true"
+	Const DEFAULT_GFX_X:Int = 800
+	Const DEFAULT_GFX_Y:Int = 600
 	
-	?Not win32
-		Const DEFAULT_GFX_DRIVER:String = "OpenGL"
-	?Win32
-		Const DEFAULT_DIRECT_X:String = "DirectX7"
-		Const DEFAULT_GFX_DRIVER:String = DEFAULT_DIRECT_X
-	?
+?Not Win32
+	Const DEFAULT_GFX_DRIVER:String = "OpenGL"
+?Win32
+	Const DEFAULT_GFX_DRIVER:String = DEFAULT_DIRECT_X
+?
 	
-	Field graphics_:TGraphics	'This is the graphics object we will be using
-	Field graphicsFlags_:Int = GRAPHICS_BACKBUFFER
+	Field device:TGraphics	'This is the graphics object we will be using
+	Field flags:Int = GRAPHICS_BACKBUFFER
 			
 	Field width:Int
 	Field height:Int
@@ -30,9 +30,9 @@ Type TGraphicsService Extends TGameService
 	' A sorted, de-duplicated list of available graphics modes
 	' On Windows, only modes available in both OpenGL and
 	' DirectX drivers are included.
-	Field graphicsModes_:TList = New TList
+	Field modes:TList = New TList
 	
-	Field font:TImageFont
+	'Field font:TImageFont
 	
 	Method New()
 		If instance Throw "Cannot create multiple instances of this Singleton Type"
@@ -78,12 +78,12 @@ Type TGraphicsService Extends TGameService
 	
 	Method Set()
 		'Kill the existing graphics device if it exists
-		If graphics_
+		If device
 			TRenderState.Push()
 			TLogger.GetInstance().LogInfo("[" + toString() + "] Closing existing graphics device")
 			DisablePolledInput()
-			CloseGraphics(graphics_)
-			graphics_ = Null
+			CloseGraphics(device)
+			device = Null
 		End If
 
 		GLShareContexts()
@@ -105,17 +105,17 @@ Type TGraphicsService Extends TGameService
 		
 		If windowed
 			TLogger.GetInstance().LogInfo("[" + toString() + "] Attempting to set windowed graphics mode: " + width + "x" + height)
-			graphics_ = CreateGraphics(width, height, 0, 60, graphicsFlags_)
+			device = CreateGraphics(width, height, 0, 60, flags)
 		Else
 			TLogger.GetInstance().LogInfo("[" + toString() + "] Attempting to set full-screen graphics mode: " + width + "x" + height + "x" + depth + "@" + hertz + "Hz")
-			graphics_ = CreateGraphics(width, height, depth, hertz, graphicsFlags_)
+			device = CreateGraphics(width, height, depth, hertz, flags)
 		EndIf
 		
-		If Not graphics_
+		If Not device
 			Throw "Requested graphics mode unavailable: " + width + "x" + height + "x" + depth + "@" + hertz + "Hz"
 		EndIf
 		
-		SetGraphics(graphics_)
+		SetGraphics(device)
 			
 		If rrProjectionMatrixEnabled()
 			rrCreateProjectionMatrix()
@@ -222,9 +222,9 @@ Type TGraphicsService Extends TGameService
 	Method FindGraphicsModes()
 		'Get the OpenGL Modes first	
 		SetGraphicsDriver(GLMax2DDriver())
-		graphicsModes_ = ListFromArray(GraphicsModes())
+		modes = ListFromArray(GraphicsModes())
 		
-		TLogger.GetInstance().LogInfo("[" + toString() + "] OpenGL graphics modes found: " + graphicsModes_.Count())
+		TLogger.GetInstance().LogInfo("[" + toString() + "] OpenGL graphics modes found: " + modes.Count())
 		'DirectX modes if on Windows
 		?win32
 			SetGraphicsDriver(D3D7Max2DDriver())
@@ -242,7 +242,7 @@ Type TGraphicsService Extends TGameService
 			
 			For Local findMode:TGraphicsMode = EachIn dxModes
 				Local found:Int = False
-				For Local mode:TGraphicsMode = EachIn graphicsModes_
+				For Local mode:TGraphicsMode = EachIn modes
 					If findMode.width = mode.width And ..
 						findMode.height = mode.height And ..
 						findMode.depth = mode.depth And ..
@@ -258,7 +258,7 @@ Type TGraphicsService Extends TGameService
 			Next
 			
 			'Remove OpenGL Modes that aren't available under DirectX
-			For Local findMode:TGraphicsMode = EachIn graphicsModes_
+			For Local findMode:TGraphicsMode = EachIn modes
 				Local found:Int = False
 				For Local mode:TGraphicsMode = EachIn dxModes
 					If findMode.width = mode.width And ..
@@ -271,21 +271,21 @@ Type TGraphicsService Extends TGameService
 				Next
 				
 				If Not found
-					graphicsModes_.Remove(findMode)
+					modes.Remove(findMode)
 				End If
 			Next
 			
 			'Merge the lists
 			For Local mode:TGraphicsMode = EachIn dxModes
-				graphicsModes_.AddLast(mode)
+				modes.AddLast(mode)
 			Next
 		?
 		
 		' Now sort and deduplicate
-		graphicsModes_.Sort(True, TGraphicsService.GraphicsModeSort)
-		TLogger.GetInstance().LogInfo("[" + toString() + "] Total graphics modes found: " + graphicsModes_.Count())
-		graphicsModes_ = DeDuplicateGraphicsModes(graphicsModes_)
-		TLogger.GetInstance().LogInfo("[" + toString() + "] Deduplicated graphics modes found: " + graphicsModes_.Count())
+		modes.Sort(True, TGraphicsService.GraphicsModeSort)
+		TLogger.GetInstance().LogInfo("[" + toString() + "] Total graphics modes found: " + modes.Count())
+		modes = DeDuplicateGraphicsModes(modes)
+		TLogger.GetInstance().LogInfo("[" + toString() + "] Deduplicated graphics modes found: " + modes.Count())
 	End Method
 	
 	Function GraphicsModeSort:Int(o1:Object, o2:Object)
