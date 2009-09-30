@@ -1,6 +1,5 @@
-'This BMX file was edited with BLIde ( http://www.blide.org )
 Rem
-	bbdoc:Undocumented type
+	bbdoc: Message data that contains the current state of a mouse.
 End Rem
 Type TMouseMessageData Extends TMessageData
 	Field mousePosX:Int

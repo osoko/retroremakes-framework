@@ -1,6 +1,5 @@
-'This BMX file was edited with BLIde ( http://www.blide.org )
 Rem
-	bbdoc:Undocumented type
+	bbdoc: Class representing and managing polygons 
 End Rem
 Type TPolygon
 	Field vertices:TVector2D[]

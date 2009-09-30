@@ -1,6 +1,8 @@
-'This BMX file was edited with BLIde ( http://www.blide.org )
 Rem
-	bbdoc:Undocumented type
+	bbdoc: Sprite animation style for combining multiple concurrent animations.
+	about: Allows you to combine multiple animation styles together that run at
+	the same time, for example: Move a sprite from point A to point B whilst using
+	the alpha channel to fade it in and animating its image frames.
 End Rem
 Type TCompositeAnimation Extends TSpriteAnimation
 

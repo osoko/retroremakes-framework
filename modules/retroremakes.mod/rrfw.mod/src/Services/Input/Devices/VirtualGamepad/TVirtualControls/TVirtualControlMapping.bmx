@@ -1,6 +1,5 @@
-'This BMX file was edited with BLIde ( http://www.blide.org )
 Rem
-	bbdoc:Undocumented type
+	bbdoc: Base class used for mapping a virtual control to a physical input device
 End Rem
 Type TVirtualControlMapping Abstract
 	

@@ -1,8 +1,6 @@
-'This BMX file was edited with BLIde ( http://www.blide.org )
 Rem
-	bbdoc:Undocumented type
+	bbdoc: A virtualised gamepad input device
 End Rem
-
 Type TVirtualGamepad
 	Field id:Int
 	

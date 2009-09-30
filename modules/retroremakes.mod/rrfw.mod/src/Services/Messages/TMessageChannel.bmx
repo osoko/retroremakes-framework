@@ -1,6 +1,5 @@
-'This BMX file was edited with BLIde ( http://www.blide.org )
 Rem
-	bbdoc:Undocumented type
+	bbdoc: A channel that can be used to broadcast #TMessage instances
 End Rem
 Type TMessageChannel
 	

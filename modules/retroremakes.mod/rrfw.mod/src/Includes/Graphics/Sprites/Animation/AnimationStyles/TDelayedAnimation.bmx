@@ -1,6 +1,6 @@
-'This BMX file was edited with BLIde ( http://www.blide.org )
 Rem
-	bbdoc:Undocumented type
+	bbdoc: Sprite animation style for adding delays to animations.
+	about: Allows you to delay the following animation for a set period of time.
 End Rem
 Type TDelayedAnimation Extends TSpriteAnimation
 

@@ -1,6 +1,7 @@
-'This BMX file was edited with BLIde ( http://www.blide.org )
 Rem
-	bbdoc:Undocumented type
+	bbdoc: Wrapper class for objects that can receive messages.
+	about: Allows direct message passing to Objects that implement
+	a valid MessageListener() method.
 End Rem
 Type TMessageListener
 	Field receiver:Object

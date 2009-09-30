@@ -1,6 +1,5 @@
-'This BMX file was edited with BLIde ( http://www.blide.org )
 Rem
-	bbdoc:Undocumented type
+	bbdoc: A joystick axis that can be mapped to a #TVirtualControl
 End Rem
 Type TJoystickAxisMapping Extends TVirtualControlMapping
 	

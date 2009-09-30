@@ -1,7 +1,7 @@
 rem
-	bbdoc: #TFramesPerSecond
+	bbdoc: Calculate and Display Frames Per Second performance.
 	about: #TFramesPerSecond a #TGameService that calculates and optionally
-	displays the FPS performance of the running engine
+	displays the FPS performance of the running engine.
 endrem
 Type TFramesPerSecond Extends TGameService
 	

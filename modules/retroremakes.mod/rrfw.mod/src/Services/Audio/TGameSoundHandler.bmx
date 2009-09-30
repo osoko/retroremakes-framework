@@ -2,7 +2,7 @@ Const GSH_MUSIC:Int = 0
 Const GSH_SFX:Int = 1
 
 rem
-	bbdoc: #TGameSoundHandler
+	bbdoc: Manages audio channels and sounds.
 	about: The #TGameSoundHandler service manages audio channels and sounds.  When the
 	service starts it allocates a specific number of channels and then uses/reuses these
 	channels as necessary.  It currently uses the OpenAL driver.

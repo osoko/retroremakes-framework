@@ -1,6 +1,7 @@
-'This BMX file was edited with BLIde ( http://www.blide.org )
 Rem
-	bbdoc:Undocumented type
+	bbdoc: Sprite animation style for setting XY position.
+	about: Allows you to set the sprite to a specified position as part
+	of an animation.
 End Rem
 Type TSetPositionAnimation Extends TSpriteAnimation
 	

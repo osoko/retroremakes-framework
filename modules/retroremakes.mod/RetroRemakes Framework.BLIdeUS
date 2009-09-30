@@ -6,136 +6,136 @@
       <FileName>src\Includes\Graphics\Sprites\Animation\AnimationStyles\TAlphaFadeAnimation.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>96</X>
-        <Y>32</Y>
+        <X>70</X>
+        <Y>2</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Sprites\Animation\AnimationStyles\TBlinkAnimation.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>69</X>
+        <Y>2</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Sprites\Animation\AnimationStyles\TColourOscillatorAnimation.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>64</X>
+        <Y>1</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Sprites\Animation\AnimationStyles\TCompositeAnimation.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>76</X>
+        <Y>1</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Sprites\Animation\AnimationStyles\TDelayedAnimation.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>77</X>
+        <Y>2</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Sprites\Animation\AnimationStyles\TLoopedAnimation.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>2</X>
-        <Y>64</Y>
+        <X>77</X>
+        <Y>2</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Sprites\Animation\AnimationStyles\TLoopedFrameAnimation.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>66</X>
-        <Y>85</Y>
+        <X>46</X>
+        <Y>3</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Sprites\Animation\AnimationStyles\TMakeInvisibleAnimation.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>35</X>
+        <Y>2</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Sprites\Animation\AnimationStyles\TMakeVisibleAnimation.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>33</X>
+        <Y>2</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Sprites\Animation\AnimationStyles\TPointToPointPathAnimation.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>71</X>
-        <Y>23</Y>
+        <X>48</X>
+        <Y>4</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Sprites\Animation\AnimationStyles\TScaleOscillatorAnimation.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>63</X>
+        <Y>1</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Sprites\Animation\AnimationStyles\TSequentialAnimation.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>72</X>
+        <Y>2</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Sprites\Animation\AnimationStyles\TSetAlphaAnimation.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>24</X>
+        <Y>3</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Sprites\Animation\AnimationStyles\TSetColourAnimation.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>69</X>
+        <Y>2</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Sprites\Animation\AnimationStyles\TSetPositionAnimation.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>17</X>
+        <Y>3</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Sprites\Animation\AnimationStyles\TTimedAnimation.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>52</X>
+        <Y>1</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Sprites\Animation\TSpriteAnimation.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>11</X>
-        <Y>25</Y>
+        <X>0</X>
+        <Y>0</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -143,7 +143,7 @@
       <Document_Active>false</Document_Active>
       <Caret_Position>
         <X>0</X>
-        <Y>0</Y>
+        <Y>2</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -159,15 +159,15 @@
       <Document_Active>false</Document_Active>
       <Caret_Position>
         <X>0</X>
-        <Y>14</Y>
+        <Y>0</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Sprites\TImageSprite.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>55</X>
+        <Y>1</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -175,23 +175,23 @@
       <Document_Active>false</Document_Active>
       <Caret_Position>
         <X>0</X>
-        <Y>0</Y>
+        <Y>5</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Sprites\TSprite.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>1</X>
-        <Y>24</Y>
+        <X>0</X>
+        <Y>0</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Sprites\TSpriteManager.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>26</X>
+        <Y>1</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -214,32 +214,32 @@
       <FileName>src\Includes\Graphics\TColour.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>37</X>
+        <Y>3</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\TColourHSV.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>48</X>
+        <Y>1</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\TColourRGB.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>23</X>
+        <Y>2</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\TRenderState.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>23</X>
+        <Y>3</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -326,8 +326,8 @@
       <FileName>src\Includes\Misc\TMacroCommand.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>30</X>
+        <Y>1</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -366,24 +366,24 @@
       <FileName>src\Services\Audio\TGameSound.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>9</Y>
+        <X>42</X>
+        <Y>1</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Audio\TGameSoundChannel.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>13</X>
+        <Y>1</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Audio\TGameSoundHandler.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>53</X>
-        <Y>117</Y>
+        <X>42</X>
+        <Y>4</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -454,72 +454,72 @@
       <FileName>src\Services\Input\Devices\Joystick\TJoystick.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>30</X>
+        <Y>14</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Input\Devices\Joystick\TJoystickManager.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>10</X>
-        <Y>18</Y>
+        <X>43</X>
+        <Y>1</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Input\Devices\Joystick\TJoystickMessageData.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>86</X>
+        <Y>1</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Input\Devices\Keyboard\TKeyboard.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>26</X>
-        <Y>6</Y>
+        <X>0</X>
+        <Y>0</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Input\Devices\Keyboard\TKeyboardMessageData.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>20</X>
+        <Y>1</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Input\Devices\Mouse\TMouse.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>48</X>
+        <Y>9</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Input\Devices\Mouse\TMouseMessageData.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>64</X>
+        <Y>1</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Input\Devices\VirtualGamepad\TVirtualControls\JoystickMapping\TJoystickAxisMapping.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>34</X>
-        <Y>61</Y>
+        <X>0</X>
+        <Y>0</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Input\Devices\VirtualGamepad\TVirtualControls\JoystickMapping\TJoystickButtonMapping.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>23</X>
-        <Y>16</Y>
+        <X>0</X>
+        <Y>0</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -534,40 +534,40 @@
       <FileName>src\Services\Input\Devices\VirtualGamepad\TVirtualControls\KeyboardMapping\TKeyboardMapping.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>22</X>
+        <Y>1</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Input\Devices\VirtualGamepad\TVirtualControls\MouseMapping\TMouseAxisMapping.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>15</X>
+        <Y>1</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Input\Devices\VirtualGamepad\TVirtualControls\MouseMapping\TMouseButtonMapping.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>15</X>
+        <Y>1</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Input\Devices\VirtualGamepad\TVirtualControls\TVirtualControl.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>52</X>
-        <Y>2</Y>
+        <X>47</X>
+        <Y>1</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Input\Devices\VirtualGamepad\TVirtualControls\TVirtualControlMapping.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>26</X>
-        <Y>18</Y>
+        <X>80</X>
+        <Y>1</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -582,8 +582,8 @@
       <FileName>src\Services\Input\Devices\VirtualGamepad\TVirtualGamepad.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>21</X>
-        <Y>133</Y>
+        <X>42</X>
+        <Y>1</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -591,7 +591,7 @@
       <Document_Active>false</Document_Active>
       <Caret_Position>
         <X>0</X>
-        <Y>5</Y>
+        <Y>0</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -599,7 +599,7 @@
       <Document_Active>false</Document_Active>
       <Caret_Position>
         <X>0</X>
-        <Y>83</Y>
+        <Y>0</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -607,15 +607,15 @@
       <Document_Active>false</Document_Active>
       <Caret_Position>
         <X>0</X>
-        <Y>7</Y>
+        <Y>0</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Input\TInputDevice.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>1</X>
-        <Y>13</Y>
+        <X>0</X>
+        <Y>0</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -630,8 +630,8 @@
       <FileName>src\Services\Messages\TMessage.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>16</X>
+        <Y>12</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -646,24 +646,24 @@
       <FileName>src\Services\Messages\TMessageData.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>61</X>
+        <Y>1</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Messages\TMessageListener.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>22</X>
+        <Y>6</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Messages\TMessageService.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>47</X>
-        <Y>183</Y>
+        <X>41</X>
+        <Y>12</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -758,16 +758,16 @@
       <FileName>src\Services\Settings\TGameSettings.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>18</X>
-        <Y>24</Y>
+        <X>61</X>
+        <Y>1</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Services\States\TGameState.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>11</Y>
+        <X>75</X>
+        <Y>4</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -782,24 +782,24 @@
       <FileName>src\Services\Timing\TFixedTimestep.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>31</X>
-        <Y>179</Y>
+        <X>76</X>
+        <Y>1</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Timing\TFramesPerSecond.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>380</Y>
+        <X>52</X>
+        <Y>3</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Services\TGameService.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>27</X>
-        <Y>329</Y>
+        <X>69</X>
+        <Y>1</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -812,7 +812,7 @@
     </Included_File>
     <Included_File>
       <FileName>rrfw.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
         <X>0</X>
         <Y>0</Y>

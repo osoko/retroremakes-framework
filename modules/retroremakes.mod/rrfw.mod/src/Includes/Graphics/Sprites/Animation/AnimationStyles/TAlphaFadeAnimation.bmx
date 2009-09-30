@@ -1,6 +1,6 @@
-'This BMX file was edited with BLIde ( http://www.blide.org )
 Rem
-	bbdoc:Undocumented type
+	bbdoc: Sprite animation style for performing alpha channel fades.
+	about: Allows you to fade a sprite in or out using its alpha channel.
 End Rem
 Type TAlphaFadeAnimation Extends TSpriteAnimation
 

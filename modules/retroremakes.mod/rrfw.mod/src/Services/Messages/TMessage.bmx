@@ -1,13 +1,16 @@
+rem
+	bbdoc: Class representing a message
+endrem
 Type TMessage
 
-	Field messageID:Int
+	Field messageId:Int
 	Field dispatchTime:Int ' Millisecs() when the message should be sent
 	Field sender:Object
 	Field receiver:Object
 	Field data:TMessageData
 	
-	Method SetMessageID(id:Int)
-		messageID = id
+	Method SetMessageId(id:Int)
+		messageId = id
 	EndMethod
 	
 	Method SendTo(recipient:Object, from:Object = Null)

@@ -1,6 +1,7 @@
-'This BMX file was edited with BLIde ( http://www.blide.org )
 Rem
-	bbdoc:Undocumented type
+	bbdoc: Sprite animation style for setting alpha values.
+	about: Allows you to set a sprite's alpha channel to the specified value
+	as part of an animation.
 End Rem
 Type TSetAlphaAnimation Extends TSpriteAnimation
 

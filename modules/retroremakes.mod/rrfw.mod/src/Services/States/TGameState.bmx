@@ -1,6 +1,8 @@
 rem
-	bbdoc: TGameState
-	about: 
+	bbdoc: Base class for game states.
+	about: Game states normally equate to screens or modes in your game, for example
+	you could have a Title Screen state, a High-Score table state, a Get Ready state, etc.
+	This allows you to easily switch between different elements of your games.
 endrem
 Type TGameState
 	

@@ -1,3 +1,6 @@
+rem
+	bbdoc: Audio output channel.
+endrem
 Type TGameSoundChannel
 	Field channel:TChannel
 	Field sound:TGameSound
