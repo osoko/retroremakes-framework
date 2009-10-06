@@ -8,16 +8,27 @@ Type TGameState
 	
 	rem
 		bbdoc: TLink used by TGameStateManager.
-		about:
 	endrem
 	Field link:TLink
 
 	
-	
+	rem
+		bbdoc: The name of this game state.
+	endrem
 	Field name:String
-	
-	
 		
+	
+	rem
+		bbdoc: Enter the Game State
+		returns:
+		about: This method is called when you switch to this TGameState
+		instance.
+	endrem
+	Method Enter()
+	End Method
+	
+	
+			
 	rem
 		bbdoc: Initialises the Game State
 		returns:
@@ -30,6 +41,17 @@ Type TGameState
 	
 	
 	rem
+		bbdoc: Leave the Game State
+		returns:
+		about: This method is called when you switch to another TGameState
+		instance.
+	endrem	
+	Method Leave()
+	End Method
+	
+	
+		
+	rem
 		bbdoc: Renders the Game State
 		returns:
 		about: This method is called for the current TGameState
@@ -37,18 +59,7 @@ Type TGameState
 	endrem		
 	Method Render()
 	End Method
-	
-	
-		
-	rem
-		bbdoc: Enter the Game State
-		returns:
-		about: This method is called when you switch to this TGameState
-		instance.
-	endrem
-	Method Enter()
-	End Method
-	
+
 	
 
 	rem
@@ -62,19 +73,11 @@ Type TGameState
 
 	
 	
+	rem
+		bbdoc: Returns the name of this game state.
+	endrem
 	Method ToString:String()
 		Return name
-	End Method
-	
-	
-	
-	rem
-		bbdoc: Leave the Game State
-		returns:
-		about: This method is called when you switch to another TGameState
-		instance.
-	endrem	
-	Method Leave()
 	End Method
 	
 

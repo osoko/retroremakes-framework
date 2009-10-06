@@ -190,7 +190,7 @@ Type TFixedTimestep Extends TGameService
 		bbdoc: Constructor
 	endrem	
 	Method New()
-		If instance Throw "Cannot create multiple instances of this Singleton Type"
+		If instance rrThrow ("Cannot create multiple instances of this Singleton Type")
 		instance = Self
 		Self.Initialise()
 	EndMethod
