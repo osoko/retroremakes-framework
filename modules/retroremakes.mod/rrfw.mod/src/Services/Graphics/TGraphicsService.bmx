@@ -56,6 +56,10 @@ Type TGraphicsService Extends TGameService
 		EndIf
 	EndFunction
 
+	Method GetModes:TList()
+		Return modes
+	End Method
+	
 	Method Initialise()
 		SetName("Graphics Service")
 		startPriority = -9999	'has to be first as other services may rely on the Graphics Device
@@ -85,8 +89,6 @@ Type TGraphicsService Extends TGameService
 			CloseGraphics(device)
 			device = Null
 		End If
-
-		GLShareContexts()
 			
 		?win32
 			If Driver.ToUpper() = "DIRECTX7"
@@ -98,6 +100,7 @@ Type TGraphicsService Extends TGameService
 			ElseIf Driver.ToUpper() = "OPENGL"
 		?
 				TLogger.GetInstance().LogInfo("[" + toString() + "] Enabling OpenGL graphics driver")
+				GLShareContexts()
 				SetGraphicsDriver(GLMax2DDriver())
 		?Win32
 			EndIf
