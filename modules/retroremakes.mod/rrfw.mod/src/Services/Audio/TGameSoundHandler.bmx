@@ -101,15 +101,6 @@ Type TGameSoundHandler Extends TGameService
 		Super.Initialise()
 	End Method
 
-	Method Stat()
-		Local masterVolume:Int = TGameSettings.GetInstance().GetIntVariable("AUDIO_MASTER_VOLUME", DEFAULT_MASTER_VOLUME, "Engine")
-		Local musicVolume:Float = TGameSettings.GetInstance().GetFloatVariable("AUDIO_MUSIC_VOLUME", DEFAULT_MUSIC_VOLUME, "Engine")
-		Local sfxVolume:Float = TGameSettings.GetInstance().GetFloatVariable("AUDIO_SFX_VOLUME", DEFAULT_SFX_VOLUME, "Engine")
-		
-		SetMasterVolume(masterVolume)
-		SetMusicVolume(musicVolume)
-		SetSfxVolume(sfxVolume)		
-	End Method
 	
 	rem
 	bbdoc: Shuts down the instance of #TGameSoundHandler.  This method is called automatically by the #TGameEngine instance
@@ -127,6 +118,16 @@ Type TGameSoundHandler Extends TGameService
 		EnableOpenALAudio()
 		SetAudioDriver("OpenAL Default")
 		AllocAllChannels()
+		
+		Local settings:TGameSettings = TGameSettings.GetInstance()
+		
+		Local masterVolume:Int = settings.GetIntVariable("AUDIO_MASTER_VOLUME", DEFAULT_MASTER_VOLUME, "Engine")
+		Local musicVolume:Float = settings.GetFloatVariable("AUDIO_MUSIC_VOLUME", DEFAULT_MUSIC_VOLUME, "Engine")
+		Local sfxVolume:Float = settings.GetFloatVariable("AUDIO_SFX_VOLUME", DEFAULT_SFX_VOLUME, "Engine")
+		
+		SetMasterVolume(masterVolume)
+		SetMusicVolume(musicVolume)
+		SetSfxVolume(sfxVolume)			
 	End Method
 	
 	rem
