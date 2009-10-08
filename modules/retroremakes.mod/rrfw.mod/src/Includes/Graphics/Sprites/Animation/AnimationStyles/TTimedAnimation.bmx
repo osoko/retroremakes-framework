@@ -2,11 +2,11 @@ Rem
 	bbdoc: Sprite animation style for timed animations.
 	about: Allows you to show an animation for a user-specified period of time.
 End Rem
-Type TTimedAnimation Extends TSpriteAnimation
+Type TTimedAnimation Extends TAnimation
 
 	Const DEFAULT_ANIMATION_LENGTH:Int = 10000 'default in ms
 	
-	Field animation:TSpriteAnimation
+	Field animation:TAnimation
 	Field animationLength:Int
 	Field finishTime:Int
 	
@@ -18,7 +18,7 @@ Type TTimedAnimation Extends TSpriteAnimation
 		Self.animationLength = animationLength
 	End Method
 	
-	Method SetAnimation(animation:TSpriteAnimation)
+	Method SetAnimation(animation:TAnimation)
 		Self.animation = animation
 	End Method
 	
@@ -28,7 +28,7 @@ Type TTimedAnimation Extends TSpriteAnimation
 		Super.Reset()
 	End Method
 	
-	Method Update:Int(sprite:TSprite)
+	Method Update:Int(sprite:TActor)
 		If Not animation Then Throw "TTimedAnimation does not have an assigned TSpriteAnimation"
 		If Not finishTime Then finishTime = MilliSecs() + animationLength
 		If finishTime - MilliSecs() > 0

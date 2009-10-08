@@ -1,9 +1,9 @@
 Rem
-	bbdoc: Class for managing sprite animations.
+	bbdoc: Class for managing actor animations.
 End Rem
-Type TSpriteAnimationManager
-	Field sprite:TSprite	'The sprite that this animation manager is linked to
-	Field animations:TList 'List of animations scheduled for this sprite
+Type TAnimationManager
+	Field actor:TActor	'The actor that this animation manager is linked to
+	Field animations:TList 'List of animations scheduled for this actor
 	Field finishedAnimations:TList
 	
 	field updateProfile:TProfilerSample
@@ -11,33 +11,30 @@ Type TSpriteAnimationManager
 	Method New()
 		animations = New TList
 		finishedAnimations = new TList
-	'	updateProfile = rrCreateProfilerSample("Sprite Anim Manager: Update")
 	End Method
 	
-	Method SetSprite(sprite:TSprite)
-		Self.sprite = sprite
+	Method SetActor(value:TActor)
+		actor = value
 	End Method
 	
-	Method AddAnimation(animation:TSpriteAnimation)
+	Method AddAnimation(animation:TAnimation)
 		Self.animations.AddLast(animation)
 	End Method
 	
 	Method Update()
-	'	rrStartProfilerSample(updateProfile)
-		If Not sprite Then Throw "TSpriteAnimationManager has no TSprite attached"
+		If Not actor Then Throw "TAnimationManager has no TActor attached"
 		If animations.Count() > 0
-			If TSpriteAnimation(animations.First()).Update(sprite)
+			If TAnimation(animations.First()).Update(actor)
 				'Animation has finished so remove it
 				finishedAnimations.AddLast(animations.RemoveFirst())
 			EndIf
 		End If
-	'	rrStopProfilerSample(updateProfile)
 	End Method
 	
 	
 	
 	Method remove()
-		Local animation:TSpriteAnimation
+		Local animation:TAnimation
 		For animation = EachIn animations
 			animation.remove()
 			animations.remove(animation)
@@ -63,7 +60,7 @@ Type TSpriteAnimationManager
 		'repopulate animation list and reset all animations
 		While finishedAnimations.Count() > 0
 			animations.AddLast(finishedAnimations.RemoveFirst())
-			TSpriteAnimation(animations.Last()).Reset()
+			TAnimation(animations.Last()).Reset()
 		Wend
 		finishedAnimations.Clear()
 	End Method

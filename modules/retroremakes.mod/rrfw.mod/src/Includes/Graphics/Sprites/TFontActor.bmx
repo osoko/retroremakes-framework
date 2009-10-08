@@ -1,7 +1,7 @@
 Rem
 	bbdoc: Sprite class using an internal BlitzMax #TImageFont
 End Rem
-Type TImageFontSprite Extends TSprite
+Type TFontActor Extends TActor
 
 	Field font:TImageFont
 	
@@ -41,9 +41,9 @@ Type TImageFontSprite Extends TSprite
 			End If
 			SetImageFont(font)
 			if fixed
-				DrawText(spriteText, int(renderPosition_.x - xOffset), int(renderPosition_.y - yOffset))
+				DrawText(spriteText, Int(renderPosition.x - xOffset), Int(renderPosition.y - yOffset))
 			else
-				DrawText(spriteText, renderPosition_.x - xOffset, renderPosition_.y - yOffset)
+				DrawText(spriteText, renderPosition.x - xOffset, renderPosition.y - yOffset)
 			endif
 		EndIf
 	End Method

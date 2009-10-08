@@ -2,7 +2,7 @@ Rem
 	bbdoc: Sprite animation style for performing alpha channel fades.
 	about: Allows you to fade a sprite in or out using its alpha channel.
 End Rem
-Type TAlphaFadeAnimation Extends TSpriteAnimation
+Type TAlphaFadeAnimation Extends TAnimation
 
 	Field startAlpha_:Float
 	Field endAlpha_:Float
@@ -37,7 +37,7 @@ Type TAlphaFadeAnimation Extends TSpriteAnimation
 		speed_ = speed
 	End Method
 	
-	Method Update:Int(sprite:TSprite)
+	Method Update:Int(sprite:TActor)
 		If endAlpha_ > startAlpha_
 			currentAlpha_:+speed_
 			If currentAlpha_ > endAlpha_

@@ -1,7 +1,7 @@
 Rem
-	bbdoc: Base class for sprite animations
+	bbdoc: Base class for animations
 End Rem
-Type TSpriteAnimation
+Type TAnimation
 
 	Field callBackFunction()
 	Field isFinished:Int
@@ -32,6 +32,6 @@ Type TSpriteAnimation
 		callBackFunction = func
 	End Method
 	
-	Method Update:Int(sprite:TSprite) Abstract
+	Method Update:Int(sprite:TActor) Abstract
 	
 End Type

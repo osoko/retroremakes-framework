@@ -2,7 +2,7 @@ Rem
 	bbdoc: Sprite animation style for blinking sprites.
 	about: Allows you to blink a sprite on and off at a specified speed.
 End Rem
-Type TBlinkAnimation Extends TSpriteAnimation
+Type TBlinkAnimation Extends TAnimation
 
 	Const DEFAULT_SPEED:Int = 1000	'default in ms
 
@@ -25,7 +25,7 @@ Type TBlinkAnimation Extends TSpriteAnimation
 		Super.Reset()
 	End Method
 
-	Method Update:Int(sprite:TSprite)
+	Method Update:Int(sprite:TActor)
 		If Not startTime Then startTime = MilliSecs()
 		Local time:Int = MilliSecs()
 		If blinkTime - time < 0

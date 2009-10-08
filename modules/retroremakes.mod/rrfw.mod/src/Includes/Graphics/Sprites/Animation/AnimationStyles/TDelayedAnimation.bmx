@@ -2,12 +2,12 @@ Rem
 	bbdoc: Sprite animation style for adding delays to animations.
 	about: Allows you to delay the following animation for a set period of time.
 End Rem
-Type TDelayedAnimation Extends TSpriteAnimation
+Type TDelayedAnimation Extends TAnimation
 
 	Const DEFAULT_DELAY_TIME:Int = 10000 ' in ms
 	Field delayTime:Int
 	Field startTime:Int
-	Field animation:TSpriteAnimation
+	Field animation:TAnimation
 
 	Method New()
 		Self.delayTime = DEFAULT_DELAY_TIME
@@ -17,7 +17,7 @@ Type TDelayedAnimation Extends TSpriteAnimation
 		Self.delayTime = delayTime
 	End Method
 	
-	Method SetAnimation(animation:TSpriteAnimation)
+	Method SetAnimation(animation:TAnimation)
 		Self.animation = animation
 	End Method
 	
@@ -34,7 +34,7 @@ Type TDelayedAnimation Extends TSpriteAnimation
 		Super.Reset()
 	End Method
 	
-	Method Update:Int(sprite:TSprite)
+	Method Update:Int(sprite:TActor)
 		If Not startTime Then startTime = MilliSecs()
 		If MilliSecs() > startTime + delayTime
 			If animation

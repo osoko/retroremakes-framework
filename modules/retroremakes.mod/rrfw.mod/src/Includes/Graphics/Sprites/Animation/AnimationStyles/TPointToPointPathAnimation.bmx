@@ -4,7 +4,7 @@ Rem
 	transition time, the animation will then move the sprite at the correct
 	speed to get from A to B in the specified time.
 End Rem
-Type TPointToPointPathAnimation Extends TSpriteAnimation
+Type TPointToPointPathAnimation Extends TAnimation
 
 	Field startX:Float
 	Field startY:Float
@@ -37,14 +37,14 @@ Type TPointToPointPathAnimation Extends TSpriteAnimation
 		endY = y
 	End Method	
 	
-	Method Update:Int(sprite:TSprite)
+	Method Update:Int(sprite:TActor)
 		t:+tStep
 		If t > 1.0
 			t = 1.0
 			isFinished = True
 		EndIf
-		sprite.currentPosition_.x = startX + (endX - startX) * t
-		sprite.currentPosition_.y = startY + (endY - startY) * t
+		sprite.currentPosition.x = startX + (endX - startX) * t
+		sprite.currentPosition.y = startY + (endY - startY) * t
 		Return Finished()
 	End Method
 

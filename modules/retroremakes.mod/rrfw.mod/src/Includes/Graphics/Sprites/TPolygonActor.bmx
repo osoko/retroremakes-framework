@@ -2,7 +2,7 @@ rem
 	bbdoc: WIP: Sprite implemented using polygons
 	aboout: TODO: Complete implementation
 endrem
-Type TPolygonSprite Extends TSprite
+Type TPolygonActor Extends TActor
 
 	Field vertices:Float[]
 	
