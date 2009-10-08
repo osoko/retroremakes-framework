@@ -4,7 +4,7 @@ Rem
 	the same time, for example: Move a sprite from point A to point B whilst using
 	the alpha channel to fade it in and animating its image frames.
 End Rem
-Type TCompositeAnimation Extends TSpriteAnimation
+Type TCompositeAnimation Extends TAnimation
 
 	Field Lanimations:TList
 	Field LfinishedAnimations:TList
@@ -14,14 +14,14 @@ Type TCompositeAnimation Extends TSpriteAnimation
 		LfinishedAnimations = New TList
 	End Method
 	
-	Method AddAnimation(animation:TSpriteAnimation)
+	Method AddAnimation(animation:TAnimation)
 		Lanimations.AddLast(animation)
 	End Method
 	
 	
 	
 	Method remove()
-		Local animation:TSpriteAnimation
+		Local animation:TAnimation
 		For animation = EachIn Lanimations
 			animation.remove()
 			Lanimations.remove(animation)
@@ -40,15 +40,15 @@ Type TCompositeAnimation Extends TSpriteAnimation
 		While LfinishedAnimations.Count() > 0
 			Lanimations.AddLast(LfinishedAnimations.RemoveFirst())
 		WEnd
-		For Local animation:TSpriteAnimation = EachIn Lanimations
+		For Local animation:TAnimation = EachIn Lanimations
 			animation.Reset()
 		Next
 		Super.Reset()
 	End Method
 	
-	Method Update:Int(sprite:TSprite)
-		For Local animation:TSpriteAnimation = EachIn Lanimations
-			If TSpriteAnimation(animation).Update(sprite)
+	Method Update:Int(sprite:TActor)
+		For Local animation:TAnimation = EachIn Lanimations
+			If TAnimation(animation).Update(sprite)
 				Lanimations.Remove(animation)
 				LfinishedAnimations.AddLast(animation)
 			End If

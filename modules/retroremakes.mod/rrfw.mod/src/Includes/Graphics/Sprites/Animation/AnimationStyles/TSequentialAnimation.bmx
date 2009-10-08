@@ -2,7 +2,7 @@ Rem
 	bbdoc: Sprite animation style for sequencing one or more animation styles.
 	about: Allows you to specify a sequence of animations to play in order.
 End Rem
-Type TSequentialAnimation Extends TSpriteAnimation
+Type TSequentialAnimation Extends TAnimation
 
 	Field animations:TList
 	Field finishedAnimations:TList
@@ -16,14 +16,14 @@ Type TSequentialAnimation Extends TSpriteAnimation
 	
 	
 	
-	Method AddAnimation(animation:TSpriteAnimation)
+	Method AddAnimation(animation:TAnimation)
 		animations.AddLast(animation)
 	End Method
 	
 	
 
 	Method remove()
-		Local animation:TSpriteAnimation
+		Local animation:TAnimation
 		For animation = EachIn animations
 			animation.remove()
 			animations.remove(animation)
@@ -48,7 +48,7 @@ Type TSequentialAnimation Extends TSpriteAnimation
 		'repopulate animation list and reset all animations
 		While finishedAnimations.Count() > 0
 			animations.AddLast(finishedAnimations.RemoveFirst())
-			TSpriteAnimation(animations.Last()).Reset()
+			TAnimation(animations.Last()).Reset()
 		Wend
 		finishedAnimations.Clear()
 		Super.Reset()
@@ -56,9 +56,9 @@ Type TSequentialAnimation Extends TSpriteAnimation
 	
 	
 	
-	Method Update:Int(sprite:TSprite)
+	Method Update:Int(sprite:TActor)
 		If animations.Count() > 0
-			If TSpriteAnimation(animations.First()).Update(sprite)
+			If TAnimation(animations.First()).Update(sprite)
 				'Animation has finished so move it to the finished list
 				finishedAnimations.AddLast(animations.RemoveFirst())
 				If animations.Count() = 0

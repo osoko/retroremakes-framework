@@ -74,7 +74,7 @@ Type Z9FTidiMC0vFnfyhMruuOv9Q8wGiAL0I Abstract
     Const MajorVersion:Int = 0
 	
 	'This Const contains the minor version number of the program
-    Const MinorVersion:Int = 9
+    Const MinorVersion:Int = 10
 	
 	'This string contains the name of the program
     Const Name:String = "RetroRemakes Framework"
@@ -136,24 +136,29 @@ Include "src\TGameEngine.bmx"
 ' Some helper functions for people who prefer them.
 Include "src\Includes\Functions.bmx"
 
+Include "src\Includes\TGameManager.bmx"
+
  ' Miscellaneous Graphics
 Include "src\Includes\Graphics\GraphicsUtils.bmx"
 Include "src\Includes\Graphics\Screenshot.bmx"
 Include "src\Includes\Graphics\TColour.bmx"
 Include "src\Includes\Graphics\TColourHSV.bmx"
 Include "src\Includes\Graphics\TColourRGB.bmx"
+Include "src\Includes\Graphics\TRenderable.bmx"
+Include "src\Includes\Graphics\TRenderLayer.bmx"
 Include "src\Includes\Graphics\TRenderState.bmx"
 
-' Sprites
-Include "src\Includes\Graphics\Sprites\TImageFontSprite.bmx"
-Include "src\Includes\Graphics\Sprites\TImageSprite.bmx"
-Include "src\Includes\Graphics\Sprites\TPolygonSprite.bmx"
-Include "src\Includes\Graphics\Sprites\TSprite.bmx"
-Include "src\Includes\Graphics\Sprites\TSpriteManager.bmx"
+' Actors
+Include "src\Includes\Graphics\Sprites\TActor.bmx"
+Include "src\Includes\Graphics\Sprites\TFontActor.bmx"
+Include "src\Includes\Graphics\Sprites\TImageActor.bmx"
+Include "src\Includes\Graphics\Sprites\TPolygonActor.bmx"
 
-' Sprite Animation
-Include "src\Includes\Graphics\Sprites\Animation\TSpriteAnimation.bmx"
-Include "src\Includes\Graphics\Sprites\Animation\TSpriteAnimationManager.bmx"
+
+
+' Animations
+Include "src\Includes\Graphics\Sprites\Animation\TAnimation.bmx"
+Include "src\Includes\Graphics\Sprites\Animation\TAnimationManager.bmx"
 Include "src\Includes\Graphics\Sprites\Animation\AnimationStyles\TAlphaFadeAnimation.bmx"
 Include "src\Includes\Graphics\Sprites\Animation\AnimationStyles\TBlinkAnimation.bmx"
 Include "src\Includes\Graphics\Sprites\Animation\AnimationStyles\TColourOscillatorAnimation.bmx"
@@ -224,9 +229,6 @@ Include "src\Services\Score\HighScoreTable\THighScoreEntry.bmx"
 Include "src\Services\Score\HighScoreTable\THighScoreTable.bmx"
 
 Include "src\Services\Settings\TGameSettings.bmx"
-
-Include "src\Services\States\TGameState.bmx"
-Include "src\Services\States\TGameStateManager.bmx"
 
 Include "src\Services\Timing\TFixedTimestep.bmx"
 Include "src\Services\Timing\TFramesPerSecond.bmx"

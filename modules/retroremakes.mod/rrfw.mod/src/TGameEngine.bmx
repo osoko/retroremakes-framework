@@ -17,6 +17,11 @@ Type TGameEngine
 	Global exeDirectoryForData:Int = False
 
 	rem
+		bbdoc: The TGameManager that the engine has been told to call as part of the main loop
+	endrem
+	Field gameManager:TGameManager
+	
+	rem
 		bbdoc: @TList containing all #TGameService instances that have registered with the #TGameEngine instance
 		about: Every instance of #TGameService that registers with the #TGameEngine instance is added to this @TList
 	endrem
@@ -642,7 +647,7 @@ Type TGameEngine
 		TProfiler.GetInstance()
 		TConsole.GetInstance()
 		TScoreService.GetInstance()
-		TGameStateManager.GetInstance()
+		'TGameStateManager.GetInstance()
 		TPhysicsManager.GetInstance()
 		TMessageService.GetInstance()
 		TInputManager.GetInstance()
@@ -735,9 +740,15 @@ Type TGameEngine
 			EndIf
 			rrPopRenderState
 		Next
+		
+		Local tweening:Double = TFixedTimestep.GetInstance().GetTweening()
+		If gameManager Then gameManager.Render(tweening, True)
+		TRenderLayer.RenderAllLayers(tweening, True)
+		
 		If debugEnabled
 			DebugRender()
 		End If
+		
 		IncrementRenderFrameCount()
 		rrStopProfilerSample(renderProfile)
 	End Method
@@ -778,6 +789,8 @@ Type TGameEngine
 			logger.LogError("[" + toString() + "] A fatal error has occured.")
 			Notify("A fatal error has occured: " + errorText, True)
 			Shutdown()
+			' Re-throw so it can be caught by the debugger
+			Throw obj
 		End Try
 	End Method
 			
@@ -830,7 +843,6 @@ Type TGameEngine
 		Next
 		logger.LogInfo("[" + toString() + "] Shutdown")
 		CloseLog()
-		End
 	End Method
 		
 	
@@ -896,6 +908,7 @@ Type TGameEngine
 					service.updateMethod.Invoke(service, Null)
 				EndIf
 			Next
+			TRenderLayer.UpdateAllLayers()
 			If debugEnabled
 				DebugUpdate()
 			End If

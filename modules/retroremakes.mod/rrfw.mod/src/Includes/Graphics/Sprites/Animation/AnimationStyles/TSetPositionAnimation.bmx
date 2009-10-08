@@ -3,7 +3,7 @@ Rem
 	about: Allows you to set the sprite to a specified position as part
 	of an animation.
 End Rem
-Type TSetPositionAnimation Extends TSpriteAnimation
+Type TSetPositionAnimation Extends TAnimation
 	
 	Field x_:Float
 	Field y_:Float
@@ -13,7 +13,7 @@ Type TSetPositionAnimation Extends TSpriteAnimation
 		y_ = y
 	End Method
 	
-	Method Update:Int(sprite:TSprite)
+	Method Update:Int(sprite:TActor)
 		sprite.SetPosition(x_, y_)
 		isFinished = True
 		Return Finished()

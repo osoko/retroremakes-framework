@@ -1,7 +1,7 @@
 Rem
 	bbdoc: Sprite animation style for applying colour oscillations.
 End Rem
-Type TColourOscillatorAnimation Extends TSpriteAnimation
+Type TColourOscillatorAnimation Extends TAnimation
 
 	Const DEFAULT_COLOURGEN_OFFSET:Float = 0.0
 	
@@ -27,15 +27,15 @@ Type TColourOscillatorAnimation Extends TSpriteAnimation
 		Self.colourGen = colourGen
 	End Method
 	
-	Method Update:Int(sprite:TSprite)
+	Method Update:Int(actor:TActor)
 		Local colour:TColourRGB = TColourOscillator.GetInstance().GenColours(colourGen, offset)
 		
-		sprite.colour_.r = colour.r
-		sprite.colour_.g = colour.g
-		sprite.colour_.b = colour.b
+		actor.colour.r = colour.r
+		actor.colour.g = colour.g
+		actor.colour.b = colour.b
 		
 		If Not ignoreAlpha
-			sprite.colour_.a = colour.a
+			actor.colour.a = colour.a
 		EndIf
 
 		Return Finished()

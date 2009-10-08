@@ -1,7 +1,7 @@
 Rem
 	bbdoc: Sprite animation style for applying scale oscillations.
 End Rem
-Type TScaleOscillatorAnimation Extends TSpriteAnimation
+Type TScaleOscillatorAnimation Extends TAnimation
 
 	Const DEFAULT_SCALEGEN_OFFSET:Float = 0.0
 	
@@ -21,8 +21,8 @@ Type TScaleOscillatorAnimation Extends TSpriteAnimation
 		Self.offset = offset
 	End Method
 	
-	Method Update:Int(sprite:TSprite)
-		rrUnpackScaler(rrGenOscillatorScale(scaleGen, offset), sprite.xScale_, sprite.yScale_)
+	Method Update:Int(actor:TActor)
+		rrUnpackScaler(rrGenOscillatorScale(scaleGen, offset), actor.xScale, actor.yScale)
 		Return Finished()
 	End Method
 

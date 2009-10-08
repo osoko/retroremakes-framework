@@ -1,7 +1,7 @@
 Rem
 	bbdoc: Sprite class using an internal BlitzMax #TImage
 End Rem
-Type TImageSprite Extends TSprite
+Type TImageActor Extends TActor
 
 	Field texture_:TImage
 	Field frameCount_:Int
@@ -39,9 +39,9 @@ Type TImageSprite Extends TSprite
 		SetRenderState()
 		If texture_ And IsVisible()
 			if fixed
-				DrawImage(texture_, int(renderPosition_.x), int(renderPosition_.y), currentFrame_)
+				DrawImage(texture_, Int(renderPosition.x), Int(renderPosition.y), currentFrame_)
 			else
-				DrawImage(texture_, renderPosition_.x, renderPosition_.y, currentFrame_)
+				DrawImage(texture_, renderPosition.x, renderPosition.y, currentFrame_)
 			endif
 		EndIf
 	End Method

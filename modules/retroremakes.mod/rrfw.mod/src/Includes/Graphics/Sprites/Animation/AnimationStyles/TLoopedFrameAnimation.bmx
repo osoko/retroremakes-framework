@@ -3,7 +3,7 @@ Rem
 	about: Allows you to loop the animation of frames of an AnimImage
 	at a set speed and direction 1 or more times.
 End Rem
-Type TLoopedFrameAnimation Extends TSpriteAnimation
+Type TLoopedFrameAnimation Extends TAnimation
 	Const DEFAULT_LOOP_COUNT:Int = -1 '-1 = forever
 	Const DEFAULT_SPEED:Int = 60
 	Const DEFAULT_FIRST_FRAME:Float = 0
@@ -49,7 +49,7 @@ Type TLoopedFrameAnimation Extends TSpriteAnimation
 		currentFrame = frame
 	End Method
 	
-	Method LoopAnimation:Int(sprite:TSprite)
+	Method LoopAnimation:Int(sprite:TActor)
 		Local finished:Int = False
 		If loopsRemaining > 0
 			loopsRemaining:-1
@@ -58,9 +58,9 @@ Type TLoopedFrameAnimation Extends TSpriteAnimation
 			finished = True
 		End If
 		If direction = 1
-			currentFrame:-TImageSprite(sprite).GetFrameCount()
+			currentFrame:-TImageActor(sprite).GetFrameCount()
 		ElseIf direction = -1
-			currentFrame:+TImageSprite(sprite).GetFrameCount()
+			currentFrame:+TImageActor(sprite).GetFrameCount()
 		End If
 		Return finished
 	End Method
@@ -71,15 +71,15 @@ Type TLoopedFrameAnimation Extends TSpriteAnimation
 		Super.Reset()
 	End Method
 	
-	Method Update:Int(sprite:TSprite)
+	Method Update:Int(sprite:TActor)
 		If Not framesPerUpdate
 			CalculateFramesPerUpdate()
 		EndIf
 		currentFrame:+framesPerUpdate
-		If currentFrame >= TImageSprite(sprite).GetFrameCount() Or currentFrame < 0
+		If currentFrame >= TImageActor(sprite).GetFrameCount() Or currentFrame < 0
 			isFinished = LoopAnimation(sprite)
 		End If
-		TImageSprite(sprite).SetCurrentFrame(currentFrame)
+		TImageActor(sprite).SetCurrentFrame(currentFrame)
 		Return Finished()
 	End Method
 

@@ -3,7 +3,7 @@ Rem
 	about: Allows you to assign multiple animations to a sprite and loop through
 	them 1 or more times.
 End Rem
-Type TLoopedAnimation Extends TSpriteAnimation
+Type TLoopedAnimation Extends TAnimation
 
 	Const DEFAULT_NUM_LOOPS:Int = -1 '-1 = forever
 	
@@ -25,7 +25,7 @@ Type TLoopedAnimation Extends TSpriteAnimation
 		Self.animationLoops = animationLoops
 	End Method
 	
-	Method AddAnimation(animation:TSpriteAnimation)
+	Method AddAnimation(animation:TAnimation)
 		animations.AddLast(animation)
 	End Method
 
@@ -57,13 +57,13 @@ Type TLoopedAnimation Extends TSpriteAnimation
 		'repopulate animation list and reset all animations
 		While finishedAnimations.Count() > 0
 			animations.AddLast(finishedAnimations.RemoveFirst())
-			TSpriteAnimation(animations.Last()).Reset()
+			TAnimation(animations.Last()).Reset()
 		Wend
 		finishedAnimations.Clear()					
 	End Method
 	
 	Method remove()
-		Local animation:TSpriteAnimation
+		Local animation:TAnimation
 		For animation = EachIn animations
 			animation.remove()
 			animations.remove(animation)
@@ -82,9 +82,9 @@ Type TLoopedAnimation Extends TSpriteAnimation
 		LoopReset()
 	End Method
 	
-	Method Update:Int(sprite:TSprite)
+	Method Update:Int(sprite:TActor)
 		If animations.Count() > 0
-			If TSpriteAnimation(animations.First()).Update(sprite)
+			If TAnimation(animations.First()).Update(sprite)
 				'Animation has finished so move it to the finished list
 				finishedAnimations.AddLast(animations.RemoveFirst())
 				If animations.Count() = 0

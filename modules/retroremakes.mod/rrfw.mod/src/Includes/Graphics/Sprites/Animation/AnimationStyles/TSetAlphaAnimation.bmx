@@ -3,7 +3,7 @@ Rem
 	about: Allows you to set a sprite's alpha channel to the specified value
 	as part of an animation.
 End Rem
-Type TSetAlphaAnimation Extends TSpriteAnimation
+Type TSetAlphaAnimation Extends TAnimation
 
 	Field alpha_:Float
 	
@@ -11,7 +11,7 @@ Type TSetAlphaAnimation Extends TSpriteAnimation
 		alpha_ = alpha
 	End Method
 	
-	Method Update:Int(sprite:TSprite)
+	Method Update:Int(sprite:TActor)
 		sprite.GetColour().a = alpha_
 		isFinished = True
 		Return Finished()
