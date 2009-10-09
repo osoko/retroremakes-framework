@@ -21,6 +21,10 @@ Type TGameEngine
 	endrem
 	Field gameManager:TGameManager
 	
+	Method SetGameManager(value:TGameManager)
+		gameManager = value
+	End Method
+	
 	rem
 		bbdoc: @TList containing all #TGameService instances that have registered with the #TGameEngine instance
 		about: Every instance of #TGameService that registers with the #TGameEngine instance is added to this @TList
@@ -742,8 +746,8 @@ Type TGameEngine
 		Next
 		
 		Local tweening:Double = TFixedTimestep.GetInstance().GetTweening()
+		
 		If gameManager Then gameManager.Render(tweening, True)
-		TRenderLayer.RenderAllLayers(tweening, True)
 		
 		If debugEnabled
 			DebugRender()
@@ -767,6 +771,10 @@ Type TGameEngine
 			
 			logger.LogInfo("[" + toString() + "] Engine running")
 	
+			If gameManager
+				gameManager.Start()
+			End If
+			
 			' Main loop
 			While (GetEngineRunning() And Not AppTerminate())
 				rrStartProfilerSample(mainLoopProfile)
@@ -781,6 +789,11 @@ Type TGameEngine
 				Flip(TGraphicsService.GetInstance().vblank)
 				rrStopProfilerSample(mainLoopProfile)
 			Wend
+			
+			If gameManager
+				gameManager.Stop()
+			End If
+						
 			Shutdown()
 
 		Catch obj:Object
@@ -789,8 +802,6 @@ Type TGameEngine
 			logger.LogError("[" + toString() + "] A fatal error has occured.")
 			Notify("A fatal error has occured: " + errorText, True)
 			Shutdown()
-			' Re-throw so it can be caught by the debugger
-			Throw obj
 		End Try
 	End Method
 			
@@ -896,6 +907,8 @@ Type TGameEngine
 		
 		fixedTimestep.Calculate()
 		
+		Local dt:Double = fixedTimestep.GetDeltaTime()
+		
 		While(fixedTimestep.TimeStepNeeded())
 		
 			rrStartProfilerSample(updateProfile)
@@ -908,7 +921,7 @@ Type TGameEngine
 					service.updateMethod.Invoke(service, Null)
 				EndIf
 			Next
-			TRenderLayer.UpdateAllLayers()
+			
 			If debugEnabled
 				DebugUpdate()
 			End If

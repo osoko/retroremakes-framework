@@ -3,12 +3,17 @@ rem
 end rem
 Type TRenderable Abstract
 	
+	Field layer:Int
 	Field zDepth:Int
 	
 	Method Compare:Int(withObject:Object)
-		Return zDepth - TActor(withObject).zDepth
+		Return zDepth - TRenderable(withObject).zDepth
 	End Method
 		
+	Method GetLayer:Int()
+		Return layer
+	End Method
+	
 	Method GetZDepth:Int()
 		Return zDepth
 	End Method
@@ -18,6 +23,10 @@ Type TRenderable Abstract
 	End Method
 	
 	Method Render(tweening:Double, fixed:Int = False) Abstract
+	
+	Method SetLayer(value:Int)
+		layer = value
+	End Method
 	
 	Method SetZDepth(value:Int)
 		zDepth = value
