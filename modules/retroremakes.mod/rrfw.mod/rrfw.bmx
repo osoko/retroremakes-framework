@@ -5,7 +5,7 @@ bbdoc: RetroRemakes Framework
 EndRem
 Module retroremakes.rrfw
 
-ModuleInfo "Version: 0.9.0"
+ModuleInfo "Version: 0.10.0"
 ModuleInfo "License: Artistic License 2.0"
 ModuleInfo "Author: Paul Maskelyne (Muttley) and others"
 ModuleInfo "Copyright: (C) 2007-2009 Paul Maskelyne"
@@ -264,6 +264,5 @@ Include "src\Services\Messages\TMessage.bmx"
 Include "src\Services\Messages\TMessageData.bmx"
 Include "src\Services\Messages\TMessageChannel.bmx"
 Include "src\Services\Messages\TMessageListener.bmx"
-
 
 '#End Region 

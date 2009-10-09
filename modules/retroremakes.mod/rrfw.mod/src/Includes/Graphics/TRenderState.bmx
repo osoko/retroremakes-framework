@@ -1,4 +1,7 @@
-'Viewport disabled as it was messing with the projection matrix for some reason
+rem
+	TODO: Viewport disabled as it was messing with the projection matrix for some
+	reason. Need to find out why
+endrem
 
 rem
 bbdoc: Save and restore various render settings
