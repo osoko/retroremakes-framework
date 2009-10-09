@@ -18,7 +18,7 @@ Type TGraphicsService Extends TGameService
 	
 	Field device:TGraphics	'This is the graphics object we will be using
 	Field flags:Int = GRAPHICS_BACKBUFFER
-			
+	Field fixedPointRendering:Int
 	Field width:Int
 	Field height:Int
 	Field depth:Int
@@ -63,6 +63,7 @@ Type TGraphicsService Extends TGameService
 	Method Initialise()
 		SetName("Graphics Service")
 		startPriority = -9999	'has to be first as other services may rely on the Graphics Device
+		fixedPointRendering = True
 		Super.Initialise()
 	End Method
 
