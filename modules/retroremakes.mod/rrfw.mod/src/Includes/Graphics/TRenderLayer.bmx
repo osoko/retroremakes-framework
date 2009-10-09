@@ -1,5 +1,11 @@
 rem
-	bbdoc: Type description
+	bbdoc: A renderable layer
+	about: A render layer contains one or more renderable objects. These
+	objects will have their Update() and Render() methods called as part
+	of the main loop. Each layer has an id which is used to prioritize
+	updates and rendering. A layer with id=1 will be updated/rendered
+	before a layer with id=3 for example. This means that you can ensure
+	HUD elements are drawn above the rest of they graphics, etc.
 end rem
 Type TRenderLayer Extends TRenderable
 	Global LAllLayers:TList = New TList
@@ -67,6 +73,10 @@ Type TRenderLayer Extends TRenderable
 	
 	
 	
+	rem
+		bbdoc: Compare with another TRenderLayer
+		about: Comparison is performed on layer id
+	endrem
 	Method Compare:Int(withObject:Object)
 		Return id - TRenderLayer(withObject).id
 	End Method
@@ -217,6 +227,9 @@ Type TRenderLayer Extends TRenderable
 	
 	
 	
+	rem
+		bbdoc: Constructor
+	endrem
 	Method New()
 		renderObjects = New TList
 	End Method	
