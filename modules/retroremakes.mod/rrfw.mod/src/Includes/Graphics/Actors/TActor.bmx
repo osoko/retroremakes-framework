@@ -1,5 +1,5 @@
 Rem
-	bbdoc: Base class for implementing sprites
+	bbdoc: Base class for implementing actors
 End Rem
 Type TActor Extends TRenderable Abstract
 
@@ -106,14 +106,14 @@ Type TActor Extends TRenderable Abstract
 	
 	
 	
-	Method MoveSprite(x:Float, y:Float)
+	Method Move(x:Float, y:Float)
 		currentPosition.x:+x
 		currentPosition.y:+y
 	End Method
 	
 	
 		
-	Method MoveSpriteV(moveVector:TVector2D)
+	Method MoveV(moveVector:TVector2D)
 		currentPosition = rrVAdd(currentPosition, moveVector)
 	End Method
 	
