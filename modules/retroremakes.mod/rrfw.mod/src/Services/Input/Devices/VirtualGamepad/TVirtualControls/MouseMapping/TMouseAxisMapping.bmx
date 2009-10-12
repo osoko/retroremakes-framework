@@ -40,7 +40,7 @@ Type TMouseAxisMapping Extends TVirtualControlMapping
 					End If
 				End If
 					
-				controlDownAnalogue_ = analogueAxisValue
+				controlDownAnalogue_ = Abs(analogueAxisValue)
 				controlDownDigital_ = digitalAxisValue
 										
 				If digitalAxisValue = 0
