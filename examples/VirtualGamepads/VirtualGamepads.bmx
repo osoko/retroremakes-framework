@@ -1,21 +1,19 @@
 SuperStrict
 
-Import retroremakes.rrfw
+Framework retroremakes.rrfw
 
 Incbin "media/crate.png"
 
 rrUseExeDirectoryForData()
 
-rrEngineInitialise()
+TGameEngine.GetInstance().SetGameManager(New GameManager)
 
 'Mouse input isn't enabled by default
 rrEnableMouseInput()
 
-rrAddGameState(New TMyState)
+TGameEngine.GetInstance().Run()
 
-rrEngineRun()
-
-Type TMyState Extends TGameState
+Type GameManager Extends TGameManager
 
 	Const boxSpeed:Float = 20.0
 	Const rotateSpeed:Int = 10
@@ -70,11 +68,12 @@ Type TMyState Extends TGameState
 		box = LoadImage("incbin::media/crate.png")
 	End Method
 
-	Method Enter()
+	Method Start()
+		Initialise()
 		TMessageService.GetInstance().SubscribeToChannel(CHANNEL_INPUT, Self)
 	End Method
 	
-	Method Leave()
+	Method Stop()
 		TMessageService.GetInstance().UnsubscribeFromChannel(CHANNEL_INPUT, Self)
 	End Method
 	
@@ -125,7 +124,8 @@ Type TMyState Extends TGameState
 		EndIf
 	End Method
 	
-	Method Render()
+	
+	Method Render(tweening:Double, fixed:Int = False)
 		SetColor 255, 255, 255
 		SetRotation 0
 		SetScale 1.0, 1.0
@@ -158,6 +158,8 @@ Type TMyState Extends TGameState
 		SetRotation boxAngle
 		SetScale boxZoom, boxZoom
 		DrawImage(box, boxX, boxY)
+		SetRotation 0
+		SetScale 0, 0
 	End Method
 	
 	'Standard Message Listener
@@ -199,6 +201,8 @@ Type TMyState Extends TGameState
 					' programming mode for itself.
 					ProgramControl()
 				End If
+			Case KEY_ESCAPE
+				TGameEngine.GetInstance().Stop()
 		End Select
 	End Method
 	
