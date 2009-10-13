@@ -25,7 +25,6 @@ ModuleInfo "Website: http://code.google.com/p/retroremakes-framework/"
 ModuleInfo "Forum: http://www.muttleyville.org/forum/"
 
 Import bah.chipmunk
-'Import bah.libxml
 Import bah.volumes
 
 Import brl.audio
@@ -62,10 +61,10 @@ Import brl.timer
 Import dbs.d3d9max2d
 Import dbs.dx9graphics
 
-'Import gman.zipengine
+Import gman.zipengine
 
-'Import koriolis.bufferedstream
-'Import koriolis.zipstream
+Import koriolis.bufferedstream
+Import koriolis.zipstream
 
 Import muttley.inifilehandler
 Import muttley.logger
