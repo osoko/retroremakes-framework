@@ -518,8 +518,8 @@
       <FileName>src\Services\Input\Devices\VirtualGamepad\TVirtualControls\JoystickMapping\TJoystickAxisMapping.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>11</X>
-        <Y>66</Y>
+        <X>5</X>
+        <Y>59</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -542,16 +542,16 @@
       <FileName>src\Services\Input\Devices\VirtualGamepad\TVirtualControls\KeyboardMapping\TKeyboardMapping.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>22</X>
-        <Y>1</Y>
+        <X>0</X>
+        <Y>36</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Input\Devices\VirtualGamepad\TVirtualControls\MouseMapping\TMouseAxisMapping.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>15</X>
-        <Y>1</Y>
+        <X>11</X>
+        <Y>51</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -822,8 +822,8 @@
       <FileName>rrfw.bmx</FileName>
       <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>1</X>
-        <Y>3</Y>
+        <X>0</X>
+        <Y>0</Y>
       </Caret_Position>
     </Included_File>
     <Compilation_Mode>GUI_Application</Compilation_Mode>
