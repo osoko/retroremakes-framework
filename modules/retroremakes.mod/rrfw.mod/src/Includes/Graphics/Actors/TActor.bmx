@@ -216,6 +216,8 @@ Type TActor Extends TRenderable Abstract
 	
 	
 	Method Update()
+		previousPosition.x = currentPosition.x
+		previousPosition.y = currentPosition.y
 		animationManager.Update()
 	End Method
 
