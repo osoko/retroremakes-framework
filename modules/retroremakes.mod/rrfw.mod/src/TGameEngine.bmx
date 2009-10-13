@@ -944,6 +944,8 @@ Type TGameEngine
 				EndIf
 			Next
 			
+			If gameManager Then gameManager.Update()
+			
 			If debugEnabled
 				DebugUpdate()
 			End If
