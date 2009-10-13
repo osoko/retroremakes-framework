@@ -1,22 +1,24 @@
 Rem
-	Vernimb sprite design and IP copyright Stoo Cambridge / www.hobeka.com from Blobbit Dash & Blobbit Push,
-	www.blobbitworld.com  used with permission for non commercial use
+'
+' Vernimb sprite design and IP copyright Stoo Cambridge / www.hobeka.com from Blobbit Dash & Blobbit Push,
+' www.blobbitworld.com  used with permission for non commercial use
+'
 endrem
+
 SuperStrict
 
-Import retroremakes.rrfw
+Framework retroremakes.rrfw
 
 Incbin "media/Vernimb3_hopdown_anim.png"
 
 rrUseExeDirectoryForData()
 
-rrEngineInitialise()
+TGameEngine.GetInstance().SetGameManager(New GameManager)
 
-rrAddGameState(New TMyState)
+TGameEngine.GetInstance().Run()
 
-rrEngineRun()
 
-Type TMyState Extends TGameState
+Type GameManager Extends TGameManager
 
 	Const NUM_SPRITES:Int = 25
 	
@@ -25,17 +27,16 @@ Type TMyState Extends TGameState
 	Const text3:String = "used with permission for non commercial use"
 	
 	Field spriteImage:TImage
-	Field spriteManager:TSpriteManager
 	
 	Field cornerX:Int[] = New Int[4]
 	Field cornerY:Int[] = New Int[4]
+		
 	
-	
-	
+	' Here we create all our sprites and add them to a render layer
 	Method CreateAllSprites()
 		For Local i:Int = 1 To NUM_SPRITES
 			' Create a new TImageSprite
-			Local sprite:TImageSprite = New TImageSprite
+			Local sprite:TImageActor = New TImageActor
 			
 			' Give it the texture we want
 			sprite.SetTexture(spriteImage)
@@ -52,16 +53,17 @@ Type TMyState Extends TGameState
 			CreateAnimations(sprite)
 			
 			' Finally add it to the sprite manager.
-			spriteManager.AddSprite(sprite)
+			TLayerManager.GetInstance().AddRenderObjectToLayerById(sprite, 0)
 		Next
 	End Method
 	
 	
 	
-	Method CreateAnimations(sprite:TImageSprite)
+	' Each sprite has a series of animations assigned, these are created here
+	Method CreateAnimations(sprite:TImageActor)
 
 		' Get a handle to the sprite's Animation Manager
-		Local animationManager:TSpriteAnimationManager = sprite.GetAnimationManager()
+		Local animationManager:TAnimationManager = sprite.GetAnimationManager()
 		
 		' Create our first animation.  This is a composite type
 		' where it will run all animations we assign to it at the
@@ -94,8 +96,8 @@ Type TMyState Extends TGameState
 		' We're going to make each sprite visit each corner of the screen,
 		' returning to their original position between each, and this will
 		' loop forever.
-		Local startX:Float = sprite.currentPosition_.x
-		Local startY:Float = sprite.currentPosition_.y
+		Local startX:Float = sprite.currentPosition.x
+		Local startY:Float = sprite.currentPosition.y
 		
 		' randomise the first corner
 		Local corner:Int = Rand(0, 3)
@@ -134,11 +136,28 @@ Type TMyState Extends TGameState
 	
 	
 	
-	Method Enter()
+	Method Start()
 		'Called when switching to this GameState
 		TMessageService.GetInstance().SubscribeToChannel(CHANNEL_INPUT, Self)
+		
+		TLayerManager.GetInstance().CreateLayer(0, "my-layer")
+		
+		'Called after the Graphics device has been created
+		rrLoadResourceAnimImage("incbin::media/Vernimb3_hopdown_anim.png", 64, 72, 0, 5, FILTEREDIMAGE | MIPMAPPEDIMAGE)
+		spriteImage = rrGetResourceAnimImage("incbin::media/Vernimb3_hopdown_anim.png")
+		
+		cornerX = [0, rrGetGraphicsWidth() - spriteImage.Width, rrGetGraphicsWidth() - spriteImage.Width, 0]
+		cornerY = [0, 0, rrGetGraphicsHeight() - spriteImage.Height, rrGetGraphicsHeight() - spriteImage.Height]
+		
+		CreateAllSprites()		
 	End Method
 
+	
+	
+	Method Stop()
+		TMessageService.GetInstance().UnsubscribeFromChannel(CHANNEL_INPUT, Self)
+	End Method
+	
 	
 	
 	Method HandleKeyboardInput(message:TMessage)
@@ -147,29 +166,6 @@ Type TMyState Extends TGameState
 			Case KEY_ESCAPE
 				rrEngineStop()
 		End Select
-	End Method
-		
-	
-	
-	Method Initialise()
-	
-		'Called after the Graphics device has been created
-		rrLoadResourceAnimImage("incbin::media/Vernimb3_hopdown_anim.png", 64, 72, 0, 5, FILTEREDIMAGE | MIPMAPPEDIMAGE)
-		spriteImage = rrGetResourceAnimImage("incbin::media/Vernimb3_hopdown_anim.png")
-		
-		cornerX = [0, rrGetGraphicsWidth() - spriteImage.Width, rrGetGraphicsWidth() - spriteImage.Width, 0]
-		cornerY = [0, 0, rrGetGraphicsHeight() - spriteImage.Height, rrGetGraphicsHeight() - spriteImage.Height]
-				
-		spriteManager = New TSpriteManager
-		
-		CreateAllSprites()
-	End Method
-
-	
-	
-	Method Leave()
-		'Called when switching to another GameState
-		TMessageService.GetInstance().UnsubscribeFromChannel(CHANNEL_INPUT, Self)
 	End Method
 
 	
@@ -183,14 +179,9 @@ Type TMyState Extends TGameState
 		
 	
 	
-	Method Render()
-		'Called during the Render loop.  All drawing goes here.
-		
-		' Tell the sprite manager to render all sprites at integer
-		' positions to avoid sub-pixel rendering by the graphics
-		' card.		
-		spriteManager.Render(True)
-		
+	' To keep things simple, we'll draw the copyright text in the Game Manager's render method
+	' this means it will always be the last thing drawn.
+	Method Render(tweening:Double, fixed:Int = False)
 		DrawText(text1, 0, rrGetGraphicsHeight() - (TextHeight(text1) * 3))
 		DrawText(text2, 0, rrGetGraphicsHeight() - (TextHeight(text2) * 2))
 		DrawText(text3, 0, rrGetGraphicsHeight() - (TextHeight(text3) * 1))
@@ -199,8 +190,7 @@ Type TMyState Extends TGameState
 	
 	
 	Method Update()
-		'Called during the logic Update loop.  All logic goes here.	
-		spriteManager.Update()
+		' We don't need to do anything in the update look in this example
 	End Method
 	
 End Type
