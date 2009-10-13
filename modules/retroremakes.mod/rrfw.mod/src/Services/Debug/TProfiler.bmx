@@ -1,10 +1,21 @@
+rem
+'
+' Copyright (c) 2007-2009 Paul Maskelyne <muttley@muttleyville.org>.
+'
+' All rights reserved. Use of this code is allowed under the
+' Artistic License 2.0 terms, as specified in the LICENSE file
+' distributed with this code, or available from
+' http://www.opensource.org/licenses/artistic-license-2.0.php
+'
+endrem
+
 Rem
-	Teamonkey's Inline Profiler for BlitzMax v0.1
-	(c) James Arthur 2005, <a href="mailto:teamonkey@gmail.com">teamonkey@gmail.com</a>
-	This code is public domain
-	
-	Enhanced and modified by Muttley
+'
+' This code is based on teamonkey's Inline Profiler for BlitzMax v0.1
+' Copyright (c) 2005 James Arthur <teamonkey@gmail.com>
+'	
 End Rem
+
 Type TProfiler Extends TGameService
 
 	Global instance:TProfiler
