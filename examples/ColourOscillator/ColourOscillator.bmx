@@ -6,15 +6,11 @@ rrUseExeDirectoryForData()
 
 rrEngineInitialise()
 
-Local mainState:GSMainState = New GSMainState
-
-rrAddGameState(mainState)
-
-rrEnableKeyboardInput()
+TGameEngine.GetInstance().SetGameManager(New GameManager)
 
 rrEngineRun()
 
-Type GSMainState Extends TGameState
+Type GameManager Extends TGameManager
 
 	Const KEY_DELAY_MS:Int = 100
 	
@@ -39,12 +35,13 @@ Type GSMainState Extends TGameState
 		exampleFont = rrGetResourceImageFont("resources/fonts/VeraMoBd.ttf", 52)
 	End Method
 	
-	Method Leave()
+	Method Stop()
 		' Unsubscribe from the input channel
 		rrUnsubscribeFromChannel(CHANNEL_INPUT, Self)
 	End Method
 	
-	Method Enter()
+	Method Start()
+		Initialise()
 		' Subscribe to the input channel
 		rrSubscribeToChannel(CHANNEL_INPUT, Self)	
 	End Method
@@ -52,7 +49,7 @@ Type GSMainState Extends TGameState
 	Method Update()
 	End Method
 	
-	Method Render()
+	Method Render(tweening:Double, fixed:Int = False)
 		SetImageFont(controlFont)
 		SetBlend(ALPHABLEND)
 		SetColor(255, 255, 255)
@@ -107,6 +104,8 @@ Type GSMainState Extends TGameState
 		
 		rrSetOscillatorColours(colours, 100.0)
 		DrawText("Example Text", 400 - (TextWidth("Example Text") / 2), 420)
+		
+		SetImageFont(controlFont)
 	End Method
 	
 	Method Shutdown()
