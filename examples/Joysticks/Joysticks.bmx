@@ -6,16 +6,12 @@ rrUseExeDirectoryForData()
 
 rrEngineInitialise()
 
-Local joystickExample:TJoystickExample = New TJoystickExample
+TGameEngine.GetInstance().SetGameManager(New GameManager)
 
-rrAddGameState(joystickExample)
-
-rrEnableKeyboardInput(True)
-
-rrEngineRun()
+TGameEngine.GetInstance().Run()
 
 
-Type TJoystickExample Extends TGameState
+Type GameManager Extends TGameManager
 
 	Field nJoysticks:Int
 	Field displayJoystick:Int
@@ -36,11 +32,12 @@ Type TJoystickExample Extends TGameState
 		Next
 	End Method
 	
-	Method Enter()
+	Method Start()
+		Initialise()
 		rrSubscribeToChannel(CHANNEL_INPUT, Self)
 	End Method
 	
-	Method Leave()
+	Method Stop()
 		rrUnsubscribeFromChannel(CHANNEL_INPUT, Self)
 	End Method
 	
@@ -51,7 +48,7 @@ Type TJoystickExample Extends TGameState
 		Next	
 	End Method
 	
-	Method Render()
+	Method Render(tweening:Double, fixed:Int = False)
 		Local i:Int
 		SetColor(255, 255, 255)
 		DrawText "Select Joystick:", 0, 20
