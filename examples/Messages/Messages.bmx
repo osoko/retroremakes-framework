@@ -13,8 +13,7 @@ rrEnableProjectionMatrix()
 rrEnableMouseInput()
 
 ' Create the GameState and register it with the GameStateManager
-Global game:MsgExample = New MsgExample
-rrAddGameState(game)
+TGameEngine.GetInstance().SetGameManager(New MsgExample)
 
 ' Run the game
 rrEngineRun()
@@ -157,7 +156,7 @@ EndType
 
 
 
-Type MsgExample Extends TGameState
+Type MsgExample Extends TGameManager
 
 	Field bugnest:TImage ' The bugs nest
 
@@ -179,12 +178,13 @@ Type MsgExample Extends TGameState
 		ShowMouse()	
 	End Method
 	
-	Method Enter()
+	Method Start()
+		Initialise()
 		' Register with input channel
 		rrSubscribeToChannel(CHANNEL_INPUT, Self)		
 	End Method
 	
-	Method Leave()
+	Method Stop()
 		' Unsubscribe from channels if the GameState is suspended to ensure
 		' that we don't receive messages if we're not active.
 		rrUnsubscribeFromChannel(CHANNEL_INPUT, Self)		
@@ -207,10 +207,22 @@ Type MsgExample Extends TGameState
 				dmsg.Send()			
 			Case MSG_MOUSE
 				HandleMouseInput(message)
+			Case MSG_KEY
+				HandleKeyboardInput(message)
 		End Select
 	
 	EndMethod
 
+	Method HandleKeyboardInput(message:TMessage)
+			Local data:TKeyboardMessageData = TKeyboardMessageData(message.data)
+			
+			Select data.key
+				Case KEY_ESCAPE
+					If data.keyHits Then TGameEngine.GetInstance().Stop()
+			End Select
+		
+	EndMethod	
+	
 	Method HandleMouseInput(message:TMessage)
 			Local data:TMouseMessageData = TMouseMessageData(message.data)
 			
@@ -220,18 +232,19 @@ Type MsgExample Extends TGameState
 			EndIf
 		
 	EndMethod	
+
 	
-	Method Render()
-	
-		DrawImage( bugnest, 320,240 )	
+		
+	Method Render(tweening:Double, fixed:Int = False)
+		DrawImage(bugnest, 320, 240)
 		bug.draw_all()
 		
 		DrawText "Bugs: "+Bug.list.count(), 0,0
 		DrawText "Messages in queue: "+rrGetMessageCount(), 0,12
-		
 	EndMethod
 
 
+	
 	Method Update()
 	
 		' Move bugs
