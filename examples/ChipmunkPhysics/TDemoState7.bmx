@@ -6,10 +6,9 @@ Type TDemoState7 Extends TGameState
 	Field chassis:CPBody
 	Field wheel1:CPBody
 	Field wheel2:CPBody
+
 	
-	Field finished_:Int = False
-	
-	Method Initialise()
+	Method Start()
 		staticBody = New CPBody.Create(INFINITY, INFINITY)
 		
 		ResetShapeIdCounter()
@@ -204,30 +203,11 @@ Type TDemoState7 Extends TGameState
 	
 	End Method
 	
-	Method Leave()
-		rrUnsubscribeFromChannel(CHANNEL_INPUT, Self)
-	End Method
-	
-	Method Enter()
-		rrSubscribeToChannel(CHANNEL_INPUT, Self)
-		finished_ = False
-	End Method
-
-	Method MessageListener(message:TMessage)
-		Select message.messageID
-			Case MSG_KEY
-				HandleKeyboardInput(message)
-		End Select
-	End Method
-	
-	Method HandleKeyboardInput(message:TMessage)
-		Local data:TKeyboardMessageData = TKeyboardMessageData(message.data)
+	Method Stop()
 		
-		If data.key = KEY_SPACE And data.keyHits
-			finished_ = True
-		End If
 	End Method
 	
+
 	Method Update()
 		Local steps:Int = 3
 		Local dt:Float = 1.0 / 60.0 / steps
@@ -241,10 +221,9 @@ Type TDemoState7 Extends TGameState
 			
 			space.DoStep(dt)
 		Next
-		If finished_ Then rrNextGameState()
 	End Method
 	
-	Method Render()
+	Method Render(tweening:Double, fixed:Int = False)
 		SetOrigin(rrGetGraphicsWidth() / 2, rrGetGraphicsHeight() / 2)
 		SetColor 255, 255, 255
 		space.GetActiveShapes().ForEach(drawObject)
@@ -255,9 +234,7 @@ Type TDemoState7 Extends TGameState
 		Local fps:String = "FPS: " + rrGetFPS()
 		DrawText(fps, 5, 5)
 	End Method
-	
-	Method Shutdown()
-	End Method
+
 	
 	Function drawPolyShape(shape:CPPolyShape)
 	

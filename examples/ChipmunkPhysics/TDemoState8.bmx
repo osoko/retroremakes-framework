@@ -7,8 +7,6 @@ Type TDemoState8 Extends TGameState
 	Field space:CPSpace
 		
 	Field boxCount:Int
-	
-	Field finished_:Int = False
 
 	Method Initialise()
 		staticBody = New CPBody.Create(INFINITY, INFINITY)
@@ -54,13 +52,13 @@ Type TDemoState8 Extends TGameState
 	
 	End Method
 	
-	Method Leave()
+	Method Stop()
 		rrSubscribeToChannel(CHANNEL_INPUT, Self)
 	End Method
 	
-	Method Enter()
+	Method Start()
+		Initialise()
 		rrSubscribeToChannel(CHANNEL_INPUT, Self)
-		finished_ = False
 	End Method
 
 	Method MessageListener(message:TMessage)
@@ -74,8 +72,6 @@ Type TDemoState8 Extends TGameState
 		Local data:TKeyboardMessageData = TKeyboardMessageData(message.data)
 		
 		Select data.key
-			Case KEY_SPACE
-				If data.keyHits Then finished_ = True
 			Case KEY_B
 				If data.keyHits Then makeBox(Vec2(0, -250), Vec2(0, 0), 0.0, 10.0)
 		End Select
@@ -88,10 +84,9 @@ Type TDemoState8 Extends TGameState
 		For Local i:Int = 0 Until steps
 			space.DoStep(dt)
 		Next
-		If finished_ Then rrNextGameState()
 	End Method
 	
-	Method Render()
+	Method Render(tweening:Double, fixed:Int = False)
 		SetOrigin(rrGetGraphicsWidth() / 2, rrGetGraphicsHeight() / 2)
 		SetColor 255, 255, 255		
 		space.GetActiveShapes().ForEach(drawObject)
@@ -104,9 +99,7 @@ Type TDemoState8 Extends TGameState
 		DrawText(fps, 5, rrGetGraphicsHeight() - TextHeight(fps))
 		DrawText boxes, rrGetGraphicsWidth() - TextWidth(boxes), rrGetGraphicsHeight() - TextHeight(fps)
 	End Method
-	
-	Method Shutdown()
-	End Method
+
 	
 	Function applyBuoyancy(body:CPBody, gravity:CPVect, damping:Float, dt:Float)
 	

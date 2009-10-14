@@ -2,10 +2,7 @@ SuperStrict
 
 Import retroremakes.rrfw
 
-rrUseExeDirectoryForData()
-
-rrEngineInitialise()
-
+Include "TGameState.bmx"
 Include "TIntroState.bmx"
 Include "TDemoState1.bmx"
 Include "TDemoState2.bmx"
@@ -20,29 +17,93 @@ Incbin "media\ball.png"
 Incbin "media\crate.png"
 Incbin "media\VeraMono.ttf"
 
-Global intro:TIntroState = New TIntroState
-Global demo1:TDemoState1 = New TDemoState1
-Global demo2:TDemoState2 = New TDemoState2
-Global demo3:TDemoState3 = New TDemoState3
-Global demo4:TDemoState4 = New TDemoState4
-Global demo5:TDemoState5 = New TDemoState5
-Global demo6:TDemoState6 = New TDemoState6
-Global demo7:TDemoState7 = New TDemoState7
-Global demo8:TDemoState8 = New TDemoState8
+rrUseExeDirectoryForData()
+
+rrEngineInitialise()
+
+TGameEngine.GetInstance().SetGameManager(New GameManager)
 
 rrSetGraphicsWidth(640)
 rrSetGraphicsHeight(480)
 rrDisableProjectionMatrix()
-rrEnableKeyboardInput()
-
-rrAddGameState(intro)
-rrAddGameState(demo1)
-rrAddGameState(demo2)
-rrAddGameState(demo3)
-rrAddGameState(demo4)
-rrAddGameState(demo5)
-rrAddGameState(demo6)
-rrAddGameState(demo7)
-rrAddGameState(demo8)
 
 rrEngineRun()
+
+
+Type GameManager Extends TGameManager
+
+	Field layerManager:TLayerManager
+	
+	Field currentState:Int
+	Field states:TGameState[]
+	
+	Method Start()
+		rrSubscribeToChannel(CHANNEL_INPUT, Self)
+		
+		layerManager = TLayerManager.GetInstance()
+		layerManager.CreateLayer(0, "myLayer")
+		
+		states = New TGameState[9]
+		
+		states[0] = New TIntroState
+		states[1] = New TDemoState1
+		states[2] = New TDemoState2
+		states[3] = New TDemoState3
+		states[4] = New TDemoState4
+		states[5] = New TDemoState5
+		states[6] = New TDemoState6
+		states[7] = New TDemoState7
+		states[8] = New TDemoState8
+		
+		currentState = 0
+		
+		' Start the first state
+		layerManager.AddRenderObjectToLayerById(states[currentState], 0)
+		states[currentState].Start()
+	End Method
+	
+	Method Stop()
+		rrUnsubscribeFromChannel(CHANNEL_INPUT, Self)
+	End Method
+	
+	Method Render(tweening:Double, fixed:Int = False)
+		' Nothing needed here
+	End Method
+	
+	Method Update()
+		' Nothing needed here
+	End Method
+	
+	Method MessageListener(message:TMessage)
+		Select message.messageID
+			Case MSG_KEY
+				HandleKeyboardInput(message)
+		End Select
+	End Method
+	
+	Method MoveForwards()
+		states[currentState].Stop()
+		layerManager.RemoveRenderObject(states[currentState])
+		
+		currentState:+1
+		
+		If currentState >= states.Length Then currentState = 0
+		
+		If currentState < states.Length
+			layerManager.AddRenderObjectToLayerById(states[currentState], 0)
+			states[currentState].Start()
+		EndIf
+		
+	End Method
+	
+	Method HandleKeyboardInput(message:TMessage)
+		Local data:TKeyboardMessageData = TKeyboardMessageData(message.data)
+		Select data.key
+			Case KEY_SPACE
+				If data.keyHits Then MoveForwards()
+			Case KEY_ESCAPE
+				TGameEngine.GetInstance().Stop()
+		End Select
+	End Method	
+	
+End Type

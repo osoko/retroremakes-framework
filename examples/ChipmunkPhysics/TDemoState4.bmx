@@ -2,8 +2,6 @@ Type TDemoState4 Extends TGameState
 
 	Field staticBody:CPBody
 	Field space:CPSpace
-	
-	Field finished_:Int = False
 
 	Global toggleMode:Int = 0
 
@@ -73,13 +71,13 @@ Type TDemoState4 Extends TGameState
 		
 	End Method
 
-	Method Leave()
+	Method Stop()
 		rrUnsubscribeFromChannel(CHANNEL_INPUT, Self)
 	End Method
 	
-	Method Enter()
+	Method Start()
+		Initialise()
 		rrSubscribeToChannel(CHANNEL_INPUT, Self)
-		finished_ = False
 	End Method
 
 	Method MessageListener(message:TMessage)
@@ -93,8 +91,6 @@ Type TDemoState4 Extends TGameState
 		Local data:TKeyboardMessageData = TKeyboardMessageData(message.data)
 		
 		Select data.key
-			Case KEY_SPACE
-				If data.keyHits Then finished_ = True
 			Case KEY_T
 				If data.keyHits Then toggleMode = Not toggleMode
 		End Select
@@ -110,10 +106,9 @@ Type TDemoState4 Extends TGameState
 			staticBody.UpdatePosition(dt)
 			space.RehashStatic()
 		Next
-		If finished_ Then rrNextGameState()
 	End Method
 	
-	Method Render()
+	Method Render(tweening:Double, fixed:Int = False)
 		SetOrigin 320, 240
 		SetColor 255, 255, 255
 
