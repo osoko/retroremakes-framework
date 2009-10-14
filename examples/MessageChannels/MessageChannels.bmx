@@ -10,15 +10,9 @@ rrEngineInitialise()
 rrSetProjectionMatrixResolution(640, 480)
 rrEnableProjectionMatrix()
 
-rrEnableKeyboardInput()
+TGameEngine.GetInstance().SetGameManager(New GameManager)
 
-' Create the GameState and register it with the GameStateManager
-Global game:MsgExample = New MsgExample
-rrAddGameState(game)
-
-' Run the game
-rrEngineRun()
-
+TGameEngine.GetInstance().Run()
 
 ' Custom messages for this example
 Const MSG_RED:Int = 1	'Change colour to Red
@@ -136,7 +130,6 @@ Type Blob
 		col.Set()
 		DrawOval(pos.x - 10, pos.y - 10, 20, 20)
 		SetColor 0, 0, 0
-		DrawText(channel, pos.x - (TextWidth(channel) / 2), pos.y - (TextHeight(channel) / 2))
 	EndMethod
 
 
@@ -145,7 +138,7 @@ EndType
 
 
 
-Type MsgExample Extends TGameState
+Type GameManager Extends TGameManager
 
 	Field channel1Count:Int = 0
 	Field channel2Count:Int = 1
@@ -157,17 +150,18 @@ Type MsgExample Extends TGameState
 		Blob.CreateAll()
 	End Method
 	
-	Method Enter()
+	Method Start()
+		Initialise()
 		rrSubscribeToChannel(CHANNEL_INPUT, Self)
 	End Method
 	
-	Method Leave()
+	Method Stop()
 		' Unsubscribe from channels if the GameState is suspended to ensure
 		' that we don't receive messages if we're not active.
 		rrUnsubscribeFromChannel(CHANNEL_INPUT, Self)
 	End Method
 	
-	Method Render()
+	Method Render(tweening:Double, fixed:Int = False)
 		Blob.draw_all()
 		
 		SetColor 255, 255, 255
