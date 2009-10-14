@@ -197,8 +197,8 @@ Type TActor Extends TRenderable Abstract
 	
 	
 	
-	Method SetRotation(rotation:Float)
-		rotation = rotation		
+	Method SetRotation(value:Float)
+		rotation = value		
 	End Method
 	
 	
