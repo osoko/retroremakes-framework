@@ -787,7 +787,9 @@ Type TGameEngine
 	endrem		
 	Method Run()
 	
+	?Not Debug
 		Try
+	?
 			SetEngineRunning(True)
 			StartServices()
 			
@@ -817,7 +819,7 @@ Type TGameEngine
 			End If
 						
 			Shutdown()
-
+	?Not Debug
 		Catch obj:Object
 			Local errorText:String = "[" + TTypeId.ForObject(obj).Name() + "] " + obj.ToString()
 			logger.LogError(errorText)
@@ -825,6 +827,7 @@ Type TGameEngine
 			Notify("A fatal error has occured: " + errorText, True)
 			Shutdown()
 		End Try
+	?
 	End Method
 			
 	
