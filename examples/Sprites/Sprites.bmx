@@ -1,6 +1,6 @@
 SuperStrict
 
-Import retroremakes.rrfw
+Framework retroremakes.rrfw
 
 Incbin "media/bmax120.png"
 
@@ -11,12 +11,12 @@ rrEngineInitialise()
 'Mouse input isn't enabled by default
 rrEnableMouseInput()
 
-rrAddGameState(New TMyState)
+TGameEngine.GetInstance().SetGameManager(New GameManager)
 
 rrEngineRun()
 
 
-Type TMyState Extends TGameState
+Type GameManager Extends TGameManager
 
 	Const boxSpeed:Float = 5.0
 	Const rotateSpeed:Int = 2
@@ -30,26 +30,23 @@ Type TMyState Extends TGameState
 
 	Field controlNames:String[]
 	
-	Field spriteManager:TSpriteManager
-	Field playerSprite:TImageSprite
+	Field playerSprite:TImageActor
 	
 	Method Initialise()
 		AutoMidHandle(True)
 		
 		' Get the resource manager to load the texture we will use for our sprite
 		rrLoadResourceImage("incbin::media/bmax120.png", FILTEREDIMAGE|MIPMAPPEDIMAGE)
-		
-		' Setup a Sprite Manager for this Game State
-		spriteManager = New TSpriteManager
+
 		
 		' Create our player sprite
-		playerSprite = New TImageSprite
+		playerSprite = New TImageActor
 		playerSprite.SetTexture(rrGetResourceImage("incbin::media/bmax120.png"))
 		playerSprite.SetPosition(0,0)
 
-		' Add the player sprite to the Sprite Manager
-		spriteManager.AddSprite(playerSprite)
-			
+
+		TLayerManager.GetInstance().AddRenderObjectToLayerById(playerSprite, 0)
+		
 		'Create a new Virtual Gamepad to control the sprite with
 		gamepad = New TVirtualGamepad
 		
@@ -79,21 +76,16 @@ Type TMyState Extends TGameState
 		controlNames = gamepad.GetControlNames()
 	End Method
 
-	Method Enter()
+	Method Start()
+		Initialise()
 		TMessageService.GetInstance().SubscribeToChannel(CHANNEL_INPUT, Self)
 	End Method
 	
-	Method Leave()
+	Method Stop()
 		TMessageService.GetInstance().UnsubscribeFromChannel(CHANNEL_INPUT, Self)
 	End Method
 	
 	Method Update()
-	
-		' Update all sprites. This handles any animations, etc.
-		spriteManager.Update()	
-		
-		' Now we check the inputs on our virtual gamepad and do the necessary
-		
 		
 		' First work out how much to move the sprite by
 		Local boxX:Float = 0.0
@@ -116,7 +108,7 @@ Type TMyState Extends TGameState
 		EndIf				
 
 		' Move the player sprite
-		playerSprite.MoveSprite(boxX, boxY)
+		playerSprite.Move(boxX, boxY)
 		
 		' Check if we're rotating the sprite
 		Local boxAngle:Int = Int(playerSprite.GetRotation())
@@ -153,7 +145,8 @@ Type TMyState Extends TGameState
 
 	End Method
 	
-	Method Render()
+
+	Method Render(tweening:Double, fixed:Int = False)
 		SetColor 255, 255, 255
 		SetRotation 0
 		SetScale 1.0, 1.0
@@ -180,8 +173,6 @@ Type TMyState Extends TGameState
 			i:+1
 		Next
 
-		' Render all sprites
-		spriteManager.Render()
 	End Method
 	
 	'Standard Message Listener
