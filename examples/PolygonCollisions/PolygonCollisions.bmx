@@ -6,16 +6,12 @@ rrUseExeDirectoryForData()
 
 rrEngineInitialise()
 
-Global myState:TPolygonCollisionExample = New TPolygonCollisionExample
-
-rrAddGameState(myState)
-
-rrSetGameState(myState)
+TGameEngine.GetInstance().SetGameManager(New TPolygonCollisionExample)
 
 rrEngineRun()
 
 
-Type TPolygonCollisionExample Extends TGameState
+Type TPolygonCollisionExample Extends TGameManager
 
 	Field verts:Float[] = [- 25.0, 0.0, - 75.0, 75.0, 0.0, 50.0, 100.0, 100.0,  ..
 			50.0, 25.0, 100.0, 0.0, 50.0, - 25.0, 100.0, - 100.0, 0.0, - 50.0, - 75.0, - 75.0]
@@ -41,11 +37,16 @@ Type TPolygonCollisionExample Extends TGameState
 	Field mx:Int
 	Field My:Int
 	
+	Method Start()
+	End Method
+	
+	
 	Method Update()
 		If KeyHit(KEY_1) Then colType = 0
 		If KeyHit(KEY_2) Then colType = 1
 		If KeyHit(KEY_3) Then colType = 3
 		If KeyHit(KEY_4) Then colType = 2
+		If KeyHit(KEY_ESCAPE) Then TGameEngine.GetInstance().Stop()
 		
 		ang:+1
 					
@@ -65,7 +66,11 @@ Type TPolygonCollisionExample Extends TGameState
 		My = MouseY()
 	EndMethod
 	
-	Method Render()
+	Method MessageListener(message:TMessage)
+		
+	End Method
+	
+	Method Render(tweening:Double, fixed:Int = False)
 	
 		SetRotation rot
 		SetScale sx, sy
@@ -128,7 +133,7 @@ Type TPolygonCollisionExample Extends TGameState
 		End Select
 	EndMethod
 	
-	Method Shutdown()
+	Method Stop()
 	EndMethod
 
 EndType
