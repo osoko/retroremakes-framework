@@ -6,8 +6,6 @@ Type TDemoState1 Extends TGameState
 	Field body:CPBody
 	Field shape:CPShape
 	
-	Field finished_:Int = False
-	
 	Global collisionText:String = ""
 	
 	'Called when adding the state to the TGameStateManager
@@ -73,28 +71,11 @@ Type TDemoState1 Extends TGameState
 		space.AddCollisionPairFunc(1, 0, collFunc)	
 	End Method
 	
-	Method Leave()
-		rrUnsubscribeFromChannel(CHANNEL_INPUT, Self)
+	Method Stop()
 	End Method
 	
-	Method Enter()
-		rrSubscribeToChannel(CHANNEL_INPUT, Self)
-		finished_ = False
-	End Method
-	
-	Method MessageListener(message:TMessage)
-		Select message.messageID
-			Case MSG_KEY
-				HandleKeyboardInput(message)
-		End Select
-	End Method
-	
-	Method HandleKeyboardInput(message:TMessage)
-		Local data:TKeyboardMessageData = TKeyboardMessageData(message.data)
-		
-		If data.key = KEY_SPACE And data.keyHits
-			finished_ = True
-		End If
+	Method Start()
+		Initialise()
 	End Method
 		
 	Method Update()
@@ -104,10 +85,9 @@ Type TDemoState1 Extends TGameState
 		For Local i:Int = 0 Until steps
 			space.DoStep(dt)
 		Next
-		If finished_ Then rrNextGameState()
 	End Method
 	
-	Method Render()
+	Method Render(tweening:Double, fixed:Int = False)
 		SetOrigin(rrGetGraphicsWidth() / 2, rrGetGraphicsHeight() / 2)
 		SetColor 255, 255, 255
 		space.GetActiveShapes().ForEach(drawObject)
@@ -119,9 +99,6 @@ Type TDemoState1 Extends TGameState
 		Local fps:String = "FPS: " + rrGetFPS()
 		DrawText(fps, 5, rrGetGraphicsHeight() - TextHeight(fps))
 		
-	End Method
-	
-	Method Shutdown()
 	End Method
 
 	Function collFunc:Int(shapeA:CPShape, shapeB:CPShape, contacts:CPContact[], normalCoeficient:Float, data:Object)
