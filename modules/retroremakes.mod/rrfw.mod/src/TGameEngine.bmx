@@ -47,6 +47,10 @@ Type TGameEngine
 		gameManager = value
 	End Method
 	
+	Method GetGameManager:TGameManager()
+		Return GameManager
+	End Method
+	
 	rem
 		bbdoc: @TList containing all #TGameService instances that have registered with the #TGameEngine instance
 		about: Every instance of #TGameService that registers with the #TGameEngine instance is added to this @TList
