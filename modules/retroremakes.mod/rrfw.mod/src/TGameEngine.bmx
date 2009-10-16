@@ -39,19 +39,6 @@ Type TGameEngine
 	Global exeDirectoryForData:Int = False
 
 	rem
-		bbdoc: The TGameManager that the engine has been told to call as part of the main loop
-	endrem
-	Field gameManager:TGameManager
-	
-	Method SetGameManager(value:TGameManager)
-		gameManager = value
-	End Method
-	
-	Method GetGameManager:TGameManager()
-		Return GameManager
-	End Method
-	
-	rem
 		bbdoc: @TList containing all #TGameService instances that have registered with the #TGameEngine instance
 		about: Every instance of #TGameService that registers with the #TGameEngine instance is added to this @TList
 	endrem
@@ -243,6 +230,25 @@ Type TGameEngine
 	End Method
 '#End Region 
 	
+	rem
+		bbdoc: The TGameManager that the engine has been told to call as part of the main loop
+	endrem
+	Field gameManager:TGameManager
+'#Region gameManager Get/Set Methods	
+	Rem
+		bbdoc: Get the gameManager value in this TGameEngine object.
+	End Rem
+	Method SetGameManager(value:TGameManager)
+		gameManager = value
+	End Method
+	Rem
+		bbdoc: Set the gameManager value for this TGameEngine object.
+	End Rem	
+	Method GetGameManager:TGameManager()
+		Return gameManager
+	End Method
+'#End Region 
+
 	rem
 		bbdoc: The name of the game.
 		about: This is the executable name with the extension and directory stripped.
