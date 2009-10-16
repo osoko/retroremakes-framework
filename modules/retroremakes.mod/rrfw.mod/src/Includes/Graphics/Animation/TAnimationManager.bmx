@@ -41,9 +41,8 @@ Type TAnimationManager
 			EndIf
 		End If
 	End Method
-	
-	
-	
+
+		
 	Method remove()
 		Local animation:TAnimation
 		For animation = EachIn animations

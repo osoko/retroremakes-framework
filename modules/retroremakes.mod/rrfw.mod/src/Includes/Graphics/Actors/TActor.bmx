@@ -167,8 +167,8 @@ Type TActor Extends TRenderable Abstract
 	
 	
 	
-	Method SetColour(colour:TColourRGB)
-		colour = colour
+	Method SetColour(value:TColourRGB)
+		colour = value
 	End Method
 	
 	
