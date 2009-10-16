@@ -364,10 +364,10 @@
     </Included_File>
     <Included_File>
       <FileName>src\Includes\TGameManager.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>16</Y>
+        <X>24</X>
+        <Y>20</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -444,7 +444,7 @@
     </Included_File>
     <Included_File>
       <FileName>src\Services\Graphics\TGraphicsService.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
         <X>15</X>
         <Y>69</Y>
@@ -639,15 +639,15 @@
       <Document_Active>true</Document_Active>
       <Caret_Position>
         <X>2</X>
-        <Y>65</Y>
+        <Y>247</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Layers\TRenderLayer.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>59</X>
-        <Y>115</Y>
+        <X>0</X>
+        <Y>39</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -796,10 +796,10 @@
     </Included_File>
     <Included_File>
       <FileName>src\Services\Timing\TFramesPerSecond.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>11</X>
-        <Y>13</Y>
+        <X>50</X>
+        <Y>162</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -814,8 +814,8 @@
       <FileName>src\TGameEngine.bmx</FileName>
       <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>30</X>
-        <Y>954</Y>
+        <X>18</X>
+        <Y>951</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -823,7 +823,7 @@
       <Document_Active>true</Document_Active>
       <Caret_Position>
         <X>0</X>
-        <Y>207</Y>
+        <Y>0</Y>
       </Caret_Position>
     </Included_File>
     <Compilation_Mode>GUI_Application</Compilation_Mode>

@@ -23,8 +23,7 @@ Type TLayerManager Extends TGameService
 	Field locked:Int
 	
 	rem
-		bbdoc: Add an actor to the layer referred to by the specified id
-		about: Actors are sorted by zDepth when added to a layer
+		bbdoc: Add a Renderable object to the layer referred to by the specified id
 		returns: True if successfull, otherwise false		
 	endrem
 	Method AddRenderObjectToLayerById:Int(renderObject:TRenderable, id:Int)
@@ -44,8 +43,7 @@ Type TLayerManager Extends TGameService
 	
 	
 	rem
-		bbdoc: Add an actor to the layer referred to by the specified name
-		about: Actors are sorted by zDepth when added to a layer
+		bbdoc: Add a Renderable object to the layer referred to by the specified name
 		returns: True if successfull, otherwise false		
 	endrem	
 	Method AddRenderObjectToLayerByName:Int(renderObject:TRenderable, name:String)

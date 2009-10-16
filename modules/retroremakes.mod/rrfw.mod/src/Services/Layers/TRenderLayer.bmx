@@ -37,7 +37,6 @@ Type TRenderLayer Extends TRenderable
 		Else
 			If renderObjects.AddLast(renderObject)
 				renderObject.SetLayer(id)
-				renderObjects.Sort()
 				Return True
 			Else
 				Return False
