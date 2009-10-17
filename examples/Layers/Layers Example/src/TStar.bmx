@@ -2,7 +2,7 @@
 Type TStar Extends TActor
 
 	Const MIN_SPEED:Int = 1
-	Const MAX_SPEED:Int = 5
+	Const MAX_SPEED:Int = 6
 	
 	Global starImage:TImage
 	Global screenX:Int

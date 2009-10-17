@@ -17,12 +17,27 @@ Type GameManager Extends TGameManager
 	Method LoadResources()
 		AutoImageFlags(FILTEREDIMAGE | MIPMAPPEDIMAGE)
 		AutoMidHandle(True)
+		rrLoadResourceColourGen("resources/ActiveMenuColours.ini")
+		rrLoadResourceColourGen("resources/QuickerThrob.ini")
 		rrLoadResourceImage("resources/star.png")
 		rrLoadResourceImage("resources/logo.png")
+		rrLoadResourceImageFont("resources/ArcadeClassic.ttf", 48)
+		rrLoadResourceImageFont("resources/ArcadeClassic.ttf", 36)
+	End Method
+	
+	Method HandleKeyboardMessages(message:TMessage)
+		Local data:TKeyboardMessageData = TKeyboardMessageData(message.data)
+		Select data.key
+			Case KEY_ESCAPE
+				If data.keyHits Then TGameEngine.GetInstance().Stop()
+		End Select
 	End Method
 	
 	Method MessageListener(message:TMessage)
-		'TODO
+		Select message.messageID
+			Case MSG_KEY
+				HandleKeyboardMessages(message)
+		End Select
 	End Method
 	
 	Method New()
@@ -31,7 +46,7 @@ Type GameManager Extends TGameManager
 		theRegistry = TRegistry.GetInstance()
 	End Method
 	
-	Method Render(tweening:Double, fixed:Int = False)
+	Method Render(tweening:Double, fixed:Int)
 		'TODO
 	End Method
 	
@@ -51,6 +66,9 @@ Type GameManager Extends TGameManager
 		' to it.
 		TMessageService.GetInstance().SubscribeToChannel(GAME_MANAGER_CHANNEL, Self)
 		
+		' We're also interested in listening for message on the input channel
+		TMessageService.GetInstance().SubscribeToChannel(CHANNEL_INPUT, Self)
+		
 		' We will also create some layers that we will then use to add our renderable objects to
 		' when we want them to be displayed and updated by the engine.
 		'
@@ -65,7 +83,7 @@ Type GameManager Extends TGameManager
 		theLayerManager.CreateLayer(10, "middle")
 
 		' This is the layer we'll use for anything we want to appear in front of anything else
-		theLayerManager.CreateLayer(10, "front")
+		theLayerManager.CreateLayer(20, "front")
 						
 		' Now we'll start adding a few essentials to these layers.  First off we have a parallax starfield
 		' (you gotta have parallax starfields, it's the law). We always want this to be displayed so we're
@@ -78,11 +96,11 @@ Type GameManager Extends TGameManager
 		'TEST
 		theLayerManager.AddRenderObjectToLayerByName(TScreenBase(theRegistry.Get("TitleScreen")), "middle")
 		TScreenBase(theRegistry.Get("TitleScreen")).Start()
-		
+
 	End Method
 	
 	Method Stop()
-		'TODO
+		TMessageService.GetInstance().UnsubscribeAllChannels(Self)
 	End Method
 	
 	Method Update()

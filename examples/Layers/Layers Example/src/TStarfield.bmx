@@ -1,7 +1,7 @@
 
 Type TStarfield extends TRenderable
 
-	Const MAX_STARS:Int = 150
+	Const MAX_STARS:Int = 100
 
 	Field stars:TStar[]
 	
