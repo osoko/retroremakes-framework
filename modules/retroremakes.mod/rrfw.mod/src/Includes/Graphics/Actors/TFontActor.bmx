@@ -51,14 +51,12 @@ Type TFontActor Extends TActor
 				yOffset = midHeight * GetYScale()
 			End If
 			SetImageFont(font)
-			if fixed
+			If fixed
 				DrawText(spriteText, Int(renderPosition.x - xOffset), Int(renderPosition.y - yOffset))
-			else
+			Else
 				DrawText(spriteText, renderPosition.x - xOffset, renderPosition.y - yOffset)
-			endif
+			EndIf
 		EndIf
 	End Method
 
-	Method RenderFixed(tweening:Double)
-	End Method
 End Type

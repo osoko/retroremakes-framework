@@ -4,26 +4,26 @@
     <Main_File>rrfw.bmx</Main_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Actors\TActor.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>11</X>
-        <Y>34</Y>
+        <X>18</X>
+        <Y>200</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Actors\TFontActor.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>18</X>
-        <Y>34</Y>
+        <X>0</X>
+        <Y>60</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Actors\TImageActor.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>1</X>
-        <Y>44</Y>
+        <X>26</X>
+        <Y>39</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -108,10 +108,10 @@
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Animation\AnimationStyles\TPointToPointPathAnimation.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
         <X>0</X>
-        <Y>18</Y>
+        <Y>0</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -166,16 +166,16 @@
       <FileName>src\Includes\Graphics\Animation\TAnimation.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>20</X>
+        <Y>26</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Animation\TAnimationManager.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>1</X>
-        <Y>44</Y>
+        <X>40</X>
+        <Y>38</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -220,10 +220,10 @@
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\TRenderable.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>48</X>
-        <Y>20</Y>
+        <X>59</X>
+        <Y>35</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -364,7 +364,7 @@
     </Included_File>
     <Included_File>
       <FileName>src\Includes\TGameManager.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
         <X>24</X>
         <Y>20</Y>
@@ -444,10 +444,10 @@
     </Included_File>
     <Included_File>
       <FileName>src\Services\Graphics\TGraphicsService.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>15</X>
-        <Y>69</Y>
+        <X>51</X>
+        <Y>26</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -636,15 +636,15 @@
     </Included_File>
     <Included_File>
       <FileName>src\Services\Layers\TLayerManager.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
         <X>2</X>
-        <Y>247</Y>
+        <Y>63</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Layers\TRenderLayer.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
         <X>0</X>
         <Y>39</Y>
@@ -796,10 +796,10 @@
     </Included_File>
     <Included_File>
       <FileName>src\Services\Timing\TFramesPerSecond.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>50</X>
-        <Y>162</Y>
+        <X>8</X>
+        <Y>178</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -812,10 +812,10 @@
     </Included_File>
     <Included_File>
       <FileName>src\TGameEngine.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>18</X>
-        <Y>951</Y>
+        <X>6</X>
+        <Y>777</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -823,7 +823,7 @@
       <Document_Active>true</Document_Active>
       <Caret_Position>
         <X>0</X>
-        <Y>0</Y>
+        <Y>10</Y>
       </Caret_Position>
     </Included_File>
     <Compilation_Mode>GUI_Application</Compilation_Mode>

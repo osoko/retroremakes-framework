@@ -43,7 +43,7 @@ Type TAnimationManager
 	End Method
 
 		
-	Method remove()
+	Method Remove()
 		Local animation:TAnimation
 		For animation = EachIn animations
 			animation.remove()
