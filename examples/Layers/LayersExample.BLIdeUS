@@ -46,8 +46,8 @@
       <FileName>src\TTitleScreen.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>43</X>
-        <Y>12</Y>
+        <X>44</X>
+        <Y>23</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -55,7 +55,7 @@
       <Document_Active>true</Document_Active>
       <Caret_Position>
         <X>0</X>
-        <Y>0</Y>
+        <Y>18</Y>
       </Caret_Position>
     </Included_File>
     <Compilation_Mode>GUI_Application</Compilation_Mode>
