@@ -27,7 +27,7 @@ Type TTitleScreen Extends TScreenBase
 		Local anim:TPointToPointPathAnimation = New TPointToPointPathAnimation
 		anim.SetStartPosition(400, 0 - ImageHeight(logo.texture_))
 		anim.SetEndPosition(400, 100)
-		anim.SetTransitionTime(1000.0)
+		anim.SetTransitionTime(600.0)
 		
 		logo.animationManager.AddAnimation(anim)
 		
@@ -43,9 +43,9 @@ Type TTitleScreen Extends TScreenBase
 		
 		' work out the place to start drawing our menu to ensure it is centered on the screen
 		Local screenMidX:Int = TGraphicsService.GetInstance().width / 2
-		Local screenMidY:Int = TGraphicsService.GetInstance().height / 2
+		Local screenMidY:Int = (TGraphicsService.GetInstance().height - logo.texture_.height) / 2
 		Local menuHeight:Int = (menuItemsText.Length * font.Height()) + ((menuItems.Length - 1) * MENU_ITEM_SPACING)
-		Local itemY:Int = screenMidY - (menuHeight / 2)
+		Local itemY:Int = logo.texture_.height + screenMidY - (menuHeight / 2)
 		
 		menuItems = New TFontActor[menuItemsText.Length]
 		

@@ -9,7 +9,6 @@ Include "src/TStar.bmx"
 Include "src/TStarfield.bmx"
 Include "src/TTitleScreen.bmx"
 
-
 rrUseExeDirectoryForData()
 
 TGameEngine.GetInstance()
