@@ -3,7 +3,7 @@ rem
 end rem
 Type TScroller Extends TFontActor
 	
-	Const SCROLL_SPEED:Int = 4
+	Const SCROLL_SPEED:Float = 4.0
 	Const MESSAGE:String = "Hello and welcome to Shooty, an example game written " + ..
 							"using the RetroRemakes Framework.  This example is designed " + ..
 							"to show how to use the Layer system to manage " + ..
@@ -23,7 +23,7 @@ Type TScroller Extends TFontActor
 		Local anim:TColourOscillatorAnimation = New TColourOscillatorAnimation
 		anim.SetColourGen(rrGetResourceColourGen("resources/QuickerThrob.ini"))
 		
-		animationManager.AddAnimation(anim)
+	'	animationManager.AddAnimation(anim)
 				
 		Reset()
 	End Method
@@ -34,7 +34,7 @@ Type TScroller Extends TFontActor
 	
 	Method Update()
 		Super.Update()
-		Move(-SCROLL_SPEED, 0)
+		Move(-SCROLL_SPEED, 0.0)
 		If Self.currentPosition.x < - messageLength Then Reset()
 	End Method
 	

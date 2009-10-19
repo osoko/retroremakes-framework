@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <UnmanagedSolution xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Project>
-    <Main_File>LayerExample.bmx</Main_File>
+    <Main_File>Shooty.bmx</Main_File>
     <Included_File>
       <FileName>src\GameManager.bmx</FileName>
       <Document_Active>false</Document_Active>
@@ -20,10 +20,10 @@
     </Included_File>
     <Included_File>
       <FileName>src\TScroller.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>82</X>
-        <Y>15</Y>
+        <X>1</X>
+        <Y>29</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -44,23 +44,23 @@
     </Included_File>
     <Included_File>
       <FileName>src\TTitleScreen.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>44</X>
-        <Y>23</Y>
+        <X>23</X>
+        <Y>34</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
-      <FileName>LayerExample.bmx</FileName>
+      <FileName>Shooty.bmx</FileName>
       <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>18</Y>
+        <X>23</X>
+        <Y>7</Y>
       </Caret_Position>
     </Included_File>
     <Compilation_Mode>GUI_Application</Compilation_Mode>
     <Context_Directory>\Layers Example</Context_Directory>
-    <Project_Name>Layers Example</Project_Name>
+    <Project_Name>Shooty</Project_Name>
     <BuildStep>1</BuildStep>
     <Icon_File_Location>C:\Program Files (x86)\BLIde for BlitzMax\blide.ico</Icon_File_Location>
     <Embed_Os_Theme>false</Embed_Os_Theme>

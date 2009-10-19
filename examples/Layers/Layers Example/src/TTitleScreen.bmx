@@ -25,8 +25,9 @@ Type TTitleScreen Extends TScreenBase
 		logo.SetScale(2.5, 1.75)
 		
 		Local anim:TPointToPointPathAnimation = New TPointToPointPathAnimation
-		anim.SetStartPosition(400, 0 - ImageHeight(logo.texture_))
-		anim.SetEndPosition(400, 100)
+		Local midScreenX:Float = TGraphicsService.GetInstance().width / 2
+		anim.SetStartPosition(midScreenX, 0 - ImageHeight(logo.texture_))
+		anim.SetEndPosition(midScreenX, 100)
 		anim.SetTransitionTime(600.0)
 		
 		logo.animationManager.AddAnimation(anim)
