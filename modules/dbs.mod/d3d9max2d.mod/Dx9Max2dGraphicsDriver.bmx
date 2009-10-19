@@ -84,13 +84,13 @@ Type TDx9DeviceTexture
 		If _Texture	
 		  _Texture.Release_()
 		End If
-		_Texture=Null
-		dxlog "Texture  destroyed"+Self.ToString()
-		_Driver._DXDriver.DeleteDeviceObject(Self)			
+		_Texture = Null
+'		dxlog "Texture  destroyed"+Self.ToString()
+		_driver._DXDriver.DeleteDeviceObject(Self)
 	End Method
 	
 	Method OnDeviceCreate()
-		dxlog "Texture created"+Self.ToString()
+		'dxlog "Texture created"+Self.ToString()
 		Local usage:Int=0
 		Local level:Int=1
 		If (_Flags&MIPMAPPEDIMAGE) 
@@ -151,7 +151,7 @@ Type TDx9DeviceTexture
 	End Function
 	
 	Method Dispose()
-	    dxlog "Texture disposed"+Self.ToString()
+	    'dxlog "Texture disposed"+Self.ToString()
 		_Driver._DXDriver.DeleteDeviceObject(Self)	
 	End Method	
 End Type
@@ -338,12 +338,12 @@ Type TD3D9Max2DDriver Extends TMax2DDriver
 	End Method
 
 	Method OnDeviceCreate()
-		dxlog "OnDeviceCreate2d Driver"
+		'dxlog "OnDeviceCreate2d Driver"
 		_D3DDevice9= _DXDriver.Direct3DDevice9()
 	End Method
 			
 	Method OnDeviceLost()
-		dxlog "OnDeviceLost 2d Driver"
+		'dxlog "OnDeviceLost 2d Driver"
 		For Local i:Int=MASKBLEND To SHADEBLEND
 			If _BlendStateBlocks[i]
 				_BlendStateBlocks[i].Release_
@@ -362,11 +362,11 @@ Type TD3D9Max2DDriver Extends TMax2DDriver
 	Method OnDeviceDestroy()
 		_D3DDevice9=Null	
 		_DXDriver.DeleteDeviceObject(Self)	
-		dxlog "OnDeviceDestroy 2d Driver"
+		'dxlog "OnDeviceDestroy 2d Driver"
 	End Method
 	
 	Method OnDeviceReset()
-		dxlog "OnDeviceReset 2d Driver"
+		'dxlog "OnDeviceReset 2d Driver"
 		_Renderer.OnDeviceReset(Self)
 		
 	
@@ -463,9 +463,9 @@ Type TD3D9Max2DDriver Extends TMax2DDriver
 		If TMax2DGraphics.Current()		
 			TMax2DGraphics.Current().Validate	
 		End If	
-		dxlog "init"
+		'dxlog "init"
 		_DxDriver.BeginScene()
-		dxlog "init"		
+		'dxlog "init"		
 	End Method
 
 	

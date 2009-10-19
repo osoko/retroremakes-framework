@@ -65,7 +65,7 @@ Global _DX9GRAPHICSEXWINDOWCLASS:Byte Ptr="DX9WinClass".ToCString()
 Global _dx9driver : TD3D9GraphicsDriver
 
 
-
+rem
 Function DXLog( t$ )
 	?Debug
 	WriteStdout t+"~n"
@@ -74,6 +74,7 @@ Function DXLog( t$ )
 	MemFree b
 	?	
 End Function
+endrem
 
 Type TRect
 	Field _Left	:Int
@@ -317,7 +318,7 @@ End Rem
 	End Function
 	
 	Method _Create:TD3D9Graphics(hwnd :Int, width:Int,height:Int,depth:Int,hertz:Int,flags:Int)	
-	    DXLog "TD3D9Graphics._Create"    
+	    'DXLog "TD3D9Graphics._Create"    
 		_flags=flags
 		_PresentParams.BackBufferWidth	= width
 		_PresentParams.BackBufferHeight	= height		
@@ -338,15 +339,15 @@ End Rem
 		_PresentParams.hDeviceWindow=hwnd 
 		_PresentParams.Windowed=depth=0
 		If Not(_flags&GRAPHICS_BACKBUFFER) 
-			DXLog "GRAPHICS_BACKBUFFER flag required"
+			'DXLog "GRAPHICS_BACKBUFFER flag required"
 			Return Null
 		End If	
 		If (_flags&GRAPHICS_ALPHABUFFER)
-			DXLog "GRAPHICS_ALPHABUFFER flag not supported"
+			'DXLog "GRAPHICS_ALPHABUFFER flag not supported"
 			Return Null
 		End If	
 		If (_flags&GRAPHICS_ACCUMBUFFER)
-			DXLog "GRAPHICS_ACCUMBUFFER flag not supported"
+			'DXLog "GRAPHICS_ACCUMBUFFER flag not supported"
 			Return Null
 		End If		
 		If _flags & GRAPHICS_DEPTHBUFFER
@@ -382,7 +383,7 @@ End Rem
 			' if FocusedHWND=graphics hwnd reset device
 			If _dx9driver._FocusHWND=_PresentParams.hDeviceWindow
 				If Not _dx9driver.ResetDevice()
-				  DXLog "TD3D9Graphics.ValidateSize - Resize Failed" 
+				  'DXLog "TD3D9Graphics.ValidateSize - Resize Failed" 
 				End If
 			End If
 		End If
@@ -394,24 +395,24 @@ End Rem
 	End Method
 	
 	Method CreateSwapChain:Int()
-		DXLog "TD3D9Graphics.CreateSwapChain "+Self.ToString()
+		'DXLog "TD3D9Graphics.CreateSwapChain "+Self.ToString()
 		Local d3ddev9 : IDirect3DDevice9=_dx9driver._Direct3DDevice9
 		If Not d3ddev9  Return False
 		If _dx9driver._FocusHWND=_PresentParams.hDeviceWindow Then
 			' get default swap chain
 			If d3ddev9.GetSwapChain(0,_SwapChain)
-				DXLog "failed GetSwapChain"
+				'DXLog "failed GetSwapChain"
 	 			Return False
 			End If		
 		Else
 			' create additional swap chain on device
 			If d3ddev9.CreateAdditionalSwapChain(_PresentParams,_SwapChain)
-				DXLog "failed CreateAdditionalSwapChain"
+				'DXLog "failed CreateAdditionalSwapChain"
 				Return False
 			End If
 		End If
 		If _SwapChain.GetBackBuffer(0,0,_RenderTarget) 
-			DXLog "failed GetBackBuffer"
+			'DXLog "failed GetBackBuffer"
 			DestroySwapChain()
 			Return False		
 		End If	
@@ -419,17 +420,20 @@ End Rem
 		_CompletionQuery = Null
 		_SyncIssued = False
 		If d3ddev9.CreateQuery(D3DQUERYTYPE_EVENT, _CompletionQuery)
-			DXLog "failed To Completion Query"		 	
+			'DXLog "failed To Completion Query"		 	
 		End If				
 		Return True
 	End Method
 
 	Method DestroySwapChain()
 		If Not _SwapChain Return
-		DXLog "TD3D9Graphics.DestroySwapChain"+Self.ToString()
-		If _CompletionQuery DXLog "_CompletionQuery.Release ="+_CompletionQuery.Release_()	
-		If _RenderTarget DXLog "_RenderTarget.Release ="+_RenderTarget.Release_()
-		If _SwapChain DXLog "_SwapChain.Release ="+_SwapChain .Release_()
+		'DXLog "TD3D9Graphics.DestroySwapChain"+Self.ToString()
+		'If _CompletionQuery DXLog "_CompletionQuery.Release ="+_CompletionQuery.Release_()	
+		If _CompletionQuery _CompletionQuery.Release_()
+		'If _RenderTarget DXLog "_RenderTarget.Release ="+_RenderTarget.Release_()
+		If _RenderTarget _RenderTarget.Release_()
+		'If _SwapChain DXLog "_SwapChain.Release ="+_SwapChain.Release_()
+		If _SwapChain _SwapChain.Release_()
 		_CompletionQuery= Null
 		_RenderTarget=Null
 		_SwapChain =Null
@@ -621,22 +625,22 @@ Type TD3D9GraphicsDriver Extends TGraphicsDriver
 		DeviceLost()
 		Select _Direct3DDevice9.Reset(_FocusPresentParams) 
 		Case D3D_OK 
-			DXLog "Reset D3D_OK "
+			'DXLog "Reset D3D_OK "
 			If _IsDeviceLost Then
 		   		_IsDeviceLost=False
 		   		NotifyAllDeviceObjects(DIRECT3DDEVICE9RESETMSG)
 			End If			
 			Return True
 		Case D3DERR_DEVICELOST
-			DXLog "Reset D3DERR_DEVICELOST"
+			'DXLog "Reset D3DERR_DEVICELOST"
 	    Case D3DERR_DRIVERINTERNALERROR	
-			DXLog "Reset D3DERR_DRIVERINTERNALERROR"
+			'DXLog "Reset D3DERR_DRIVERINTERNALERROR"
 		Case D3DERR_INVALIDCALL
-			DXLog "Reset D3DERR_INVALIDCALL"
+			'DXLog "Reset D3DERR_INVALIDCALL"
 		Case D3DERR_OUTOFVIDEOMEMORY
-			DXLog "Reset D3DERR_OUTOFVIDEOMEMORY"
+			'DXLog "Reset D3DERR_OUTOFVIDEOMEMORY"
 		Default
-			DXLog "Reset Unhandled error on Reset"														
+			'DXLog "Reset Unhandled error on Reset"														
 		End Select			
     	Return False		
 	End Method
@@ -656,7 +660,7 @@ Type TD3D9GraphicsDriver Extends TGraphicsDriver
 		Case D3DERR_DEVICENOTRESET			
 			Return Not ResetDevice()
 		Default
-			DXLog "Reset Unhandled error on TestCooperativeLevel"		
+			'DXLog "Reset Unhandled error on TestCooperativeLevel"		
 			Return False
 		End Select		
 	End Method
@@ -691,12 +695,12 @@ Type TD3D9GraphicsDriver Extends TGraphicsDriver
 
 		_dx9driver._AdapterInfo = New  D3DADAPTER_IDENTIFIER9		
 		If d3d9.GetAdapterIdentifier(0,$00000002,_dx9driver._AdapterInfo)
-			DxLog "Unable to Get AdapterInfo"	
+			'DxLog "Unable to Get AdapterInfo"	
 			_dx9driver._AdapterInfo=Null
 		End If
 		_dx9driver._Caps= New  D3DCAPS9
 		If d3d9.GetDeviceCaps(0,D3DDEVTYPE.D3DDEVTYPE_HAL,_dx9driver._Caps)
-			DxLog "Unable to read Caps"
+			'DxLog "Unable to read Caps"
 			_dx9driver._Caps=Null
 		End If
 
@@ -731,12 +735,12 @@ Type TD3D9GraphicsDriver Extends TGraphicsDriver
 			_dx9driver._modes[i].Hertz	= dm.Refresh
 			i:+1
 		Next
-		DXLog "TD3D9GraphicsDriver.Create "+_dx9driver.ToString()
+		'DXLog "TD3D9GraphicsDriver.Create "+_dx9driver.ToString()
 		Return _dx9driver
 	End Function
 	
 	Method _CreateDirect3DDevice9:TD3D9GraphicsDriver(g:TD3D9Graphics)	
-		DXLog "TD3D9GraphicsDriver._CreateDirect3DDevice9 "+Self.ToString()		
+		'DXLog "TD3D9GraphicsDriver._CreateDirect3DDevice9 "+Self.ToString()		
 		GraphicsSeq:+1
 		If Not GraphicsSeq GraphicsSeq=1
 		_Direct3D9=Direct3DCreate9( $900 )
@@ -755,7 +759,7 @@ Type TD3D9GraphicsDriver Extends TGraphicsDriver
 		If _Direct3D9.CreateDevice( 0,D3DDEVTYPE_HAL,_FocusHWND,D3DCREATE_PUREDEVICE|D3DCREATE_HARDWARE_VERTEXPROCESSING|D3DCREATE_FPU_PRESERVE,_FocusPresentParams,_Direct3DDevice9)<>D3D_OK
 			If _Direct3D9.CreateDevice( 0,D3DDEVTYPE_HAL,_FocusHWND,D3DCREATE_HARDWARE_VERTEXPROCESSING|D3DCREATE_FPU_PRESERVE,_FocusPresentParams,_Direct3DDevice9)<>D3D_OK
 				If _Direct3D9.CreateDevice( 0,D3DDEVTYPE_HAL,_FocusHWND,D3DCREATE_SOFTWARE_VERTEXPROCESSING|D3DCREATE_FPU_PRESERVE,_FocusPresentParams,_Direct3DDevice9)<>D3D_OK			
-				    DXLog "failed To create device _D3dDev9"
+				    'DXLog "failed To create device _D3dDev9"
 					_DestroyDirect3DDevice9()
 					Return Null
 				End If
@@ -773,15 +777,16 @@ Type TD3D9GraphicsDriver Extends TGraphicsDriver
 	End Method
 	
 	Method _DestroyDirect3DDevice9:TD3D9GraphicsDriver()
-		DXLog "TD3D9GraphicsDriver._DestroyDirect3DDevice9 "+Self.ToString()	
+		'DXLog "TD3D9GraphicsDriver._DestroyDirect3DDevice9 "+Self.ToString()	
 		GraphicsSeq:+1
 		If Not GraphicsSeq GraphicsSeq=1
 		DeviceLost()			
 		If _Direct3DDevice9 
 			NotifyAllDeviceObjects(DIRECT3DDEVICE9DESTROYEDMSG)			
-			DXLog "_Direct3DDevice9.Release ="+_Direct3DDevice9.Release_()	
+			'DXLog "_Direct3DDevice9.Release ="+_Direct3DDevice9.Release_()	
 		End If	
-		If _Direct3D9 DXLog "_Direct3D9.Release="+_Direct3D9.Release_()
+		'If _Direct3D9 DXLog "_Direct3D9.Release="+_Direct3D9.Release_()
+		If _Direct3D9 Then _Direct3D9.Release_()
 		_Direct3DDevice9=Null
 		_Direct3D9 = Null
 		_OwnHWND=Null
