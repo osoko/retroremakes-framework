@@ -210,6 +210,17 @@ Type TGraphicsService Extends TGameService
 		rrSetStringVariable("GFX_DRIVER", Driver, "Engine")
 	End Method
 
+	Rem
+		bbdoc:Shuts down the #TGameService instance
+	End Rem
+	Method Shutdown()
+		If device
+			CloseGraphics(device)
+			device = Null
+		End If
+		Super.Shutdown()
+	End Method
+
 	Method CheckIfActive()
 		If AppSuspended()
 			TGameEngine.GetInstance().SetPaused(True)
