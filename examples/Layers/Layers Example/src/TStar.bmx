@@ -14,8 +14,8 @@ Type TStar Extends TActor
 		If Not starImage
 			starImage = rrGetResourceImage("resources/star.png")
 		End If
-		If Not screenX Then screenX = TGraphicsService.GetInstance().width
-		If Not screenY Then screenY = TGraphicsService.GetInstance().height
+		If Not screenX Then screenX = TProjectionMatrix.GetInstance().GetWidth()
+		If Not screenY Then screenY = TProjectionMatrix.GetInstance().GetHeight()
 		
 		SetPosition(Rand(0, screenX), Rand(0, screenY))
 		RandomiseSpeed()
