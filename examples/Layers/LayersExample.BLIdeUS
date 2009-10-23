@@ -4,7 +4,7 @@
     <Main_File>Shooty.bmx</Main_File>
     <Included_File>
       <FileName>src\GameManager.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
         <X>2</X>
         <Y>62</Y>
@@ -28,7 +28,7 @@
     </Included_File>
     <Included_File>
       <FileName>src\TPlayer.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
         <X>11</X>
         <Y>18</Y>
@@ -60,7 +60,7 @@
     </Included_File>
     <Included_File>
       <FileName>src\TStarfield.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
         <X>38</X>
         <Y>22</Y>
@@ -76,7 +76,7 @@
     </Included_File>
     <Included_File>
       <FileName>Shooty.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
         <X>4</X>
         <Y>7</Y>
