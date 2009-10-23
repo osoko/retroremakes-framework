@@ -25,4 +25,8 @@ Type TStarfield extends TRenderable
 		Next
 	End Method
 	
+	Method ToString:String()
+		Return "Starfield:" + Super.ToString()
+	End Method
+	
 End Type

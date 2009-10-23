@@ -18,12 +18,12 @@ Type TScroller Extends TFontActor
 		SetImageFont(font)
 		messageLength = TextWidth(MESSAGE)
 		SetText(MESSAGE)
-		yPos = TGraphicsService.GetInstance().height - font.Height() - 10
+		yPos = TProjectionMatrix.GetInstance().GetHeight() - font.Height() - 10
 		
 		Local anim:TColourOscillatorAnimation = New TColourOscillatorAnimation
 		anim.SetColourGen(rrGetResourceColourGen("resources/QuickerThrob.ini"))
 		
-	'	animationManager.AddAnimation(anim)
+		animationManager.AddAnimation(anim)
 				
 		Reset()
 	End Method
