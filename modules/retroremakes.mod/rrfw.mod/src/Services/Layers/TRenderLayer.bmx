@@ -64,6 +64,16 @@ Type TRenderLayer Extends TRenderable
 	End Method
 	
 	
+	Method LogCurrentRenderables()
+		If renderObjects.Count() > 0
+			For Local renderable:TRenderable = EachIn renderObjects
+				rrLogInfo("[Layer: " + toString() + "] has renderable: " + renderable.ToString())
+			Next
+		Else
+			rrLogInfo("[Layer: " + toString() + "] has no renderables")
+		EndIf
+	End Method
+	
 	rem
 		bbdoc: Constructor
 	endrem
@@ -98,7 +108,11 @@ Type TRenderLayer Extends TRenderable
 			deferredRemoves.AddLast(renderObject)
 			Return False
 		Else
-			Return renderObjects.Remove(renderObject)
+			rrLogInfo("Removing " + renderObject.toString() + " from layer " + toString())
+			LogCurrentRenderables()
+			renderObjects.Remove(renderObject)
+			rrLogInfo("Removed")
+			LogCurrentRenderables()
 		End If
 	End Method
 	
