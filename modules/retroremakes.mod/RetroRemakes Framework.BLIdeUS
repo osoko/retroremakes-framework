@@ -222,8 +222,8 @@
       <FileName>src\Includes\Graphics\TRenderable.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>59</X>
-        <Y>35</Y>
+        <X>38</X>
+        <Y>19</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -358,8 +358,8 @@
       <FileName>src\Includes\Functions.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>201</Y>
+        <X>12</X>
+        <Y>13</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -638,8 +638,8 @@
       <FileName>src\Services\Layers\TLayerManager.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>2</X>
-        <Y>63</Y>
+        <X>11</X>
+        <Y>252</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -647,15 +647,15 @@
       <Document_Active>false</Document_Active>
       <Caret_Position>
         <X>0</X>
-        <Y>39</Y>
+        <Y>112</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Messages\TMessage.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>16</X>
-        <Y>12</Y>
+        <X>10</X>
+        <Y>34</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -670,8 +670,8 @@
       <FileName>src\Services\Messages\TMessageData.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>1</X>
-        <Y>1</Y>
+        <X>0</X>
+        <Y>18</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>

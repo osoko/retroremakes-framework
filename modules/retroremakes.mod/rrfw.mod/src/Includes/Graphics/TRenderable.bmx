@@ -17,9 +17,9 @@ Type TRenderable Abstract
 	Field layer:Int
 	Field zDepth:Int
 	
-	Method Compare:Int(withObject:Object)
-		Return zDepth - TRenderable(withObject).zDepth
-	End Method
+'	Method Compare:Int(withObject:Object)
+		'Return zDepth - TRenderable(withObject).zDepth
+	'End Method
 		
 	Method GetLayer:Int()
 		Return layer
@@ -43,6 +43,10 @@ Type TRenderable Abstract
 		zDepth = value
 	End Method
 
+	Method ToString:String()
+		Return "Renderable: " + Super.ToString()
+	End Method
+	
 	Method Update() Abstract
 	
 End Type
