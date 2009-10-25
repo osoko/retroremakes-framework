@@ -16,7 +16,7 @@ Type TFontActor Extends TActor
 
 	Field font:TImageFont
 	
-	Field spriteText:String
+	Field text:String
 	Field width:Float
 	Field height:Float
 	Field midWidth:Float
@@ -27,8 +27,10 @@ Type TFontActor Extends TActor
 		Self.font = font
 	End Method
 	
-	Method SetText(text:String)
-		spriteText = Text
+	Method SetText(value:String)
+		text = value
+		midWidth = 0.0
+		midHeight = 0.0
 	End Method
 	
 	Method SetMidHandle(bool:Int)
@@ -41,20 +43,19 @@ Type TFontActor Extends TActor
 		If font And IsVisible()
 			Local xOffset:Float = 0.0
 			Local yOffset:Float = 0.0
+			SetImageFont(font)
 			If midHandle
 				If midWidth = 0.0 And midHeight = 0.0
-					SetImageFont(font)
-					midWidth = TextWidth(spriteText) / 2
-					midHeight = TextHeight(spriteText) / 2
+					midWidth = (TextWidth(text) * xScale) / 2.0
+					midHeight = (TextHeight(text) * yScale) / 2.0
 				End If
 				xOffset = midWidth * GetXScale()
 				yOffset = midHeight * GetYScale()
 			End If
-			SetImageFont(font)
 			If fixed
-				DrawText(spriteText, Int(renderPosition.x - xOffset), Int(renderPosition.y - yOffset))
+				DrawText(text, Int(renderPosition.x - xOffset), Int(renderPosition.y - yOffset))
 			Else
-				DrawText(spriteText, renderPosition.x - xOffset, renderPosition.y - yOffset)
+				DrawText(text, renderPosition.x - xOffset, renderPosition.y - yOffset)
 			EndIf
 		EndIf
 	End Method
