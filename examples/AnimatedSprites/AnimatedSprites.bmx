@@ -74,7 +74,7 @@ Type GameManager Extends TGameManager
 				
 		' The TLoopedFrameAnimation will handle the actual texture animation
 		Local frameAnim:TLoopedFrameAnimation = New TLoopedFrameAnimation
-		frameAnim.SetFirstFrame(sprite.currentFrame_)
+		frameAnim.SetFirstFrame(sprite.GetCurrentFrame())
 		' Set the animation speed in FPS
 		frameAnim.SetSpeed(Rand(10, 20))
 		' Add the animation to the composite animation
