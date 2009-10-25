@@ -10,94 +10,186 @@ rem
 endrem
 
 Rem
-	bbdoc: Sprite animation style for looping image frame animations.
+	bbdoc: Animation style for looping image frame animations.
 	about: Allows you to loop the animation of frames of an AnimImage
 	at a set speed and direction 1 or more times.
 End Rem
 Type TLoopedFrameAnimation Extends TAnimation
-	Const DEFAULT_LOOP_COUNT:Int = -1 '-1 = forever
+
+	rem
+		bbdoc: Default animation direction
+		about: 1 = forwards, -1 = backwards
+	endrem
+	Const DEFAULT_DIRECTION:Int = 1
+
+	rem
+		bbdoc: Default first frame
+		about: First frame is usually 0
+	endrem
+	Const DEFAULT_FIRST_FRAME:Float = 0.0
+			
+	rem
+		bbdoc: Default amount of animation loops to perfrom
+		about: A loop count of -1 = forever
+	endrem
+	Const DEFAULT_LOOP_COUNT:Int = -1
+	
+	rem
+		bbdoc: Default animation speed in Frames Per Second
+	endrem
 	Const DEFAULT_SPEED:Int = 60
-	Const DEFAULT_FIRST_FRAME:Float = 0
-	Const DEFAULT_DIRECTION:Int = 1 ' 1 = forwards, -1 = backwards
+
+
 	
-	Field nLoops:Int
-	
-	Field direction:Int
-	Field speed:Int ' in fps
-	Field firstFrame:Float
-	Field currentFrame:Float
-	Field framesPerUpdate:Float
-	
-	Field animations:TList
-	Field finishedAnimations:TList
-	
-	Field loopsRemaining:Int
-	
-	Method New()
-		nLoops = DEFAULT_LOOP_COUNT
-		speed = DEFAULT_SPEED
-		direction = DEFAULT_DIRECTION
-		firstFrame = DEFAULT_FIRST_FRAME
-		currentFrame = firstFrame
-		loopsRemaining = nLoops
-	End Method
-	
-	Method SetLoops(nLoops:Int)
-		Self.nLoops = nLoops
-		Self.loopsRemaining = nLoops
+	' The current image frame the animation is on
+	Field _currentFrame:Float
+		
+	' The direction to animation in. -1 = backwards, 1 = forwards
+	Field _direction:Int
+
+	' The first image frame to use
+	Field _firstFrame:Float
+				
+	' The number of frames to animate per update loop
+	Field _framesPerUpdate:Float
+
+	' The number of loops to perform		
+	Field _loopCount:Int
+
+	' The number of loops remaining
+	Field _loopsRemaining:Int
+			
+	' The speed the image should animate in frames per second
+	Field _speed:Int
+
+
+
+	rem
+		bbdoc: Calculates how many frames to process per update loop
+		about: The requested speed for this animation is in FPS, but
+		as our update frequency can be variable we need to use the
+		update frequency setting to calculate how many frames to animatre
+		per update loop to attain the requested animation speed
+	endrem
+	Method CalculateFramesPerUpdate()
+		_framesPerUpdate = _speed / TFixedTimestep.GetInstance().GetUpdateFrequency()
+		If _direction = -1
+			_framesPerUpdate = -_framesPerUpdate
+		End If
 	End Method
 
-	Method SetSpeed(speed:Int)
-		Self.speed = speed
-	End Method
 	
-	Method SetDirection(direction:Int)
-		Self.direction = direction
-	End Method
 	
-	Method SetFirstFrame(frame:Float)
-		firstFrame = frame
-		currentFrame = frame
-	End Method
-	
-	Method LoopAnimation:Int(sprite:TActor)
+	rem
+		bbdoc: Loops the animation
+		about: If there are still loops remaining to be performed
+		this will loop the frame count. Returns True if the animation
+		has finished
+	endrem	
+	Method LoopAnimation:Int(actor:TActor)
 		Local finished:Int = False
-		If loopsRemaining > 0
-			loopsRemaining:-1
-		ElseIf loopsRemaining = 0
-			'We're finished
+
+		If _loopsRemaining > 0
+			_loopsRemaining:-1
+		ElseIf _loopsRemaining = 0
 			finished = True
 		End If
-		If direction = 1
-			currentFrame:-TImageActor(sprite).GetFrameCount()
-		ElseIf direction = -1
-			currentFrame:+TImageActor(sprite).GetFrameCount()
+
+		If _direction = 1
+			_currentFrame:-TImageActor(actor).FrameCount()
+		ElseIf _direction = -1
+			_currentFrame:+TImageActor(actor).FrameCount()
 		End If
+
 		Return finished
 	End Method
-			
+		
+	
+	
+	' Default constructor
+	Method New()
+		_currentFrame = DEFAULT_FIRST_FRAME
+		_direction = DEFAULT_DIRECTION
+		_firstFrame = DEFAULT_FIRST_FRAME
+		_loopsRemaining = DEFAULT_LOOP_COUNT
+		_loopCount = DEFAULT_LOOP_COUNT
+		_speed = DEFAULT_SPEED
+	End Method
+
+	
+	
+	rem
+		bbdoc: Resets the animation to starting values
+	endrem
 	Method Reset()
-		currentFrame = firstFrame
-		loopsRemaining = nLoops
+		_currentFrame = _firstFrame
+		_loopsRemaining = _loopCount
 		Super.Reset()
 	End Method
 	
-	Method Update:Int(sprite:TActor)
-		If Not framesPerUpdate
+	
+	
+	rem
+		bbdoc: Sets the direction the animation should loop in
+		about: 1 = forwards, -1 = backwards
+	endrem
+	Method SetDirection(value:Int)
+		If Abs(value) = 1
+			_direction = value
+		EndIf
+	End Method
+
+	
+	
+	rem
+		bbdoc: Sets the first image frame to use when the animation starts
+	endrem
+	Method SetFirstFrame(frame:Float)
+		_firstFrame = frame
+		_currentFrame = frame
+	End Method
+	
+	
+	
+	rem
+		bbdoc: Set the number of times to loop the animation
+		about: A value of -1 will loop the animation forever
+	endrem		
+	Method SetLoopCount(count:Int)
+		_loopCount = count
+		_loopsRemaining = _loopCount
+	End Method
+
+	
+	
+	rem
+		bbdoc: Set the animation speed
+		about: This value is in actual frames per second
+	endrem
+	Method SetSpeed(fps:Int)
+		_speed = fps
+	End Method
+	
+	
+	
+	rem
+		about: Update the animation
+	endrem
+	Method Update:Int(actor:TActor)
+	
+		If Not _framesPerUpdate
 			CalculateFramesPerUpdate()
 		EndIf
-		currentFrame:+framesPerUpdate
-		If currentFrame >= TImageActor(sprite).GetFrameCount() Or currentFrame < 0
-			isFinished = LoopAnimation(sprite)
+		
+		_currentFrame:+_framesPerUpdate
+		
+		If _currentFrame >= TImageActor(actor).FrameCount() Or _currentFrame < 0
+			isFinished = LoopAnimation(actor)
 		End If
-		TImageActor(sprite).SetCurrentFrame(currentFrame)
+		
+		TImageActor(actor).SetCurrentFrame(_currentFrame)
+		
 		Return Finished()
 	End Method
 
-	Method CalculateFramesPerUpdate()
-		framesPerUpdate = speed / TFixedTimestep.GetInstance().GetUpdateFrequency()
-		If direction = -1
-			framesPerUpdate = -framesPerUpdate
-		End If
-	End Method
 End Type

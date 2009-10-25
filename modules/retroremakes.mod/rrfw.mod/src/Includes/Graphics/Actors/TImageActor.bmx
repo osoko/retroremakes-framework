@@ -10,57 +10,107 @@ rem
 endrem
 
 Rem
-	bbdoc: Sprite class using an internal BlitzMax #TImage
+	bbdoc: Actor class using an internal BlitzMax #TImage
 End Rem
 Type TImageActor Extends TActor
 
-	Field texture_:TImage
-	Field frameCount_:Int
-	Field currentFrame_:Int
+	' The current frame we will display
+	Field _currentFrame:Int
+	
+	' The actual TImage to use for this actor
+	Field _texture:TImage
+
 
 	
-	Method GetFrameCount:Int()
-		Return frameCount_
-	End Method
-	
-	
-	
-	Method New()
-		currentFrame_ = 0
-	End Method
-	
-	
-	
-	Method SetCurrentFrame(currentFrame:Int)
-		currentFrame_ = currentFrame
-	End Method
-
-	
-	
-	Method RandomFirstFrame()
-		If texture_
-			currentFrame_ = Rnd(0, frameCount_ - 1)
+	rem
+		bbdoc: Get the number of frames this image actor has
+	endrem		
+	Method FrameCount:Int()
+		If _texture
+			Return _texture.frames.Length
+		Else
+			Return Null
 		End If
 	End Method
 	
 	
 	
+	rem
+		bbdoc: Get the current frame
+	endrem
+	Method GetCurrentFrame:Int()
+		Return _currentFrame
+	End Method
+	
+	
+	
+	rem
+		bbdoc: Get the TImage that this image actor is using
+	endrem
+	Method GetTexture:TImage()
+		If _texture
+			Return _texture
+		Else
+			Return Null
+		End If
+	End Method
+	
+
+	
+	' Default constructor	
+	Method New()
+		_currentFrame = 0
+		_texture = Null
+	End Method
+	
+	
+
+	rem
+		bbdoc: Pick a random first image frame that this actor will use
+	endrem	
+	Method RandomFirstFrame()
+		If _texture
+			_currentFrame = Rnd(0, FrameCount() - 1)
+		End If
+	End Method
+	
+	
+	
+	rem
+		bbdoc: Render this image actor
+	endrem
 	Method Render(tweening:Double, fixed:int)
 		Interpolate(tweening)
 		SetRenderState()
-		If texture_ And IsVisible()
+		If _texture And IsVisible()
 			if fixed
-				DrawImage(texture_, Int(renderPosition.x), Int(renderPosition.y), currentFrame_)
+				DrawImage(_texture, Int(renderPosition.x), Int(renderPosition.y), _currentFrame)
 			else
-				DrawImage(texture_, renderPosition.x, renderPosition.y, currentFrame_)
+				DrawImage(_texture, renderPosition.x, renderPosition.y, _currentFrame)
 			endif
+		EndIf
+	End Method
+		
+	
+	
+	rem
+		bbdoc: Set the current image frame this actor will use
+	endrem
+	Method SetCurrentFrame(frame:Int)
+		If Not _texture Then Return
+		
+		If frame >= 0 And frame < FrameCount()
+			_currentFrame = frame
 		EndIf
 	End Method
 
 	
 	
+	rem
+		bbdoc: Set the TImage texture this image actor will use
+	endrem
 	Method SetTexture(texture:TImage)
-		texture_ = texture
-		frameCount_ = texture_.frames.Length
+		_texture = texture
 	End Method
+	
 End Type
