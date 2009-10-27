@@ -174,8 +174,8 @@
       <FileName>src\Includes\Graphics\Animation\TAnimationManager.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>40</X>
-        <Y>38</Y>
+        <X>7</X>
+        <Y>30</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -318,8 +318,8 @@
       <FileName>src\Includes\Misc\TEngineException.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>1</X>
-        <Y>1</Y>
+        <X>21</X>
+        <Y>14</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -638,16 +638,16 @@
       <FileName>src\Services\Layers\TLayerManager.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>11</X>
-        <Y>257</Y>
+        <X>2</X>
+        <Y>198</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Layers\TRenderLayer.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>61</X>
-        <Y>130</Y>
+        <X>11</X>
+        <Y>156</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -814,8 +814,8 @@
       <FileName>src\TGameEngine.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>19</X>
-        <Y>734</Y>
+        <X>3</X>
+        <Y>839</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>

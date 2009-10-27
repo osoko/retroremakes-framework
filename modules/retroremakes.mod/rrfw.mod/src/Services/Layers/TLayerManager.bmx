@@ -17,23 +17,28 @@ Type TLayerManager Extends TGameService
 	rem
 		bbdoc: The singleton instance of the class
 	endrem
-	Global instance:TLayerManager
+	Global _instance:TLayerManager
 	
-	Field LAllLayers:TList
-	Field locked:Int
+	' List of all active layers
+	Field _layers:TList
+	
+	' Whether the layers are locked for their Update() and Render() calls
+	Field _locked:Int
+	
+	
 	
 	rem
-		bbdoc: Add a Renderable object to the layer referred to by the specified id
+		bbdoc: Add a renderable object to the layer referred to by the specified id
 		returns: True if successfull, otherwise false		
 	endrem
-	Method AddRenderObjectToLayerById:Int(renderObject:TRenderable, id:Int)
+	Method AddRenderableToLayerById:Int(renderable:TRenderable, id:Int)
 		Local layer:TRenderLayer = GetLayerById(id)
 		If layer
-			Return layer.AddRenderObject(renderObject, locked)
+			Return layer.AddRenderable(renderable, _locked)
 		Else
 			' Layer doesn't already exist, so we'll try and create it
 			If CreateLayer(id, "[AutoRenderLayer" + id + "]")
-				Return AddRenderObjectToLayerById(renderObject, id)
+				Return AddRenderableToLayerById(renderable, id)
 			Else
 				Return False
 			End If
@@ -46,20 +51,21 @@ Type TLayerManager Extends TGameService
 		bbdoc: Add a Renderable object to the layer referred to by the specified name
 		returns: True if successfull, otherwise false		
 	endrem	
-	Method AddRenderObjectToLayerByName:Int(renderObject:TRenderable, name:String)
+	Method AddRenderableToLayerByName:Int(renderable:TRenderable, name:String)
 		Local layer:TRenderLayer = GetLayerByName(name)
 		If layer
-			Return layer.AddRenderObject(renderObject, locked)
+			Return layer.AddRenderable(renderable, _locked)
 		Else
 			' Layer doesn't already exist, so we'll try and create it
 			Local id:Int = GetNextId()
 			If CreateLayer(id, name)
-				Return AddRenderObjectToLayerById(renderObject, id)
+				Return AddRenderableToLayerById(renderable, id)
 			Else
 				Return False
 			End If
 		EndIf
 	End Method
+	
 	
 		
 	rem
@@ -69,12 +75,12 @@ Type TLayerManager Extends TGameService
 		already in use.
 	endrem	
 	Method CreateLayer:Int(id:Int, name:String)
-		If Not DoesLayerNameExist(name) And Not DoesLayerIdExist(id)
+		If Not LayerNameExists(name) And Not LayerIdExists(id)
 			Local layer:TRenderLayer = New TRenderLayer
-			layer.id = id
-			layer.name = name
-			LAllLayers.AddLast(layer)
-			LAllLayers.Sort()
+			layer.SetId(id)
+			layer.SetName(name)
+			_layers.AddLast(layer)
+			_layers.Sort()
 			Return True
 		Else
 			rrLogWarning("[" + tostring() + "] Unable to create layer with id: " + id + ", name: " + name + ..
@@ -87,12 +93,14 @@ Type TLayerManager Extends TGameService
 		
 	rem
 		bbdoc: Destroys the specified layer
+		about: This clears all render objects from the layer, and then removes the layer
+		returns: True on success, otherwise False		
 	endrem
 	Method DestroyLayer:Int(layer:TRenderLayer)
 		If Not layer Then Return False
 		
-		layer.Destroy()
-		LAllLayers.Remove(layer)
+		layer.Flush()
+		_layers.Remove(layer)
 		Return True
 	End Method
 	
@@ -122,7 +130,7 @@ Type TLayerManager Extends TGameService
 		bbdoc: Check whether the specified render layer id already exists or not
 		returns: True if it does exist, otherwise False
 	endrem
-	Method DoesLayerIdExist:Int(id:Int)
+	Method LayerIdExists:Int(id:Int)
 		If GetLayerById(id)
 			Return True
 		Else
@@ -136,7 +144,7 @@ Type TLayerManager Extends TGameService
 		bbdoc: Check whether the specified render layer name already exists or not
 		returns: True if it does exist, otherwise False
 	endrem	
-	Method DoesLayerNameExist:Int(name:String)
+	Method LayerNameExists:Int(name:String)
 		If GetLayerByName(name)
 			Return True
 		Else
@@ -151,21 +159,23 @@ Type TLayerManager Extends TGameService
 		instance if one doesn't exist
 	endrem		
 	Function GetInstance:TLayerManager()
-		If Not instance
-			instance = New TLayerManager
-			Return instance
+		If Not _instance
+			_instance = New TLayerManager
+			Return _instance
 		Else
-			Return instance
+			Return _instance
 		EndIf
 	End Function
+	
+	
 	
 	rem
 		bbdoc: Get the TRenderLayer associated with the specified id
 		returns: TRenderLayer or Null if it doesn't exist
 	endrem
 	Method GetLayerById:TRenderLayer(id:Int)
-		For Local layer:TRenderLayer = EachIn LAllLayers
-			If layer.id = id
+		For Local layer:TRenderLayer = EachIn _layers
+			If layer.GetId() = id
 				Return layer
 			End If
 		Next		
@@ -179,14 +189,16 @@ Type TLayerManager Extends TGameService
 		returns: TRenderLayer or Null if it doesn't exist
 	endrem	
 	Method GetLayerByName:TRenderLayer(name:String)
-		For Local layer:TRenderLayer = EachIn LAllLayers
-			If layer.name = name
+		For Local layer:TRenderLayer = EachIn _layers
+			If layer.GetName() = name
 				Return layer
 			End If
 		Next
 		Return Null
 	End Method
 		
+	
+	
 	rem
 		bbdoc: Get the next available layer id, starting from 0
 		returns: int
@@ -194,7 +206,7 @@ Type TLayerManager Extends TGameService
 	Method GetNextId:Int()
 		Local id:Int = 0
 		Repeat
-			If DoesLayerIdExist(id)
+			If LayerIdExists(id)
 				id:+1
 			Else
 				Exit
@@ -203,22 +215,26 @@ Type TLayerManager Extends TGameService
 		Return id
 	End Method
 		
+	
+	
 	rem
 		bbdoc: Initialise this game service and add it to the game engine
 	endrem
 	Method Initialise()
 		SetName("Render Layer Manager")
-		LAllLayers = New TList
-		locked = False
+		_layers = New TList
+		_locked = False
 		Super.Initialise()
 	End Method
+	
+	
 	
 	rem
 		bbdoc: Constructor
 		about: You should not call this manually, instead you should use GetInstance()
 	endrem
 	Method New()
-		If instance Throw "Cannot create multiple instances of Singleton Type"
+		If _instance rrThrow "Cannot create multiple instances of Singleton Type"
 		Initialise()
 	EndMethod
 	
@@ -228,44 +244,57 @@ Type TLayerManager Extends TGameService
 		bbdoc: Processes any object add/removes that were deferred during the update/render process
 	endrem
 	Method ProcessDeferredObjects()
-		If locked Then Return
+		If _locked Then Return
 		
-		For Local layer:TRenderLayer = EachIn LAllLayers
-			layer.ProcessDeferred(locked)
+		For Local layer:TRenderLayer = EachIn _layers
+			layer.ProcessDeferred(_locked)
 		Next
 	End Method
 	
 		
+	
+	rem
+		bbdoc: Render all layers
+	endrem
 	Method Render()
 		Local tweening:Double = TFixedTimestep.GetInstance().GetTweening()
 		Local fixed:Int = TGraphicsService.GetInstance().fixedPointRendering
-		locked = True
-		For Local layer:TRenderLayer = EachIn LAllLayers
+		_locked = True
+		For Local layer:TRenderLayer = EachIn _layers
 			layer.Render(tweening, fixed)
 		Next
-		locked = False
+		_locked = False
 	End Method
 
 	
-	Method RemoveRenderObject(renderObject:TRenderable)
-		Local layer:TRenderLayer = GetLayerById(renderObject.GetLayer())
-		layer.RemoveRenderObject(renderObject, locked)
+	
+	rem
+		bbdoc: Remove a renderable object from the layer it belongs to
+	endrem
+	Method RemoveRenderable(renderable:TRenderable)
+		Local layer:TRenderLayer = GetLayerById(renderable.GetLayer())
+		layer.RemoveRenderable(renderable, _locked)
 	End Method
+	
 	
 	
 	Method ToString:String()
-		Return name
+		Return name + ":" + Super.ToString()
 	End Method
 	
 	
+	
+	rem
+		bbdoc: Update all layers
+	endrem
 	Method Update()
 		If TGameEngine.GetInstance().enginePaused Then Return
 		
-		locked = True
-		For Local layer:TRenderLayer = EachIn LAllLayers
+		_locked = True
+		For Local layer:TRenderLayer = EachIn _layers
 			layer.Update()
 		Next
-		locked = False
+		_locked = False
 		ProcessDeferredObjects()
 	End Method
 	

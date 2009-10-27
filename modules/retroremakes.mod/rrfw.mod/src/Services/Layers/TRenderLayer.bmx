@@ -20,23 +20,34 @@ rem
 end rem
 Type TRenderLayer Extends TRenderable
 
-	Field id:Int
-	Field name:String
-	Field renderObjects:TList
-	Field deferredAdds:TList
-	Field deferredRemoves:TList
+	' A list of render object adds that have been deferred
+	Field _deferredAdds:TList
+	
+	' A list of render object removes that have been deferred
+	Field _deferredRemoves:TList
+	
+	' The layers unique id
+	Field _id:Int
+	
+	' The layers unique name
+	Field _name:String
+	
+	' The list of objects to render for this layer
+	Field _renderObjects:TList
+
+
 	
 	rem
 		bbdoc: Add an actor to this layer
 		about: Actors are sorted by zDepth when added to a layer
 		returns: True if successfull, otherwise false
 	endrem
-	Method AddRenderObject:Int(renderObject:TRenderable, locked:Int)
+	Method AddRenderable:Int(renderable:TRenderable, locked:Int)
 		If locked
-			deferredAdds.AddLast(renderObject)
+			_deferredAdds.AddLast(renderable)
 		Else
-			If renderObjects.AddLast(renderObject)
-				renderObject.SetLayer(id)
+			If _renderObjects.AddLast(renderable)
+				renderable.SetLayer(_id)
 				Return True
 			Else
 				Return False
@@ -45,28 +56,55 @@ Type TRenderLayer Extends TRenderable
 	End Method
 	
 	
+	
 	rem
 		bbdoc: Compare with another TRenderLayer
 		about: Comparison is performed on layer id
 	endrem
 	Method Compare:Int(withObject:Object)
-		Return id - TRenderLayer(withObject).id
+		Return _id - TRenderLayer(withObject)._id
 	End Method
+	
 	
 	
 	rem
-		bbdoc: Destroy the layer
-		about: This clear the layer's actor list and removes itself from the list of layers
-		returns: True on success, otherwise False
+		bbdoc: Flush the layer
+		about: This clear the layer's render object list
 	endrem
-	Method Destroy()
-		renderObjects.Clear()
+	Method Flush()
+		For Local renderable:TRenderable = EachIn _renderObjects
+			renderable.SetLayer(Null)
+		Next
+		_renderObjects.Clear()
 	End Method
 	
 	
+	
+	rem
+		bbdoc: Get this layer's id
+	endrem
+	Method GetId:Int()
+		Return _id
+	End Method
+	
+	
+	
+	rem
+		bbdoc: Get this layer's name
+	endrem
+	Method GetName:String()
+		Return _name
+	End Method
+	
+	
+	
+	rem
+		bbdoc: Write log information about renderables
+		about: Logs the ToString() value of every renderable assigned to the layer
+	endrem
 	Method LogCurrentRenderables()
-		If renderObjects.Count() > 0
-			For Local renderable:TRenderable = EachIn renderObjects
+		If _renderObjects.Count() > 0
+			For Local renderable:TRenderable = EachIn _renderObjects
 				rrLogInfo("[Layer: " + toString() + "] has renderable: " + renderable.ToString())
 			Next
 		Else
@@ -74,48 +112,49 @@ Type TRenderLayer Extends TRenderable
 		EndIf
 	End Method
 	
+	
+	
 	rem
-		bbdoc: Constructor
+		bbdoc: Default constructor
 	endrem
 	Method New()
-		renderObjects = New TList
-		deferredAdds = New TList
-		deferredRemoves = New TList
+		_renderObjects = New TList
+		_deferredAdds = New TList
+		_deferredRemoves = New TList
 	End Method
+	
+	
 	
 	rem
 		bbdoc: Process any add/removes that were deferred during the update process
 	endrem
 	Method ProcessDeferred(locked:Int)
-		For Local renderObject:TRenderable = EachIn deferredAdds
-			AddRenderObject(renderObject, locked)
-			deferredAdds.Remove(renderObject)
+		For Local renderable:TRenderable = EachIn _deferredAdds
+			AddRenderable(renderable, locked)
+			_deferredAdds.Remove(renderable)
 		Next
 		
-		For Local renderObject:TRenderable = EachIn deferredRemoves
-			RemoveRenderObject(renderObject, locked)
-			deferredRemoves.Remove(renderObject)
+		For Local renderable:TRenderable = EachIn _deferredRemoves
+			RemoveRenderable(renderable, locked)
+			_deferredRemoves.Remove(renderable)
 		Next		
 	End Method
+	
 	
 	
 	rem
 		bbdoc: Removes an actor from the layer
 		returns: True if the actor has been removed, otherwise False
 	endrem
-	Method RemoveRenderObject:Int(renderObject:TRenderable, locked:Int)
+	Method RemoveRenderable:Int(renderable:TRenderable, locked:Int)
 		If locked
-			deferredRemoves.AddLast(renderObject)
+			_deferredRemoves.AddLast(renderable)
 			Return False
 		Else
-			rrLogInfo("Removing " + renderObject.toString() + " from layer " + toString())
-			LogCurrentRenderables()
-			renderObjects.Remove(renderObject)
-			rrLogInfo("Removed")
-			LogCurrentRenderables()
+			_renderObjects.Remove(renderable)
+			renderable.SetLayer(Null)
 		End If
 	End Method
-	
 	
 	
 	
@@ -126,20 +165,37 @@ Type TRenderLayer Extends TRenderable
 		otherwise sub-pixel rendering is used.
 	endrem
 	Method Render(tweening:Double, fixed:Int)
-		For Local renderObject:TRenderable = EachIn renderObjects
+		For Local renderable:TRenderable = EachIn _renderObjects
 			If TGameEngine.GetInstance().GetPaused()
 				' This avoids twitching objects when the engine is paused
 				tweening = 0.0
 			EndIf
-			renderObject.Render(tweening, fixed)
+			renderable.Render(tweening, fixed)
 		Next
 	End Method
 
 	
 	
+	rem
+		bbdoc: Set the id of this layer
+	endrem
+	Method SetId(id:Int)
+		_id = id
+	End Method
 	
+	
+	
+	rem
+		bbdoc: Set the id of this layer
+	endrem
+	Method SetName(name:String)
+		_name = name
+	End Method
+	
+	
+		
 	Method ToString:String()
-		Return name
+		Return _name + ":" + Super.ToString()
 	End Method
 	
 	
@@ -148,11 +204,9 @@ Type TRenderLayer Extends TRenderable
 		bbdoc: Calls the Update() method of all actors in this layer
 	endrem
 	Method Update()
-		For Local renderObject:TRenderable = EachIn renderObjects
-			renderObject.Update()
+		For Local renderable:TRenderable = EachIn _renderObjects
+			renderable.Update()
 		Next
 	End Method
-	
-
 	
 End Type
