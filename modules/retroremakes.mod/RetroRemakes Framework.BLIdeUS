@@ -6,24 +6,24 @@
       <FileName>src\Includes\Graphics\Actors\TActor.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>18</X>
-        <Y>200</Y>
+        <X>0</X>
+        <Y>143</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Actors\TFontActor.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>60</Y>
+        <X>1</X>
+        <Y>36</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Actors\TImageActor.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>26</X>
-        <Y>39</Y>
+        <X>4</X>
+        <Y>78</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -38,80 +38,80 @@
       <FileName>src\Includes\Graphics\Animation\AnimationStyles\TAlphaFadeAnimation.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>11</X>
+        <Y>65</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Animation\AnimationStyles\TBlinkAnimation.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>11</X>
+        <Y>47</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Animation\AnimationStyles\TColourOscillatorAnimation.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>11</X>
+        <Y>82</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Animation\AnimationStyles\TCompositeAnimation.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>11</X>
+        <Y>69</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Animation\AnimationStyles\TDelayedAnimation.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>11</X>
+        <Y>58</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Animation\AnimationStyles\TLoopedAnimation.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>11</X>
+        <Y>105</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Animation\AnimationStyles\TLoopedFrameAnimation.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>11</X>
+        <Y>191</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Animation\AnimationStyles\TMakeInvisibleAnimation.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>7</X>
+        <Y>18</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Animation\AnimationStyles\TMakeVisibleAnimation.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>7</X>
+        <Y>18</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Animation\AnimationStyles\TPointToPointPathAnimation.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>11</X>
+        <Y>100</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -119,55 +119,55 @@
       <Document_Active>false</Document_Active>
       <Caret_Position>
         <X>0</X>
-        <Y>0</Y>
+        <Y>40</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Animation\AnimationStyles\TSequentialAnimation.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>11</X>
+        <Y>81</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Animation\AnimationStyles\TSetAlphaAnimation.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>11</X>
+        <Y>27</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Animation\AnimationStyles\TSetColourAnimation.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>11</X>
+        <Y>26</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Animation\AnimationStyles\TSetPositionAnimation.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>11</X>
+        <Y>29</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Animation\AnimationStyles\TTimedAnimation.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>14</X>
+        <Y>15</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Animation\TAnimation.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>20</X>
-        <Y>26</Y>
+        <X>1</X>
+        <Y>0</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -222,8 +222,8 @@
       <FileName>src\Includes\Graphics\TRenderable.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>38</X>
-        <Y>19</Y>
+        <X>0</X>
+        <Y>0</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -639,15 +639,15 @@
       <Document_Active>false</Document_Active>
       <Caret_Position>
         <X>11</X>
-        <Y>252</Y>
+        <Y>257</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Layers\TRenderLayer.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>112</Y>
+        <X>61</X>
+        <Y>130</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -814,8 +814,8 @@
       <FileName>src\TGameEngine.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>6</X>
-        <Y>777</Y>
+        <X>19</X>
+        <Y>734</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -838,7 +838,7 @@
   </Project>
   <Compiler_Configuration>
     <Quick_Build>true</Quick_Build>
-    <Debugging>false</Debugging>
+    <Debugging>true</Debugging>
     <Command>-exedirectoryfordata</Command>
     <Threaded>false</Threaded>
   </Compiler_Configuration>

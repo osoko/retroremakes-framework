@@ -127,6 +127,10 @@ Type TRenderLayer Extends TRenderable
 	endrem
 	Method Render(tweening:Double, fixed:Int)
 		For Local renderObject:TRenderable = EachIn renderObjects
+			If TGameEngine.GetInstance().GetPaused()
+				' This avoids twitching objects when the engine is paused
+				tweening = 0.0
+			EndIf
 			renderObject.Render(tweening, fixed)
 		Next
 	End Method

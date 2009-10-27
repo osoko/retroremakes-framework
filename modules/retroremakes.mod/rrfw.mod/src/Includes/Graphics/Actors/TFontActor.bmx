@@ -14,12 +14,22 @@ Rem
 End Rem
 Type TFontActor Extends TActor
 
+	' The actual image font to use
 	Field _font:TImageFont
-	Field _midHeight:Float
-	Field _midWidth:Float
-	Field _text:String
+	
+	' Whether to mid-handle the text when rendering
 	Field _midHandle:Int
+	
+	' The mid y-axis of the text, used for mid-handle rendering
+	Field _midHeight:Float
+	
+	' The mid x-axis of the text, used for mid-handle rendering
+	Field _midWidth:Float
+	
+	' The text string to display
+	Field _text:String
 
+	
 	
 	rem
 		bbdoc: Get the font that has been set for this actor
@@ -64,13 +74,14 @@ Type TFontActor Extends TActor
 			If _midHandle
 				If _midWidth = 0.0 And _midHeight = 0.0
 					' calculate the middle of the text if it hasn't been already
-					_midWidth = (TextWidth(_text) * xScale) / 2.0
-					_midHeight = (TextHeight(_text) * yScale) / 2.0
+					_midWidth = (TextWidth(_text) * _xScale) / 2.0
+					_midHeight = (TextHeight(_text) * _yScale) / 2.0
 				End If
 				' take into account any scaling that is enabled
 				xOffset = _midWidth * GetXScale()
 				yOffset = _midHeight * GetYScale()
 			End If
+			Local renderPosition:TVector2D = GetRenderPosition()
 			If fixed
 				DrawText(_text, Int(renderPosition.x - xOffset), Int(renderPosition.y - yOffset))
 			Else

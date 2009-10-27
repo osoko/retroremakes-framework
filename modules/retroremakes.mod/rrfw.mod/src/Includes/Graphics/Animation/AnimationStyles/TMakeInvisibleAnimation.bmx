@@ -15,10 +15,10 @@ Rem
 End Rem
 Type TMakeInvisibleAnimation Extends TAnimation
 
-	Method Update:Int(sprite:TActor)
-		sprite.SetVisible(False)
-		isFinished = True
-		Return Finished()
+	Method Update:Int(actor:TActor)
+		actor.SetVisible(False)
+		SetFinished(True)
+		Return IsFinished()
 	End Method
 
 End Type

@@ -17,46 +17,88 @@ Rem
 End Rem
 Type TPointToPointPathAnimation Extends TAnimation
 
-	Field startX:Float
-	Field startY:Float
-	Field endX:Float
-	Field endY:Float
+	' vector containing the end position of the animation
+	Field _endPosition:TVector2D
 
-	Field transitionTime:Int
-	
-	Field tStep:float
+	' vector containing the start position of the animation
+	Field _startPosition:TVector2D
 
-	Field t:Float
+	' current completed time in a scale of 0.0 to 1.0
+	Field _time:Float
+		
+	' how much each to increase completed time each update call
+	Field _timeStep:Float
+
 	
+	
+	' Default constructor
+	Method New()
+		_endPosition = New TVector2D
+		_startPosition = New TVector2D
+	End Method
+	
+	
+	
+	rem
+		bbdoc: Resets the animation to initial values
+		about: This is used when looping animations
+	endrem
 	Method Reset()
-		t = 0.0
+		_time = 0.0
 		Super.Reset()
 	End Method
 	
+	
+	
+	rem
+		bbdoc: Set the time to take moving from the start to end positions
+		about: Value is in millisecs and uses the games update frequency to calculate
+		the correct update speed
+	endrem
 	Method SetTransitionTime(time:Float)
-		tStep = (1.0 / time) * (1000.0 / TFixedTimestep.GetInstance().GetUpdateFrequency())
-		t = 0.0
+		_timeStep = (1.0 / time) * (1000.0 / TFixedTimestep.GetInstance().GetUpdateFrequency())
+		_time = 0.0
 	End Method
 	
+	
+	
+	rem
+		bbdoc: Set the start position of the animation
+	endrem
 	Method SetStartPosition(x:Float, y:Float)
-		startX = x
-		startY = y
+		_startPosition.x = x
+		_startPosition.y = y
 	End Method
+
 	
+	
+	rem
+		bbdoc: Set the end position of the animation
+	endrem
 	Method SetEndPosition(x:Float, y:Float)
-		endX = x
-		endY = y
+		_endPosition.x = x
+		_endPosition.y = y
 	End Method	
 	
-	Method Update:Int(sprite:TActor)
-		t:+tStep
-		If t > 1.0
-			t = 1.0
-			isFinished = True
+	
+	
+	rem
+		bbdoc: Update the animation
+	endrem
+	Method Update:Int(actor:TActor)
+		_time:+_timeStep
+		
+		If _time > 1.0
+			_time = 1.0
+			SetFinished(True)
 		EndIf
-		sprite.currentPosition.x = startX + (endX - startX) * t
-		sprite.currentPosition.y = startY + (endY - startY) * t
-		Return Finished()
+		
+		actor.SetPosition( ..
+			_startPosition.x + (_endPosition.x - _startPosition.x) * _time,  ..
+			_startPosition.y + (_endPosition.y - _startPosition.y) * _time ..
+		)
+		
+		Return IsFinished()
 	End Method
 
 End Type

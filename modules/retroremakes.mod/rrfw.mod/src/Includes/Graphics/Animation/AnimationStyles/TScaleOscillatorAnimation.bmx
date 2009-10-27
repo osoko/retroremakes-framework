@@ -33,8 +33,8 @@ Type TScaleOscillatorAnimation Extends TAnimation
 	End Method
 	
 	Method Update:Int(actor:TActor)
-		rrUnpackScaler(rrGenOscillatorScale(scaleGen, offset), actor.xScale, actor.yScale)
-		Return Finished()
+		rrUnpackScaler(rrGenOscillatorScale(scaleGen, offset), actor._xScale, actor._yScale)
+		Return IsFinished()
 	End Method
 
 End Type

@@ -99,11 +99,11 @@ Type TLoopedAnimation Extends TAnimation
 				'Animation has finished so move it to the finished list
 				finishedAnimations.AddLast(animations.RemoveFirst())
 				If animations.Count() = 0
-					isFinished = LoopAnimation()
+					SetFinished(LoopAnimation())
 				EndIf
 			EndIf
 		EndIf
-		Return Finished()
+		Return IsFinished()
 	End Method
 	
 

@@ -184,12 +184,12 @@ Type TLoopedFrameAnimation Extends TAnimation
 		_currentFrame:+_framesPerUpdate
 		
 		If _currentFrame >= TImageActor(actor).FrameCount() Or _currentFrame < 0
-			isFinished = LoopAnimation(actor)
+			SetFinished(LoopAnimation(actor))
 		End If
 		
 		TImageActor(actor).SetCurrentFrame(_currentFrame)
 		
-		Return Finished()
+		Return IsFinished()
 	End Method
 
 End Type

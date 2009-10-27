@@ -45,7 +45,7 @@ Type TBlinkAnimation Extends TAnimation
 
 			sprite.SetVisible(Not sprite.IsVisible())
 		End If
-		Return Finished()
+		Return IsFinished()
 	End Method
 
 End Type

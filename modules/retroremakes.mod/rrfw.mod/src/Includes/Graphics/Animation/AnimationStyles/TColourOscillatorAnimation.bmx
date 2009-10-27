@@ -14,42 +14,73 @@ Rem
 End Rem
 Type TColourOscillatorAnimation Extends TAnimation
 
+	' Default offset to use for the colour oscillator
 	Const DEFAULT_COLOURGEN_OFFSET:Float = 0.0
 	
-	Field colourGen:TColourGen
-	Field offset:Float
-	Field ignoreAlpha:Int
+	' The colour generator to use for this animation
+	Field _colourGen:TColourGen
 	
+	' Whether to ignore the alpha when updating the actors current colour or not
+	Field _ignoreAlpha:Int
+	
+	' The offest to use when running the colour generator
+	Field _offset:Float
+	
+	
+	
+	' Default constructor
 	Method New()
-		Self.colourGen = New TColourGen
-		Self.offset = DEFAULT_COLOURGEN_OFFSET
-		Self.ignoreAlpha = False
+		_colourGen = New TColourGen
+		_ignoreAlpha = False
+		_offset = DEFAULT_COLOURGEN_OFFSET
 	End Method
 	
-	Method SetIgnoreAlpha(ignoreAlpha:Int = True)
-		Self.ignoreAlpha = ignoreAlpha
+	
+	
+	rem
+		bbdoc: Specify whether to ignore the alpha value in the colour generator or not
+	endrem
+	Method SetIgnoreAlpha(bool:Int)
+		_ignoreAlpha = bool
 	End Method
 	
+	
+	
+	rem
+		bbdoc: Specify the offset to use with the colour generator
+	endrem
 	Method SetOffset(offset:Float)
-		Self.offset = offset
+		_offset = offset
 	End Method
 
+	
+	
+	rem
+		bbdoc: Specify the colour generator to use for this animation
+	endrem
 	Method SetColourGen(colourGen:TColourGen)
-		Self.colourGen = colourGen
+		_colourGen = colourGen
 	End Method
 	
+	
+	
+	rem
+		bbdoc: Update the animation
+		about: This generates the colour and applies it to the actor this animation
+		is assigned to
+	endrem
 	Method Update:Int(actor:TActor)
-		Local colour:TColourRGB = TColourOscillator.GetInstance().GenColours(colourGen, offset)
+		Local colour:TColourRGB = TColourOscillator.GetInstance().GenColours(_colourGen, _offset)
 		
-		actor.colour.r = colour.r
-		actor.colour.g = colour.g
-		actor.colour.b = colour.b
+		actor.GetColour().r = colour.r
+		actor.GetColour().g = colour.g
+		actor.GetColour().b = colour.b
 		
-		If Not ignoreAlpha
-			actor.colour.a = colour.a
+		If Not _ignoreAlpha
+			actor.GetColour().a = colour.a
 		EndIf
 
-		Return Finished()
+		Return IsFinished()
 	End Method
 
 End Type
