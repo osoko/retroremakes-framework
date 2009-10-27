@@ -81,7 +81,7 @@ Type TAlphaFadeAnimation Extends TAnimation
 	rem
 		bbdoc: Updates the animation
 	endrem	
-	Method Update:Int(sprite:TActor)
+	Method Update:Int(actor:TActor)
 		If _endAlpha > _startAlpha
 			_currentAlpha:+_change			
 			If _currentAlpha > _endAlpha
@@ -96,7 +96,7 @@ Type TAlphaFadeAnimation Extends TAnimation
 			End If
 		End If
 		
-		sprite.GetColour().a = _currentAlpha
+		actor.GetColour().a = _currentAlpha
 		
 		Return IsFinished()
 	End Method
