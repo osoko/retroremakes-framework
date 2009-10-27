@@ -20,7 +20,7 @@ Type TPlayerBullet Extends TImageActor
 		bullet.GetColour().g = 0
 		bullet.GetColour().b = 0
 		bullet.SetVisible(True)
-		TLayerManager.GetInstance().AddRenderObjectToLayerByName(bullet, "middle")
+		TLayerManager.GetInstance().AddRenderableToLayerByName(bullet, "middle")
 		Return bullet
 	End Function
 	
@@ -36,7 +36,7 @@ Type TPlayerBullet Extends TImageActor
 	
 	Method Update()
 		If GetCurrentPosition().y < 0 - GetTexture().height
-			TLayerManager.GetInstance().RemoveRenderObject(Self)
+			TLayerManager.GetInstance().RemoveRenderable(Self)
 		Else
 			Super.Update()
 			Move(0.0, -SPEED)
