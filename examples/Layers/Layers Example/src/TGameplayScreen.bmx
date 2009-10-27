@@ -31,15 +31,15 @@ Type TGameplayScreen Extends TScreenBase
 	
 	Method Start()
 		TMessageService.GetInstance().SubscribeToChannel(CHANNEL_INPUT, Self)
-		theLayerManager.AddRenderObjectToLayerByName(player, "front")
-		theLayerManager.AddRenderObjectToLayerByName(scoreDisplay, "front")
+		theLayerManager.AddRenderableToLayerByName(player, "front")
+		theLayerManager.AddRenderableToLayerByName(scoreDisplay, "front")
 		player.Reset()
 	End Method
 	
 	Method Stop()
 		TMessageService.GetInstance().UnsubscribeAllChannels(Self)
-		theLayerManager.RemoveRenderObject(player)
-		theLayerManager.RemoveRenderObject(scoreDisplay)
+		theLayerManager.RemoveRenderable(player)
+		theLayerManager.RemoveRenderable(scoreDisplay)
 	End Method
 
 	Method Update()

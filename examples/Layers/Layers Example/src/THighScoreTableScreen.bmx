@@ -104,8 +104,8 @@ Type THighScoreTableScreen Extends TScreenBase
 	Method Start()
 		TMessageService.GetInstance().SubscribeToChannel(CHANNEL_INPUT, Self)
 		UpdateHighScoreTableDisplay()
-		theLayerManager.AddRenderObjectToLayerByName(header, "middle")
-		theLayerManager.AddRenderObjectToLayerByName(footer, "middle")
+		theLayerManager.AddRenderableToLayerByName(header, "middle")
+		theLayerManager.AddRenderableToLayerByName(footer, "middle")
 	End Method
 	
 	
@@ -113,11 +113,11 @@ Type THighScoreTableScreen Extends TScreenBase
 	Method Stop()
 		TMessageService.GetInstance().UnsubscribeAllChannels(Self)
 		For Local i:Int = 0 To NUM_HIGH_SCORES - 1
-			theLayerManager.RemoveRenderObject(displayScores[i])
-			theLayerManager.RemoveRenderObject(displayNames[i])
+			theLayerManager.RemoveRenderable(displayScores[i])
+			theLayerManager.RemoveRenderable(displayNames[i])
 		Next
-		theLayerManager.RemoveRenderObject(header)
-		theLayerManager.RemoveRenderObject(footer)
+		theLayerManager.RemoveRenderable(header)
+		theLayerManager.RemoveRenderable(footer)
 		Finished()
 	End Method
 	
@@ -152,8 +152,8 @@ Type THighScoreTableScreen Extends TScreenBase
 			displayNames[i].SetPosition(screenMidX + SCORE_X_SPACING, startY)
 			displayNames[i].SetVisible(True)
 			
-			displayScores[i].GetAnimationManager().Remove()
-			displayNames[i].GetAnimationManager().Remove()
+			displayScores[i].GetAnimationManager().RemoveAnimations()
+			displayNames[i].GetAnimationManager().RemoveAnimations()
 			
 			Local anim:TColourOscillatorAnimation = New TColourOscillatorAnimation
 			If i = highlightScore
@@ -165,8 +165,8 @@ Type THighScoreTableScreen Extends TScreenBase
 			displayScores[i].GetAnimationManager().AddAnimation(anim)
 			displayNames[i].GetAnimationManager().AddAnimation(anim)
 			
-			theLayerManager.AddRenderObjectToLayerByName(displayScores[i], "middle")
-			theLayerManager.AddRenderObjectToLayerByName(displayNames[i], "middle")
+			theLayerManager.AddRenderableToLayerByName(displayScores[i], "middle")
+			theLayerManager.AddRenderableToLayerByName(displayNames[i], "middle")
 			
 			startY:+displayFont.Height() + SCORE_Y_SPACING
 		Next

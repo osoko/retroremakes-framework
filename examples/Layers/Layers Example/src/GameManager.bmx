@@ -41,7 +41,7 @@ Type GameManager Extends TGameManager
 		
 		If currentScreen
 			LogInfo(ToString() + " adding screen to layer manager: " + currentScreen.ToString())
-			theLayerManager.AddRenderObjectToLayerByName(currentScreen, "back")
+			theLayerManager.AddRenderableToLayerByName(currentScreen, "back")
 			LogInfo(ToString() + " starting screen: " + currentScreen.ToString())
 			currentScreen.Start()
 		End If
@@ -105,7 +105,7 @@ Type GameManager Extends TGameManager
 	Method HandleScreenFinished(message:TMessage)
 		' very simply, we remove the sender of the message from the layer manager
 		LogInfo(ToString() + " received finished message from screen: " + message.sender.ToString())
-		If message.sender Then theLayerManager.RemoveRenderObject(TRenderable(message.sender))
+		If message.sender Then theLayerManager.RemoveRenderable(TRenderable(message.sender))
 	End Method
 	
 		
@@ -190,7 +190,7 @@ Type GameManager Extends TGameManager
 		' Now we'll start adding a few essentials to these layers.  First off we have a parallax starfield
 		' (you gotta have parallax starfields, it's the law). We always want this to be displayed so we're
 		' not bothering keeping track of the object, we'll just let the layerManager do its thing with it
-		theLayerManager.AddRenderObjectToLayerByName(New TStarfield, "back")
+		theLayerManager.AddRenderableToLayerByName(New TStarfield, "back")
 		
 		' Now we'll create instances of our game screens and add them to the registry for easy access
 		theRegistry.Add("TitleScreen", New TTitleScreen)

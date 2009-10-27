@@ -4,26 +4,26 @@
     <Main_File>Shooty.bmx</Main_File>
     <Included_File>
       <FileName>src\GameManager.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>51</X>
-        <Y>65</Y>
+        <X>31</X>
+        <Y>192</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\TGameplayScreen.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>34</X>
+        <Y>41</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\THighScoreTableScreen.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>40</X>
-        <Y>165</Y>
+        <X>49</X>
+        <Y>170</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -44,10 +44,10 @@
     </Included_File>
     <Included_File>
       <FileName>src\TPlayerBullet.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>20</X>
-        <Y>21</Y>
+        <X>8</X>
+        <Y>29</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -84,10 +84,10 @@
     </Included_File>
     <Included_File>
       <FileName>src\TTitleScreen.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>1</X>
-        <Y>245</Y>
+        <X>35</X>
+        <Y>239</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -95,7 +95,7 @@
       <Document_Active>true</Document_Active>
       <Caret_Position>
         <X>0</X>
-        <Y>1</Y>
+        <Y>27</Y>
       </Caret_Position>
     </Included_File>
     <Compilation_Mode>GUI_Application</Compilation_Mode>

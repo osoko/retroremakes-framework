@@ -155,7 +155,7 @@ Type TTitleScreen Extends TScreenBase
 		logo.GetAnimationManager().Reset()
 		
 		' Add it to the "front" layer
-		theLayerManager.AddRenderObjectToLayerByName(logo, "front")
+		theLayerManager.AddRenderableToLayerByName(logo, "front")
 	End Method
 	
 	
@@ -165,12 +165,12 @@ Type TTitleScreen Extends TScreenBase
 	Method ResetMenu()
 		activeMenuItem = 0
 		For Local i:Int = 0 To menuItems.Length - 1
-			menuItems[i].GetAnimationManager().Remove()
+			menuItems[i].GetAnimationManager().RemoveAnimations()
 			If activeMenuItem = i
 				menuItems[i].GetAnimationManager().AddAnimation(activeMenuAnimation)
 			EndIf
 			menuItems[i].SetColour(New TColourRGB)
-			theLayerManager.AddRenderObjectToLayerByName(menuItems[i], "middle")
+			theLayerManager.AddRenderableToLayerByName(menuItems[i], "middle")
 		Next
 	End Method
 	
@@ -179,7 +179,7 @@ Type TTitleScreen Extends TScreenBase
 	' Reset the scroller to starting values and add it to the relevant layer
 	Method ResetScroller()
 		scroller.Reset
-		theLayerManager.AddRenderObjectToLayerByName(scroller, "middle")
+		theLayerManager.AddRenderableToLayerByName(scroller, "middle")
 	End Method
 	
 	
@@ -225,11 +225,11 @@ Type TTitleScreen Extends TScreenBase
 		TMessageService.GetInstance().UnsubscribeAllChannels(Self)
 		
 		' remove all our renderables from the layer manager
-		theLayerManager.RemoveRenderObject(logo)
+		theLayerManager.RemoveRenderable(logo)
 		For Local item:TFontActor = EachIn menuItems
-			theLayerManager.RemoveRenderObject(item)
+			theLayerManager.RemoveRenderable(item)
 		Next
-		theLayerManager.RemoveRenderObject(scroller)
+		theLayerManager.RemoveRenderable(scroller)
 		
 		' Send a message to the game manager saying we're finished
 		Finished()
@@ -249,7 +249,7 @@ Type TTitleScreen Extends TScreenBase
 	' and set its colour to white
 	Method UnsetActiveMenuAnimation()
 		' remove the animation from the current active menu item
-		menuItems[activeMenuItem].GetAnimationManager().Remove()
+		menuItems[activeMenuItem].GetAnimationManager().RemoveAnimations()
 		
 		' reset it's colour to white
 		menuItems[activeMenuItem].SetColour(New TColourRGB)
