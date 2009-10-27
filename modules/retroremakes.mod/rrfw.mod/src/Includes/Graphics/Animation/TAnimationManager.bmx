@@ -13,66 +13,102 @@ Rem
 	bbdoc: Class for managing actor animations.
 End Rem
 Type TAnimationManager
-	Field actor:TActor	'The actor that this animation manager is linked to
-	Field animations:TList 'List of animations scheduled for this actor
-	Field finishedAnimations:TList
-	
-	field updateProfile:TProfilerSample
-	
-	Method New()
-		animations = New TList
-		finishedAnimations = new TList
-	End Method
-	
-	Method SetActor(value:TActor)
-		actor = value
-	End Method
-	
+
+	' The actor that this animation manager is linked to
+	Field _actor:TActor
+
+	' The list of animations scheduled for this actor
+	Field _animations:TList
+
+	' The list of animations scheduled for this actor that have finished
+	Field _finishedAnimations:TList
+
+
+
+	rem
+		bbdoc: Add an animation
+		about: The animation is added to the end of the list of scheduled animations
+	endrem
 	Method AddAnimation(animation:TAnimation)
-		Self.animations.AddLast(animation)
-	End Method
-	
-	Method Update()
-		If Not actor Then Throw "TAnimationManager has no TActor attached"
-		If animations.Count() > 0
-			If TAnimation(animations.First()).Update(actor)
-				'Animation has finished so remove it
-				finishedAnimations.AddLast(animations.RemoveFirst())
-			EndIf
-		End If
+		_animations.AddLast(animation)
 	End Method
 
-		
-	Method Remove()
-		Local animation:TAnimation
-		For animation = EachIn animations
-			animation.remove()
-			animations.remove(animation)
-			animation = Null
-		Next
-		For animation = EachIn finishedAnimations
-			animation.remove()
-			finishedAnimations.remove(animation)
-			animation = Null
-		Next
-		GCCollect()
+
+
+	' Default constructor
+	Method New()
+		_animations = New TList
+		_finishedAnimations = New TList
 	End Method
-	
-	
-	
+
+
+
+	rem
+		bbdoc: Removes all animations
+		about: Calls each animations Remove() method so that any additional
+		tidying up can be done by the animations themselves
+	endrem
+	Method RemoveAnimations()
+		Local animation:TAnimation
+
+		For animation = EachIn _animations
+			animation.remove()
+			_animations.remove(animation)
+			animation = Null
+		Next
+
+		For animation = EachIn _finishedAnimations
+			animation.remove()
+			_finishedAnimations.remove(animation)
+			animation = Null
+		Next
+	End Method
+
+
+
+	rem
+		bbdoc: Resets scheduled animations
+		about: This calls the Reset() method of each animation
+	endrem
 	Method Reset()
 		'move the remaining animations to the finished list
-		While animations.Count() > 0
-			finishedAnimations.AddLast(animations.RemoveFirst())
+		While _animations.Count() > 0
+			_finishedAnimations.AddLast(_animations.RemoveFirst())
 		Wend
-		animations.Clear()
+		_animations.Clear()
 		
 		'repopulate animation list and reset all animations
-		While finishedAnimations.Count() > 0
-			animations.AddLast(finishedAnimations.RemoveFirst())
-			TAnimation(animations.Last()).Reset()
+		While _finishedAnimations.Count() > 0
+			_animations.AddLast(_finishedAnimations.RemoveFirst())
+			TAnimation(_animations.Last()).Reset()
 		Wend
-		finishedAnimations.Clear()
+		_finishedAnimations.Clear()
+	End Method
+
+
+
+	rem
+		bbdoc: Set the actor that this animation manager is lined to
+	endrem
+	Method SetActor(value:TActor)
+		_actor = value
+	End Method
+
+
+
+	rem
+		bbdoc: Update all animations
+		about: Once an animation has finished it is removed from the list and added
+		to a list of finished animations
+	endrem
+	Method Update()
+		If Not _actor Then Throw "TAnimationManager has no TActor attached"
+		If _animations.Count() > 0
+			If TAnimation(_animations.First()).Update(_actor)
+				'Animation has finished so remove it
+				_finishedAnimations.AddLast(_animations.RemoveFirst())
+			EndIf
+		End If
 	End Method
 	
 End Type
