@@ -3,9 +3,11 @@ SuperStrict
 Framework retroremakes.rrfw
 
 Include "src/GameManager.bmx"
+Include "src/TGameplayScreen.bmx"
 Include "src/THighScoreTableScreen.bmx"
 Include "src/TModeMessageData.bmx"
 Include "src/TPlayer.bmx"
+Include "src/TPlayerBullet.bmx"
 Include "src/TScreenBase.bmx"
 Include "src/TScroller.bmx"
 Include "src/TStar.bmx"

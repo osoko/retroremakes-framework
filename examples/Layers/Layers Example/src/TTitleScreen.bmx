@@ -15,7 +15,6 @@ Type TTitleScreen Extends TScreenBase
 	
 	Field scroller:TScroller
 
-	
 		
 	' Here we're going to create an ImageActor to show our logo
 	Method CreateLogoActor()
@@ -29,12 +28,12 @@ Type TTitleScreen Extends TScreenBase
 		' of the screen
 		Local anim:TPointToPointPathAnimation = New TPointToPointPathAnimation
 		Local midScreenX:Float = TProjectionMatrix.GetInstance().GetWidth() / 2.0
-		anim.SetStartPosition(midScreenX, 0 - ImageHeight(logo.texture_))
+		anim.SetStartPosition(midScreenX, 0 - logo.GetTexture().width / 2.0)
 		anim.SetEndPosition(midScreenX, 100)
 		anim.SetTransitionTime(600.0)
 		
 		' Add the animation to the actor's animation manager
-		logo.animationManager.AddAnimation(anim)
+		logo.GetAnimationManager().AddAnimation(anim)
 		
 		' make sure it's visible immediately
 		logo.SetVisible(True)
@@ -52,18 +51,19 @@ Type TTitleScreen Extends TScreenBase
 		
 		' work out the place to start drawing our menu to ensure it is centered on the screen
 		Local screenMidX:Int = TProjectionMatrix.GetInstance().GetWidth() / 2.0
-		Local screenMidY:Int = (TProjectionMatrix.GetInstance().GetHeight() - logo.texture_.height) / 2
+		Local screenMidY:Int = (TProjectionMatrix.GetInstance().GetHeight() - logo.GetTexture().height) / 2
 		Local menuHeight:Int = (menuItemsText.Length * font.Height()) + ((menuItems.Length - 1) * MENU_ITEM_SPACING)
-		Local itemY:Int = logo.texture_.height + screenMidY - (menuHeight / 2)
+		Local itemY:Int = logo.GetTexture().height + screenMidY + (font.Height() / 2) - (menuHeight / 2)
 		
 		menuItems = New TFontActor[menuItemsText.Length]
 	
 		' Set the font, render text and position of all the menu items	
 		For Local i:Int = 0 To menuItemsText.Length - 1
 			menuItems[i] = New TFontActor
+			menuItems[i].SetMidHandle(true)
 			menuItems[i].SetFont(font)
 			menuItems[i].SetText(menuItemsText[i])
-			menuItems[i].SetPosition(screenMidX - (TextWidth(menuItemsText[i]) / 2), itemY)
+			menuItems[i].SetPosition(screenMidX, itemY)
 			itemY:+font.Height() + MENU_ITEM_SPACING
 		Next
 	End Method
@@ -149,10 +149,10 @@ Type TTitleScreen Extends TScreenBase
 	Method ResetLogo()
 		' Set it's initial position off the top of the screen
 		Local midScreenX:Float = TProjectionMatrix.GetInstance().GetWidth() / 2.0
-		logo.SetPosition(midScreenX, 0 - ImageHeight(logo.texture_))
+		logo.SetPosition(midScreenX, 0 - ImageHeight(logo.GetTexture()))
 		
 		' Reset the animation manager so it will restart the animation sequence from the beginning	
-		logo.animationManager.Reset()
+		logo.GetAnimationManager().Reset()
 		
 		' Add it to the "front" layer
 		theLayerManager.AddRenderObjectToLayerByName(logo, "front")
@@ -165,9 +165,9 @@ Type TTitleScreen Extends TScreenBase
 	Method ResetMenu()
 		activeMenuItem = 0
 		For Local i:Int = 0 To menuItems.Length - 1
-			menuItems[i].animationManager.Remove()
+			menuItems[i].GetAnimationManager().Remove()
 			If activeMenuItem = i
-				menuItems[i].animationManager.AddAnimation(activeMenuAnimation)
+				menuItems[i].GetAnimationManager().AddAnimation(activeMenuAnimation)
 			EndIf
 			menuItems[i].SetColour(New TColourRGB)
 			theLayerManager.AddRenderObjectToLayerByName(menuItems[i], "middle")
@@ -202,7 +202,7 @@ Type TTitleScreen Extends TScreenBase
 	
 	' Add the colour oscillation animation to the currently selected menu item
 	Method SetActiveMenuAnimation()
-		menuItems[activeMenuItem].animationManager.AddAnimation(activeMenuAnimation)
+		menuItems[activeMenuItem].GetAnimationManager().AddAnimation(activeMenuAnimation)
 	End Method
 	
 	
@@ -244,11 +244,12 @@ Type TTitleScreen Extends TScreenBase
 	
 	
 	
+	
 	' Remove the colour oscillation animation to the currently selected menu item
 	' and set its colour to white
 	Method UnsetActiveMenuAnimation()
 		' remove the animation from the current active menu item
-		menuItems[activeMenuItem].animationManager.Remove()
+		menuItems[activeMenuItem].GetAnimationManager().Remove()
 		
 		' reset it's colour to white
 		menuItems[activeMenuItem].SetColour(New TColourRGB)
