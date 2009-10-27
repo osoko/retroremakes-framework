@@ -15,36 +15,64 @@ Rem
 End Rem
 Type TBlinkAnimation Extends TAnimation
 
-	Const DEFAULT_SPEED:Int = 1000	'default in ms
+	' Default blink speed in ms
+	Const DEFAULT_SPEED:Int = 1000
 
-	Field speed:Int
+	' The time that the animation will next hide/show the actor
+	Field _blinkTime:Int
+		
+	' The speed to blink at in milliseconds
+	Field _speed:Int
 	
-	Field startTime:Int
-	Field blinkTime:Int
+	' The time that the animation last hid/showed the actor
+	Field _startTime:Int
+
 	
+	
+	rem
+		bbdoc: Default constructor
+	endrem
 	Method New()
-		speed = DEFAULT_SPEED
-	End Method
-	
-	Method SetSpeed(speed:Int)
-		Self.speed = speed
+		_speed = DEFAULT_SPEED
 	End Method
 
+	
+	
+	rem
+		bbdoc: Reset the animation
+	endrem
 	Method Reset()
-		startTime = Null
-		blinkTime = Null
+		_startTime = Null
+		_blinkTime = Null
 		Super.Reset()
 	End Method
+			
+	
+	
+	rem
+		bbdoc: Set the blink speed in milliseconds
+	endrem
+	Method SetSpeed(value:Int)
+		_speed = value
+	End Method
 
-	Method Update:Int(sprite:TActor)
-		If Not startTime Then startTime = MilliSecs()
+
+
+	rem
+		bbdoc: Updates the animation
+	endrem
+	Method Update:Int(actor:TActor)
+		If Not _startTime Then _startTime = MilliSecs()
+		
 		Local time:Int = MilliSecs()
-		If blinkTime - time < 0
-			startTime = time
-			blinkTime = startTime + speed
+		
+		If _blinkTime - time <= 0
+			_startTime = time
+			_blinkTime = _startTime + _speed
 
-			sprite.SetVisible(Not sprite.IsVisible())
+			actor.SetVisible(Not actor.IsVisible())
 		End If
+		
 		Return IsFinished()
 	End Method
 
