@@ -4,7 +4,7 @@ end rem
 Type THighScoreTableScreen Extends TScreenBase
 
 	Const NUM_HIGH_SCORES:Int = 5
-	Const SCORE_COLOUR_OFFSET:Float = 20.0
+	Const SCORE_COLOUR_OFFSET:Float = 15.0
 	Const SCORE_X_SPACING:Int = 10
 	Const SCORE_Y_SPACING:Int = 10
 
@@ -36,16 +36,7 @@ Type THighScoreTableScreen Extends TScreenBase
 	
 	
 	
-	Method GoBackToTitleScreen()
-		Local message:TMessage = New TMessage
-		message.SetMessageId(MSG_CHANGE_MODE)
-		
-		Local data:TModeMessageData = New TModeMessageData
-		data.modeId = TModeMessageData.MODE_TITLE_SCREEN
-		
-		message.SetData(data)
-		message.Broadcast(GAME_MANAGER_CHANNEL)
-	End Method
+
 	
 	
 	
@@ -92,7 +83,7 @@ Type THighScoreTableScreen Extends TScreenBase
 		header = New TFontActor
 		header.SetFont(headerDisplayFont)
 		header.SetText("High-Score Table")
-		header.SetPosition(screenMidX - (TextWidth(header.spriteText) / 2.0), 50.0)
+		header.SetPosition(screenMidX - (TextWidth(header.GetText()) / 2.0), 50.0)
 		header.SetVisible(True)
 		
 		SetImageFont(displayFont)
@@ -100,16 +91,13 @@ Type THighScoreTableScreen Extends TScreenBase
 		footer = New TFontActor
 		footer.SetFont(displayFont)
 		footer.SetText("Press Enter to Continue")
-		footer.SetPosition(screenMidX - (TextWidth(footer.spriteText) / 2.0),  ..
+		footer.SetPosition(screenMidX - (TextWidth(footer.GetText()) / 2.0),  ..
 			TProjectionMatrix.GetInstance().GetHeight() - displayFont.Height() - 50.0)
 		footer.SetVisible(True)
 		
 	End Method
 	
-	
-	
-	Method Render(tweening:Double, fixed:Int = False)
-	End Method
+
 	
 	
 	
@@ -140,9 +128,7 @@ Type THighScoreTableScreen Extends TScreenBase
 	End Method
 	
 	
-	
-	Method Update()
-	End Method
+
 	
 	
 	
@@ -166,8 +152,8 @@ Type THighScoreTableScreen Extends TScreenBase
 			displayNames[i].SetPosition(screenMidX + SCORE_X_SPACING, startY)
 			displayNames[i].SetVisible(True)
 			
-			displayScores[i].animationManager.Remove()
-			displayNames[i].animationManager.Remove()
+			displayScores[i].GetAnimationManager().Remove()
+			displayNames[i].GetAnimationManager().Remove()
 			
 			Local anim:TColourOscillatorAnimation = New TColourOscillatorAnimation
 			If i = highlightScore
@@ -176,8 +162,8 @@ Type THighScoreTableScreen Extends TScreenBase
 				anim.SetColourGen(scoreColour)
 				anim.SetOffset(i * SCORE_COLOUR_OFFSET)
 			EndIf
-			displayScores[i].animationManager.AddAnimation(anim)
-			displayNames[i].animationManager.AddAnimation(anim)
+			displayScores[i].GetAnimationManager().AddAnimation(anim)
+			displayNames[i].GetAnimationManager().AddAnimation(anim)
 			
 			theLayerManager.AddRenderObjectToLayerByName(displayScores[i], "middle")
 			theLayerManager.AddRenderObjectToLayerByName(displayNames[i], "middle")

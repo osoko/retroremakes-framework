@@ -18,6 +18,7 @@ Type GameManager Extends TGameManager
 	Field currentScreen:TScreenBase
 	
 	' A couple of shortcuts to frequently used services
+	Field theEngine:TGameEngine
 	Field theLayerManager:TLayerManager
 	Field theRegistry:TRegistry
 	
@@ -74,6 +75,8 @@ Type GameManager Extends TGameManager
 		Select data.key
 			Case KEY_ESCAPE
 				If data.keyHits Then Quit()
+			Case KEY_P
+				If data.keyHits Then Pause()
 		End Select
 	End Method
 	
@@ -85,6 +88,7 @@ Type GameManager Extends TGameManager
 		Select data.modeId
 			Case TModeMessageData.MODE_START_GAME
 				' Start the Game
+				ChangeScreen("GameplayScreen")
 			Case TModeMessageData.MODE_HIGH_SCORES
 				' Show the high-score table
 				ChangeScreen("HighScoreTableScreen")
@@ -123,14 +127,21 @@ Type GameManager Extends TGameManager
 	
 	Method New()
 		' We'll keep local references to commonly used singletons to save typing
+		theEngine = TGameEngine.GetInstance()
 		theLayerManager = TLayerManager.GetInstance()
 		theRegistry = TRegistry.GetInstance()
 	End Method
 	
 	
 	
+	Method Pause()
+		theEngine.SetPaused(theEngine.GetPaused() ~ 1)
+	End Method
+	
+	
+	
 	Method Quit()
-		TGameEngine.GetInstance().Stop()
+		theEngine.Stop()
 	End Method
 	
 	
@@ -184,6 +195,7 @@ Type GameManager Extends TGameManager
 		' Now we'll create instances of our game screens and add them to the registry for easy access
 		theRegistry.Add("TitleScreen", New TTitleScreen)
 		theRegistry.Add("HighScoreTableScreen", New THighScoreTableScreen)
+		theRegistry.Add("GameplayScreen", New TGameplayScreen)
 		
 		ChangeScreen("TitleScreen")
 	End Method
