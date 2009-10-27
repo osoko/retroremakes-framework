@@ -15,54 +15,89 @@ Rem
 End Rem
 Type TAlphaFadeAnimation Extends TAnimation
 
-	Field startAlpha_:Float
-	Field endAlpha_:Float
-	Field currentAlpha_:Float
-	Field speed_:Float
-	Field time:Float
+	' The amount that the alpha value changes by each update
+	Field _change:Float
 	
-	Method Initialse()
-		Reset()
-	End Method
+	' The current alpha value
+	Field _currentAlpha:Float
+
+	' The alpha value the animation finishes at
+	Field _endAlpha:Float
+
+	' The alpha value the animation starts at
+	Field _startAlpha:Float
 	
+
+
+	rem
+		bbdoc: Resets the animation to starting values
+	endrem
 	Method Reset()
-		currentAlpha_ = startAlpha_
+		_currentAlpha = _startAlpha
 		Super.Reset()
 	End Method
 	
-	Method SetStartAlpha(startAlpha:Float)
-		startAlpha_ = startAlpha
-		currentAlpha_ = startAlpha_
+	
+	
+	rem
+		bbdoc: Set the value that alpha value is changed by each update
+	endrem
+	Method SetChange(value:Float)
+		_change = value
 	End Method
 	
-	Method SetEndAlpha(endAlpha:Float)
-		endAlpha_ = endAlpha
+	
+	
+	rem
+		bbdoc: Sets the ending alpha value
+	endrem	
+	Method SetEndAlpha(value:Float)
+		_endAlpha = value
 	End Method
 	
-	Method SetTime(t:Float)
-		time = t
-		SetSpeed(Abs((startAlpha_ - endAlpha_) / time * (1000 / TFixedTimestep.GetInstance().GetUpdateFrequency())))
+	
+	
+	rem
+		bbdoc: Sets the starting alpha value
+	endrem
+	Method SetStartAlpha(value:Float)
+		_startAlpha = value
+		_currentAlpha = _startAlpha
 	End Method
 	
-	Method SetSpeed(speed:Float)
-		speed_ = speed
-	End Method
 	
+	
+	rem
+		bbdoc: Set the length of time the animation should take in millisecs
+		about: The value specified is used to calculate the rate of change so
+		that the animation completes in the requested timescale
+	endrem
+	Method SetTime(ms:Float)
+		SetChange(Abs((_startAlpha - _endAlpha) / ms * (1000 / TFixedTimestep.GetInstance().GetUpdateFrequency())))
+	End Method
+
+	
+
+	rem
+		bbdoc: Updates the animation
+	endrem	
 	Method Update:Int(sprite:TActor)
-		If endAlpha_ > startAlpha_
-			currentAlpha_:+speed_
-			If currentAlpha_ > endAlpha_
-				currentAlpha_ = endAlpha_
+		If _endAlpha > _startAlpha
+			_currentAlpha:+_change			
+			If _currentAlpha > _endAlpha
+				_currentAlpha = _endAlpha
 				SetFinished(True)
 			End If
 		Else
-			currentAlpha_:-speed_
-			If currentAlpha_ < endAlpha_
-				currentAlpha_ = endAlpha_
+			_currentAlpha:-_change
+			If _currentAlpha < _endAlpha
+				_currentAlpha = _endAlpha
 				SetFinished(True)
 			End If
 		End If
-		sprite.GetColour().a = currentAlpha_
+		
+		sprite.GetColour().a = _currentAlpha
+		
 		Return IsFinished()
 	End Method
 	
