@@ -26,8 +26,8 @@ Type TSetPositionAnimation Extends TAnimation
 	
 	Method Update:Int(sprite:TActor)
 		sprite.SetPosition(x_, y_)
-		isFinished = True
-		Return Finished()
+		SetFinished(True)
+		Return IsFinished()
 	End Method
 
 End Type

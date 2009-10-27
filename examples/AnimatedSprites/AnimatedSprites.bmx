@@ -96,8 +96,8 @@ Type GameManager Extends TGameManager
 		' We're going to make each sprite visit each corner of the screen,
 		' returning to their original position between each, and this will
 		' loop forever.
-		Local startX:Float = sprite.currentPosition.x
-		Local startY:Float = sprite.currentPosition.y
+		Local startX:Float = sprite.GetCurrentPosition().x
+		Local startY:Float = sprite.GetCurrentPosition().y
 		
 		' randomise the first corner
 		Local corner:Int = Rand(0, 3)

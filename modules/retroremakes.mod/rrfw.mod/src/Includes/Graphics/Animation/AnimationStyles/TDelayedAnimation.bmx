@@ -49,14 +49,14 @@ Type TDelayedAnimation Extends TAnimation
 		If Not startTime Then startTime = MilliSecs()
 		If MilliSecs() > startTime + delayTime
 			If animation
-				isFinished = animation.Update(sprite)
+				SetFinished(animation.Update(sprite))
 			Else
 				' If you don't set an animation, this can be purely used to delay
 				' a Sequential list of animations, etc.
-				isFinished = True
+				SetFinished(True)
 			EndIf
 		End If
-		Return Finished()
+		Return IsFinished()
 	End Method
 
 End Type

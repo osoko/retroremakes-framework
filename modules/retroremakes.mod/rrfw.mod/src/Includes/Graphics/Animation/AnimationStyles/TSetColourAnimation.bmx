@@ -23,8 +23,8 @@ Type TSetColourAnimation Extends TAnimation
 	
 	Method Update:Int(sprite:TActor)
 		sprite.SetColour(colour_)
-		isFinished = True
-		Return Finished()
+		SetFinished(True)
+		Return IsFinished()
 	End Method
 
 End Type

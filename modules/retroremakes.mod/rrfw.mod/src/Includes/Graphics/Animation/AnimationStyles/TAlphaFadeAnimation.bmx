@@ -53,17 +53,17 @@ Type TAlphaFadeAnimation Extends TAnimation
 			currentAlpha_:+speed_
 			If currentAlpha_ > endAlpha_
 				currentAlpha_ = endAlpha_
-				isFinished = True
+				SetFinished(True)
 			End If
 		Else
 			currentAlpha_:-speed_
 			If currentAlpha_ < endAlpha_
 				currentAlpha_ = endAlpha_
-				isFinished = True
+				SetFinished(True)
 			End If
 		End If
 		sprite.GetColour().a = currentAlpha_
-		Return Finished()
+		Return IsFinished()
 	End Method
 	
 End Type

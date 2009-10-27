@@ -24,8 +24,8 @@ Type TSetAlphaAnimation Extends TAnimation
 	
 	Method Update:Int(sprite:TActor)
 		sprite.GetColour().a = alpha_
-		isFinished = True
-		Return Finished()
+		SetFinished(True)
+		Return IsFinished()
 	End Method
 
 End Type

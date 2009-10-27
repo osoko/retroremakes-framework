@@ -83,7 +83,8 @@ Type TImageActor Extends TActor
 		Interpolate(tweening)
 		SetRenderState()
 		If _texture And IsVisible()
-			if fixed
+			Local renderPosition:TVector2D = GetRenderPosition()
+			If fixed
 				DrawImage(_texture, Int(renderPosition.x), Int(renderPosition.y), _currentFrame)
 			else
 				DrawImage(_texture, renderPosition.x, renderPosition.y, _currentFrame)

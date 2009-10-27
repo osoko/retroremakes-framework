@@ -14,35 +14,91 @@ Rem
 End Rem
 Type TAnimation
 
-	Field callBackFunction()
-	Field isFinished:Int
+	' A callback function that can be called when an animation has completed
+	Field _callbackFunction()
 	
-	Method Finished:Int()
-		If isFinished And callBackFunction
-			callBackFunction()
-		EndIf
-		Return isFinished
-	End Method
+	' Whether the animation has finished or not
+	Field _finished:Int
 	
+	
+	
+	rem
+		bbdoc: Initialise the animation
+		about: This should be overridden where required
+	endrem
 	Method Initialise()
 		Reset()
 	End Method
 
-	Method New()
-		Self.isFinished = False
+	
+	
+	rem
+		bbdoc: Return whether the animation is finished or not
+		about: If the animation is finished and a callback function has been set
+		the function will be called here
+	endrem
+	Method IsFinished:Int()
+		If _finished And _callbackFunction
+			_callbackFunction()
+		EndIf
+		
+		Return _finished
 	End Method
 	
+	
+	
+	' Default constructor
+	Method New()
+		_finished = False
+	End Method
+	
+	
+	
+	rem
+		bbdoc: Does any work required to remove this animation
+		about: This should be overriden where needed
+	endrem
 	Method Remove()
 	End Method
 	
+	
+	
+	rem
+		bbdoc: Resets the animation
+		about: This should be overriden where needed and Super.Reset() called as
+		part of the overriden version
+	endrem
 	Method Reset()
-		Self.isFinished = False
+		SetFinished(False)
 	End Method
 	
-	Method SetCallBack(func())
-		callBackFunction = func
-	End Method
 	
+	
+	rem
+		bbdoc: Sets a callback function for the animation
+		about: This callback function is called when the animation has completed
+		as part of the IsFinished() method
+	endrem
+	Method SetCallBack(callbackFunction())
+		_callbackFunction = callbackFunction
+	End Method
+
+	
+	
+	rem
+		bbdoc: Set whether this animation is finished or not
+	endrem
+	Method SetFinished(bool:Int = True)
+		_finished = bool
+	End Method
+		
+	
+	
+	rem
+		bbdoc: Update the animation
+		about: Child classes need to override this abstract method to perform
+		their animation updates
+	endrem
 	Method Update:Int(sprite:TActor) Abstract
 	
 End Type

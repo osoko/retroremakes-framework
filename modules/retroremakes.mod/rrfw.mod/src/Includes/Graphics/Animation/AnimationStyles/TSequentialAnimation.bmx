@@ -73,13 +73,13 @@ Type TSequentialAnimation Extends TAnimation
 				'Animation has finished so move it to the finished list
 				finishedAnimations.AddLast(animations.RemoveFirst())
 				If animations.Count() = 0
-					isFinished = True
+					SetFinished(True)
 				End If
 			EndIf
 		Else
-			isFinished = True
+			SetFinished(True)
 		EndIf
-		Return Finished()
+		Return IsFinished()
 	End Method
 
 End Type

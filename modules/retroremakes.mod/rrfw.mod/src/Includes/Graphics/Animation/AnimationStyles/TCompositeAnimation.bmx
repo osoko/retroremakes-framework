@@ -65,9 +65,9 @@ Type TCompositeAnimation Extends TAnimation
 			End If
 		Next
 		If Lanimations.Count() = 0
-			isFinished = True
+			SetFinished(True)
 		End If
-		Return Finished()
+		Return IsFinished()
 	End Method
 	
 End Type

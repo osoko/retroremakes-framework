@@ -45,9 +45,9 @@ Type TTimedAnimation Extends TAnimation
 		If finishTime - MilliSecs() > 0
 			animation.Update(sprite)
 		Else
-			isFinished = True
+			SetFinished(True)
 		End If
-		Return Finished()
+		Return IsFinished()
 	End Method
 	
 End Type
