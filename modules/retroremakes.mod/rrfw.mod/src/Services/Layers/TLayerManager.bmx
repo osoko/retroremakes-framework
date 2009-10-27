@@ -117,14 +117,47 @@ Type TLayerManager Extends TGameService
 	
 	
 	rem
+		bbdoc: Flush the layer referred to by the specified name
+		returns: True if it has been flushed, otherwise False
+	endrem
+	Method FlushLayerByName:Int(name:Int)
+		Return FlushLayer(GetLayerByName(name))
+	End Method
+		
+	
+		
+	rem
+		bbdoc: Flush the specified layer
+		about: This clears all render objects from the layer
+		returns: True on success, otherwise False		
+	endrem
+	Method FlushLayer:Int(layer:TRenderLayer)
+		If Not layer Then Return False
+		
+		layer.Flush()
+		Return True
+	End Method
+	
+	
+	
+	rem
+		bbdoc: Flush the layer referred to by the specified id
+		returns: True if it has been flushed, otherwise False
+	endrem
+	Method FlushLayerById:Int(id:Int)
+		Return FlushLayer(GetLayerById(id))
+	End Method
+	
+	
+	
+	rem
 		bbdoc: Destroy the layer referred to by the specified name
 		returns: True if it has been destroyed, otherwise False
 	endrem
 	Method DestroyLayerByName:Int(name:Int)
 		Return DestroyLayer(GetLayerByName(name))
 	End Method
-		
-	
+
 		
 	rem
 		bbdoc: Check whether the specified render layer id already exists or not

@@ -164,7 +164,7 @@
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Animation\TAnimation.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
         <X>1</X>
         <Y>0</Y>
@@ -172,7 +172,7 @@
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Animation\TAnimationManager.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
         <X>7</X>
         <Y>30</Y>
@@ -636,10 +636,10 @@
     </Included_File>
     <Included_File>
       <FileName>src\Services\Layers\TLayerManager.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>2</X>
-        <Y>198</Y>
+        <X>1</X>
+        <Y>127</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -822,8 +822,8 @@
       <FileName>rrfw.bmx</FileName>
       <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>10</Y>
+        <X>6</X>
+        <Y>15</Y>
       </Caret_Position>
     </Included_File>
     <Compilation_Mode>GUI_Application</Compilation_Mode>
