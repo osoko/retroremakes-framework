@@ -17,54 +17,80 @@ Rem
 End Rem
 Type TCompositeAnimation Extends TAnimation
 
-	Field Lanimations:TList
-	Field LfinishedAnimations:TList
+	' List of animations in this composite
+	Field _animations:TList
 	
-	Method New()
-		Lanimations = New TList
-		LfinishedAnimations = New TList
-	End Method
+	' List of finished animations
+	Field _finishedAnimations:TList
 	
+	
+
+	rem
+		bbdoc: Add an animation
+	endrem
 	Method AddAnimation(animation:TAnimation)
-		Lanimations.AddLast(animation)
+		_animations.AddLast(animation)
 	End Method
 	
 	
+			
+	rem
+		bbdoc: Default constructor
+	endrem
+	Method New()
+		_animations = New TList
+		_finishedAnimations = New TList
+	End Method
 	
-	Method remove()
+
+	
+	rem
+		bbdoc: Remove all animations
+	endrem
+	Method Remove()
 		Local animation:TAnimation
-		For animation = EachIn Lanimations
+		
+		For animation = EachIn _animations
 			animation.remove()
-			Lanimations.remove(animation)
+			_animations.remove(animation)
 			animation = Null
 		Next
-		For animation = EachIn LfinishedAnimations
+		
+		For animation = EachIn _finishedAnimations
 			animation.remove()
-			LfinishedAnimations.remove(animation)
+			_finishedAnimations.remove(animation)
 			animation = Null
 		Next
 	End Method
 	
 	
 	
+	rem
+		bbdoc: Reset the animation to starting conditions
+	endrem
 	Method Reset()
-		While LfinishedAnimations.Count() > 0
-			Lanimations.AddLast(LfinishedAnimations.RemoveFirst())
+		While _finishedAnimations.Count() > 0
+			_animations.AddLast(_finishedAnimations.RemoveFirst())
 		WEnd
-		For Local animation:TAnimation = EachIn Lanimations
+		For Local animation:TAnimation = EachIn _animations
 			animation.Reset()
 		Next
 		Super.Reset()
 	End Method
 	
-	Method Update:Int(sprite:TActor)
-		For Local animation:TAnimation = EachIn Lanimations
-			If TAnimation(animation).Update(sprite)
-				Lanimations.Remove(animation)
-				LfinishedAnimations.AddLast(animation)
+	
+	
+	rem
+		bbdoc: Update the animation
+	endrem
+	Method Update:Int(actor:TActor)
+		For Local animation:TAnimation = EachIn _animations
+			If TAnimation(animation).Update(actor)
+				_animations.Remove(animation)
+				_finishedAnimations.AddLast(animation)
 			End If
 		Next
-		If Lanimations.Count() = 0
+		If _animations.Count() = 0
 			SetFinished(True)
 		End If
 		Return IsFinished()
