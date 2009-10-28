@@ -14,10 +14,15 @@ Rem
 	about: Makes the sprite invisible.
 End Rem
 Type TMakeInvisibleAnimation Extends TAnimation
-
+	
+	rem
+		bbdoc: Updates the animation
+	endrem
 	Method Update:Int(actor:TActor)
 		actor.SetVisible(False)
+		
 		SetFinished(True)
+		
 		Return IsFinished()
 	End Method
 
