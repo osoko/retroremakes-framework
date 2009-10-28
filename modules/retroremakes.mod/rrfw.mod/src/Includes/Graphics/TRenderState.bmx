@@ -10,103 +10,171 @@ rem
 endrem
 
 rem
-	TODO: Viewport disabled as it was messing with the projection matrix for some
-	reason. Need to find out why
-endrem
-
-rem
-bbdoc: Save and restore various render settings
-about: Simple stack based method of saving and restoring various render settings
+	bbdoc: Save and restore various render settings
+	about: Simple stack based method of saving and restoring various render settings
 endrem
 Type TRenderState
 
-	rem
-	bbdoc: Stack used to store render states
-	endrem
-	Global renderStateStack:TStack = New TStack
+	' Stack used to store render states
+	Global g_renderStates:TStack
 	
-	Field alpha:Float
-	Field blend:Int
-	Field clsColourR:Int, clsColourG:Int, clsColourB:Int
-	Field colourR:Int, colourG:Int, colourB:Int
-	Field handleX:Float, handleY:Float
-	Field imageFont:TImageFont
-	Field maskColourR:Int, maskColourG:Int, maskColourB:Int
-	Field originX:Float, originY:Float
-	Field rotation:Float
-	Field scaleX:Float, scaleY:Float
-'	Field viewportX:Int, viewportY:Int, viewportWidth:Int, viewportHeight:Int
+	' The alpha value
+	Field _alpha:Float
+	
+	' The blend mode value
+	Field _blend:Int
+	
+	' The RGB Cls Colour values
+	Field _clsColourR:Int
+	Field _clsColourG:Int
+	Field _clsColourB:Int
+	
+	' The RGB Colour values
+	Field _colourR:Int
+	Field _colourG:Int
+	Field _colourB:Int
+	
+	' The drawing handle values
+	Field _handleX:Float
+	Field _handleY:Float
+	
+	' The TImageFont used
+	Field _imageFont:TImageFont
+	
+	' The RGB Mask values
+	Field _maskColourR:Int
+	Field _maskColourG:Int
+	Field _maskColourB:Int
+	
+	' The origin position values
+	Field _originX:Float
+	Field _originY:Float
+	
+	' The rotation value
+	Field _rotation:Float
+	
+	' The scale values
+	Field _scaleX:Float
+	Field _scaleY:Float
+	
+	' TODO: Viewport disabled as it was messing with the projection matrix for
+	' some reason. Need to find out why.
+	'
+	'Field _viewportX:Int
+	'Field _viewportY:Int
+	'Field _viewportWidth:Int
+	'Field _viewportHeight:Int
 
-	rem
-	bbdoc: Push the current render state onto the stack
-	returns:
-	about: Stores the values retrieved from @GetAlpha, @GetBlend, @GetClsColor,
-	@GetColor, @GetHandle, @GetImageFont, @GetMaskColor, @GetOrigin, @GetRotation
-	and @GetScale
-	endrem
-	Function Push()
-		Local state:TRenderState = New TRenderState
-		state.alpha = GetAlpha()
-		state.blend = GetBlend()
-		GetClsColor(state.clsColourR, state.clsColourG, state.clsColourB)
-		GetColor(state.colourR, state.colourG, state.colourB)
-		GetHandle(state.handleX, state.handleY)
-		state.imageFont = GetImageFont()
-		GetMaskColor(state.maskColourR, state.maskColourG, state.maskColourB)
-		GetOrigin(state.originX, state.originY)
-		state.rotation = GetRotation()
-		GetScale(state.scaleX, state.scaleY)
-'		GetViewport(state.viewportX, state.viewportY, state.viewportWidth, state.viewportHeight)
-		renderStateStack.Push(state)
-	End Function
 
+	
 	rem
-	bbdoc: Pop the last render state off the stack
-	returns:
-	about: Takes the values from the #TRenderState popped off the stack and resets the
-	render state using the @SetAlpha, @SetBlend, @SetClsColor,
-	@SetColor, @SetHandle, @SetImageFont, @SetMaskColor, @SetOrigin, @SetRotation
-	and @SetScale functions
+		bbdoc: Pop the last render state off the stack
+		about: Takes the values from the #TRenderState popped off the stack and resets the
+		render state using the @SetAlpha, @SetBlend, @SetClsColor,
+		@SetColor, @SetHandle, @SetImageFont, @SetMaskColor, @SetOrigin, @SetRotation
+		and @SetScale functions
 	endrem
 	Function Pop()
-		If Not renderStateStack.Count() > 0 Then Return
-		Local State:TRenderState = TRenderState(renderStateStack.Pop())
-		If State
-			SetAlpha(State.Alpha)
-			SetBlend(state.blend)
-			SetClsColor(state.clsColourR, state.clsColourG, state.clsColourB)
-			SetColor(state.colourR, state.colourG, state.colourB)
-			SetHandle(state.handleX, state.handleY)
-			SetImageFont(state.imageFont)
-			SetMaskColor(state.maskColourR, state.maskColourG, state.maskColourB)
-			SetOrigin(state.originX, state.originY)
-			SetRotation(state.rotation)
-			SetScale(state.scaleX, state.scaleY)
-	'		SetViewport(state.viewportX, state.viewportY, state.viewportHeight, state.viewportWidth)			
+		If Not TRenderState.g_renderStates.Count() > 0
+			Return
+		EndIf
+		
+		Local renderState:TRenderState = TRenderState(TRenderState.g_renderStates.Pop())
+		
+		If renderState
+			SetAlpha(renderState._alpha)
+			
+			SetBlend(renderState._blend)
+			
+			SetClsColor(renderState._clsColourR, renderState._clsColourG, renderState._clsColourB)
+			
+			SetColor(renderState._colourR, renderState._colourG, renderState._colourB)
+			
+			SetHandle(renderState._handleX, renderState._handleY)
+			
+			SetImageFont(renderState._imageFont)
+			
+			SetMaskColor(renderState._maskColourR, renderState._maskColourG, renderState._maskColourB)
+			
+			SetOrigin(renderState._originX, renderState._originY)
+			
+			SetRotation(renderState._rotation)
+			
+			SetScale(renderState._scaleX, renderState._scaleY)
+			
+			' TODO: Viewport disabled as it was messing with the projection matrix for
+			' some reason. Need to find out why.
+			'			
+			' SetViewport(renderState._viewportX, renderState._viewportY, renderState._viewportHeight, renderState._viewportWidth)			
 		End If
+	End Function
+
+	
+		
+	rem
+		bbdoc: Push the current render state onto the stack
+		about: Stores the values retrieved from @GetAlpha, @GetBlend, @GetClsColor,
+		@GetColor, @GetHandle, @GetImageFont, @GetMaskColor, @GetOrigin, @GetRotation
+		and @GetScale
+	endrem
+	Function Push()
+		If Not TRenderState.g_renderStates
+			TRenderState.g_renderStates = New TStack
+		End If
+		
+		Local renderState:TRenderState = New TRenderState
+		
+		renderState._alpha = GetAlpha()
+		
+		renderState._blend = GetBlend()
+		
+		GetClsColor(renderState._clsColourR, renderState._clsColourG, renderState._clsColourB)
+		
+		GetColor(renderState._colourR, renderState._colourG, renderState._colourB)
+		
+		GetHandle(renderState._handleX, renderState._handleY)
+		
+		renderState._imageFont = GetImageFont()
+		
+		GetMaskColor(renderState._maskColourR, renderState._maskColourG, renderState._maskColourB)
+		
+		GetOrigin(renderState._originX, renderState._originY)
+		
+		renderState._rotation = GetRotation()
+		
+		GetScale(renderState._scaleX, renderState._scaleY)
+		
+		' TODO: Viewport disabled as it was messing with the projection matrix for
+		' some reason. Need to find out why.
+		'
+		' GetViewport(renderState._viewportX, renderState._viewportY, renderState._viewportWidth, renderState._viewportHeight)
+
+		TRenderState.g_renderStates.Push(renderState)
 	End Function
 
 End Type
 
-rem
-bbdoc: Push the current render state onto the stack
-returns:
-about: Stores the values retrieved from @GetAlpha, @GetBlend, @GetClsColor,
-@GetColor, @GetHandle, @GetImageFont, @GetMaskColor, @GetOrigin, @GetRotation
-and @GetScale
-endrem
-Function rrPushRenderState()
-	TRenderState.Push()
-End Function
+
 
 rem
-bbdoc: Pop the last render state off the stack
-returns:
-about: Takes the values from the #TRenderState popped off the stack and resets the
-render state using the @SetAlpha, @SetBlend, @SetClsColor,
-@SetColor, @SetHandle, @SetImageFont, @SetMaskColor, @SetOrigin, @SetRotation
-and @SetScale functions
+	bbdoc: Pop the last render state off the stack
+	about: Takes the values from the #TRenderState popped off the stack and resets the
+	render state using the @SetAlpha, @SetBlend, @SetClsColor,
+	@SetColor, @SetHandle, @SetImageFont, @SetMaskColor, @SetOrigin, @SetRotation
+	and @SetScale functions
 endrem
 Function rrPopRenderState()
 	TRenderState.Pop()
+End Function
+
+
+
+rem
+	bbdoc: Push the current render state onto the stack
+	about: Stores the values retrieved from @GetAlpha, @GetBlend, @GetClsColor,
+	@GetColor, @GetHandle, @GetImageFont, @GetMaskColor, @GetOrigin, @GetRotation
+	and @GetScale
+endrem
+Function rrPushRenderState()
+	TRenderState.Push()
 End Function
