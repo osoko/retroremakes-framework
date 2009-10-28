@@ -15,9 +15,14 @@ Rem
 End Rem
 Type TMakeVisibleAnimation Extends TAnimation
 
+	rem
+		bbdoc: Update the animation
+	endrem
 	Method Update:Int(actor:TActor)
 		actor.SetVisible(True)
+		
 		SetFinished(True)
+		
 		Return IsFinished()
 	End Method
 
