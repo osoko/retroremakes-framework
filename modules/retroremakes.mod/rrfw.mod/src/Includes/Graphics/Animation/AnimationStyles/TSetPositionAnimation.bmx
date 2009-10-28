@@ -16,17 +16,47 @@ Rem
 End Rem
 Type TSetPositionAnimation Extends TAnimation
 	
-	Field x_:Float
-	Field y_:Float
-	
-	Method SetPosition(x:Float, y:Float)
-		x_ = x
-		y_ = y
+	Field _position:TVector2D
+
+
+		
+	rem
+		bbdoc: Default constructor
+	endrem
+	Method New()
+		_position = New TVector2D
 	End Method
 	
-	Method Update:Int(sprite:TActor)
-		sprite.SetPosition(x_, y_)
+	
+	
+	rem
+		bbdoc: Set the position to use for this animation
+	endrem
+	Method SetPosition(x:Float, y:Float)
+		_position.x = x
+		_position.y = y
+	End Method
+	
+	
+	
+	rem
+		bbdoc: Set the position to use for this animation
+	endrem
+	Method SetPositionV(position:TVector2D)
+		_position.x = position.x
+		_position.y = position.y
+	End Method
+	
+	
+		
+	rem
+		bbdoc: Update the animation
+	endrem
+	Method Update:Int(actor:TActor)
+		actor.SetPosition(_position.x, _position.y)
+		
 		SetFinished(True)
+		
 		Return IsFinished()
 	End Method
 
