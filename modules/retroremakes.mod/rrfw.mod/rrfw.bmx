@@ -177,6 +177,7 @@ Include "src\Includes\Graphics\Animation\AnimationStyles\TLoopedFrameAnimation.b
 Include "src\Includes\Graphics\Animation\AnimationStyles\TMakeInvisibleAnimation.bmx"
 Include "src\Includes\Graphics\Animation\AnimationStyles\TMakeVisibleAnimation.bmx"
 Include "src\Includes\Graphics\Animation\AnimationStyles\TPointToPointPathAnimation.bmx"
+Include "src\Includes\Graphics\Animation\AnimationStyles\TResetPositionAnimation.bmx"
 Include "src\Includes\Graphics\Animation\AnimationStyles\TScaleOscillatorAnimation.bmx"
 Include "src\Includes\Graphics\Animation\AnimationStyles\TSequentialAnimation.bmx"
 Include "src\Includes\Graphics\Animation\AnimationStyles\TSetAlphaAnimation.bmx"
