@@ -16,15 +16,28 @@ Rem
 End Rem
 Type TSetAlphaAnimation Extends TAnimation
 
-	Field alpha_:Float
+	' The alpha value to set the actor to when this animation is run
+	Field _alpha:Float
 	
-	Method SetAlpha(alpha:Float)
-		alpha_ = alpha
+	
+	
+	rem
+		bbdoc: Set the alpha value to use in this animation
+	endrem
+	Method SetAlpha(value:Float)
+		_alpha = value
 	End Method
 	
+	
+	
+	rem
+		bbdoc: Updates the animation
+	endrem
 	Method Update:Int(sprite:TActor)
-		sprite.GetColour().a = alpha_
+		sprite.GetColour().a = _alpha
+		
 		SetFinished(True)
+		
 		Return IsFinished()
 	End Method
 
