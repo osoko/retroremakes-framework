@@ -16,27 +16,16 @@ Rem
 End Rem
 Type TLoopedFrameAnimation Extends TAnimation
 
-	rem
-		bbdoc: Default animation direction
-		about: 1 = forwards, -1 = backwards
-	endrem
+	' Default animation direction. 1 = forwards, -1 = backwards
 	Const DEFAULT_DIRECTION:Int = 1
 
-	rem
-		bbdoc: Default first frame
-		about: First frame is usually 0
-	endrem
+	' Default first frame
 	Const DEFAULT_FIRST_FRAME:Float = 0.0
 			
-	rem
-		bbdoc: Default amount of animation loops to perfrom
-		about: A loop count of -1 = forever
-	endrem
+	' Default amount of animation loops to perform. A loop count of -1 = forever
 	Const DEFAULT_LOOP_COUNT:Int = -1
 	
-	rem
-		bbdoc: Default animation speed in Frames Per Second
-	endrem
+	' Default animation speed in Frames Per Second
 	Const DEFAULT_SPEED:Int = 60
 
 
@@ -106,7 +95,9 @@ Type TLoopedFrameAnimation Extends TAnimation
 		
 	
 	
-	' Default constructor
+	rem
+		bbdoc: Default constructor
+	endrem
 	Method New()
 		_currentFrame = DEFAULT_FIRST_FRAME
 		_direction = DEFAULT_DIRECTION
