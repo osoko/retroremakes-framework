@@ -16,96 +16,151 @@ Rem
 End Rem
 Type TLoopedAnimation Extends TAnimation
 
-	Const DEFAULT_NUM_LOOPS:Int = -1 '-1 = forever
+	' Default number of loops to perform, -1 = forever 
+	Const DEFAULT_NUM_LOOPS:Int = -1
 	
-	Field animationLoops:Int
+	' The number of loops to perform
+	Field _animationLoops:Int
 	
-	Field animations:TList
-	Field finishedAnimations:TList
+	' The active animations in the looop
+	Field _animations:TList
 	
-	Field loopsRemaining:Int
+	' The finished animations in the loop
+	Field _finishedAnimations:TList
 	
-	Method New()
-		animationLoops:Int = DEFAULT_NUM_LOOPS
-		loopsRemaining = animationLoops
-		animations = New TList
-		finishedAnimations = New TList
-	End Method
+	' The number of loops remaining
+	Field _loopsRemaining:Int
 	
-	Method SetAnimationLoops(animationLoops:Int)
-		Self.animationLoops = animationLoops
-	End Method
 	
+	
+	rem
+		bbdoc: Add an animation
+		about: The provided animation is appended to the animation loop
+	endrem
 	Method AddAnimation(animation:TAnimation)
-		animations.AddLast(animation)
+		_animations.AddLast(animation)
 	End Method
-
+	
+	
+	
+	rem
+		 bbdoc: Loops the animation
+		 returns: true if all loops have completed, otherwise false
+	endrem
 	Method LoopAnimation:Int()
-		If animations.Count() = 0
-			' -1 means we will loop forever, so we always reset the animation list
-			If loopsRemaining = -1
+		Local finished:Int = False
+
+		' We only need to loop if all animations have finished
+		If _animations.Count() = 0
+			If _loopsRemaining = -1
+				' -1 = loop forever, so we always reset the animation list
 				LoopReset()
-				Return False	'Not finished
-			ElseIf loopsRemaining > 0
-				loopsRemaining:-1
+			ElseIf _loopsRemaining > 0
+				' Still some loops remaining
+				_loopsRemaining:-1
 				LoopReset()
-				Return False	'Not finished
 			Else
 				'We're finished
-				Return True
+				finished = True
 			End If
 		EndIf
-	End Method
-	
-	'used to reset all animations in the loop without affecting the loop counter
-	Method LoopReset()
 
-		'move any remaining animations to the finished list
-		While animations.Count() > 0
-			finishedAnimations.AddLast(animations.RemoveFirst())
-		Wend
-		animations.Clear()
-		'repopulate animation list and reset all animations
-		While finishedAnimations.Count() > 0
-			animations.AddLast(finishedAnimations.RemoveFirst())
-			TAnimation(animations.Last()).Reset()
-		Wend
-		finishedAnimations.Clear()					
+		Return finished
 	End Method
 	
-	Method remove()
+	
+	
+	rem
+		bbdoc: Resets the animation loop
+		about: The loop and all animations in it are reset without affecting the loop counter
+	endrem
+	Method LoopReset()
+		'move any remaining animations to the finished list
+		While _animations.Count() > 0
+			_finishedAnimations.AddLast(_animations.RemoveFirst())
+		Wend
+
+		_animations.Clear()
+
+		'repopulate animation list and reset all animations
+		While _finishedAnimations.Count() > 0
+			_animations.AddLast(_finishedAnimations.RemoveFirst())
+			TAnimation(_animations.Last()).Reset()
+		Wend
+
+		_finishedAnimations.Clear()					
+	End Method
+	
+	
+				
+	rem
+		bbdoc: Default constructor
+	endrem
+	Method New()
+		_animationLoops = DEFAULT_NUM_LOOPS
+		_loopsRemaining = _animationLoops
+		_animations = New TList
+		_finishedAnimations = New TList
+	End Method
+	
+	
+	
+	rem
+		bbdoc: Remove all animations in the loop
+	endrem
+	Method Remove()
 		Local animation:TAnimation
-		For animation = EachIn animations
-			animation.remove()
-			animations.remove(animation)
+		
+		For animation = EachIn _animations
+			animation.Remove()
+			_animations.remove(animation)
 			animation = Null
 		Next
-		For animation = EachIn finishedAnimations
-			animation.remove()
-			finishedAnimations.remove(animation)
+		
+		For animation = EachIn _finishedAnimations
+			animation.Remove()
+			_finishedAnimations.remove(animation)
 			animation = Null
 		Next		
 	End Method
 		
+	
+	
+	rem
+		bbdoc: Reset the animation
+	endrem
 	Method Reset()
 		Super.Reset()
-		loopsRemaining = animationLoops
+		_loopsRemaining = _animationLoops
 		LoopReset()
 	End Method
 	
+	
+		
+	rem
+		bbdoc: Set the amount of loops to perform
+	endrem
+	Method SetAnimationLoops(value:Int)
+		_animationLoops = value
+	End Method
+	
+
+
+	rem
+		bbdoc: Updates the animation
+	endrem
 	Method Update:Int(sprite:TActor)
-		If animations.Count() > 0
-			If TAnimation(animations.First()).Update(sprite)
+		If _animations.Count() > 0
+			If TAnimation(_animations.First()).Update(sprite)
 				'Animation has finished so move it to the finished list
-				finishedAnimations.AddLast(animations.RemoveFirst())
-				If animations.Count() = 0
+				_finishedAnimations.AddLast(_animations.RemoveFirst())
+				If _animations.Count() = 0
 					SetFinished(LoopAnimation())
 				EndIf
 			EndIf
 		EndIf
 		Return IsFinished()
 	End Method
-	
 
 End Type
 
