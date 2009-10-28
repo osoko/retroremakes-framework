@@ -86,8 +86,8 @@
       <FileName>src\TTitleScreen.bmx</FileName>
       <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>35</X>
-        <Y>239</Y>
+        <X>10</X>
+        <Y>214</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -109,7 +109,7 @@
     <Publish_NRV_Level>0</Publish_NRV_Level>
   </Project>
   <Compiler_Configuration>
-    <Quick_Build>true</Quick_Build>
+    <Quick_Build>false</Quick_Build>
     <Debugging>true</Debugging>
     <Threaded>false</Threaded>
   </Compiler_Configuration>
