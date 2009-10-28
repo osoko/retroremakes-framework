@@ -15,70 +15,91 @@ Rem
 End Rem
 Type TSequentialAnimation Extends TAnimation
 
-	Field animations:TList
-	Field finishedAnimations:TList
+	' List of currently active animations
+	Field _animations:TList
+	
+	' List of finished animations
+	Field _finishedAnimations:TList
 	
 	
 	
-	Method New()
-		animations = New TList
-		finishedAnimations = New TList
-	End Method
-	
-	
-	
+	rem
+		bbdoc: Add an animation to the sequence
+		about: The provided animation is appended to the sequence
+	endrem
 	Method AddAnimation(animation:TAnimation)
-		animations.AddLast(animation)
+		_animations.AddLast(animation)
 	End Method
 	
+	
+	
+	rem
+		bbdoc: Default constructor
+	endrem
+	Method New()
+		_animations = New TList
+		_finishedAnimations = New TList
+	End Method
 	
 
-	Method remove()
+	
+	rem
+		bbdoc: Remove all animations
+	endrem
+	Method Remove()
 		Local animation:TAnimation
-		For animation = EachIn animations
-			animation.remove()
-			animations.remove(animation)
+		For animation = EachIn _animations
+			animation.Remove()
+			_animations.Remove(animation)
 			animation = Null
 		Next
-		For animation = EachIn finishedAnimations
-			animation.remove()
-			finishedAnimations.remove(animation)
+		For animation = EachIn _finishedAnimations
+			animation.Remove()
+			_finishedAnimations.Remove(animation)
 			animation = Null
 		Next		
 	End Method
 	
 	
-			
+		
+	rem
+		bbdoc: Resets the animation
+		about: Also resets all animations in the sequence
+	endrem	
 	Method Reset()
 		'move the remaining animations to the finished list
-		While animations.Count() > 0
-			finishedAnimations.AddLast(animations.RemoveFirst())
+		While _animations.Count() > 0
+			_finishedAnimations.AddLast(_animations.RemoveFirst())
 		Wend
-		animations.Clear()
+		_animations.Clear()
 		
 		'repopulate animation list and reset all animations
-		While finishedAnimations.Count() > 0
-			animations.AddLast(finishedAnimations.RemoveFirst())
-			TAnimation(animations.Last()).Reset()
+		While _finishedAnimations.Count() > 0
+			_animations.AddLast(_finishedAnimations.RemoveFirst())
+			TAnimation(_animations.Last()).Reset()
 		Wend
-		finishedAnimations.Clear()
+		_finishedAnimations.Clear()
 		Super.Reset()
 	End Method
 	
 	
 	
-	Method Update:Int(sprite:TActor)
-		If animations.Count() > 0
-			If TAnimation(animations.First()).Update(sprite)
+	rem
+		bbdoc: Update the animation
+	endrem
+	Method Update:Int(actor:TActor)
+		If _animations.Count() > 0
+			If TAnimation(_animations.First()).Update(actor)
 				'Animation has finished so move it to the finished list
-				finishedAnimations.AddLast(animations.RemoveFirst())
-				If animations.Count() = 0
+				_finishedAnimations.AddLast(_animations.RemoveFirst())
+				If _animations.Count() = 0
 					SetFinished(True)
 				End If
 			EndIf
 		Else
 			SetFinished(True)
 		EndIf
+		
 		Return IsFinished()
 	End Method
 
