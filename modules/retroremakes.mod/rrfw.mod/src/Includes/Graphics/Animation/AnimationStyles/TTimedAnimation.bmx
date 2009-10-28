@@ -15,38 +15,76 @@ Rem
 End Rem
 Type TTimedAnimation Extends TAnimation
 
-	Const DEFAULT_ANIMATION_LENGTH:Int = 10000 'default in ms
+	' Default animation length in milliseconds
+	Const DEFAULT_ANIMATION_LENGTH:Int = 10000
 	
-	Field animation:TAnimation
-	Field animationLength:Int
-	Field finishTime:Int
+	' The animation to run for a certain period of time
+	Field _animation:TAnimation
 	
+	' How long to show the animation for in milliseconds
+	Field _animationLength:Int
+	
+	' When the animation will finish
+	Field _finishTime:Int
+
+
+
+	rem
+		bbdoc: Default constructor
+	endrem
 	Method New()
-		animationLength:Int = DEFAULT_ANIMATION_LENGTH
+		_animationLength = DEFAULT_ANIMATION_LENGTH
 	End Method
 	
-	Method SetAnimationTime(animationLength:Int)
-		Self.animationLength = animationLength
-	End Method
 	
-	Method SetAnimation(animation:TAnimation)
-		Self.animation = animation
-	End Method
 	
+	rem
+		bbdoc: Reset the animation
+	endrem
 	Method Reset()
-		finishTime = null
-		animation.Reset()
+		_finishTime = null
+		_animation.Reset()
 		Super.Reset()
 	End Method
+		
 	
-	Method Update:Int(sprite:TActor)
-		If Not animation Then Throw "TTimedAnimation does not have an assigned TSpriteAnimation"
-		If Not finishTime Then finishTime = MilliSecs() + animationLength
-		If finishTime - MilliSecs() > 0
-			animation.Update(sprite)
+	
+	rem
+		bbdoc: Set the animation length in milliseconds
+	endrem
+	Method SetAnimationLength(time:Int)
+		_animationLength = time
+	End Method
+	
+	
+	
+	rem
+		bbdoc: Set the animation to use
+	endrem
+	Method SetAnimation(animation:TAnimation)
+		_animation = animation
+	End Method
+	
+	
+	
+	rem
+		bbdoc: Update the animation
+	endrem
+	Method Update:Int(actor:TActor)
+		If Not _animation
+			rrThrow "TTimedAnimation does not have an assigned TAnimation"
+		EndIf
+		
+		If Not _finishTime
+			_finishTime = MilliSecs() + _animationLength
+		EndIf
+		
+		If _finishTime - MilliSecs() > 0
+			_animation.Update(actor)
 		Else
 			SetFinished(True)
 		End If
+		
 		Return IsFinished()
 	End Method
 	
