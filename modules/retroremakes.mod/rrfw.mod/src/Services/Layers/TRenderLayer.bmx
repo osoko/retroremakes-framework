@@ -33,7 +33,7 @@ Type TRenderLayer Extends TRenderable
 	Field _name:String
 	
 	' The list of objects to render for this layer
-	Field _renderObjects:TList
+	Field _renderables:TList
 
 
 	
@@ -46,8 +46,9 @@ Type TRenderLayer Extends TRenderable
 		If locked
 			_deferredAdds.AddLast(renderable)
 		Else
-			If _renderObjects.AddLast(renderable)
+			If _renderables.AddLast(renderable)
 				renderable.SetLayer(_id)
+				_renderables.Sort(True, TRenderable.SortByZDepth)
 				Return True
 			Else
 				Return False
@@ -72,10 +73,10 @@ Type TRenderLayer Extends TRenderable
 		about: This clear the layer's render object list
 	endrem
 	Method Flush()
-		For Local renderable:TRenderable = EachIn _renderObjects
+		For Local renderable:TRenderable = EachIn _renderables
 			renderable.SetLayer(Null)
 		Next
-		_renderObjects.Clear()
+		_renderables.Clear()
 	End Method
 	
 	
@@ -103,8 +104,8 @@ Type TRenderLayer Extends TRenderable
 		about: Logs the ToString() value of every renderable assigned to the layer
 	endrem
 	Method LogCurrentRenderables()
-		If _renderObjects.Count() > 0
-			For Local renderable:TRenderable = EachIn _renderObjects
+		If _renderables.Count() > 0
+			For Local renderable:TRenderable = EachIn _renderables
 				rrLogInfo("[Layer: " + toString() + "] has renderable: " + renderable.ToString())
 			Next
 		Else
@@ -118,7 +119,7 @@ Type TRenderLayer Extends TRenderable
 		bbdoc: Default constructor
 	endrem
 	Method New()
-		_renderObjects = New TList
+		_renderables = New TList
 		_deferredAdds = New TList
 		_deferredRemoves = New TList
 	End Method
@@ -151,7 +152,7 @@ Type TRenderLayer Extends TRenderable
 			_deferredRemoves.AddLast(renderable)
 			Return False
 		Else
-			_renderObjects.Remove(renderable)
+			_renderables.Remove(renderable)
 			renderable.SetLayer(Null)
 		End If
 	End Method
@@ -165,7 +166,7 @@ Type TRenderLayer Extends TRenderable
 		otherwise sub-pixel rendering is used.
 	endrem
 	Method Render(tweening:Double, fixed:Int)
-		For Local renderable:TRenderable = EachIn _renderObjects
+		For Local renderable:TRenderable = EachIn _renderables
 			If TGameEngine.GetInstance().GetPaused()
 				' This avoids twitching objects when the engine is paused
 				tweening = 0.0
@@ -204,7 +205,7 @@ Type TRenderLayer Extends TRenderable
 		bbdoc: Calls the Update() method of all actors in this layer
 	endrem
 	Method Update()
-		For Local renderable:TRenderable = EachIn _renderObjects
+		For Local renderable:TRenderable = EachIn _renderables
 			renderable.Update()
 		Next
 	End Method
