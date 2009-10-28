@@ -10,7 +10,7 @@ rem
 endrem
 
 rem
-	bbdoc: WIP: Sprite implemented using polygons
+	bbdoc: WIP: Actor implemented using polygons
 	aboout: TODO: Complete implementation
 endrem
 Type TPolygonActor Extends TActor
