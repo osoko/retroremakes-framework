@@ -11,19 +11,41 @@ endrem
 
 Rem
 	bbdoc: Sprite animation style for settings colours.
-	about: Allows you to set the sprite's colour as part of an animation.
+	about: Allows you to set the actor's colour as part of an animation.
 End Rem
 Type TSetColourAnimation Extends TAnimation
 
-	Field colour_:TColourRGB
+	' The colour to use for this animation
+	Field _colour:TColourRGB
 	
-	Method SetColour(colour:TColourRGB)
-		colour_ = colour
+	
+	
+	rem
+		bbdoc: Default constructor
+	endrem
+	Method New()
+		_colour = New TColourRGB
 	End Method
 	
-	Method Update:Int(sprite:TActor)
-		sprite.SetColour(colour_)
+	
+	
+	rem
+		bbdoc: Set the colour to use for this animation
+	endrem
+	Method SetColour(colour:TColourRGB)
+		_colour = colour
+	End Method
+	
+	
+	
+	rem
+		bbdoc: Updates the animation
+	endrem
+	Method Update:Int(actor:TActor)
+		actor.SetColour(_colour)
+		
 		SetFinished(True)
+		
 		Return IsFinished()
 	End Method
 
