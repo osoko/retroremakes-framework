@@ -11,7 +11,7 @@ endrem
 
 rem
 	bbdoc: WIP: Actor implemented using polygons
-	aboout: TODO: Complete implementation
+	about: TODO: Complete implementation
 endrem
 Type TPolygonActor Extends TActor
 
