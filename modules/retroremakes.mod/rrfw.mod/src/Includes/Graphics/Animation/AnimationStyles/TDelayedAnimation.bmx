@@ -15,47 +15,89 @@ Rem
 End Rem
 Type TDelayedAnimation Extends TAnimation
 
-	Const DEFAULT_DELAY_TIME:Int = 10000 ' in ms
-	Field delayTime:Int
-	Field startTime:Int
-	Field animation:TAnimation
+	' Default delay time in milliseconds
+	Const DEFAULT_DELAY_TIME:Int = 10000
 
+	' The animation that will be delayed for a period of time before being run
+	Field _animation:TAnimation
+	
+	' The amount of time to delay the animation in milliseconds
+	Field _delayTime:Int
+	
+	' The time that this animation started
+	Field _startTime:Int
+
+
+	
+	rem
+		bbdoc: Default constructor
+	endrem
 	Method New()
-		Self.delayTime = DEFAULT_DELAY_TIME
-	End Method
-			
-	Method SetDelayTime(delayTime:Int)
-		Self.delayTime = delayTime
+		_delayTime = DEFAULT_DELAY_TIME
 	End Method
 	
-	Method SetAnimation(animation:TAnimation)
-		Self.animation = animation
-	End Method
 	
-	Method remove()
-		If animation
-			animation.remove()
-			animation = Null
+	
+	rem
+		bbdoc: Remove the delayed animation
+	endrem
+	Method Remove()
+		If _animation
+			_animation.Remove()
+			_animation = Null
 		End If
 	End Method
 	
+	
+	
+	rem
+		bbdoc: Reset the animation
+	endrem
 	Method Reset()
-		startTime = Null
-		animation.Reset()
+		_startTime = Null
+		_animation.Reset()
 		Super.Reset()
 	End Method
 	
-	Method Update:Int(sprite:TActor)
-		If Not startTime Then startTime = MilliSecs()
-		If MilliSecs() > startTime + delayTime
-			If animation
-				SetFinished(animation.Update(sprite))
+	
+		
+	rem
+		bbdoc: Set the animation that will be run after the delay time has passed
+	endrem
+	Method SetAnimation(animation:TAnimation)
+		_animation = animation
+	End Method
+	
+	
+	
+	rem
+		bbdoc: Set the time to delay the animation for
+		about: Value is in milliseconds
+	endrem			
+	Method SetDelayTime(value:Int)
+		_delayTime = value
+	End Method
+	
+
+	
+	rem
+		bbdoc: Updates the animation
+	endrem
+	Method Update:Int(actor:TActor)
+		If Not _startTime Then _startTime = MilliSecs()
+		
+		If MilliSecs() > _startTime + _delayTime
+		
+			If _animation
+				SetFinished(_animation.Update(actor))
 			Else
-				' If you don't set an animation, this can be purely used to delay
-				' a Sequential list of animations, etc.
+				' If you don't set an animation, this can be used to just delay
+				' a sequential list of animations, etc.
 				SetFinished(True)
 			EndIf
+			
 		End If
+		
 		Return IsFinished()
 	End Method
 
