@@ -75,9 +75,9 @@ Type TRenderState
 		and @SetScale functions
 	endrem
 	Function Pop()
-		If Not TRenderState.g_renderStates.Count() > 0
-			Return
-		EndIf
+		If Not TRenderState.g_renderStates Then Return
+
+		If Not TRenderState.g_renderStates.Count() > 0 Then Return
 		
 		Local renderState:TRenderState = TRenderState(TRenderState.g_renderStates.Pop())
 		
