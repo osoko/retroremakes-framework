@@ -162,8 +162,6 @@ Include "src\Includes\Graphics\Actors\TFontActor.bmx"
 Include "src\Includes\Graphics\Actors\TImageActor.bmx"
 Include "src\Includes\Graphics\Actors\TPolygonActor.bmx"
 
-
-
 ' Animations
 Include "src\Includes\Graphics\Animation\TAnimation.bmx"
 Include "src\Includes\Graphics\Animation\TAnimationManager.bmx"
@@ -185,12 +183,21 @@ Include "src\Includes\Graphics\Animation\AnimationStyles\TSetColourAnimation.bmx
 Include "src\Includes\Graphics\Animation\AnimationStyles\TSetPositionAnimation.bmx"
 Include "src\Includes\Graphics\Animation\AnimationStyles\TTimedAnimation.bmx"
 
+'Menus
+Include "src\Includes\Menus\TMenuManager.bmx"
+Include "src\Includes\Menus\TMenu.bmx"
+Include "src\Includes\Menus\TMenuItem.bmx"
+Include "src\Includes\Menus\TSubMenuItem.bmx"
+Include "src\Includes\Menus\TActionMenuItem.bmx"
+Include "src\Includes\Menus\TOptionMenuItem.bmx"
+Include "src\Includes\Menus\TMenuOption.bmx"
+Include "src\Includes\Menus\TMenuMessageData.bmx"
+
 ' Miscellaneous Maths and Algorithms
 Include "src\Includes\Maths\PolygonCollisions.bmx"
 Include "src\Includes\Maths\RC4Encrypt.bmx"
 Include "src\Includes\Maths\TPolygon.bmx"
 Include "src\Includes\Maths\TVector2D.bmx"
-
 
 Include "src\Includes\Misc\CloneObject.bmx"
 Include "src\Includes\Misc\DataValidation.bmx"
@@ -205,8 +212,6 @@ Include "src\Includes\Misc\TStack.bmx"
 
 ' Timing
 Include "src\Includes\Timing\TPrecisionCounter.bmx"
-
-
 
 ''
 '' Engine Services
@@ -277,4 +282,5 @@ Include "src\Services\Messages\TMessageData.bmx"
 Include "src\Services\Messages\TMessageChannel.bmx"
 Include "src\Services\Messages\TMessageListener.bmx"
 
+'
 '#End Region 
