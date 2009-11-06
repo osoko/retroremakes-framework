@@ -10,6 +10,7 @@ rem
 endrem
 
 Const CHANNEL_INPUT:Int = 1000 ' Message channel used to send messages triggered by input devices
+Const CHANNEL_MENU:Int = 1001 ' Message channel used to send messages triggered by menus
 
 Const MSG_CREATE:Int = 1000 ' Create an object
 Const MSG_DESTROY:Int = 1001 ' Destroy an object

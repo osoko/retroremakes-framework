@@ -1,5 +1,4 @@
 
-Const CHANNEL_MENU:Int = 10
 
 Type TMenuManager Extends TRenderable
 

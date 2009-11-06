@@ -228,7 +228,7 @@
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\TRenderable.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
         <X>60</X>
         <Y>82</Y>
@@ -287,7 +287,7 @@
       <Document_Active>true</Document_Active>
       <Caret_Position>
         <X>11</X>
-        <Y>103</Y>
+        <Y>74</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -303,7 +303,7 @@
       <Document_Active>true</Document_Active>
       <Caret_Position>
         <X>0</X>
-        <Y>26</Y>
+        <Y>0</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -516,7 +516,7 @@
     </Included_File>
     <Included_File>
       <FileName>src\Services\Graphics\TGraphicsService.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
         <X>52</X>
         <Y>187</Y>
@@ -732,7 +732,7 @@
     </Included_File>
     <Included_File>
       <FileName>src\Services\Messages\TMessageChannel.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
         <X>0</X>
         <Y>0</Y>
@@ -756,10 +756,10 @@
     </Included_File>
     <Included_File>
       <FileName>src\Services\Messages\TMessageService.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>54</X>
-        <Y>131</Y>
+        <X>0</X>
+        <Y>13</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
