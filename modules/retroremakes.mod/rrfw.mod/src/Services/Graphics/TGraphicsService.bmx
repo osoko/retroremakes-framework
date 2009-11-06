@@ -75,6 +75,7 @@ Type TGraphicsService Extends TGameService
 		SetName("Graphics Service")
 		startPriority = -9999	'has to be first as other services may rely on the Graphics Device
 		fixedPointRendering = True
+		TMessageService.GetInstance().CreateMessageChannel(CHANNEL_GRAPHICS, "Graphics Service")
 		Super.Initialise()
 	End Method
 
@@ -140,6 +141,10 @@ Type TGraphicsService Extends TGameService
 		TRenderState.Pop()
 		
 		TFramesPerSecond.GetInstance().Reset()
+		
+		Local message:TMessage = New TMessage
+		message.SetMessageId(MSG_GRAPHICS_RESET)
+		message.Broadcast(CHANNEL_GRAPHICS)
 	End Method
 
 	Method SetEngineGraphics(	newWidth:Int, newHeight:Int, newDepth:Int, newRefresh:Int,  ..

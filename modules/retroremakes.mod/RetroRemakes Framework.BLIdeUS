@@ -228,7 +228,7 @@
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\TRenderable.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
         <X>60</X>
         <Y>82</Y>
@@ -276,7 +276,7 @@
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Menus\TActionMenuItem.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
         <X>11</X>
         <Y>23</Y>
@@ -284,7 +284,7 @@
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Menus\TMenu.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
         <X>11</X>
         <Y>74</Y>
@@ -292,7 +292,7 @@
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Menus\TMenuItem.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
         <X>1</X>
         <Y>11</Y>
@@ -300,7 +300,7 @@
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Menus\TMenuManager.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
         <X>0</X>
         <Y>0</Y>
@@ -308,7 +308,7 @@
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Menus\TMenuMessageData.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
         <X>39</X>
         <Y>7</Y>
@@ -316,7 +316,7 @@
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Menus\TMenuOption.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
         <X>0</X>
         <Y>17</Y>
@@ -324,7 +324,7 @@
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Menus\TOptionMenuItem.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
         <X>2</X>
         <Y>15</Y>
@@ -332,7 +332,7 @@
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Menus\TSubMenuItem.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
         <X>28</X>
         <Y>14</Y>
@@ -516,10 +516,10 @@
     </Included_File>
     <Included_File>
       <FileName>src\Services\Graphics\TGraphicsService.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>52</X>
-        <Y>187</Y>
+        <X>2</X>
+        <Y>141</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -732,7 +732,7 @@
     </Included_File>
     <Included_File>
       <FileName>src\Services\Messages\TMessageChannel.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
         <X>0</X>
         <Y>0</Y>
@@ -756,10 +756,10 @@
     </Included_File>
     <Included_File>
       <FileName>src\Services\Messages\TMessageService.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>13</Y>
+        <X>22</X>
+        <Y>16</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -892,10 +892,10 @@
     </Included_File>
     <Included_File>
       <FileName>rrfw.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>77</X>
-        <Y>168</Y>
+        <X>0</X>
+        <Y>12</Y>
       </Caret_Position>
     </Included_File>
     <Compilation_Mode>GUI_Application</Compilation_Mode>

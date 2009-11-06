@@ -9,9 +9,12 @@ rem
 '
 endrem
 
+' built-in message channels
 Const CHANNEL_INPUT:Int = 1000 ' Message channel used to send messages triggered by input devices
 Const CHANNEL_MENU:Int = 1001 ' Message channel used to send messages triggered by menus
+Const CHANNEL_GRAPHICS:Int = 1002 ' Channel used to send messages triggered by the Graphics service
 
+' built-in message IDs
 Const MSG_CREATE:Int = 1000 ' Create an object
 Const MSG_DESTROY:Int = 1001 ' Destroy an object
 Const MSG_SHOW:Int = 1002 ' Show an object
@@ -20,6 +23,7 @@ Const MSG_KEY:Int = 1004 ' Messages sent on a keyboard input event
 Const MSG_MOUSE:Int = 1005 ' Messages sent on a mouse input event
 Const MSG_JOYSTICK:Int = 1006 ' Messages sent on a joystick input event
 Const MSG_VIRTUAL_GAMEPAD:Int = 1007 ' Messages sent on a virtual gamepad input event
+Const MSG_GRAPHICS_RESET:Int = 1008 ' The graphics device has been set/reset, resolution may have changed.
 
 rem
 	bbdoc: Service for transmitting messages
