@@ -291,7 +291,7 @@ Type TLayerManager Extends TGameService
 	endrem
 	Method Render()
 		Local tweening:Double = TFixedTimestep.GetInstance().GetTweening()
-		Local fixed:Int = TGraphicsService.GetInstance().fixedPointRendering
+		Local fixed:Int = TGraphicsService.GetInstance().UseFixedPointRendering()
 		_locked = True
 		For Local layer:TRenderLayer = EachIn _layers
 			layer.Render(tweening, fixed)

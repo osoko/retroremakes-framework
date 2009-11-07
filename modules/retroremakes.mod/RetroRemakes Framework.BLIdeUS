@@ -302,8 +302,8 @@
       <FileName>src\Includes\Menus\TMenuManager.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>26</X>
+        <Y>92</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -518,8 +518,8 @@
       <FileName>src\Services\Graphics\TGraphicsService.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>2</X>
-        <Y>141</Y>
+        <X>4</X>
+        <Y>550</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -710,8 +710,8 @@
       <FileName>src\Services\Layers\TLayerManager.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>1</X>
-        <Y>127</Y>
+        <X>11</X>
+        <Y>284</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -886,8 +886,8 @@
       <FileName>src\TGameEngine.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>2</X>
-        <Y>839</Y>
+        <X>8</X>
+        <Y>824</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -895,7 +895,7 @@
       <Document_Active>true</Document_Active>
       <Caret_Position>
         <X>0</X>
-        <Y>12</Y>
+        <Y>10</Y>
       </Caret_Position>
     </Included_File>
     <Compilation_Mode>GUI_Application</Compilation_Mode>
