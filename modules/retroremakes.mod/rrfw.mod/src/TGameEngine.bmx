@@ -779,7 +779,7 @@ Type TGameEngine
 		
 		Local tweening:Double = TFixedTimestep.GetInstance().GetTweening()
 		
-		If gameManager Then gameManager.Render(tweening, True)
+		If gameManager Then gameManager.Render(tweening, TGraphicsService.GetInstance().UseFixedPointRendering())
 		
 		If debugEnabled
 			DebugRender()
@@ -797,47 +797,48 @@ Type TGameEngine
 	endrem		
 	Method Run()
 	
-	?Not Debug
-		Try
-	?
-			SetEngineRunning(True)
-			StartServices()
-			
-			logger.LogInfo("[" + toString() + "] Engine running")
-	
-			If gameManager
-				gameManager.Start()
-			End If
-			
-			' Main loop
-			While (GetEngineRunning() And Not AppTerminate())
-				rrStartProfilerSample(mainLoopProfile)
-				TGraphicsService.GetInstance().CheckIfActive()
-			
-				Update()
-	
-				Cls
-	
-				Render()
+		?Not Debug
+			Try
+		?
+				SetEngineRunning(True)
+				StartServices()
 				
-				Flip(TGraphicsService.GetInstance().vblank)
-				rrStopProfilerSample(mainLoopProfile)
-			Wend
-			
-			If gameManager
-				gameManager.Stop()
-			End If
-						
-			Shutdown()
-	?Not Debug
-		Catch obj:Object
-			Local errorText:String = "[" + TTypeId.ForObject(obj).Name() + "] " + obj.ToString()
-			logger.LogError(errorText)
-			logger.LogError("[" + toString() + "] A fatal error has occured.")
-			Notify("A fatal error has occured: " + errorText, True)
-			Shutdown()
-		End Try
-	?
+				logger.LogInfo("[" + toString() + "] Engine running")
+		
+				If gameManager
+					gameManager.Start()
+				End If
+				
+				' Main loop
+				While (GetEngineRunning() And Not AppTerminate())
+					rrStartProfilerSample(mainLoopProfile)
+					TGraphicsService.GetInstance().CheckIfActive()
+				
+					Update()
+		
+					Cls
+		
+					Render()
+					
+					Flip(TGraphicsService.GetInstance().GetVBlank())
+					rrStopProfilerSample(mainLoopProfile)
+				Wend
+				
+				If gameManager
+					gameManager.Stop()
+				End If
+							
+				Shutdown()
+		?Not Debug
+			Catch obj:Object
+				Local errorText:String = "[" + TTypeId.ForObject(obj).Name() + "] " + obj.ToString()
+				logger.LogError(errorText)
+				logger.LogError("[" + toString() + "] A fatal error has occured.")
+				Notify("A fatal error has occured: " + errorText, True)
+				Shutdown()
+			End Try
+		?
+		
 	End Method
 			
 	
@@ -941,8 +942,6 @@ Type TGameEngine
 		Global fixedTimestep:TFixedTimestep = TFixedTimestep.GetInstance()
 		
 		fixedTimestep.Calculate()
-		
-		Local dt:Double = fixedTimestep.GetDeltaTime()
 		
 		While(fixedTimestep.TimeStepNeeded())
 		

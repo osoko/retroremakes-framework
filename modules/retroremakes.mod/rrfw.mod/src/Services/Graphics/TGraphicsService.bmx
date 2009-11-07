@@ -9,223 +9,74 @@ rem
 '
 endrem
 
+rem
+	bbdoc: 
+endrem
 Type TGraphicsService Extends TGameService
 	
 	Global instance:TGraphicsService
 
 	Const DEFAULT_DIRECT_X:String = "DirectX7"
 	Const DEFAULT_GFX_DEPTH:Int = 16
+	Const DEFAULT_GFX_FLAGS:Int = GRAPHICS_BACKBUFFER
 	Const DEFAULT_GFX_REFRESH:Int = 60
 	Const DEFAULT_GFX_VBLANK:String = "false"
 	Const DEFAULT_GFX_WINDOWED:String = "true"
 	Const DEFAULT_GFX_X:Int = 800
 	Const DEFAULT_GFX_Y:Int = 600
 	
-?Not Win32
-	Const DEFAULT_GFX_DRIVER:String = "OpenGL"
-?Win32
-	Const DEFAULT_GFX_DRIVER:String = DEFAULT_DIRECT_X
-?
+	?Not Win32
 	
-	Field device:TGraphics	'This is the graphics object we will be using
-	Field flags:Int = GRAPHICS_BACKBUFFER
-	Field fixedPointRendering:Int
-	Field width:Int
-	Field height:Int
-	Field depth:Int
-	Field hertz:Int
-	Field windowed:Int
-	Field vblank:Int
-	Field Driver:String
-	
-	' A sorted, de-duplicated list of available graphics modes
-	' On Windows, only modes available in both OpenGL and
-	' DirectX drivers are included.
-	Field modes:TList = New TList
-	
-	'Field font:TImageFont
-	
-	Method New()
-		If instance Throw "Cannot create multiple instances of this Singleton Type"
-		instance = Self
-		Self.Initialise()
-	EndMethod
-	
-	Function Create:TGraphicsService()
-		Return TGraphicsService.GetInstance()
-	End Function
-	
-	Method GetDriver:String()
-		Return Driver
-	End Method
+		Const DEFAULT_GFX_DRIVER:String = "OpenGL"
 		
-	Function GetInstance:TGraphicsService()
-		If Not instance
-			Return New TGraphicsService
-		Else
-			Return instance
-		EndIf
-	EndFunction
+	?Win32
+	
+		Const DEFAULT_GFX_DRIVER:String = DEFAULT_DIRECT_X
+		
+	?
+	
+	' The colour depth we are using
+	Field _depth:Int
+	
+	' This is the graphics device we will be using
+	Field _device:TGraphics
+	
+	' The name of the graphics driver we are using
+	Field _driver:String
 
-	Method GetModes:TList()
-		Return modes
-	End Method
-	
-	Method Initialise()
-		SetName("Graphics Service")
-		startPriority = -9999	'has to be first as other services may rely on the Graphics Device
-		fixedPointRendering = True
-		TMessageService.GetInstance().CreateMessageChannel(CHANNEL_GRAPHICS, "Graphics Service")
-		Super.Initialise()
-	End Method
+	' Whether to use fixed point or sub-pixel rendering
+	Field _fixedPointRendering:Int
 
-	Method Start()
-		width = rrGetIntVariable("GFX_X", DEFAULT_GFX_X, "Engine")
-		height = rrGetIntVariable("GFX_Y", DEFAULT_GFX_Y, "Engine")
-		depth = rrGetIntVariable("GFX_DEPTH", DEFAULT_GFX_DEPTH, "Engine")
-		hertz = rrGetIntVariable("GFX_REFRESH", DEFAULT_GFX_REFRESH, "Engine")
-		windowed = rrGetBoolVariable("GFX_WINDOWED", DEFAULT_GFX_WINDOWED, "Engine")
-		vblank = rrGetBoolVariable("GFX_VBLANK", DEFAULT_GFX_VBLANK, "Engine")
-		SetEngineGraphicsDriver(rrGetStringVariable("GFX_DRIVER", DEFAULT_GFX_DRIVER, "Engine"))
-		
-		FindGraphicsModes()
-		
-		Set()
-	End Method
+	' Default flags to use when creating our graphics device	
+	Field _flags:Int
 	
-	Method Set()
-		'Kill the existing graphics device if it exists
-		If device
-			TRenderState.Push()
-			TLogger.GetInstance().LogInfo("[" + toString() + "] Closing existing graphics device")
-			DisablePolledInput()
-			CloseGraphics(device)
-			device = Null
-		End If
-			
-		?win32
-			If Driver.ToUpper() = "DIRECTX7"
-				TLogger.GetInstance().LogInfo("[" + toString() + "] Enabling DirectX7 graphics driver")
-				SetGraphicsDriver(D3D7Max2DDriver())
-			ElseIf Driver.ToUpper() = "DIRECTX9"
-				TLogger.GetInstance().LogInfo("[" + toString() + "] Enabling DirectX9 graphics driver")
-				SetGraphicsDriver(D3D9Max2DDriver())
-			ElseIf Driver.ToUpper() = "OPENGL"
-		?
-				TLogger.GetInstance().LogInfo("[" + toString() + "] Enabling OpenGL graphics driver")
-				GLShareContexts()
-				SetGraphicsDriver(GLMax2DDriver())
-		?Win32
-			EndIf
-		?
-		
-		If windowed
-			TLogger.GetInstance().LogInfo("[" + toString() + "] Attempting to set windowed graphics mode: " + width + "x" + height)
-			device = CreateGraphics(width, height, 0, 60, flags)
-		Else
-			TLogger.GetInstance().LogInfo("[" + toString() + "] Attempting to set full-screen graphics mode: " + width + "x" + height + "x" + depth + "@" + hertz + "Hz")
-			device = CreateGraphics(width, height, depth, hertz, flags)
-		EndIf
-		
-		If Not device
-			Throw "Requested graphics mode unavailable: " + width + "x" + height + "x" + depth + "@" + hertz + "Hz"
-		EndIf
-		
-		SetGraphics(device)
-			
-		If rrProjectionMatrixEnabled()
-			rrCreateProjectionMatrix()
-		End If
-		
-		EnablePolledInput()
-		TRenderState.Pop()
-		
-		TFramesPerSecond.GetInstance().Reset()
-		
-		Local message:TMessage = New TMessage
-		message.SetMessageId(MSG_GRAPHICS_RESET)
-		message.Broadcast(CHANNEL_GRAPHICS)
-	End Method
+	' The physical display height (not necessarily the game height)
+	Field _height:Int
 
-	Method SetEngineGraphics(	newWidth:Int, newHeight:Int, newDepth:Int, newRefresh:Int,  ..
-										newWindowed:Int, newVBlank:Int, newDriver:String)
-		SetEngineGraphicsWidth(newWidth)
-		SetEngineGraphicsHeight(newHeight)
-		SetEngineGraphicsDepth(newDepth)
-		SetEngineGraphicsRefresh(newRefresh)
-		SetEngineGraphicsWindowed(newWindowed)
-		SetEngineGraphicsVBlank(newVBlank)
-		SetEngineGraphicsDriver(newDriver)
-		Set()
-	End Method
+	' A sorted, de-duplicated list of available graphics modes.
+	Field _modes:TList = New TList
 		
-	Method SetEngineGraphicsWidth(newWidth:Int)
-		width = newWidth
-		rrSetIntVariable("GFX_X", newWidth, "Engine")
-	End Method
+	' The refresh rate of the graphics device we will be using
+	Field _refresh:Int
 	
-	Method SetEngineGraphicsHeight(newHeight:Int)
-		height = newHeight
-		rrSetIntVariable("GFX_Y", newHeight, "Engine")
-	End Method
+	' Whether we will be waiting for vblank before flipping
+	Field _vblank:Int
 	
-	Method SetEngineGraphicsDepth(newDepth:Int)
-		depth = newDepth
-		rrSetIntVariable("GFX_DEPTH", newDepth, "Engine")
-	End Method
-	
-	Method SetEngineGraphicsRefresh(newRefresh:Int)
-		hertz = newRefresh
-		rrSetIntVariable("GFX_REFRESH", newRefresh, "Engine")
-	End Method			
+	' The physical display width (not necessarily the game width)	
+	Field _width:Int
 
-	Method SetEngineGraphicsWindowed(newWindowed:Int)
-		If newWindowed
-			rrSetBoolVariable("GFX_WINDOWED", "true", "Engine")
-		Else
-			rrSetBoolVariable("GFX_WINDOWED", "false", "Engine")
-		End If
-		windowed = newWindowed
-	End Method
-	
-	Method SetEngineGraphicsVBlank(newVBlank:Int)
-		If newVBlank
-			rrSetBoolVariable("GFX_VBLANK", "true", "Engine")
-		Else
-			rrSetBoolVariable("GFX_VBLANK", "false", "Engine")
-		End If
-		vblank = newVBlank
-	End Method
-	
-	Method SetEngineGraphicsDriver(newDriver:String)
-		?Win32
-			If newDriver.ToLower() = "directx"
-				newDriver = DEFAULT_DIRECT_X
-			EndIf
-			If newDriver.ToLower() = "directx7"
-				Driver = "DirectX7"
-			ElseIf newDriver.ToLower() = "directx9"
-				Driver = "DirectX9"
-			ElseIf newDriver.ToLower() = "opengl"
-				Driver = "OpenGL"
-			End If
-		?Not Win32
-			Driver = "OpenGL"
-		?
-		rrSetStringVariable("GFX_DRIVER", Driver, "Engine")
-	End Method
+	' Whether to run windowed or full-screen
+	Field _windowed:Int
 
-	Rem
-		bbdoc:Shuts down the #TGameService instance
-	End Rem
-	Method Shutdown()
-		If device
-			CloseGraphics(device)
-			device = Null
-		End If
-		Super.Shutdown()
-	End Method
 
+
+	rem
+		bbdoc: Checks to see if the application has been suspended or not.
+		about: If it has it will create a temporary timer and use that to yield to
+		the system to free up CPU time. Once the application has been resumed, it
+		will reset the graphics if it was running in full-screen mode and it will
+		also reset the Fixed Timestep and FPS calculations.
+	endrem
 	Method CheckIfActive()
 		If AppSuspended()
 			TGameEngine.GetInstance().SetPaused(True)
@@ -234,7 +85,7 @@ Type TGraphicsService Extends TGameService
 			While AppSuspended() 
 				WaitTimer(susTimer)   'Do nothing and free up CPU
 			Wend
-			If Not windowed
+			If Not _windowed
 				'When resuming from minimised full-screen display we need to recreate Grahics
 				'and set up the projection matrix again due to DirectX oddness
 				TLogger.GetInstance().LogInfo("[" + toString() + "] Resetting graphics mode")
@@ -246,17 +97,45 @@ Type TGraphicsService Extends TGameService
 			rrResetFPS()
 		EndIf		
 	End Method
-
-	' Find graphics modes for all available drivers, de-duplicate
-	' and exclude modes that don't appear on both drivers (where
-	' available)
+	
+	
+	
+	rem
+		bbdoc: De-Duplicates a list of TGraphicsMode objects
+	endrem
+	Method DeDuplicateGraphicsModes:TList(modes:TList)
+		Local deDupedModes:TList = New TList
+		
+		Local First:Int = True
+		
+		For Local mode:TGraphicsMode = EachIn modes
+			If first
+				deDupedModes.AddLast(mode)
+				First = False
+			Else
+				If GraphicsModeSort(deDupedModes.Last(), mode) <> 0
+					deDupedModes.AddLast(mode)
+				End If
+			End If
+		Next
+		
+		Return deDupedModes
+	End Method
+	
+	
+	
+	rem
+		bbdoc: Find graphics modes for all available drivers
+		about: de-duplicate and exclude modes that are not available on all drivers
+	endrem
 	Method FindGraphicsModes()
 		'Get the OpenGL Modes first	
 		SetGraphicsDriver(GLMax2DDriver())
-		modes = ListFromArray(GraphicsModes())
+		_modes = ListFromArray(GraphicsModes())
 		
-		TLogger.GetInstance().LogInfo("[" + toString() + "] OpenGL graphics modes found: " + modes.Count())
-		'DirectX modes if on Windows
+		TLogger.GetInstance().LogInfo("[" + toString() + "] OpenGL graphics modes found: " + _modes.Count())
+		
+		'DirectX modes only if on Windows
 		?win32
 			SetGraphicsDriver(D3D7Max2DDriver())
 			Local dxModes:TList = ListFromArray(GraphicsModes())
@@ -269,11 +148,13 @@ Type TGraphicsService Extends TGameService
 			Next
 			
 			TLogger.GetInstance().LogInfo("[" + toString() + "] DirectX graphics modes found: " + dxModes.Count())
+
 			'Remove DirectX Modes that aren't available under OpenGL
+			For Local FindMode:TGraphicsMode = EachIn dxModes
 			
-			For Local findMode:TGraphicsMode = EachIn dxModes
 				Local found:Int = False
-				For Local mode:TGraphicsMode = EachIn modes
+			
+				For Local mode:TGraphicsMode = EachIn _modes
 					If findMode.width = mode.width And ..
 						findMode.height = mode.height And ..
 						findMode.depth = mode.depth And ..
@@ -289,8 +170,10 @@ Type TGraphicsService Extends TGameService
 			Next
 			
 			'Remove OpenGL Modes that aren't available under DirectX
-			For Local findMode:TGraphicsMode = EachIn modes
+			For Local findMode:TGraphicsMode = EachIn _modes
+			
 				Local found:Int = False
+			
 				For Local mode:TGraphicsMode = EachIn dxModes
 					If findMode.width = mode.width And ..
 						findMode.height = mode.height And ..
@@ -302,23 +185,124 @@ Type TGraphicsService Extends TGameService
 				Next
 				
 				If Not found
-					modes.Remove(findMode)
+					_modes.Remove(findMode)
 				End If
 			Next
 			
 			'Merge the lists
 			For Local mode:TGraphicsMode = EachIn dxModes
-				modes.AddLast(mode)
+				_modes.AddLast(mode)
 			Next
 		?
 		
 		' Now sort and deduplicate
-		modes.Sort(True, TGraphicsService.GraphicsModeSort)
-		TLogger.GetInstance().LogInfo("[" + toString() + "] Total graphics modes found: " + modes.Count())
-		modes = DeDuplicateGraphicsModes(modes)
-		TLogger.GetInstance().LogInfo("[" + toString() + "] Deduplicated graphics modes found: " + modes.Count())
+		_modes.Sort(True, TGraphicsService.GraphicsModeSort)
+		TLogger.GetInstance().LogInfo("[" + toString() + "] Total graphics modes found: " + _modes.Count())
+		
+		_modes = DeDuplicateGraphicsModes(_modes)
+		TLogger.GetInstance().LogInfo("[" + toString() + "] Deduplicated graphics modes found: " + _modes.Count())
+	End Method
+
+	
+	
+	rem
+		bbdoc: Get the colour depth of the graphics device
+	endrem
+	Method GetDepth:Int()
+		Return _depth
 	End Method
 	
+	
+	
+	rem
+		bbdoc: Get the name of the graphics driver
+	endrem		
+	Method GetDriver:String()
+		Return _driver
+	End Method
+	
+	
+
+	rem
+		bbdoc: Get the height of the graphics device
+		about: This value is the physical display height and may not be the same as
+		the game resolution if you are using the projection matrix
+	endrem		
+	Method GetHeight:Int()
+		Return _height
+	End Method
+	
+	
+	
+	rem
+		bbdoc: Get the TGraphicsService instance
+		about: The graphics service is a Singleton class, use this to gain access
+		to its instance
+	endrem
+	Function GetInstance:TGraphicsService()
+		If Not instance
+			Return New TGraphicsService
+		Else
+			Return instance
+		EndIf
+	EndFunction
+
+	
+	
+	rem
+		bbdoc: Get the available graphics modes
+		about: This is a sorted, de-duplicated list of available TGraphicsMode
+		graphics modes. On Windows, only modes available in both OpenGL and DirectX
+		drivers are included.
+	endrem
+	Method GetModes:TList()
+		Return _modes
+	End Method
+	
+	
+	
+	rem
+		bbdoc: Get the refresh rate of the graphics device
+	endrem
+	Method GetRefresh:Int()
+		Return _refresh
+	End Method
+	
+	
+	
+	rem
+		bbdoc: Whether VBlank is enabled or not
+	endrem
+	Method GetVBlank:Int()
+		Return _vblank
+	End Method
+	
+	
+	
+	rem
+		bbdoc: Get the width of the graphics device
+		about: This value is the physical display width and may not be the same as
+		the game resolution if you are using the projection matrix
+	endrem	
+	Method GetWidth:Int()
+		Return _width
+	End Method
+	
+	
+	
+	rem
+		bbdoc: Get whether we are running windowed or full-screen
+		returns: true if running in a window, otherwise false
+	endrem
+	Method GetWindowed:Int()
+		Return _windowed
+	End Method
+	
+	
+	
+	rem
+		bbdoc: Used to sort TGraphicsMode objects
+	endrem
 	Function GraphicsModeSort:Int(o1:Object, o2:Object)
 		Local o1mode:TGraphicsMode = TGraphicsMode(o1)
 		Local o2mode:TGraphicsMode = TGraphicsMode(o2)
@@ -355,22 +339,279 @@ Type TGraphicsService Extends TGameService
 	End Function
 	
 	
-	Method DeDuplicateGraphicsModes:TList(modes:TList)
-		Local deDupedModes:TList = New TList
-		Local first:Int = True
-		For Local mode:TGraphicsMode = EachIn modes
-			If first
-				deDupedModes.AddLast(mode)
-				first = False
-			Else
-				If GraphicsModeSort(deDupedModes.Last(), mode) <> 0
-					deDupedModes.AddLast(mode)
-				End If
-			End If
-		Next
-		Return deDupedModes
+	
+	Rem
+		bbdoc:Initialise the #TGameService instance.
+	End Rem
+	Method Initialise()
+		SetFlags(DEFAULT_GFX_FLAGS)
+		SetName("Graphics Service")
+		
+		'has to be the first service to startas other services may rely on the
+		'Graphics Device
+		startPriority = -9999
+		
+		SetFixedPointRendering(True)
+		TMessageService.GetInstance().CreateMessageChannel(CHANNEL_GRAPHICS, "Graphics Service")
+		Super.Initialise()
 	End Method
+		
+	
+	
+	rem
+		bbdoc: Default constructor
+	endrem
+	Method New()
+		If instance rrThrow "Cannot create multiple instances of this Singleton Type"
+		instance = Self
+		Self.Initialise()
+	EndMethod
+	
+	
+	
+	rem
+		bbdoc: Set the configured graphics mode
+		about: This will destroy any existing graphics device and recreate it.
+	endrem	
+	Method Set()
+		'Kill the existing graphics device if it exists
+		If _device
+			TRenderState.Push()
+			TLogger.GetInstance().LogInfo("[" + toString() + "] Closing existing graphics device")
+			DisablePolledInput()
+			CloseGraphics(_device)
+			_device = Null
+		End If
+		
+		Select GetDriver().ToUpper()
+			?Win32
+				Case "DIRECTX7"
+					TLogger.GetInstance().LogInfo("[" + toString() + "] Enabling DirectX7 graphics driver")
+					SetGraphicsDriver(D3D7Max2DDriver())
+				Case "DIRECTX9"
+					TLogger.GetInstance().LogInfo("[" + toString() + "] Enabling DirectX9 graphics driver")
+					SetGraphicsDriver(D3D9Max2DDriver())
+			?
+				Case "OPENGL"
+					TLogger.GetInstance().LogInfo("[" + toString() + "] Enabling OpenGL graphics driver")
+					GLShareContexts()
+					SetGraphicsDriver(GLMax2DDriver())				
+		End Select
+		
+		If _windowed
+			TLogger.GetInstance().LogInfo("[" + toString() + "] Attempting to set windowed graphics mode: " + _width + "x" + _height)
+			_device = CreateGraphics(_width, _height, 0, 60, _flags)
+		Else
+			TLogger.GetInstance().LogInfo("[" + toString() + "] Attempting to set full-screen graphics mode: " + _width + "x" + _height + "x" + _depth + "@" + _refresh + "Hz")
+			_device = CreateGraphics(_width, _height, _depth, _refresh, _flags)
+		EndIf
+		
+		If Not _device
+			rrThrow "Requested graphics mode unavailable: " + _width + "x" + _height + "x" + _depth + "@" + _refresh + "Hz"
+		EndIf
+		
+		brl.Graphics.SetGraphics(_device)
+			
+		If rrProjectionMatrixEnabled()
+			rrCreateProjectionMatrix()
+		End If
+		
+		EnablePolledInput()
+		TRenderState.Pop()
+		
+		TFramesPerSecond.GetInstance().Reset()
+		
+		Local message:TMessage = New TMessage
+		message.SetMessageId(MSG_GRAPHICS_RESET)
+		message.Broadcast(CHANNEL_GRAPHICS)
+	End Method
+	
+	
+	
+	rem
+		bbdoc: Set the colour depth to use for the graphics device
+	endrem
+	Method SetDepth(depth:Int)
+		_depth = depth
+		rrSetIntVariable("GFX_DEPTH", depth, "Engine")
+	End Method
+	
+	
+	
+	rem
+		bbdoc: Set the driver to use for the graphics device
+		about: Available drivers are DirectX7, DirectX9 and OpenGL
+	endrem	
+	Method SetDriver(driver:String)
+		Select Driver.ToLower()
+			?Win32
+				Case "directx"
+					_driver = DEFAULT_DIRECT_X
+				Case "directx7"
+					_driver = "DirectX7"
+				Case "directx9"
+					_driver = "DirectX9"
+			?
+				Case "opengl"
+					_driver = "OpenGL"
+				Default
+					?Win32
+						_driver = DEFAULT_DIRECT_X
+					?Not Win32
+						_driver = "OpenGL"
+					?
+		End Select
+
+		rrSetStringVariable("GFX_DRIVER", _driver, "Engine")
+	End Method
+	
+	
+	
+	rem
+		bbdoc: Set whether to use fixed-point rendering or not
+		about: For some game times, sub-pixel rendering can look unpleasant.
+		Setting this to true will force all images to be drawn at integer
+		coordinates
+	endrem	
+	Method SetFixedPointRendering(bool:Int)
+		_fixedPointRendering = bool
+	End Method
+	
+	
+	
+	rem
+		bbdoc: Set the flags to use for the graphics device
+	endrem	
+	Method SetFlags(flags:Int)
+		_flags = flags
+	End Method
+	
+	
+	
+	rem
+		bbdoc: Set the graphics mode provided
+	endrem
+	Method SetGraphics(width:Int, height:Int, depth:Int, refresh:Int, windowed:Int, vblank:Int, Driver:String)
+		SetDepth(depth)
+		SetWidth(width)
+		SetHeight(height)
+		SetRefresh(refresh)
+		SetWindowed(windowed)
+		SetVBlank(vblank)
+		SetDriver(driver)
+		Set()
+	End Method
+	
+	
+		
+	rem
+		bbdoc: Set the height to use for the graphics device
+	endrem		
+	Method SetHeight(height:Int)
+		_height = height
+		rrSetIntVariable("GFX_Y", height, "Engine")
+	End Method
+
+	
+	
+	rem
+		bbdoc: Set the refresh rate to use for the graphics device
+	endrem	
+	Method SetRefresh(refresh:Int)
+		_refresh = refresh
+		rrSetIntVariable("GFX_REFRESH", refresh, "Engine")
+	End Method		
+
+	
+	
+	rem
+		bbdoc: Set whether to wait for vblank on flip or not
+	endrem	
+	Method SetVBlank(vblank:Int)
+		If vblank
+			rrSetBoolVariable("GFX_VBLANK", "true", "Engine")
+		Else
+			rrSetBoolVariable("GFX_VBLANK", "false", "Engine")
+		End If
+		_vblank = vblank
+	End Method
+	
+	
+	
+	rem
+		bbdoc: Set the width to use for the graphics device
+	endrem	
+	Method SetWidth(width:Int)
+		_width = width
+		rrSetIntVariable("GFX_X", width, "Engine")
+	End Method
+
+	
+	
+	rem
+		bbdoc: Set whether to use a window or full-screen for the graphics device
+	endrem	
+	Method SetWindowed(windowed:Int)
+		If windowed
+			rrSetBoolVariable("GFX_WINDOWED", "true", "Engine")
+		Else
+			rrSetBoolVariable("GFX_WINDOWED", "false", "Engine")
+		End If
+		_windowed = windowed
+	End Method
+
+
+	
+	Rem
+		bbdoc: Shuts down the #TGameService instance
+	End Rem
+	Method Shutdown()
+		If _device
+			CloseGraphics(_device)
+			_device = Null
+		End If
+		Super.Shutdown()
+	End Method
+
+
+
+	rem
+		bbdoc: Called at service start
+		about: Sets the graphics driver to either the defaults, or values stored
+		in the INI file. Also generates a list of available graphics modes
+	endrem		
+	Method Start()
+		SetWidth(rrGetIntVariable("GFX_X", DEFAULT_GFX_X, "Engine"))
+		
+		SetDepth(rrGetIntVariable("GFX_DEPTH", DEFAULT_GFX_DEPTH, "Engine"))
+		
+		SetHeight(rrGetIntVariable("GFX_Y", DEFAULT_GFX_Y, "Engine"))
+		
+		SetRefresh(rrGetIntVariable("GFX_REFRESH", DEFAULT_GFX_REFRESH, "Engine"))
+		
+		SetWindowed(rrGetBoolVariable("GFX_WINDOWED", DEFAULT_GFX_WINDOWED, "Engine"))
+		
+		SetVBlank(rrGetBoolVariable("GFX_VBLANK", DEFAULT_GFX_VBLANK, "Engine"))
+		
+		SetDriver(rrGetStringVariable("GFX_DRIVER", DEFAULT_GFX_DRIVER, "Engine"))
+		
+		FindGraphicsModes()
+		
+		Set()
+	End Method
+
+
+	
+	rem
+		bbdoc: Whether to use fixed point rendering or not
+	endrem
+	Method UseFixedPointRendering:Int()
+		Return _fixedPointRendering
+	End Method
+	
 End Type
+
+
 
 Function rrGetGraphicsSize:TVector2D()
 	Local size:TVector2D = New TVector2D
@@ -379,53 +620,75 @@ Function rrGetGraphicsSize:TVector2D()
 	Return size
 End Function
 
+
+
 Function rrGetGraphicsWidth:Int()
 	If TProjectionMatrix.GetInstance().enabled
 		Return rrGetProjectionMatrixWidth()
 	Else
-		Return TGraphicsService.GetInstance().width
+		Return TGraphicsService.GetInstance().GetWidth()
 	End If
 End Function
+
+
 
 Function rrGetGraphicsHeight:Int()
 	If TProjectionMatrix.GetInstance().enabled
 		Return rrGetProjectionMatrixHeight()
 	Else
-		Return TGraphicsService.GetInstance().height
+		Return TGraphicsService.GetInstance().GetHeight()
 	End If
 End Function
 
+
+
 Function rrSetGraphicsWidth(width:Int)
-	TGraphicsService.GetInstance().SetEngineGraphicsWidth(width)
+	TGraphicsService.GetInstance().SetWidth(width)
 End Function
+
+
 
 Function rrSetGraphicsHeight(height:Int)
-	TGraphicsService.GetInstance().SetEngineGraphicsHeight(height)
+	TGraphicsService.GetInstance().SetHeight(height)
 End Function
+
+
 
 Function rrSetGraphicsDepth(depth:Int)
-	TGraphicsService.GetInstance().SetEngineGraphicsDepth(depth)
+	TGraphicsService.GetInstance().SetDepth(depth)
 End Function
+
+
 
 Function rrSetGraphicsRefresh(refresh:Int)
-	TGraphicsService.GetInstance().SetEngineGraphicsRefresh(refresh)
+	TGraphicsService.GetInstance().SetRefresh(refresh)
 End Function
+
+
 
 Function rrSetGraphicsWindowed(windowed:Int)
-	TGraphicsService.GetInstance().SetEngineGraphicsWindowed(windowed)
+	TGraphicsService.GetInstance().SetWindowed(windowed)
 End Function
+
+
 
 Function rrSetGraphicsVBlank(vblank:Int)
-	TGraphicsService.GetInstance().SetEngineGraphicsVBlank(vblank)
+	TGraphicsService.GetInstance().SetVBlank(vblank)
 End Function
+
+
 
 Function rrSetGraphicsDriver(driver:String)
-	TGraphicsService.GetInstance().SetEngineGraphicsDriver(Driver)
+	TGraphicsService.GetInstance().SetDriver(Driver)
 End Function
 
+
+
 Function rrSetNewGraphics(width:Int, height:Int, depth:Int, refresh:Int, windowed:Int, vblank:Int, driver:String)
-	TGraphicsService.GetInstance().SetEngineGraphics(width, height, depth, refresh, windowed, vblank, Driver)
+	TGraphicsService.GetInstance().SetGraphics(width, height, depth, refresh, windowed, vblank, Driver)
 End Function
+
+
 
 Function rrResetGraphics()
 	TGraphicsService.GetInstance().Set()
