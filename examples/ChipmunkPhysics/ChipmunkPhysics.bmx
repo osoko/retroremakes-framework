@@ -58,7 +58,7 @@ Type GameManager Extends TGameManager
 		currentState = 0
 		
 		' Start the first state
-		layerManager.AddRenderObjectToLayerById(states[currentState], 0)
+		layerManager.AddRenderableToLayerById(states[currentState], 0)
 		states[currentState].Start()
 	End Method
 	
@@ -83,14 +83,14 @@ Type GameManager Extends TGameManager
 	
 	Method MoveForwards()
 		states[currentState].Stop()
-		layerManager.RemoveRenderObject(states[currentState])
+		layerManager.RemoveRenderable(states[currentState])
 		
 		currentState:+1
 		
 		If currentState >= states.Length Then currentState = 0
 		
 		If currentState < states.Length
-			layerManager.AddRenderObjectToLayerById(states[currentState], 0)
+			layerManager.AddRenderableToLayerById(states[currentState], 0)
 			states[currentState].Start()
 		EndIf
 		

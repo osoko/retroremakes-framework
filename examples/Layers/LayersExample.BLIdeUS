@@ -62,8 +62,8 @@
       <FileName>src\TScroller.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>23</X>
-        <Y>25</Y>
+        <X>1</X>
+        <Y>33</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -86,8 +86,8 @@
       <FileName>src\TTitleScreen.bmx</FileName>
       <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>10</X>
-        <Y>214</Y>
+        <X>32</X>
+        <Y>204</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>

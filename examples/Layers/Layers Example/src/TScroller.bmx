@@ -39,7 +39,7 @@ Type TScroller Extends TFontActor
 	End Method
 	
 	Method Reset()
-		SetPosition(TGraphicsService.GetInstance().width, yPos)
+		SetPosition(TGraphicsService.GetInstance().GetWidth(), yPos)
 	End Method
 	
 End Type
