@@ -45,7 +45,7 @@ Type GameManager Extends TGameManager
 		playerSprite.SetPosition(0,0)
 
 
-		TLayerManager.GetInstance().AddRenderObjectToLayerById(playerSprite, 0)
+		TLayerManager.GetInstance().AddRenderableToLayerById(playerSprite, 0)
 		
 		'Create a new Virtual Gamepad to control the sprite with
 		gamepad = New TVirtualGamepad

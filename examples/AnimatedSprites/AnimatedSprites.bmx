@@ -53,7 +53,7 @@ Type GameManager Extends TGameManager
 			CreateAnimations(sprite)
 			
 			' Finally add it to the sprite manager.
-			TLayerManager.GetInstance().AddRenderObjectToLayerById(sprite, 0)
+			TLayerManager.GetInstance().AddRenderableToLayerById(sprite, 0)
 		Next
 	End Method
 	

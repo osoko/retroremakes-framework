@@ -200,6 +200,7 @@ Type TTitleScreen Extends TScreenBase
 	
 	
 	
+	
 	' Add the colour oscillation animation to the currently selected menu item
 	Method SetActiveMenuAnimation()
 		menuItems[activeMenuItem].GetAnimationManager().AddAnimation(activeMenuAnimation)
