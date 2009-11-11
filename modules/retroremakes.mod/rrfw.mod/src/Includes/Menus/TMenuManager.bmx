@@ -121,6 +121,23 @@ Type TMenuManager Extends TRenderable
 		AddMenu(m)
 		
 		i = New TOptionMenuItem
+		i.SetText("Driver", "use left or right to select graphics driver")
+		addItemToMenu(m, i)
+		
+		?Win32
+			o = New TMenuOption
+			o.SetLabel("DirectX7")
+			i.AddOption(o)
+			o = New TMenuOption
+			o.SetLabel("DirectX9")
+			i.AddOption(o)
+		?
+
+		o = New TMenuOption
+		o.SetLabel("OpenGL")
+		i.AddOption(o)
+		
+		i = New TOptionMenuItem
 		i.SetText("Resolution", "use left or right to select screen resolution")
 		AddItemToMenu(m, i)
 		
@@ -217,12 +234,17 @@ endrem
 		Local option:TMenuOption
 		Local g:TGraphicsService = TGraphicsService.GetInstance()
 		
+		
 		'
 		'walk past all menu items, read and set
 		'using the internal graphics service methods ensures the settings get added to the config vaiables as well.
 		
 		For Local o:TOptionMenuItem = EachIn list
 			Select o.GetLabel()
+				Case "Driver"
+					option = o.GetCurrentOption()
+					g.SetDriver(option.ToString())
+			
 				Case "Resolution"
 					option = o.GetCurrentOption()
 					Local mode:TGraphicsMode = TGraphicsMode(option.GetOptionObject())
@@ -265,7 +287,6 @@ endrem
 		Next
 		
 		'apply
-		
 '		If rrProjectionMatrixEnabled() Then TProjectionMatrix.GetInstance().Set()
 		g.Set()
 		
@@ -285,6 +306,18 @@ endrem
 
 		For Local item:TOptionMenuItem = EachIn list
 			Select item.GetLabel()
+			
+				Case "Driver"
+					Local Driver:String = g.GetDriver()
+					Select Driver.ToLower()
+						Case "directx7"
+							item.SetCurrentOptionByName("DirectX7")
+						Case "directx9"
+							item.SetCurrentOptionByName("DirectX9")
+						Case "opengl"
+							item.SetCurrentOptionByName("OpenGL")
+					End Select
+			
 				Case "Resolution"
 					'
 					'walk through options and find the match with current settings in the graphics service.
