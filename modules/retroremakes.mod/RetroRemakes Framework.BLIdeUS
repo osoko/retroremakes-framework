@@ -276,18 +276,18 @@
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Menus\TActionMenuItem.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
         <X>11</X>
-        <Y>23</Y>
+        <Y>25</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Menus\TMenu.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>11</X>
-        <Y>74</Y>
+        <X>31</X>
+        <Y>21</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -295,47 +295,47 @@
       <Document_Active>false</Document_Active>
       <Caret_Position>
         <X>1</X>
-        <Y>11</Y>
+        <Y>31</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Menus\TMenuManager.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>26</X>
-        <Y>92</Y>
+        <X>0</X>
+        <Y>268</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Menus\TMenuMessageData.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>39</X>
-        <Y>7</Y>
+        <X>1</X>
+        <Y>5</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Menus\TMenuOption.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>17</Y>
+        <X>23</X>
+        <Y>20</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Menus\TOptionMenuItem.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>2</X>
-        <Y>15</Y>
+        <X>26</X>
+        <Y>73</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Menus\TSubMenuItem.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>28</X>
-        <Y>14</Y>
+        <X>8</X>
+        <Y>21</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -518,16 +518,16 @@
       <FileName>src\Services\Graphics\TGraphicsService.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>4</X>
-        <Y>550</Y>
+        <X>7</X>
+        <Y>599</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Graphics\TProjectionMatrix.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>11</X>
-        <Y>76</Y>
+        <X>0</X>
+        <Y>164</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -758,8 +758,8 @@
       <FileName>src\Services\Messages\TMessageService.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>22</X>
-        <Y>16</Y>
+        <X>28</X>
+        <Y>26</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -854,8 +854,8 @@
       <FileName>src\Services\Settings\TGameSettings.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>1</X>
-        <Y>1</Y>
+        <X>20</X>
+        <Y>18</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -886,16 +886,16 @@
       <FileName>src\TGameEngine.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>8</X>
-        <Y>824</Y>
+        <X>35</X>
+        <Y>571</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>rrfw.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>10</Y>
+        <X>32</X>
+        <Y>193</Y>
       </Caret_Position>
     </Included_File>
     <Compilation_Mode>GUI_Application</Compilation_Mode>

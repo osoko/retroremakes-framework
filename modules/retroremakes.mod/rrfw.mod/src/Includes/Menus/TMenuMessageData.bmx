@@ -1,11 +1,12 @@
 
-
 Const MENU_ACTION_START:Int = 1
 Const MENU_ACTION_UNPAUSE:Int = 2
 Const MENU_ACTION_QUIT:Int = 3
 Const MENU_ACTION_CANCEL:Int = 4
+Const MENU_ACTION_GRAPHICS_APPLY:Int = 5
+'Const MENU_ACTION_SOUND_APPLY:Int = 6
+'Const MENU_ACTION_INPUT_APPLY:Int = 7
 
-Const MSG_MENU:Int = 893			'whatever =]
 
 Type TMenuMessageData Extends TMessageData
 

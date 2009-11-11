@@ -18,7 +18,7 @@ Type TMenu
 		_itemsList = New TList
 		_labelColor = New TColourRGB
 		_itemcolor = New TColourRGB
-		_selectionColor = New TColourRGB			' change to oscilator?
+		_selectionColor = New TColourRGB			' change to oscilator later on?
 		_footercolor = New TColourRGB
 		
 		SetLabelColor(0, 255, 0)
@@ -60,10 +60,6 @@ Type TMenu
 			ypos:+height
 		Next
 	End Method
-	
-'	Method DoItemAction(m:TMenuManager)
-'		_currentItem.Activate(m)
-'	End Method
 
 	Method AddItem(item:TMenuItem)
 		_itemsList.AddLast(item)
@@ -94,6 +90,18 @@ Type TMenu
 	
 	Method GetCurrentItem:TMenuItem()						'todo: anders
 		Return _currentItem
+	End Method
+	
+	Method GetItems:TList()
+		Return _itemsList
+	End Method
+	
+	Method PreviousOption()
+		If TOptionMenuItem(_currentItem) Then TOptionMenuItem(_currentItem).PreviousOption()
+	End Method
+	
+	Method NextOption()
+		If TOptionMenuItem(_currentItem) Then TOptionMenuItem(_currentItem).NextOption()
 	End Method
 
 	Method SetLabelColor(r:Int, g:Int, b:Int)

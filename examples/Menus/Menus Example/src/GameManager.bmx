@@ -22,6 +22,10 @@ Type MyGameManager Extends TGameManager
 				If data.keyHits Then MenuManager.PreviousItem()
 			Case KEY_DOWN
 				If data.keyHits Then MenuManager.NextItem()
+			Case KEY_LEFT
+				If data.keyHits Then MenuManager.PreviousOption()
+			Case KEY_RIGHT
+				If data.keyHits Then MenuManager.NextOption()
 			Case KEY_ENTER
 				If data.keyHits Then MenuManager.DoItemAction()
 		End Select
@@ -32,6 +36,8 @@ Type MyGameManager Extends TGameManager
 		Select data.action
 			Case MENU_ACTION_QUIT
 				Quit()
+			Case MENU_ACTION_GRAPHICS_APPLY						' apply the set options in the graphics menu (built-in menu)
+				MenuManager.ApplyGraphicsMenu()
 		End Select
 	End Method
 	
@@ -61,8 +67,6 @@ Type MyGameManager Extends TGameManager
 
 		TMessageService.GetInstance().SubscribeToChannel(CHANNEL_INPUT, Self)			' get keyboard input
 		TMessageService.GetInstance().SubscribeToChannel(CHANNEL_MENU, Self)			' get messages from menu action items
-		
-		
 	End Method
 		
 	Method Stop()
@@ -79,42 +83,51 @@ Type MyGameManager Extends TGameManager
 		'main menu
 		
 		m = New TMenu
-		m.SetFooterColor(255, 0, 0)
+		m.SetFooterColor(255, 0, 0)					' set ugly color!
 		m.SetLabel("Main Menu")
 		MenuManager.AddMenu(m)
 		
+		menuManager.SetMenuYpos(rrGetGraphicsHeight() - 300)
+		
+		
 		a = New TActionMenuItem
 		a.SetText("Start", "begin the game")
-		a.SetAction(MENU_ACTION_START)
-		
+		a.SetAction(MENU_ACTION_START)				' make this item create a game start message.
 		menumanager.additemtomenu(m, a)
 		
 		s = New TSubMenuItem
 		s.SetText("Options", "configure stuff")
-		s.SetNextMenu("Options")
+		s.SetNextMenu("Options")					' this item send you to the options menu.
 		menumanager.additemtomenu(m, s)
 		
 		a = New TActionMenuItem
 		a.SetText("Exit", "chicken out")
-		a.SetAction(MENU_ACTION_QUIT)				' make this menu item create a quit message.
+		a.SetAction(MENU_ACTION_QUIT)				' make this menu item create a game quit message.
 		menumanager.additemtomenu(m, a)
 		
 		'
-		'options
+		'options menu
 		
 		m = New TMenu
 		m.SetLabel("Options")
 		MenuManager.AddMenu(m)
-		
+
 		s = New TSubMenuItem
-		s.SetText("Input", "configure input stuff")
-		s.SetNextMenu("Control")
+		s.SetText("Graphics", "configure screen stuff")
+		s.SetNextMenu("Graphics")							' name of built-in menu. don't change.
 		menumanager.additemtomenu(m, s)
+
+'		s = New TSubMenuItem
+'		s.SetText("Input", "configure input stuff")
+'		s.SetNextMenu("Control")
+'		menumanager.additemtomenu(m, s)
 				
 		s = New TSubMenuItem
 		s.SetText("Back", "back to main menu")
-		s.SetNextMenu("back")							' this forces a 'go back'
+		s.SetNextMenu("back")								' this forces a 'go back'
 		menumanager.additemtomenu(m, s)
+		
+		MenuManager.BuildGraphicsMenu(60, 0)				'create built-in menu... only show 60 hz modes, and don't care about depth
 		
 		MenuManager.SetCurrentMenu(MenuManager.GetMenuByName("Main Menu"))
 	End Method
