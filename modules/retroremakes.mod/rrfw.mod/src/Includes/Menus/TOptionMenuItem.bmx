@@ -3,7 +3,7 @@
 Type TOptionMenuItem Extends TMenuItem
 
 	Field _optionsList:TList
-	Field _currentOption:TMenuOption		' ?
+	Field _currentOption:TMenuOption
 	
 	Method New()
 		_optionsList = New TList
@@ -13,17 +13,12 @@ Type TOptionMenuItem Extends TMenuItem
 	End Method
 	
 	Method Activate()
-		
 	End Method
-
-'	Method AddItemOption:TMenuItemOption(newLabel:String, newFooter:String, spacer:Int = False)
-'		Local m:TmenuItemOption = New TmenuItemOption
-'		m.SetLabel(newLabel)
-'		m.SetFooter(newFooter)
-'		m.SetSpacer(spacer)
-'		_itemsList.AddLast(m)
-'		Return m
-'	End Method
+	
+	Method AddOption(o:TMenuOption)
+		_optionsList.AddLast(o)
+		_currentOption = TMenuOption(_optionsList.First())
+	End Method
 
 	Method PreviousOption()
 		If _currentOption = _optionsList.First() Then Return
@@ -43,6 +38,10 @@ Type TOptionMenuItem Extends TMenuItem
 		Return _currentOption
 	End Method
 	
+	Method SetCurrentOption(o:TMenuOption)
+		_currentOption = o
+	End Method
+	
 	Method SetCurrentOptionByName(name:String)
 		For Local o:TMenuOption = EachIn _optionsList
 			If o.ToString() = name
@@ -55,14 +54,13 @@ Type TOptionMenuItem Extends TMenuItem
 	
 	Method SetCurrentOptionByObject(obj:Object)
 		For Local o:TMenuOption = EachIn _optionsList
-			If o.ToString() = obj
+			If o.GetOptionObject() = obj
 				_currentOption = o
 				Return
 			EndIf
 		Next
 		Throw "Could not set option by object"
 	End Method
-
 	
 	Method ToString:String()
 		Local prefix:String, suffix:String
@@ -71,6 +69,16 @@ Type TOptionMenuItem Extends TMenuItem
 		If _currentOption <> _optionsList.First() Then prefix = "< "
 		If _currentOption <> _optionsList.Last() Then suffix = " >"
 		Return prefix + _label + " : " + _currentOption.ToString() + suffix
+	End Method
+	
+	Method GetOptions:TList()
+		Return _optionsList
+	End Method
+	
+	'
+	'needed to get the item name, minus the options component
+	Method GetLabel:String()
+		Return _label
 	End Method
 
 End Type

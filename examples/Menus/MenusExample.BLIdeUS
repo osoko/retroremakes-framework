@@ -6,8 +6,8 @@
       <FileName>src\GameManager.bmx</FileName>
       <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>2</X>
-        <Y>64</Y>
+        <X>0</X>
+        <Y>123</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -15,7 +15,7 @@
       <Document_Active>true</Document_Active>
       <Caret_Position>
         <X>0</X>
-        <Y>11</Y>
+        <Y>14</Y>
       </Caret_Position>
     </Included_File>
     <Compilation_Mode>GUI_Application</Compilation_Mode>

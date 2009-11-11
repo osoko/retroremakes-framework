@@ -24,6 +24,7 @@ Const MSG_MOUSE:Int = 1005 ' Messages sent on a mouse input event
 Const MSG_JOYSTICK:Int = 1006 ' Messages sent on a joystick input event
 Const MSG_VIRTUAL_GAMEPAD:Int = 1007 ' Messages sent on a virtual gamepad input event
 Const MSG_GRAPHICS_RESET:Int = 1008 ' The graphics device has been set/reset, resolution may have changed.
+Const MSG_MENU:Int = 1009	' Messages sent on a menu action event
 
 rem
 	bbdoc: Service for transmitting messages

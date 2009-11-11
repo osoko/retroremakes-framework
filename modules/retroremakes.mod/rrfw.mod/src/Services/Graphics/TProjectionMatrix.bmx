@@ -75,7 +75,7 @@ Type TProjectionMatrix Extends TGameService
 		rrSetFloatVariable("GFX_PROJECTION_Y", myHeight, "Engine")
 		height = myHeight
 	End Method
-	
+
 	Method Enable()
 		enabled = True
 		rrSetBoolVariable("GFX_PROJECTION_ENABLED", "true", "Engine")
