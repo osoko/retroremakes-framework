@@ -57,13 +57,11 @@ Type TRenderState
 	Field _scaleX:Float
 	Field _scaleY:Float
 	
-	' TODO: Viewport disabled as it was messing with the projection matrix for
-	' some reason. Need to find out why.
-	'
-	'Field _viewportX:Int
-	'Field _viewportY:Int
-	'Field _viewportWidth:Int
-	'Field _viewportHeight:Int
+	' The viewport values
+	Field _viewportX:Int
+	Field _viewportY:Int
+	Field _viewportWidth:Int
+	Field _viewportHeight:Int
 
 
 	
@@ -102,10 +100,7 @@ Type TRenderState
 			
 			SetScale(renderState._scaleX, renderState._scaleY)
 			
-			' TODO: Viewport disabled as it was messing with the projection matrix for
-			' some reason. Need to find out why.
-			'			
-			' SetViewport(renderState._viewportX, renderState._viewportY, renderState._viewportHeight, renderState._viewportWidth)			
+			SetViewport(renderState._viewportX, renderState._viewportY, renderState._viewportWidth, renderState._viewportHeight)
 		End If
 	End Function
 
@@ -144,10 +139,7 @@ Type TRenderState
 		
 		GetScale(renderState._scaleX, renderState._scaleY)
 		
-		' TODO: Viewport disabled as it was messing with the projection matrix for
-		' some reason. Need to find out why.
-		'
-		' GetViewport(renderState._viewportX, renderState._viewportY, renderState._viewportWidth, renderState._viewportHeight)
+		GetViewport(renderState._viewportX, renderState._viewportY, renderState._viewportWidth, renderState._viewportHeight)
 
 		TRenderState.g_renderStates.Push(renderState)
 	End Function
