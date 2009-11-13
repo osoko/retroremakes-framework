@@ -1,0 +1,13 @@
+# use glob syntax.
+syntax: glob
+
+*.log
+*.exe
+*.ini
+
+*.i
+*.a
+*.o
+*.s
+*.BLIdeUS.layout
+commands.html
