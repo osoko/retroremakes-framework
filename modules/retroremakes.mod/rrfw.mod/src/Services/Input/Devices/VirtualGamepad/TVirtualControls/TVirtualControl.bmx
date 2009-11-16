@@ -443,7 +443,7 @@ Type TVirtualControl
 		bbdoc: Default constructor
 	endrem
 	Method New()
-		SetProgrammingMode(False)
+		EnableProgrammingMode(False)
 		SetProgrammingCancelKey(DEFAULT_PROGRAMMING_CANCEL_KEY)
 	End Method
 	

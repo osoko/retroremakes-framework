@@ -21,9 +21,9 @@ Type TKeyboardMapping Extends TVirtualControlMapping
 			Case MSG_KEY
 				Local data:TKeyboardMessageData = TKeyboardMessageData(message.data)
 				If data.key = keyboardButtonId_
-					controlDownDigital_ = data.keyState
-					controlDownAnalogue_ = Float(controlDownDigital_)
-					controlHits_ = data.keyHits
+					SetDigitalStatus(data.keyState)
+					SetAnalogueStatus(Float(GetDigitalStatus()))
+					SetHits(data.keyHits)
 				EndIf
 		End Select		
 	End Method
@@ -31,7 +31,7 @@ Type TKeyboardMapping Extends TVirtualControlMapping
 	Method SetButton(id:Int)
 		If id >= 0 And id < 256
 			keyboardButtonId_ = id
-			name_ = Null
+			SetName(Null)
 		EndIf
 	End Method
 	
@@ -40,10 +40,10 @@ Type TKeyboardMapping Extends TVirtualControlMapping
 	End Method
 	
 	Method GetName:String()
-		If Not name_
-			name_ = TKeyboard.GetInstance().GetKeyName(keyboardButtonId_)
+		If Not Super.GetName()
+			SetName(TKeyboard.GetInstance().GetKeyName(keyboardButtonId_))
 		EndIf
-		Return name_
+		Return Super.GetName()
 	End Method
 
 	

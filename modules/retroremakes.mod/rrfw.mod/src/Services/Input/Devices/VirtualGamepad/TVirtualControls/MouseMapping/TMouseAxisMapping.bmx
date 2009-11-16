@@ -21,8 +21,8 @@ Type TMouseAxisMapping Extends TVirtualControlMapping
 		Select message.messageID
 			Case MSG_MOUSE
 				Local data:TMouseMessageData = TMouseMessageData(message.data)
-				lastControlDownDigital_ = controlDownDigital_
-				lastControlDownAnalogue_ = controlDownAnalogue_
+				SetLastDigitalStatus(GetDigitalStatus())
+				SetLastAnalogueStatus(GetAnalogueStatus())
 				Local analogueAxisValue:Float
 				Local digitalAxisValue:Int
 					
@@ -51,12 +51,12 @@ Type TMouseAxisMapping Extends TVirtualControlMapping
 					End If
 				End If
 					
-				controlDownAnalogue_ = Abs(analogueAxisValue)
-				controlDownDigital_ = digitalAxisValue
+				SetAnalogueStatus(Abs(analogueAxisValue))
+				SetDigitalStatus(digitalAxisValue)
 										
 				If digitalAxisValue = 0
-					If lastControlDownDigital_ <> controlDownDigital_
-						controlHits_:+1
+					If GetLastDigitalStatus() <> GetDigitalStatus()
+						IncrementHits()
 					EndIf
 				End If
 		End Select
