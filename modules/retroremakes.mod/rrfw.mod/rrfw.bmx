@@ -68,6 +68,7 @@ Import koriolis.zipstream
 
 Import muttley.inifilehandler
 Import muttley.logger
+Import muttley.stack
 
 Import pub.freejoy
 
@@ -198,6 +199,7 @@ Include "src\Includes\Maths\PolygonCollisions.bmx"
 Include "src\Includes\Maths\RC4Encrypt.bmx"
 Include "src\Includes\Maths\TPolygon.bmx"
 Include "src\Includes\Maths\TVector2D.bmx"
+Include "src\Includes\Maths\Utility.bmx"
 
 Include "src\Includes\Misc\CloneObject.bmx"
 Include "src\Includes\Misc\DataValidation.bmx"
@@ -208,7 +210,6 @@ Include "src\Includes\Misc\TCommandStack.bmx"
 Include "src\Includes\Misc\TEngineException.bmx"
 Include "src\Includes\Misc\TMacroCommand.bmx"
 Include "src\Includes\Misc\TRegistry.bmx"
-Include "src\Includes\Misc\TStack.bmx"
 
 ' Timing
 Include "src\Includes\Timing\TPrecisionCounter.bmx"
