@@ -580,10 +580,10 @@
     </Included_File>
     <Included_File>
       <FileName>src\Services\Input\Devices\Mouse\TMouseMessageData.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>57</Y>
+        <X>7</X>
+        <Y>23</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -638,8 +638,8 @@
       <FileName>src\Services\Input\Devices\VirtualGamepad\TVirtualControls\TVirtualControl.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>3</X>
-        <Y>285</Y>
+        <X>1</X>
+        <Y>339</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -647,7 +647,7 @@
       <Document_Active>false</Document_Active>
       <Caret_Position>
         <X>1</X>
-        <Y>41</Y>
+        <Y>37</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -660,10 +660,10 @@
     </Included_File>
     <Included_File>
       <FileName>src\Services\Input\Devices\VirtualGamepad\TVirtualGamepad.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>75</X>
-        <Y>241</Y>
+        <X>0</X>
+        <Y>461</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
