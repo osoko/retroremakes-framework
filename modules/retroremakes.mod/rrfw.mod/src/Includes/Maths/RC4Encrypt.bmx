@@ -10,9 +10,8 @@ rem
 endrem
 
 rem
-bbdoc: Encrypt or Decrypt a string using an RC4 cypher
-returns: Either an Encrypted or Decrypted String
-about:
+	bbdoc: Encrypt or Decrypt a string using an RC4 cypher
+	returns: Either an Encrypted or Decrypted String
 endrem
 Function rrRC4:String(inp:String, key:String)
 	Local s:Int[ 512 + Ceil( inp.Length * .55 ) ]
