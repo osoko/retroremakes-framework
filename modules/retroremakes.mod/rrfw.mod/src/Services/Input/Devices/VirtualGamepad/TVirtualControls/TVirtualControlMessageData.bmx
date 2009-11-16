@@ -14,19 +14,29 @@ Rem
 End Rem
 Type TVirtualControlMessageData Extends TMessageData
 
-	' The current analogue status of the control
+	rem
+		bbdoc: The current analogue status of the control
+	endrem
 	Field analogueStatus:Float
 
-	' The name of the control
+	rem
+		bbdoc: The name of the control
+	endrem
 	Field controlName:String
 	
-	' The current digital status of the control
+	rem
+		bbdoc: The current digital status of the control
+	endrem
 	Field digitalStatus:Int
 	
-	' The ID of the gamepad the control is attached to
+	rem
+		bbdoc: The ID of the gamepad the control is attached to
+	endrem
 	Field gamepadId:Int
 	
-	' The number of hits registered for the control
+	rem
+		bbdoc: The number of hits registered for the control
+	endrem
 	Field hits:Int
 	
 End Type

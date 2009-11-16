@@ -590,8 +590,8 @@
       <FileName>src\Services\Input\Devices\VirtualGamepad\TVirtualControls\JoystickMapping\TJoystickAxisMapping.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>7</X>
-        <Y>76</Y>
+        <X>0</X>
+        <Y>19</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -652,10 +652,10 @@
     </Included_File>
     <Included_File>
       <FileName>src\Services\Input\Devices\VirtualGamepad\TVirtualControls\TVirtualControlMessageData.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>1</X>
-        <Y>21</Y>
+        <X>0</X>
+        <Y>15</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
