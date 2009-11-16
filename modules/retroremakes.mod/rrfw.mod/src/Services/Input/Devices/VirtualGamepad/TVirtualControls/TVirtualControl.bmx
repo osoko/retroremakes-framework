@@ -43,9 +43,6 @@ Type TVirtualControl
 	
 
 		
-
-	
-	
 	rem
 		bbdoc: Enable or Disable programming mode for this control.
 		about: When programming mode is enabled the control will listen for the next
@@ -443,7 +440,7 @@ Type TVirtualControl
 		bbdoc: Default constructor
 	endrem
 	Method New()
-		EnableProgrammingMode(False)
+		_programmingStatus = False
 		SetProgrammingCancelKey(DEFAULT_PROGRAMMING_CANCEL_KEY)
 	End Method
 	
