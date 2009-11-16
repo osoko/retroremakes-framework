@@ -9,80 +9,160 @@ rem
 '
 endrem
 
+rem
+	bbdoc: Service for managing and updating all input devices
+endrem
 Type TInputManager Extends TGameService
 
-	Global instance:TInputManager		' This holds the singleton instance of this Type
+	' This holds the singleton instance of this Type
+	Global _instance:TInputManager
 	
-	Global LInputDevices:TList = New TList	'all registered input devices
-	
-	' Whether some of the built in input devices are enabled or not by default
-	Field keyboardEnabled:Int = True
-	Field mouseEnabled:Int = False
-	Field joystickEnabled:Int = True
-		
-'#Region Constructors
-	Method New()
-		If instance rrThrow "Cannot create multiple instances of this Singleton Type"
-		instance = Self
-		updatePriority = -1000		'Check device first in each update loop
-		Self.Initialise()
-	EndMethod
+	' Whether joystick input is enabled or not
+	Field _joystickEnabled:Int
+			
+	' Whether keyboard input is enabled or not
+	Field _keyboardEnabled:Int
 
-	Function Create:TInputManager()
-		Return TInputManager.GetInstance()
-	End Function
+	' Whether mouse input is enabled or not
+	Field _mouseEnabled:Int
+
+	'all registered input devices
+	Field _registeredInputDevices:TList
+
+		
 	
+	rem
+		bbdoc: Enable/Disable Joystick input
+	endrem
+	Method EnableJoystick(bool:Int)
+		_joystickEnabled = bool
+	End Method
+		
+	
+	
+	rem
+		bbdoc: Enable/Disable Keyboard input
+	endrem	
+	Method EnableKeyboard(bool:Int)
+		_keyboardEnabled = bool
+	End Method
+	
+	
+	
+	rem
+		bbdoc: Enable/Disable Mouse input
+	endrem	
+	Method EnableMouse(bool:Int)
+		_mouseEnabled = bool
+	End Method
+		
+	
+	
+	rem
+		bbdoc: Get the Singleton instance of this service
+	endrem
 	Function GetInstance:TInputManager()
-		If Not instance
+		If Not _instance
 			Return New TInputManager
 		Else
-			Return instance
+			Return _instance
 		EndIf
-	EndFunction
-'#End Region 
-
+	End Function
+	
+	
+	
+	rem
+		bbdoc: Initialises the service
+	endrem
 	Method Initialise()
 		SetName("Input Manager")
 		Super.Initialise()  'Call TGameService initialisation routines
 	End Method
 
-	Method Start()
-		rrCreateMessageChannel(CHANNEL_INPUT, "Input Manager")
+
+
+	rem
+		bbdoc: Default Constructor
+	endrem
+	Method New()
+		If _instance rrThrow "Cannot create multiple instances of this Singleton Type"
 		
-		If keyboardEnabled
-			TKeyboard.GetInstance()
-		End If
+		_instance = Self
 		
-		If mouseEnabled
-			TMouse.GetInstance()
-		End If
+		'Check devices first in each update loop
+		updatePriority = -1000
 		
-		If joystickEnabled
-			TJoystickManager.GetInstance()
-		End If		
+		_registeredInputDevices = New TList
+		
+		_joystickEnabled = True
+		_keyboardEnabled = True
+		_mouseEnabled = False
+		
+		Self.Initialise()
+	EndMethod
+	
+
+
+	rem
+		bbdoc: Register an input device with the input manager
+	endrem
+	Method RegisterDevice(device:TInputDevice)
+		TLogger.getInstance().LogInfo("[" + toString() + "] Registering device handler: " + device.name)
+		_registeredInputDevices.AddLast(device)
 	End Method
 	
+	
+		
+	rem
+		bbdoc: Shutdown the service
+	endrem
 	Method Shutdown()
 		'TODO
 		Super.Shutdown()  'Call TGameService shutdown routines
 	End Method
 	
+	
+		
+	rem
+		bbdoc: Starts the service
+	endrem
+	Method Start()
+		rrCreateMessageChannel(CHANNEL_INPUT, "Input Manager")
+		
+		If _keyboardEnabled
+			TKeyboard.GetInstance()
+		End If
+		
+		If _mouseEnabled
+			TMouse.GetInstance()
+		End If
+		
+		If _joystickEnabled
+			TJoystickManager.GetInstance()
+		End If		
+	End Method
+
+
+
+	rem
+		bbdoc: Unregister an input device with the input manager
+	endrem
+	Method UnregisterDevice(device:TInputDevice)
+		TLogger.getInstance().LogInfo("[" + toString() + "] Unregistering device handler: " + device.name)
+		_registeredInputDevices.Remove(device)
+	End Method
+	
+	
+			
+	rem
+		bbdoc: Updates all registered input devices
+	endrem
 	Method Update()
-		If LInputDevices.Count() > 0
-			For Local device:TInputDevice = EachIn LInputDevices
+		If _registeredInputDevices.Count() > 0
+			For Local device:TInputDevice = EachIn _registeredInputDevices
 				device.Update()
 			Next
 		EndIf
-	End Method
-	
-	Method RegisterDevice(device:TInputDevice)
-		TLogger.getInstance().LogInfo("[" + toString() + "] Registering device handler: " + device.name)
-		LInputDevices.AddLast(device)
-	End Method
-	
-	Method UnregisterDevice(device:TInputDevice)
-		TLogger.getInstance().LogInfo("[" + toString() + "] Unregistering device handler: " + device.name)
-		LInputDevices.Remove(device)
 	End Method
 
 EndType

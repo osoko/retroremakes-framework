@@ -217,6 +217,6 @@ End Type
 
 
 Function rrEnableKeyboardInput(enable:Int = True)
-	TInputManager.GetInstance().keyboardEnabled = True
+	TInputManager.GetInstance().EnableKeyboard(True)
 End Function
 
