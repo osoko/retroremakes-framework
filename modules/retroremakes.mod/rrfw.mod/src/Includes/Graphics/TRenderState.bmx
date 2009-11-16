@@ -16,7 +16,7 @@ endrem
 Type TRenderState
 
 	' Stack used to store render states
-	Global g_renderStates:TStack
+	Global g_renderStates:TStack = TStack.Create(5, 5)
 	
 	' The alpha value
 	Field _alpha:Float
@@ -57,13 +57,11 @@ Type TRenderState
 	Field _scaleX:Float
 	Field _scaleY:Float
 	
-	' TODO: Viewport disabled as it was messing with the projection matrix for
-	' some reason. Need to find out why.
-	'
-	'Field _viewportX:Int
-	'Field _viewportY:Int
-	'Field _viewportWidth:Int
-	'Field _viewportHeight:Int
+	' The viewport values
+	Field _viewportX:Int
+	Field _viewportY:Int
+	Field _viewportWidth:Int
+	Field _viewportHeight:Int
 
 
 	
@@ -77,7 +75,7 @@ Type TRenderState
 	Function Pop()
 		If Not TRenderState.g_renderStates Then Return
 
-		If Not TRenderState.g_renderStates.Count() > 0 Then Return
+		If Not TRenderState.g_renderStates.GetSize() > 0 Then Return
 		
 		Local renderState:TRenderState = TRenderState(TRenderState.g_renderStates.Pop())
 		
@@ -102,10 +100,7 @@ Type TRenderState
 			
 			SetScale(renderState._scaleX, renderState._scaleY)
 			
-			' TODO: Viewport disabled as it was messing with the projection matrix for
-			' some reason. Need to find out why.
-			'			
-			' SetViewport(renderState._viewportX, renderState._viewportY, renderState._viewportHeight, renderState._viewportWidth)			
+			SetViewport(renderState._viewportX, renderState._viewportY, renderState._viewportWidth, renderState._viewportHeight)
 		End If
 	End Function
 
@@ -118,10 +113,6 @@ Type TRenderState
 		and @GetScale
 	endrem
 	Function Push()
-		If Not TRenderState.g_renderStates
-			TRenderState.g_renderStates = New TStack
-		End If
-		
 		Local renderState:TRenderState = New TRenderState
 		
 		renderState._alpha = GetAlpha()
@@ -144,10 +135,7 @@ Type TRenderState
 		
 		GetScale(renderState._scaleX, renderState._scaleY)
 		
-		' TODO: Viewport disabled as it was messing with the projection matrix for
-		' some reason. Need to find out why.
-		'
-		' GetViewport(renderState._viewportX, renderState._viewportY, renderState._viewportWidth, renderState._viewportHeight)
+		GetViewport(renderState._viewportX, renderState._viewportY, renderState._viewportWidth, renderState._viewportHeight)
 
 		TRenderState.g_renderStates.Push(renderState)
 	End Function

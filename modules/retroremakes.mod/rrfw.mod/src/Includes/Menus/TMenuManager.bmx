@@ -124,6 +124,14 @@ Type TMenuManager Extends TRenderable
 		i.SetText("Driver", "use left or right to select graphics driver")
 		addItemToMenu(m, i)
 		
+		Local g:TGraphicsService = TGraphicsService.GetInstance()
+		
+		For Local driverName:String = EachIn g.GetAvailableDrivers()
+			o = New TMenuOption
+			o.SetLabel(driverName)
+			i.AddOption(o)
+		Next
+rem		
 		?Win32
 			o = New TMenuOption
 			o.SetLabel("DirectX7")
@@ -136,15 +144,14 @@ Type TMenuManager Extends TRenderable
 		o = New TMenuOption
 		o.SetLabel("OpenGL")
 		i.AddOption(o)
-		
+endrem		
 		i = New TOptionMenuItem
 		i.SetText("Resolution", "use left or right to select screen resolution")
 		AddItemToMenu(m, i)
 		
-		Local g:TGraphicsService = TGraphicsService.GetInstance()
-		Local list:TList = g.GetModes()
+
 		Local suffix:String
-		For Local mode:TGraphicsMode = EachIn list
+		For Local mode:TGraphicsMode = EachIn g.GetModes()
 			o = New TMenuOption
 			
 			If hertzFilter
@@ -155,9 +162,12 @@ Type TMenuManager Extends TRenderable
 				If mode.depth <> depthFilter Then Continue
 			End If
 			
-			suffix = " (normal 4:3)"
-			If Int((mode.height / 10) * 16) = mode.width Then suffix = " (wide 16:10)"
-			If Int((mode.height / 9) * 16) = mode.width Then suffix = " (wide 16:9)"
+			'Calculate the aspect ration of the graphics mode
+			Local gcd:Int = rrGreatestCommonDivisor(mode.width, mode.height)
+			suffix = " (" + mode.width / gcd + ":" + mode.height / gcd + ")"
+			'If Int((mode.height / 10) * 16) = mode.width Then suffix = " (wide 16:10)"
+			'If Int((mode.height / 9) * 16) = mode.width Then suffix = " (wide 16:9)"
+			'If Int((mode.height / 4) * 5) = mode.width Then suffix = " (wide 5:4)"
 			
 			o.SetLabel(mode.width + " x " + mode.height + ", " + mode.hertz + " herz, " + mode.depth + " bit" + suffix)
 			o.SetOptionObject(mode)

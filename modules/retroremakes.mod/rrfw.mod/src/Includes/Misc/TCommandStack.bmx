@@ -32,14 +32,14 @@ Type TCommandStack
 				' We can't redo anything having just done something
 				LRedoCommands.Clear()
 				
-				If undoCommandCountAtLastSave > LUndoCommands.Count()
+				If undoCommandCountAtLastSave > LUndoCommands.GetSize()
 					undoCommandCountAtLastSave = -1 ' We can't undo to get to the last saved state
 				End If
 				
 				Rem
 				Attempts to merge the command on the tope of the stack.
 				EndRem
-				If LUndoCommands.Count() = 0 Or Not TCommand(LUndoCommands.Peek()).Merge(command)
+				If LUndoCommands.GetSize() = 0 Or Not TCommand(LUndoCommands.Peek()).Merge(command)
 					LUndoCommands.Push(command)
 				EndIf
 			End If
@@ -47,19 +47,19 @@ Type TCommandStack
 	End Method
 
 	Method CanRedo:Int()
-		Return LRedoCommands.Count() > 0
+		Return LRedoCommands.GetSize() > 0
 	End Method
 	
 	Method CanUndo:Int()
-		Return LUndoCommands.Count() > 0
+		Return LUndoCommands.GetSize() > 0
 	End Method
 	
 	Method IsDirty:Int()
-		Return undoCommandCountAtLastSave <> LUndoCommands.Count()
+		Return undoCommandCountAtLastSave <> LUndoCommands.GetSize()
 	End Method
 	
 	Method ProgressSaved()
-		undoCommandCountAtLastSave = LUndoCommands.Count()
+		undoCommandCountAtLastSave = LUndoCommands.GetSize()
 	End Method
 
 	Method Redo()
