@@ -35,6 +35,9 @@ Type TGraphicsService Extends TGameService
 		
 	?
 	
+	' The drivers that are available for use
+	Field _availableDrivers:String[]
+	
 	' The colour depth we are using
 	Field _depth:Int
 	
@@ -206,6 +209,15 @@ Type TGraphicsService Extends TGameService
 	
 	
 	rem
+		bbdoc: Get the names of all available drivers
+	endrem
+	Method GetAvailableDrivers:String[] ()
+		Return _availableDrivers
+	End Method
+	
+	
+	
+	rem
 		bbdoc: Get the colour depth of the graphics device
 	endrem
 	Method GetDepth:Int()
@@ -350,6 +362,16 @@ Type TGraphicsService Extends TGameService
 		'has to be the first service to startas other services may rely on the
 		'Graphics Device
 		startPriority = -9999
+		
+		?Win32
+			_availableDrivers = New String[3]
+			_availableDrivers[0] = "DirectX7"
+			_availableDrivers[1] = "DirectX9"
+			_availableDrivers[2] = "OpenGL"
+		?Not Win32
+			_availableDrivers = New String[1]
+			_availableDrivers[0] = "OpenGL"
+		?
 		
 		SetFixedPointRendering(True)
 		TMessageService.GetInstance().CreateMessageChannel(CHANNEL_GRAPHICS, "Graphics Service")
