@@ -13,187 +13,39 @@ Rem
 	bbdoc: A control attached to a virtual gamepad
 	about: A virtual control is a mapping between a logical control belonging
 	to a virtual gamepad and a real input such as keyboard key, joystick axis,
-	etc.
+	mouse button, etc.
 End Rem
 Type TVirtualControl
 	
-	rem
-		bbdoc: The default key to use for cancelling programming mode
-	endrem
+	' The default key to use for cancelling programming mode
 	Const DEFAULT_PROGRAMMING_CANCEL_KEY:Int = KEY_ESCAPE
 	
+	' A reference to the input that is mapped to this control
+	Field _controlMap:TVirtualControlMapping
 	
-	rem
-		bbdoc: A reference to the input that is mapped to this control
-	endrem
-	Field controlMap:TVirtualControlMapping
-'#Region controlMapping Get/Set Methods
+	' A reference to the default input for this control
+	Field _defaultControlMap:TVirtualControlMapping
 
-	rem
-		bbdoc: Gets the input mapped to this control
-	endrem	
-	Method GetControlMap:TVirtualControlMapping()
-		Return Self.controlMap
-	End Method
+	' A reference to the gamepad this control belongs to
+	Field _gamepad:TVirtualGamepad
+	
+	' The id of this control
+	Field _id:Int
+	
+	' The name of this control
+	Field _name:String
+	
+	' The key to use for cancelling programming mode
+	Field _programmingCancelKey:Int
+		
+	' The current programming status of this control.  
+	Field _programmingStatus:Int
+	
 
 		
-	
-	rem
-		bbdoc: Sets the inpu mapped to this control
-	endrem	
-	Method SetControlMap(value:TVirtualControlMapping)
-		Self.controlMap = value
-	End Method
-	
-'#End Region 
-
-
-	rem
-		bbdoc: A reference to the default input for this control
-	endrem
-	Field defaultControlMap:TVirtualControlMapping
-'#Region defaultControlMap Get/Set Methods
-
-	rem
-		bbdoc: Get the reference to the default input for this control
-	endrem
-	Method GetDefaultControlMap:TVirtualControlMapping()
-		Return Self.defaultControlMap
-	End Method
-	
-	
-	
-	rem
-		bbdoc: Set the default input for this control
-	endrem	
-	Method SetDefaultControlMap(value:TVirtualControlMapping)
-		Self.defaultControlMap = value
-	End Method
-	
-'#End Region 
-
-				
-	rem
-		bbdoc: A reference to the gamepad this control belongs to
-	endrem
-	Field gamepad:TVirtualGamepad
-'#Region gamepad Get/Set Methods
-
-	rem
-	bbdoc: Get a reference to the instance of TVirtualGamepad this TVirtualControl
-	is attached to.
-	endrem
-	Method GetGamepad:TVirtualGamepad()
-		Return Self.gamepad
-	End Method
-	
-	
-	
-	rem
-	bbdoc: Set the instance of TVirtualGamepad this TVirtualControl is attached to.
-	endrem	
-	Method SetGamepad(value:TVirtualGamepad)
-		Self.gamepad = value
-	End Method
-	
-'#End Region 
-
-
-	rem
-		bbdoc: The id of this control.
-		about: This is assigned by the gamepad this control belongs to
-	endrem
-	Field id:Int
-'#Region id Get/Set Methods
-
-	rem
-	bbdoc: Get the id of this control
-	endrem
-	Method GetId:Int()
-		Return Self.id
-	End Method
-	
-	rem
-	bbdoc: Set the id of this control.
-	about: This should only be used by the gamepad this control belongs to
-	endrem
-	Method SetId(value:Int)
-		Self.id = value
-	End Method
-	
-'#End Region 
-	
-	rem
-		bbdoc: The name of this control
-	endrem
-	Field name:String
-'#Region name Get/Set Methods
-
-	rem
-		bbdoc: Get the name of the control
-	endrem
-	Method GetName:String()
-		Return Self.name
-	End Method
-	
-	
-	
-	rem
-		bbdoc: Set the name of the control
-	endrem	
-	Method SetName(value:String)
-		Self.name = value
-	End Method
-	
-'#End Region 
-
-	rem
-		bbdoc: The key to use for cancelling programming mode
-	endrem
-	Field programmingCancelKey:Int = DEFAULT_PROGRAMMING_CANCEL_KEY
-'#Region programmingCancelKey Get/Set Methods
-	Rem
-		bbdoc: Get the key to use for cancelling programming mode
-	End Rem
-	Method GetProgrammingCancelKey:Int()
-		Return Self.programmingCancelKey
-	End Method
-	Rem
-		bbdoc: Set the key to use for cancelling programming mode
-	End Rem
-	Method SetProgrammingCancelKey(Value:Int)
-		Self.programmingCancelKey = Value
-	End Method
-'#End Region 
 
 	
-	rem
-		bbdoc: The current programming status of this control.  
-	endrem
-	Field programmingStatus:Int = False
-'#Region programmingStatus Get/Set Methods
 	
-	rem
-		bbdoc: Get the programming status of the control.
-		returns: True if it is being programmed, otherwise False.
-	endrem
-	Method GetProgrammingStatus:Int()
-		Return Self.programmingStatus
-	End Method
-	
-	
-	
-	rem
-		bbdoc: Set the programming status of the control.
-	endrem
-	Method SetProgrammingStatus(value:Int)
-		Self.programmingStatus = value
-	End Method
-	
-'#End Region 
-	
-	
-
 	rem
 		bbdoc: Enable or Disable programming mode for this control.
 		about: When programming mode is enabled the control will listen for the next
@@ -314,9 +166,27 @@ Type TVirtualControl
 			Return GetControlMap().GetAnalogueStatus()
 		End If
 	End Method
-	
+
 	
 		
+	rem
+		bbdoc: Gets the input mapped to this control
+	endrem	
+	Method GetControlMap:TVirtualControlMapping()
+		Return _controlMap
+	End Method
+
+	
+	
+	rem
+		bbdoc: Get the reference to the default input for this control
+	endrem
+	Method GetDefaultControlMap:TVirtualControlMapping()
+		Return _defaultControlMap
+	End Method	
+	
+	
+	
 	rem
 		bbdoc: Get the digital status of this control
 		returns: 1 if the control is down, otherwise 0
@@ -327,6 +197,16 @@ Type TVirtualControl
 		Else
 			Return GetControlMap().GetDigitalStatus()
 		End If
+	End Method
+
+		
+	
+	rem
+		bbdoc: Get a reference to the instance of TVirtualGamepad this TVirtualControl
+		is attached to.
+	endrem
+	Method GetGamepad:TVirtualGamepad()
+		Return _gamepad
 	End Method
 	
 	
@@ -346,6 +226,15 @@ Type TVirtualControl
 	End Method
 	
 	
+		
+	rem
+		bbdoc: Get the id of this control
+	endrem
+	Method GetId:Int()
+		Return _id
+	End Method
+
+
 	
 	rem
 		bbdoc: Translate a string representation of a joystick axis into the
@@ -396,7 +285,7 @@ Type TVirtualControl
 				Return Null
 		End Select
 	End Function
-
+	
 	
 	
 	rem
@@ -419,6 +308,15 @@ Type TVirtualControl
 	
 
 	rem
+		bbdoc: Get the name of the control
+	endrem
+	Method GetName:String()
+		Return _name
+	End Method
+	
+	
+
+	rem
 		bbdoc: Create a control identifier using a padded id value
 		about: This is used to identify a control when gamepad settings are
 		saved to a configuration file
@@ -430,9 +328,28 @@ Type TVirtualControl
 		Wend
 		Return "CONTROL" + digits
 	End Method
-
 	
-		
+	
+			
+	rem
+		bbdoc: Get the key to use for cancelling programming mode
+	endrem
+	Method GetProgrammingCancelKey:Int()
+		Return _programmingCancelKey
+	End Method
+	
+	
+
+	rem
+		bbdoc: Get the programming status of the control.
+		returns: True if it is being programmed, otherwise False.
+	endrem
+	Method GetProgrammingStatus:Int()
+		Return _programmingStatus
+	End Method
+	
+	
+	
 	rem
 		bbdoc: Process joystick input messages during programming mode
 	endrem
@@ -521,7 +438,17 @@ Type TVirtualControl
 	End Method
 	
 	
-			
+	
+	rem
+		bbdoc: Default constructor
+	endrem
+	Method New()
+		SetProgrammingMode(False)
+		SetProgrammingCancelKey(DEFAULT_PROGRAMMING_CANCEL_KEY)
+	End Method
+	
+	
+	
 	rem
 		bbdoc: Handler for input messages in programming mode
 	endrem
@@ -537,7 +464,25 @@ Type TVirtualControl
 	End Method
 	
 	
-		
+						
+	rem
+		bbdoc: Sets the inpu mapped to this control
+	endrem	
+	Method SetControlMap(controlMap:TVirtualControlMapping)
+		_controlMap = controlMap
+	End Method
+
+	
+	
+	rem
+		bbdoc: Set the default input for this control
+	endrem	
+	Method SetDefaultControlMap(defaultControlMap:TVirtualControlMapping)
+		_defaultControlMap = defaultControlMap
+	End Method	
+
+	
+	
 	rem
 		bbdoc: Set the default mapping for this control to the specified joystick axis and direction
 	endrem
@@ -633,6 +578,25 @@ Type TVirtualControl
 	
 		
 	rem
+		bbdoc: Set the instance of TVirtualGamepad this TVirtualControl is attached to.
+	endrem	
+	Method SetGamepad(gamepad:TVirtualGamepad)
+		_gamepad = gamepad
+	End Method	
+
+
+	
+	rem
+		bbdoc: Set the id of this control.
+		about: This should only be used by the gamepad this control belongs to
+	endrem
+	Method SetId(id:Int)
+		_id = id
+	End Method	
+	
+	
+	
+	rem
 		bbdoc: Map this control to the specified joystick axis and direction
 	endrem	
 	Method SetJoystickAxisControl(port:Int, axis:String, direction:Int)
@@ -708,6 +672,33 @@ Type TVirtualControl
 	
 	
 		
+	rem
+		bbdoc: Set the name of the control
+	endrem	
+	Method SetName(name:String)
+		_name = name
+	End Method
+
+	
+	
+	Rem
+		bbdoc: Set the key to use for cancelling programming mode
+	End Rem
+	Method SetProgrammingCancelKey(keycode:Int)
+		_programmingCancelKey = keycode
+	End Method	
+
+	
+	
+	rem
+		bbdoc: Set the programming status of the control.
+	endrem
+	Method SetProgrammingStatus(bool:Int)
+		_programmingStatus = bool
+	End Method
+
+
+			
 	rem
 		bbdoc: Update this control
 		about: This is where the control receives raw input messages from the gamepad
