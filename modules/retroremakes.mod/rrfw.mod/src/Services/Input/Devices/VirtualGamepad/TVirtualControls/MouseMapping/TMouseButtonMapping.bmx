@@ -34,9 +34,9 @@ Type TMouseButtonMapping Extends TVirtualControlMapping
 		Select message.messageID
 			Case MSG_MOUSE
 				Local data:TMouseMessageData = TMouseMessageData(message.data)
-				controlDownDigital_ = data.mouseStates[buttonId_]
-				controlDownAnalogue_ = Float(controlDownDigital_)
-				controlHits_ = data.mouseHits[buttonId_]
+				SetDigitalStatus(data.mouseStates[buttonId_])
+				SetAnalogueStatus(Float(GetDigitalStatus()))
+				SetHits(data.mouseHits[buttonId_])
 		End Select
 	End Method
 	

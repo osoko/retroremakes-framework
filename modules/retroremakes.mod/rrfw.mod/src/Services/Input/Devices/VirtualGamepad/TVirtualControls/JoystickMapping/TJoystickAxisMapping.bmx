@@ -25,8 +25,8 @@ Type TJoystickAxisMapping Extends TVirtualControlMapping
 			Case MSG_JOYSTICK
 				Local data:TJoystickMessageData = TJoystickMessageData(message.data)
 				If joystickId_ = data.port
-					lastControlDownDigital_ = controlDownDigital_
-					lastControlDownAnalogue_ = controlDownAnalogue_			
+					SetLastDigitalStatus(GetDigitalStatus())
+					SetLastAnalogueStatus(GetAnalogueStatus())
 					Local analogueAxisValue:Float
 					Local digitalAxisValue:Int
 					
@@ -69,12 +69,12 @@ Type TJoystickAxisMapping Extends TVirtualControlMapping
 						End If
 					End If
 					
-					controlDownAnalogue_ = Abs(analogueAxisValue)
-					controlDownDigital_ = digitalAxisValue
+					SetAnalogueStatus(Abs(analogueAxisValue))
+					SetDigitalStatus(digitalAxisValue)
 										
 					If digitalAxisValue = 0
-						If lastControlDownDigital_ <> controlDownDigital_
-							controlHits_:+1
+						If GetLastDigitalStatus() <> GetDigitalStatus()
+							IncrementHits()
 						EndIf
 					End If
 
@@ -84,49 +84,56 @@ Type TJoystickAxisMapping Extends TVirtualControlMapping
 
 	Method SetJoystickId(id:Int)
 		joystickId_ = id
-		name_ = Null
+		SetName(Null)
 	End Method
 			
 	Method SetAxis(axisId:Int, axisDirection:Int)
 		axisId_ = axisId
 		axisDirection_ = axisDirection
-		name_ = Null
+		SetName(Null)
 	End Method
 	
 	Method GetName:String()
-		If Not name_
-			name_ = "Joystick(" + joystickId_ + ") "
+		Local name:String = Super.GetName()
+
+		If Not name
+			name = "Joystick(" + joystickId_ + ") "
+			
 			Local direction:String
+			
 			If axisDirection_ = -1
 				direction = "-"
 			ElseIf axisDirection_ = 1
 				direction = "+"
-			End If		
+			End If
+				
 			Select axisId_
 				Case RR_JOY_X
-					name_:+direction + "X"
+					name:+direction + "X"
 				Case RR_JOY_Y
-					name_:+direction + "Y"
+					name:+direction + "Y"
 				Case RR_JOY_Z
-					name_:+direction + "Z"
+					name:+direction + "Z"
 				Case RR_JOY_R
-					name_:+direction + "R"
+					name:+direction + "R"
 				Case RR_JOY_U
-					name_:+direction + "U"
+					name:+direction + "U"
 				Case RR_JOY_V
-					name_:+direction + "V"
+					name:+direction + "V"
 				Case RR_JOY_YAW
-					name_:+direction + "Yaw"
+					name:+direction + "Yaw"
 				Case RR_JOY_PITCH
-					name_:+direction + "Pitch"
+					name:+direction + "Pitch"
 				Case RR_JOY_ROLL
-					name_:+direction + "Roll"
+					name:+direction + "Roll"
 				Case RR_JOY_WHEEL
-					name_:+direction + "Wheel"
+					name:+direction + "Wheel"
 			End Select
-			name_:+" Axis"
+			name:+" Axis"
+			SetName(name)
 		EndIf
-		Return name_
+		
+		Return name
 	End Method
 
 	

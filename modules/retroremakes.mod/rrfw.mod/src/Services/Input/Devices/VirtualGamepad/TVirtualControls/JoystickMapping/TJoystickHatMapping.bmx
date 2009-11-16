@@ -19,16 +19,16 @@ Type TJoystickHatMapping Extends TVirtualControlMapping
 			Case MSG_JOYSTICK
 				Local data:TJoystickMessageData = TJoystickMessageData(message.data)
 				If joystickId_ = data.port
-					lastControlDownDigital_ = controlDownDigital_
-					lastControlDownAnalogue_ = controlDownAnalogue_				
+					SetLastDigitalStatus(GetDigitalStatus())
+					SetLastAnalogueStatus(GetAnalogueStatus())
 					If hatId_ = data.joystickHat
-						controlDownDigital_ = 1
-						controlDownAnalogue_ = 1.0
+						SetDigitalStatus(1)
+						SetAnalogueStatus(1.0)
 					Else
-						controlDownDigital_ = 0
-						controlDownAnalogue_ = 0.0
-						If lastControlDownDigital_ <> controlDownDigital_
-							controlHits_:+1
+						SetDigitalStatus(0)
+						SetAnalogueStatus(0.0)
+						If GetLastDigitalStatus() <> GetDigitalStatus()
+							IncrementHits()
 						EndIf
 					EndIf
 				EndIf
@@ -37,37 +37,42 @@ Type TJoystickHatMapping Extends TVirtualControlMapping
 	
 	Method SetHatId(id:Float)
 		hatId_ = id
-		name_ = Null
+		SetName(Null)
 	End Method
 	
 	Method SetJoystickId(id:Int)
 		joystickId_ = id
-		name_ = null
+		SetName(Null)
 	End Method
 	
 	Method GetName:String()
-		If Not name_
-			name_ = "Joystick(" + joystickId_ + ") "
+		Local name:String = Super.GetName()
+		
+		If Not name
+			name = "Joystick(" + joystickId_ + ") "
 			Select hatId_
 				Case 0.0
-					name_:+"Hat Up"
+					name:+"Hat Up"
 				Case 0.125
-					name_:+"Hat Up/Right"
+					name:+"Hat Up/Right"
 				Case 0.25
-					name_:+"Hat Right"
+					name:+"Hat Right"
 				Case 0.375
-					name_:+"Hat Down/Right"
+					name:+"Hat Down/Right"
 				Case 0.50
-					name_:+"Hat Down"
+					name:+"Hat Down"
 				Case 0.625
-					name_:+"Hat Down/Left"
+					name:+"Hat Down/Left"
 				Case 0.75
-					name_:+"Hat Left"
+					name:+"Hat Left"
 				Case 0.875
-					name_:+"Hat Up/Left"
+					name:+"Hat Up/Left"
 			End Select
+			
+			SetName(name)
 		End If
-		Return name_
+		
+		Return name
 	End Method
 
 	

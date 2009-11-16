@@ -23,9 +23,9 @@ Type TJoystickButtonMapping Extends TVirtualControlMapping
 				Local data:TJoystickMessageData = TJoystickMessageData(message.data)
 				If joystickId_ = data.port
 					If buttonId_ >= 0 And buttonId_ < data.nButtons
-						controlDownDigital_ = data.buttonDown[buttonId_]
-						controlDownAnalogue_ = Float(controlDownDigital_)
-						controlHits_ = data.buttonHit[buttonId_]
+						SetDigitalStatus(data.buttonDown[buttonId_])
+						SetAnalogueStatus(Float(GetDigitalStatus()))
+						SetHits(data.buttonHit[buttonId_])
 					EndIf
 				EndIf
 		End Select
@@ -33,19 +33,19 @@ Type TJoystickButtonMapping Extends TVirtualControlMapping
 	
 	Method SetButtonId(id:Int)
 		buttonId_ = id
-		name_ = Null
+		SetName(Null)
 	End Method
 	
 	Method SetJoystickId(id:Int)
 		joystickId_ = id
-		name_ = Null
+		SetName(Null)
 	End Method
 	
 	Method GetName:String()
-		If Not name_
-			name_ = "Joystick(" + joystickId_ + ") Button " + buttonId_
+		If Not Super.GetName()
+			SetName("Joystick(" + joystickId_ + ") Button " + buttonId_)
 		End If
-		Return name_
+		Return Super.GetName()
 	End Method
 	
 	
