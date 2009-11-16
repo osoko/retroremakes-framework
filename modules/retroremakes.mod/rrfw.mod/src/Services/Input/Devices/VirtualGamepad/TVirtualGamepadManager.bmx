@@ -36,7 +36,7 @@ Type TVirtualGamepadManager Extends TInputDevice
 	EndFunction
 		
 	Method Initialise()
-		name = "Virtual Gamepad Manager"
+		SetName("Virtual Gamepad Manager")
 		TInputManager.GetInstance().RegisterDevice(Self)
 	End Method
 

@@ -14,14 +14,52 @@ Rem
 End Rem
 Type TInputDevice Abstract
 
-	Field name:String = "Unidentified Input Device"
+	' Human readable name for the input device
+	Field _name:String
 
-	Method ToString:String()
-		Return name
+	
+	
+	rem
+		bbdoc: Get the name of this input device
+	endrem
+	Method GetName:String()
+		Return _name
 	End Method
 	
 	
 	
+	rem
+		bbdoc: Default Constructor
+	endrem
+	Method New()
+		' Default name
+		_name = "Unidentified Input Device"
+	End Method
+	
+	
+	rem
+		bbdoc: Sets the human readable name of the input device
+	endrem
+	Method SetName(name:String)
+		_name = name
+	End Method
+	
+	
+	
+	rem
+		bbdoc: Returns a string representation of the object
+	endrem
+	Method ToString:String()
+		Return GetName() + ":" + Super.ToString()
+	End Method
+	
+	
+	
+	rem
+		bbdoc: Updates the input device
+		about: This method can be overloaded to perform any required steps that an
+		input device needs to do each update loop
+	endrem
 	Method Update()
 	End Method
 	
