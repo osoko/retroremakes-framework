@@ -636,10 +636,10 @@
     </Included_File>
     <Included_File>
       <FileName>src\Services\Input\Devices\VirtualGamepad\TVirtualControls\TVirtualControl.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>1</X>
-        <Y>339</Y>
+        <X>0</X>
+        <Y>717</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -668,10 +668,10 @@
     </Included_File>
     <Included_File>
       <FileName>src\Services\Input\Devices\VirtualGamepad\TVirtualGamepadManager.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>117</Y>
+        <X>1</X>
+        <Y>48</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
