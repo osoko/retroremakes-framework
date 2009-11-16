@@ -238,8 +238,8 @@
       <FileName>src\Includes\Graphics\TRenderState.bmx</FileName>
       <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>2</X>
-        <Y>141</Y>
+        <X>1</X>
+        <Y>111</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -275,19 +275,27 @@
       </Caret_Position>
     </Included_File>
     <Included_File>
+      <FileName>src\Includes\Maths\Utility.bmx</FileName>
+      <Document_Active>false</Document_Active>
+      <Caret_Position>
+        <X>55</X>
+        <Y>1</Y>
+      </Caret_Position>
+    </Included_File>
+    <Included_File>
       <FileName>src\Includes\Menus\TActionMenuItem.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
         <X>11</X>
-        <Y>25</Y>
+        <Y>23</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Menus\TMenu.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>31</X>
-        <Y>21</Y>
+        <X>29</X>
+        <Y>7</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -300,23 +308,23 @@
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Menus\TMenuManager.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>268</Y>
+        <X>2</X>
+        <Y>52</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Menus\TMenuMessageData.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>1</X>
-        <Y>5</Y>
+        <X>38</X>
+        <Y>7</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Menus\TMenuOption.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
         <X>23</X>
         <Y>20</Y>
@@ -324,7 +332,7 @@
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Menus\TOptionMenuItem.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
         <X>26</X>
         <Y>73</Y>
@@ -382,8 +390,8 @@
       <FileName>src\Includes\Misc\TCommandStack.bmx</FileName>
       <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>9</X>
+        <Y>43</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -411,14 +419,6 @@
       </Caret_Position>
     </Included_File>
     <Included_File>
-      <FileName>src\Includes\Misc\TStack.bmx</FileName>
-      <Document_Active>false</Document_Active>
-      <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
-      </Caret_Position>
-    </Included_File>
-    <Included_File>
       <FileName>src\Includes\Timing\TPrecisionCounter.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
@@ -430,8 +430,8 @@
       <FileName>src\Includes\Functions.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>12</X>
-        <Y>13</Y>
+        <X>0</X>
+        <Y>42</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -518,13 +518,13 @@
       <FileName>src\Services\Graphics\TGraphicsService.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>7</X>
-        <Y>599</Y>
+        <X>8</X>
+        <Y>365</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Graphics\TProjectionMatrix.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
         <X>39</X>
         <Y>146</Y>
@@ -550,8 +550,8 @@
       <FileName>src\Services\Input\Devices\Joystick\TJoystickMessageData.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>16</Y>
+        <X>22</X>
+        <Y>35</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -590,8 +590,8 @@
       <FileName>src\Services\Input\Devices\VirtualGamepad\TVirtualControls\JoystickMapping\TJoystickAxisMapping.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>19</X>
-        <Y>117</Y>
+        <X>5</X>
+        <Y>59</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -638,8 +638,8 @@
       <FileName>src\Services\Input\Devices\VirtualGamepad\TVirtualControls\TVirtualControl.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>1</X>
-        <Y>651</Y>
+        <X>45</X>
+        <Y>444</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -663,15 +663,15 @@
       <Document_Active>false</Document_Active>
       <Caret_Position>
         <X>33</X>
-        <Y>87</Y>
+        <Y>198</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Input\Devices\VirtualGamepad\TVirtualGamepadManager.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>18</X>
-        <Y>44</Y>
+        <X>1</X>
+        <Y>5</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -702,8 +702,8 @@
       <FileName>src\Services\Input\TInputManager.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>2</X>
-        <Y>50</Y>
+        <X>11</X>
+        <Y>75</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -758,7 +758,7 @@
       <FileName>src\Services\Messages\TMessageService.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>28</X>
+        <X>22</X>
         <Y>26</Y>
       </Caret_Position>
     </Included_File>
@@ -894,8 +894,8 @@
       <FileName>rrfw.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>32</X>
-        <Y>193</Y>
+        <X>0</X>
+        <Y>212</Y>
       </Caret_Position>
     </Included_File>
     <Compilation_Mode>GUI_Application</Compilation_Mode>
