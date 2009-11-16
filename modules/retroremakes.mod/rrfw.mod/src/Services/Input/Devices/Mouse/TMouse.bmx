@@ -45,7 +45,7 @@ Type TMouse Extends TInputDevice
 	End Function
 
 	Method Initialise()
-		name = "Mouse Input"
+		SetName("Mouse Input")
 		TInputManager.GetInstance().RegisterDevice(Self)
 		AddHook(EmitEventHook, Self.Hook, Null, 0)
 	End Method

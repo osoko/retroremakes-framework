@@ -37,7 +37,7 @@ Type TJoystickManager Extends TInputDevice
 	EndFunction
 		
 	Method Initialise()
-		name = "Joystick Manager"
+		SetName("Joystick Manager")
 		TInputManager.GetInstance().RegisterDevice(Self)
 		pollProfiler = rrCreateProfilerSample("Joystick Manager: Poll")
 		nJoysticks = JoyCount()

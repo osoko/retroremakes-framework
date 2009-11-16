@@ -107,7 +107,7 @@ Type TInputManager Extends TGameService
 		bbdoc: Register an input device with the input manager
 	endrem
 	Method RegisterDevice(device:TInputDevice)
-		TLogger.getInstance().LogInfo("[" + toString() + "] Registering device handler: " + device.name)
+		TLogger.getInstance().LogInfo("[" + toString() + "] Registering device handler: " + device.GetName())
 		_registeredInputDevices.AddLast(device)
 	End Method
 	
@@ -148,7 +148,7 @@ Type TInputManager Extends TGameService
 		bbdoc: Unregister an input device with the input manager
 	endrem
 	Method UnregisterDevice(device:TInputDevice)
-		TLogger.getInstance().LogInfo("[" + toString() + "] Unregistering device handler: " + device.name)
+		TLogger.getInstance().LogInfo("[" + toString() + "] Unregistering device handler: " + device.GetName())
 		_registeredInputDevices.Remove(device)
 	End Method
 	

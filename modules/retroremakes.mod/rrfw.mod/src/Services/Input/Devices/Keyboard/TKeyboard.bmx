@@ -46,7 +46,7 @@ Type TKeyboard Extends TInputDevice
 	End Function
 	
 	Method Initialise()
-		name = "Keyboard Input"
+		SetName("Keyboard Input")
 		TInputManager.GetInstance().RegisterDevice(Self)
 		InitialiseKeyNames()
 		AddHook(EmitEventHook, Self.Hook, Null, 0)

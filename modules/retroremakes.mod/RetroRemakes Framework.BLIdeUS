@@ -303,7 +303,7 @@
       <Document_Active>false</Document_Active>
       <Caret_Position>
         <X>1</X>
-        <Y>31</Y>
+        <Y>20</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -542,8 +542,8 @@
       <FileName>src\Services\Input\Devices\Joystick\TJoystickManager.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>1</X>
-        <Y>18</Y>
+        <X>29</X>
+        <Y>39</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -558,8 +558,8 @@
       <FileName>src\Services\Input\Devices\Keyboard\TKeyboard.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>60</X>
-        <Y>86</Y>
+        <X>27</X>
+        <Y>48</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -574,8 +574,8 @@
       <FileName>src\Services\Input\Devices\Mouse\TMouse.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>46</X>
-        <Y>113</Y>
+        <X>24</X>
+        <Y>47</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -670,8 +670,8 @@
       <FileName>src\Services\Input\Devices\VirtualGamepad\TVirtualGamepadManager.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>1</X>
-        <Y>5</Y>
+        <X>36</X>
+        <Y>38</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -692,18 +692,18 @@
     </Included_File>
     <Included_File>
       <FileName>src\Services\Input\TInputDevice.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>23</X>
+        <Y>52</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Input\TInputManager.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>6</X>
-        <Y>13</Y>
+        <X>104</X>
+        <Y>150</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
