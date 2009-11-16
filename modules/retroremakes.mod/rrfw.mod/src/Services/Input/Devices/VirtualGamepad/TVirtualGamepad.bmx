@@ -209,37 +209,37 @@ Type TVirtualGamepad
 	End Method
 	
 	Method SetDefaultJoystickButtonControl(name:String, port:Int, buttonId:Int)
-		If GetControl(name) And TJoystickManager.GetInstance().nJoysticks > port
+		If GetControl(name) And TJoystickManager.GetInstance().GetJoystickCount() > port
 			GetControl(name).SetDefaultJoystickButtonControl(port, buttonId)
 		End If
 	End Method
 	
 	Method SetJoystickButtonControl(name:String, port:Int, buttonId:Int)
-		If GetControl(name) And TJoystickManager.GetInstance().nJoysticks > port
+		If GetControl(name) And TJoystickManager.GetInstance().GetJoystickCount() > port
 			GetControl(name).SetJoystickButtonControl(port, buttonId)
 		End If
 	End Method
 	
 	Method SetDefaultJoystickHatControl(name:String, port:Int, hatId:Float)
-		If GetControl(name) And TJoystickManager.GetInstance().nJoysticks > port
+		If GetControl(name) And TJoystickManager.GetInstance().GetJoystickCount() > port
 			GetControl(name).SetDefaultJoystickHatControl(port, hatId)
 		End If
 	End Method
 	
 	Method SetJoystickHatControl(name:String, port:Int, hatId:Float)
-		If GetControl(name) And TJoystickManager.GetInstance().nJoysticks > port
+		If GetControl(name) And TJoystickManager.GetInstance().GetJoystickCount() > port
 			GetControl(name).SetJoystickHatControl(port, hatId)
 		End If
 	End Method			
 
 	Method SetDefaultJoystickAxisControl(name:String, port:Int, axis:String, direction:Int)
-		If GetControl(name) And TJoystickManager.GetInstance().nJoysticks > port
+		If GetControl(name) And TJoystickManager.GetInstance().GetJoystickCount() > port
 			GetControl(name).SetDefaultJoystickAxisControl(port, axis, direction)
 		End If
 	End Method	
 		
 	Method SetJoystickAxisControl(name:String, port:Int, axis:String, direction:Int)
-		If GetControl(name) And TJoystickManager.GetInstance().nJoysticks > port
+		If GetControl(name) And TJoystickManager.GetInstance().GetJoystickCount() > port
 			GetControl(name).SetJoystickAxisControl(port, axis, direction)
 		End If		
 	End Method
