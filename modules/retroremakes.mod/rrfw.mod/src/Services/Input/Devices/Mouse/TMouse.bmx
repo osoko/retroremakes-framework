@@ -111,5 +111,5 @@ Type TMouse Extends TInputDevice
 End Type
 
 Function rrEnableMouseInput(enable:Int = True)
-	TInputManager.GetInstance().mouseEnabled = True
+	TInputManager.GetInstance().EnableMouse(True)
 End Function
