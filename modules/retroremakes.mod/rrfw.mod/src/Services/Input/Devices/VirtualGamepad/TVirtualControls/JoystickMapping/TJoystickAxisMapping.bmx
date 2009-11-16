@@ -24,9 +24,13 @@ Type TJoystickAxisMapping Extends TVirtualControlMapping
 		Select message.messageID
 			Case MSG_JOYSTICK
 				Local data:TJoystickMessageData = TJoystickMessageData(message.data)
+				
 				If joystickId_ = data.port
+				
 					SetLastDigitalStatus(GetDigitalStatus())
+					
 					SetLastAnalogueStatus(GetAnalogueStatus())
+					
 					Local analogueAxisValue:Float
 					Local digitalAxisValue:Int
 					
