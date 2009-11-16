@@ -16,30 +16,84 @@ Rem
 End Rem
 Type TJoystickMessageData Extends TMessageData
 	
-	' Which joystick port is this?
-	Field port:Int
-	
-	' The number of buttons on this joystick
-	Field nButtons:Int
-	
-	' The available axis on this joystick
+	rem
+		bbdoc:The available axis on this joystick 
+	endrem
 	Field availableAxis:Int
 	
-	' First we have the current status of the buttons
+	rem
+		bbdoc: The button down status of all buttons
+	endrem
 	Field buttonDown:Int[]
-	Field buttonHit:Int[]
 	
-	' Then we have the current status of the axis
-	Field joystickX:Float
-	Field joystickY:Float
-	Field joystickZ:Float
-	Field joystickR:Float
-	Field joystickU:Float
-	Field joystickV:Float
-	Field joystickYaw:Float
-	Field joystickPitch:Float
-	Field joystickRoll:Float
+	rem
+		bbdoc: The button hit status of all buttons
+	endrem	
+	Field buttonHit:Int[]
+		
+	rem
+		bbdoc: The number of buttons the joystick has available
+	endrem
+	Field nButtons:Int
+		
+	rem
+		bbdoc: The port the joystick is attached to
+	endrem
+	Field port:Int
+	
+	rem
+		bbdoc: The current status of the joystick Hat
+	endrem
 	Field joystickHat:Float
+	
+	rem
+		bbdoc: The current status of the joystick Pitch axis
+	endrem	
+	Field joystickPitch:Float
+	
+	rem
+		bbdoc: The current status of the joystick R axis
+	endrem		
+	Field joystickR:Float
+	
+	rem
+		bbdoc: The current status of the joystick Roll axis
+	endrem		
+	Field joystickRoll:Float
+	
+	rem
+		bbdoc: The current status of the joystick U axis
+	endrem		
+	Field joystickU:Float
+	
+	rem
+		bbdoc: The current status of the joystick V axis
+	endrem		
+	Field joystickV:Float
+	
+	rem
+		bbdoc: The current status of the joystick Wheel axis
+	endrem		
 	Field joystickWheel:Float
+	
+	rem
+		bbdoc: The current status of the joystick X axis
+	endrem		
+	Field joystickX:Float
+	
+	rem
+		bbdoc: The current status of the joystick Y axis
+	endrem		
+	Field joystickY:Float
+	
+	rem
+		bbdoc: The current status of the joystick Yaw axis
+	endrem		
+	Field joystickYaw:Float
+	
+	rem
+		bbdoc: The current status of the joystick Z axis
+	endrem		
+	Field joystickZ:Float
 	
 End Type
