@@ -14,94 +14,172 @@ Rem
 End Rem
 Type TJoystickManager Extends TInputDevice
 
-	Global instance:TJoystickManager
-	
-	Field pollProfiler:TProfilerSample
+	' The Singleton instance of this class
+	Global _instance:TJoystickManager
 
-	Field nJoysticks:Int
+	' The number of joysticks attached to the system
+	Field _nJoysticks:Int
 	
-	Field joysticks:TJoystick[]
+	' All the joysticks attached to the system
+	Field _joysticks:TJoystick[]
 
-	Method New()
-		If instance Throw "Cannot create multiple instances of Singleton Type"
-		instance = Self
-		Self.Initialise()
-	EndMethod
 	
-	Function GetInstance:TJoystickManager()
-		If Not instance
-			Return New TJoystickManager
-		Else
-			Return instance
-		EndIf
-	EndFunction
-		
-	Method Initialise()
-		SetName("Joystick Manager")
-		TInputManager.GetInstance().RegisterDevice(Self)
-		pollProfiler = rrCreateProfilerSample("Joystick Manager: Poll")
-		nJoysticks = JoyCount()
-		If nJoysticks = 1
-			TLogger.getInstance().LogInfo("[" + toString() + "] Found " + nJoysticks + " Joystick")
-		Else
-			TLogger.getInstance().LogInfo("[" + toString() + "] Found " + nJoysticks + " Joysticks")
-		EndIf
-		ProfileJoysticks()
-	End Method
 	
-	Method ProfileJoysticks()
-		If Not nJoysticks > 0 Then Return
-		joysticks = New TJoystick[nJoysticks]
-		For Local i:Int = 0 To nJoysticks - 1
-			joysticks[i] = New TJoystick
-			joysticks[i].Profile(i)
-		Next
-	End Method
-	
-	Method Update()
-		rrStartProfilerSample(pollProfiler)
-		For Local joystick:TJoystick = EachIn joysticks
-			SendJoystickStateMessage(joystick.Poll())
-		Next
-		rrStopProfilerSample(pollProfiler)
-	End Method
-
-	Method GetJoystickCount:Int()
-		Return nJoysticks
-	End Method
-	
-	Method SendJoystickStateMessage(data:TJoystickMessageData)
+	rem
+		bbdoc: Broadcasts a joystick state message on the input channel
+	endrem
+	Method BroadcastJoystickStateMessage(data:TJoystickMessageData)
 		Local message:TMessage = New TMessage
 		message.SetData(data)
 		message.SetMessageID(MSG_JOYSTICK)
 		message.Broadcast(CHANNEL_INPUT)
 	End Method
 	
-	Method GetJoystickDeadzone:Float(port:Int)
-		If port >= 0 And port < joysticks.Length
-			Return joysticks[port].GetDeadzone()
-		End If
-	End Method
 	
-	Method SetJoystickDeadzone(port:Int, deadzone:Float)
-		If port >= 0 And port < joysticks.Length
-			joysticks[port].SetDeadzone(deadzone)
-		End If
-	End Method
+		
+	rem
+		bbdoc: Returns the Singleton instance of this class
+	endrem
+	Function GetInstance:TJoystickManager()
+		If Not _instance
+			Return New TJoystickManager
+		Else
+			Return _instance
+		EndIf
+	EndFunction
 	
+	
+	
+	rem
+		bbdoc: Get the joystick attached to the specified port
+	endrem
 	Method GetJoystick:TJoystick(port:Int)
-		If port >= 0 And port < joysticks.Length
-			Return joysticks[port]
+		If port >= 0 And port < _joysticks.Length
+			Return _joysticks[port]
+		End If
+	End Method
+	
+	
+		
+	rem
+		bbdoc: Get the number of joysticks attached to the system
+	endrem
+	Method GetJoystickCount:Int()
+		Return _nJoysticks
+	End Method
+	
+	
+	
+	rem
+		bbdoc: Get the deadzone value for the joystick attached to the specified port
+	endrem
+	Method GetJoystickDeadzone:Float(port:Int)
+		If port >= 0 And port < _joysticks.Length
+			Return _joysticks[port].GetDeadzone()
+		End If
+	End Method
+	
+	
+		
+	rem
+		bbdoc: Initialise the joystick manager
+	endrem
+	Method Initialise()
+		SetName("Joystick Manager")
+		
+		' Register ourselves with the input manager
+		TInputManager.GetInstance().RegisterDevice(Self)
+		
+		' Discover and profile all attached joysticks
+		SetJoystickCount(JoyCount())
+		
+		If GetJoystickCount() = 1
+			rrLogInfo("[" + toString() + "] Found " + GetJoystickCount() + " Joystick")
+		Else
+			rrLogInfo("[" + toString() + "] Found " + GetJoystickCount() + " Joysticks")
+		EndIf
+		
+		ProfileJoysticks()
+	End Method
+	
+	
+		
+	rem
+		bbdoc: Default Constructor
+	endrem
+	Method New()
+		If _instance Throw "Cannot create multiple instances of Singleton Type"
+		_instance = Self
+		Self.Initialise()
+	EndMethod
+	
+
+		
+	rem
+		bbdoc: Profile all joysticks attached to the system
+	endrem
+	Method ProfileJoysticks()
+		Local nJoysticks:Int = GetJoystickCount()
+		
+		If Not nJoysticks > 0 Then Return
+		
+		_joysticks = New TJoystick[nJoysticks]
+		
+		For Local i:Int = 0 To nJoysticks - 1
+			_joysticks[i] = New TJoystick
+			_joysticks[i].Profile(i)
+		Next
+	End Method
+	
+	
+	
+	rem
+		bbdoc: Polls all joysticks
+		about: Once a joystick has been polled, its current state is broadcast
+		on the CHANNEL_INPUT message channel
+	endrem
+	Method Update()
+		For Local joystick:TJoystick = EachIn _joysticks
+			BroadcastJoystickStateMessage(joystick.Poll())
+		Next
+	End Method
+
+
+	
+	rem
+		bbdoc: Sets the number of joysticks attached to the system
+	endrem
+	Method SetJoystickCount(nJoysticks:Int)
+		_nJoysticks = nJoysticks
+	End Method
+	
+	
+	
+	rem
+		bbdoc: Sets the deadzone value for the joystick attached to the specified port
+	endrem
+	Method SetJoystickDeadzone(port:Int, deadzone:Float)
+		If port >= 0 And port < _joysticks.Length
+			_joysticks[port].SetDeadzone(deadzone)
 		End If
 	End Method
 	
 End Type
 
 
+
+rem
+	bbdoc: Enables joystick input
+endrem
 Function rrEnableJoystickInput()
 	TJoystickManager.GetInstance()
 End Function
 
+
+
+rem
+	bbdoc: Get the number of joysticks attached to the system
+endrem
 Function rrGetJoystickCount:Int()
 	Return TJoystickManager.GetInstance().GetJoystickCount()
 End Function
