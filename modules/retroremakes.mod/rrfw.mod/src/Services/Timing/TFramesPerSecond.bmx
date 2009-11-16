@@ -26,7 +26,6 @@ Type TFramesPerSecond Extends TGameService
 	Const FPS_POSITION_BOTTOM_RIGHT:Int = 1
 	Const FPS_POSITION_TOP_LEFT:Int = 2
 	Const FPS_POSITION_TOP_RIGHT:Int = 3
-
 	
 	rem
 		bbdoc: Current FPS
@@ -430,3 +429,4 @@ Type TFramesPerSecond Extends TGameService
 	End Method
 	
 EndType
+
