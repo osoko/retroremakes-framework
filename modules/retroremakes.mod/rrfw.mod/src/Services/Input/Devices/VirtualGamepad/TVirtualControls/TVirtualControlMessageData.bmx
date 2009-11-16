@@ -14,11 +14,19 @@ Rem
 End Rem
 Type TVirtualControlMessageData Extends TMessageData
 
-	field gamepadId:int
+	' The current analogue status of the control
+	Field analogueStatus:Float
+
+	' The name of the control
+	Field controlName:String
 	
-	field controlName:string
+	' The current digital status of the control
+	Field digitalStatus:Int
 	
-	field analogueStatus:Float
-	field digitalStatus:int
-	field hits:int
+	' The ID of the gamepad the control is attached to
+	Field gamepadId:Int
+	
+	' The number of hits registered for the control
+	Field hits:Int
+	
 End Type
