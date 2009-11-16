@@ -22,34 +22,74 @@ rem
 endrem
 Type TMouse Extends TInputDevice
 
-	Global instance_:TMouse
+	' The Singletone instance of this class
+	Global _instance:TMouse
 	
-	Field lastMouseLocation:Int[4]
-	Field mouseLocation:Int[4]
-	Field mouseHits:Int[4]
-	Field lastMouseStates:Int[4]
-	Field mouseStates:Int[4]
+	' The last mouse location values for all axis
+	Field _lastMouseLocation:Int[4]
 	
-	Method New()
-		If instance_ Throw "Cannot create multiple instances of Singleton Type"
-		instance_ = Self
-		Self.Initialise()
+	' The last mouse state values for all buttons
+	Field _lastMouseStates:Int[4]
+	
+	' The mouse hits values for all mouse buttons
+	Field _mouseHits:Int[4]
+	
+	' The mouse location values for all axis
+	Field _mouseLocation:Int[4]
+	
+	' The mouse state values for all buttons
+	Field _mouseStates:Int[4]
+	
+	
+	
+	rem
+		bbdoc: Broadcasts a mouse state message on the CHANNEL_INPUT message
+		channel
+		about: The message is sent with an ID of MSG_MOUSE and contains a data
+		payload of TMouseMessageData which holds the current mouse state
+		information
+	endrem
+	Method BroadcastMouseStateMessage()
+		Local data:TMouseMessageData = New TMouseMessageData
+
+		data.mousePosX = _mouseLocation[0]
+		data.mousePosY = _mouseLocation[1]
+		data.mousePosZ = _mouseLocation[2]
+
+		data.lastMousePosX = _lastMouseLocation[0]
+		data.lastMousePosY = _lastMouseLocation[1]
+		data.lastMousePosZ = _lastMouseLocation[2]
+		
+		For Local i:Int = 0 To 3
+			data.mouseHits[i] = _mouseHits[i]
+			data.mouseStates[i] = _mouseStates[i]
+		Next
+		
+		Local message:TMessage = New TMessage
+
+		message.SetData(data)
+		message.SetMessageID(MSG_MOUSE)
+		message.Broadcast(CHANNEL_INPUT)
 	End Method
 	
+	
+		
+	rem
+		bbdoc: Returns the Singleton instance of this class
+	endrem
 	Function GetInstance:TMouse()
-		If Not instance_
+		If Not _instance
 			Return New TMouse
 		Else
-			Return instance_
+			Return _instance
 		EndIf		
 	End Function
-
-	Method Initialise()
-		SetName("Mouse Input")
-		TInputManager.GetInstance().RegisterDevice(Self)
-		AddHook(EmitEventHook, Self.Hook, Null, 0)
-	End Method
 	
+	
+	
+	rem
+		bbdoc: Hook that listens for mouse events
+	endrem
 	Function Hook:Object(id:Int, data:Object, context:Object)
 		Local ev:TEvent = TEvent(data)
 		If Not ev Return data
@@ -58,58 +98,71 @@ Type TMouse Extends TInputDevice
 
 		Select ev.id
 			Case EVENT_MOUSEDOWN
-				If Not mouse.mouseStates[ev.data]
-					mouse.mouseStates[ev.data] = 1
-					mouse.mouseHits[ev.data]:+1
+				If Not mouse._mouseStates[ev.data]
+					mouse._mouseStates[ev.data] = 1
+					mouse._mouseHits[ev.data]:+1
 				EndIf
 			Case EVENT_MOUSEUP
-				mouse.mouseStates[ev.data] = 0
+				mouse._mouseStates[ev.data] = 0
 			Case EVENT_MOUSEMOVE
-				mouse.mouseLocation[0] = Int(TProjectionMatrix.GetInstance().ProjectMouseX(ev.x))
-				mouse.mouseLocation[1] = Int(TProjectionMatrix.GetInstance().ProjectMouseY(ev.y))
+				mouse._mouseLocation[0] = Int(TProjectionMatrix.GetInstance().ProjectMouseX(ev.x))
+				mouse._mouseLocation[1] = Int(TProjectionMatrix.GetInstance().ProjectMouseY(ev.y))
 			Case EVENT_MOUSEWHEEL
-				mouse.mouseLocation[2]:+ev.data
+				mouse._mouseLocation[2]:+ev.data
 		EndSelect
 
 		Return data
 	End Function
+	
+	
 		
+	rem
+		bbdoc: Initialises the input device
+	endrem
+	Method Initialise()
+		SetName("Mouse Input")
+		
+		TInputManager.GetInstance().RegisterDevice(Self)
+		
+		AddHook(EmitEventHook, Self.Hook, Null, 0)
+	End Method
+	
+	
+			
+	rem
+		bbdoc: Default Constructor
+	endrem
+	Method New()
+		If _instance rrThrow "Cannot create multiple instances of Singleton Type"
+		
+		_instance = Self
+		
+		Self.Initialise()
+	End Method
+
+
+
+	rem
+		bbdoc: Updates the mouse input device
+	endrem
 	Method Update()
-		SendMouseStateMessage()
+		BroadcastMouseStateMessage()
 
 		For Local i:Int = 0 To 3
-			lastMouseStates[i] = mouseStates[i]
-			mouseStates[i] = 0
-			mouseHits[i] = 0
-			lastMouseLocation[i] = mouseLocation[i]
+			_lastMouseStates[i] = _mouseStates[i]
+			_mouseStates[i] = 0
+			_mouseHits[i] = 0
+			_lastMouseLocation[i] = _mouseLocation[i]
 		Next				
 	End Method
 
-	Method SendMouseStateMessage()
-		Local message:TMessage = New TMessage
-		Local data:TMouseMessageData = New TMouseMessageData
-		' Make sure mouse location is projected if a Projection Matrix 
-		' is in use.
-		data.mousePosX = mouselocation[0]
-		data.mousePosY = mouselocation[1]
-		data.mousePosZ = mouselocation[2]
-		
-		data.lastMousePosX = lastMouseLocation[0]
-		data.lastMousePosY = lastMouseLocation[1]
-		data.lastMousePosZ = lastMouseLocation[2]
-		
-		For Local i:Int = 0 To 3
-			data.mouseHits[i] = mouseHits[i]
-			data.mouseStates[i] = mouseStates[i]
-		Next
-		message.SetData(data)
-		message.SetMessageID(MSG_MOUSE)
-		message.Broadcast(CHANNEL_INPUT)
-	End Method
-	
-
 End Type
 
-Function rrEnableMouseInput(enable:Int = True)
-	TInputManager.GetInstance().EnableMouse(True)
+
+
+rem
+	bbdoc: Tell the input manager to enable mouse input when it starts up
+endrem
+Function rrEnableMouseInput(bool:Int = True)
+	TInputManager.GetInstance().EnableMouse(bool)
 End Function
