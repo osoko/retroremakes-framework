@@ -16,7 +16,7 @@ endrem
 Type TRenderState
 
 	' Stack used to store render states
-	Global g_renderStates:TStack
+	Global g_renderStates:TStack = TStack.Create(5, 5)
 	
 	' The alpha value
 	Field _alpha:Float
@@ -75,7 +75,7 @@ Type TRenderState
 	Function Pop()
 		If Not TRenderState.g_renderStates Then Return
 
-		If Not TRenderState.g_renderStates.Count() > 0 Then Return
+		If Not TRenderState.g_renderStates.GetSize() > 0 Then Return
 		
 		Local renderState:TRenderState = TRenderState(TRenderState.g_renderStates.Pop())
 		
@@ -113,10 +113,6 @@ Type TRenderState
 		and @GetScale
 	endrem
 	Function Push()
-		If Not TRenderState.g_renderStates
-			TRenderState.g_renderStates = New TStack
-		End If
-		
 		Local renderState:TRenderState = New TRenderState
 		
 		renderState._alpha = GetAlpha()
