@@ -41,7 +41,7 @@ Type TKeyboardMapping Extends TVirtualControlMapping
 	
 	Method GetName:String()
 		If Not name_
-			name_ = TKeyboard.GetKeyName(keyboardButtonId_)
+			name_ = TKeyboard.GetInstance().GetKeyName(keyboardButtonId_)
 		EndIf
 		Return name_
 	End Method
