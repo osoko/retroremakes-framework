@@ -156,6 +156,7 @@ Type TMenuManager Extends TRenderable
 			' 16:10 modes may show up as 8:5 when calculated this way, so we'll
 			' catch those and modify the suffix accordingly
 			If suffix = " (8:5)" Then suffix = " (16:10)"
+			If suffix = " (85:48)" Then suffix = " (16:9)"
 			
 			o.SetLabel(mode.width + " x " + mode.height + ", " + mode.hertz + " herz, " + mode.depth + " bit" + suffix)
 			o.SetOptionObject(mode)

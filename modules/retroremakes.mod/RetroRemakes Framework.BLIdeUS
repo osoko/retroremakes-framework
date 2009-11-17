@@ -292,7 +292,7 @@
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Menus\TMenu.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
         <X>29</X>
         <Y>7</Y>
@@ -308,10 +308,10 @@
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Menus\TMenuManager.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>19</X>
-        <Y>129</Y>
+        <X>16</X>
+        <Y>147</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -556,15 +556,15 @@
     </Included_File>
     <Included_File>
       <FileName>src\Services\Input\Devices\Keyboard\TKeyboard.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>46</X>
-        <Y>79</Y>
+        <X>33</X>
+        <Y>92</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Input\Devices\Keyboard\TKeyboardMessageData.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
         <X>0</X>
         <Y>32</Y>
