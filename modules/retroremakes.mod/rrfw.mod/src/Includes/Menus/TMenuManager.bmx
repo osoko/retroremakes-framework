@@ -50,6 +50,7 @@ Type TMenuManager Extends TRenderable
 	Method GoToMenu(label:String)
 		_menuHistory.Push(_currentMenu)
 		_currentMenu = TMenu(GetMenuByName(label))
+		_currentMenu.FirstItem()
 		
 		'check to see if a built-in menu is accessed and sync it to the currently active settings
 		Select label
@@ -71,6 +72,7 @@ Type TMenuManager Extends TRenderable
 	Method PreviousMenu()
 		If _menuHistory.Peek() = Null Then Return
 		_currentMenu = TMenu(_menuHistory.Pop())
+		_currentMenu.FirstItem()
 	End Method
 
 	Method NextItem()
