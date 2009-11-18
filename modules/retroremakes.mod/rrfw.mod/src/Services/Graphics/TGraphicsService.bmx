@@ -393,12 +393,13 @@ Type TGraphicsService Extends TGameService
 	
 	rem
 		bbdoc: Set the configured graphics mode
-		about: This will destroy any existing graphics device and recreate it.
+		about: This will destroy any existing graphics device and recreate it.  Any
+		entries on the render state stack will also be cleared.
 	endrem	
 	Method Set()
+	
 		'Kill the existing graphics device if it exists
 		If _device
-			TRenderState.Push()
 			TLogger.GetInstance().LogInfo("[" + toString() + "] Closing existing graphics device")
 			DisablePolledInput()
 			CloseGraphics(_device)
@@ -439,7 +440,9 @@ Type TGraphicsService Extends TGameService
 		End If
 		
 		EnablePolledInput()
-		TRenderState.Pop()
+		
+		' Clear any render states on the stack, as they may now have invalid viewport values
+		TRenderState.Clear()
 		
 		TFramesPerSecond.GetInstance().Reset()
 		
