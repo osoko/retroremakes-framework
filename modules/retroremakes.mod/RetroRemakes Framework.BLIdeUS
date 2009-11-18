@@ -4,7 +4,7 @@
     <Main_File>rrfw.bmx</Main_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Actors\TActor.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
         <X>0</X>
         <Y>143</Y>
@@ -236,10 +236,10 @@
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\TRenderState.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>1</X>
-        <Y>111</Y>
+        <X>10</X>
+        <Y>14</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -294,13 +294,13 @@
       <FileName>src\Includes\Menus\TMenu.bmx</FileName>
       <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>29</X>
-        <Y>7</Y>
+        <X>0</X>
+        <Y>119</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Menus\TMenuItem.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
         <X>1</X>
         <Y>20</Y>
@@ -310,8 +310,8 @@
       <FileName>src\Includes\Menus\TMenuManager.bmx</FileName>
       <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>16</X>
-        <Y>147</Y>
+        <X>1</X>
+        <Y>27</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -332,7 +332,7 @@
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Menus\TOptionMenuItem.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
         <X>26</X>
         <Y>73</Y>
@@ -516,10 +516,10 @@
     </Included_File>
     <Included_File>
       <FileName>src\Services\Graphics\TGraphicsService.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>8</X>
-        <Y>365</Y>
+        <X>35</X>
+        <Y>435</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -556,7 +556,7 @@
     </Included_File>
     <Included_File>
       <FileName>src\Services\Input\Devices\Keyboard\TKeyboard.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
         <X>33</X>
         <Y>92</Y>
@@ -564,7 +564,7 @@
     </Included_File>
     <Included_File>
       <FileName>src\Services\Input\Devices\Keyboard\TKeyboardMessageData.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
         <X>0</X>
         <Y>32</Y>
@@ -588,10 +588,10 @@
     </Included_File>
     <Included_File>
       <FileName>src\Services\Input\Devices\VirtualGamepad\TVirtualControls\JoystickMapping\TJoystickAxisMapping.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
         <X>0</X>
-        <Y>19</Y>
+        <Y>17</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -909,7 +909,7 @@
     <Publish_NRV_Level>0</Publish_NRV_Level>
   </Project>
   <Compiler_Configuration>
-    <Quick_Build>true</Quick_Build>
+    <Quick_Build>false</Quick_Build>
     <Debugging>true</Debugging>
     <Command>-exedirectoryfordata</Command>
     <Threaded>false</Threaded>

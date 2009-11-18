@@ -11,7 +11,8 @@ endrem
 
 rem
 	bbdoc: Save and restore various render settings
-	about: Simple stack based method of saving and restoring various render settings
+	about: Simple stack based method of saving and restoring various render
+	settings.
 endrem
 Type TRenderState
 
@@ -64,6 +65,15 @@ Type TRenderState
 	Field _viewportHeight:Int
 
 
+	
+	rem
+		bbdoc: Clears the stack
+	endrem
+	Function Clear()
+		If g_renderStates Then g_renderStates.Clear()
+	End Function
+	
+	
 	
 	rem
 		bbdoc: Pop the last render state off the stack
