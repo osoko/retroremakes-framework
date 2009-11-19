@@ -39,7 +39,7 @@ Type TMenu
 	
 	Method Render(ypos:Int)
 		
-		Local height:Int = TextHeight("A") + 5			' determine size of vertical alignment
+		Local height:Int = TextHeight("A")' + 5			' determine size of vertical alignment
 		SetTransform 0, 1, 1
 		SetBlend ALPHABLEND
 		
