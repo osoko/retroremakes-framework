@@ -54,9 +54,15 @@ Type TMenuManager Extends TRenderable
 		
 		'check to see if a built-in menu is accessed and sync it to the currently active settings
 		Select label
-			Case "Graphics"
+			Case "Configure Graphics"
 				Self.SyncGraphicsMenu()
 		End Select
+		
+		'check items to see if it contains an option which has a default setting in the gamesettings ini file.
+		Local items:TList = _currentMenu.GetItems()
+		For Local i:TMenuItem = EachIn items
+			If TOptionMenuItem(i) Then TOptionMenuItem(i).SyncToDefaultOption()
+		Next
 		
 	End Method
 
@@ -108,7 +114,7 @@ Type TMenuManager Extends TRenderable
 	Method DoItemAction()
 		_currentMenu.GetCurrentItem().Activate()
 	End Method	
-		
+	
 	'
 	'built-in framework menus
 	
@@ -119,7 +125,7 @@ Type TMenuManager Extends TRenderable
 		Local o:TMenuOption
 		
 		m = New TMenu
-		m.SetLabel("Graphics")
+		m.SetLabel("Configure Graphics")
 		AddMenu(m)
 		
 		i = New TOptionMenuItem
@@ -188,7 +194,7 @@ Type TMenuManager Extends TRenderable
 		o = New TMenuOption
 		o.SetLabel("Off")
 		i.AddOption(o)
-rem		
+Rem		
 		If rrProjectionMatrixEnabled()
 			i = New TOptionMenuItem
 			i.SetText("Aspect Ratio", "use left or right to change screen aspect")
@@ -229,7 +235,7 @@ endrem
 	
 	Method ApplyGraphicsMenu()
 	
-		Local m:TMenu = GetMenuByName("Graphics")
+		Local m:TMenu = GetMenuByName("Configure Graphics")
 		Local list:TList = m.GetItems()
 		Local option:TMenuOption
 		Local g:TGraphicsService = TGraphicsService.GetInstance()
@@ -270,7 +276,7 @@ endrem
 						Case "Off"
 							g.SetVBlank(False)
 					End Select
-rem					
+Rem					
 				Case "Aspect Ratio"
 					option = o.GetCurrentOption()
 					Local p:TProjectionMatrix = TProjectionMatrix.GetInstance()
@@ -287,9 +293,8 @@ endrem
 		Next
 		
 		'apply
-'		If rrProjectionMatrixEnabled() Then TProjectionMatrix.GetInstance().Set()
 		g.Set()
-		
+	
 	End Method
 	
 	
@@ -300,7 +305,7 @@ endrem
 	'the current configuration. these methods are run when the menumanager is entering a built-in menu
 	
 	Method SyncGraphicsMenu()
-		Local m:TMenu = GetMenuByName("Graphics")
+		Local m:TMenu = GetMenuByName("Configure Graphics")
 		Local list:TList = m.GetItems()
 		Local g:TGraphicsService = TGraphicsService.GetInstance()
 
