@@ -1,5 +1,5 @@
 
-Const GAME_MANAGER_CHANNEL:Int = 0
+'Const GAME_MANAGER_CHANNEL:Int = 0
 
 Type MyGameManager Extends TGameManager
 	
@@ -78,6 +78,8 @@ Type MyGameManager Extends TGameManager
 		Local m:TMenu
 		Local a:TActionMenuItem
 		Local s:TSubMenuItem
+		Local i:TOptionMenuItem
+		Local o:TMenuOption
 		
 		'
 		'main menu
@@ -92,17 +94,23 @@ Type MyGameManager Extends TGameManager
 		
 		a = New TActionMenuItem
 		a.SetText("Start", "begin the game")
-		a.SetAction(MENU_ACTION_START)				' make this item create a game start message.
+		
+		' make this item create a game start message.
+		a.SetAction(MENU_ACTION_START)
 		menumanager.additemtomenu(m, a)
 		
 		s = New TSubMenuItem
 		s.SetText("Options", "configure stuff")
-		s.SetNextMenu("Options")					' this item send you to the options menu.
+		
+		'this item send you to the options menu.
+		s.SetNextMenu("Options")
 		menumanager.additemtomenu(m, s)
 		
 		a = New TActionMenuItem
 		a.SetText("Exit", "chicken out")
-		a.SetAction(MENU_ACTION_QUIT)				' make this menu item create a game quit message.
+		
+		' make this menu item create a game quit message.
+		a.SetAction(MENU_ACTION_QUIT)
 		menumanager.additemtomenu(m, a)
 		
 		'
@@ -114,20 +122,36 @@ Type MyGameManager Extends TGameManager
 
 		s = New TSubMenuItem
 		s.SetText("Graphics", "configure screen stuff")
-		s.SetNextMenu("Graphics")							' name of built-in menu. don't change.
+		
+		' name of built-in menu. don't change. the menu is created at the bottom of this method.
+		s.SetNextMenu("Configure Graphics")
 		menumanager.additemtomenu(m, s)
-
-'		s = New TSubMenuItem
-'		s.SetText("Input", "configure input stuff")
-'		s.SetNextMenu("Control")
-'		menumanager.additemtomenu(m, s)
+		
+		i = New TOptionMenuItem
+		i.SetText("Sillyness", "left and right to select sillyness")
+		menumanager.additemtomenu(m, i)
+		o = New TMenuOption
+		o.SetLabel("Reasonable")
+		i.AddOption(o)
+		o = New TMenuOption
+		o.SetLabel("Totally")
+		i.AddOption(o)
+		o = New TMenuOption
+		o.SetLabel("Insane")
+		i.AddOption(o)
+		
+		' this item now saves the selected option to the config file (ini file)		
+		i.EnableGameSetting()
 				
 		s = New TSubMenuItem
 		s.SetText("Back", "back to main menu")
-		s.SetNextMenu("back")								' this forces a 'go back'
+		
+		' this forces a 'go back'
+		s.SetNextMenu("back")
 		menumanager.additemtomenu(m, s)
 		
-		MenuManager.BuildGraphicsMenu(60, 0)				'create built-in menu... only show 60 hz modes, and don't care about depth
+		'create built-in menu called "Configure Graphics"... only show 60 hz modes, and don't care about depth.
+		MenuManager.BuildGraphicsMenu(60, 0)
 		
 		MenuManager.SetCurrentMenu(MenuManager.GetMenuByName("Main Menu"))
 	End Method
