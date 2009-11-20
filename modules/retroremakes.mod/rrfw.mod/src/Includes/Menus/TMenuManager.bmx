@@ -1,10 +1,11 @@
 
-
 Type TMenuManager Extends TRenderable
 
 	Field _allMenus:TList
 	Field _currentMenu:TMenu
 	Field _menuHistory:TStack
+	
+	Field _imageFont:TImageFont
 		
 	Field _menuYpos:Int
 	Const DEFAULT_MENU_YPOS:Int = 300
@@ -23,10 +24,16 @@ Type TMenuManager Extends TRenderable
 	End Method
 
 	Method Update()
+		_currentMenu.Update()
 	End Method
 	
 	Method Render(tweening:Double, fixed:Int = False)
+		SetImageFont _imageFont
 		_currentMenu.Render(_menuYpos)
+	End Method
+	
+	Method SetImageFont(font:TimageFont)
+		_imagefont = font
 	End Method
 
 	Method SetMenuYpos(y:Int)
