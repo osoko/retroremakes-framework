@@ -92,14 +92,21 @@ Type TMenuManager Extends TRenderable
 	Method GetCurrentItem:TMenuItem()
 		Return _currentMenu.GetCurrentItem()
 	End Method
-	
 
-	Method NextOption()
-		_currentMenu.NextOption()
+	Method NextOption:Int()
+		If TOptionMenuItem(_currentMenu.GetCurrentItem())
+			_currentMenu.NextOption()
+			Return True
+		EndIf
+		Return False
 	End Method
 	
-	Method PreviousOption()
-		_currentMenu.PreviousOption()
+	Method PreviousOption:Int()
+		If TOptionMenuItem(_currentMenu.GetCurrentItem())
+			_currentMenu.PreviousOption()
+			Return True
+		EndIf
+		Return False
 	End Method
 
 	Method GetMenuByName:TMenu(name:String)
@@ -297,7 +304,6 @@ endrem
 		g.Set()
 	
 	End Method
-	
 	
 	'
 	'sync menu methods
