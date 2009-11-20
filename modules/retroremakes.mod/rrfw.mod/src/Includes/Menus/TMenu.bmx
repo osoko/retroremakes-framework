@@ -9,6 +9,8 @@ Type TMenu
 	Field _itemcolor:TColourRGB
 	Field _selectionColor:TColourRGB	' change to oscilator?
 	Field _footerColor:TColourRGB
+	
+	Field _animateItem:Int
 
 	Method ToString:String()
 		Return _label
@@ -20,6 +22,7 @@ Type TMenu
 		_itemcolor = New TColourRGB
 		_selectionColor = New TColourRGB			' change to oscilator later on?
 		_footercolor = New TColourRGB
+		_animateItem = True
 		
 		SetLabelColor(0, 255, 0)
 		SetItemColor(255, 255, 255)
@@ -35,11 +38,17 @@ Type TMenu
 	
 	Method Update()
 		_currentItem.Update()
+		
+		If _animateItem
+			_selectionColor.a:-0.01
+			If _selectionColor.a < 0.3 Then _selectionColor.a = 1.0
+		End If
 	End Method
 	
 	Method Render(ypos:Int)
 		
-		Local height:Int = TextHeight("A")' + 5			' determine size of vertical alignment
+		'determine size of vertical alignment	
+		Local height:Int = TextHeight("A")
 		SetTransform 0, 1, 1
 		SetBlend ALPHABLEND
 		
@@ -49,16 +58,34 @@ Type TMenu
 
 		For Local i:TMenuItem = EachIn _itemsList
 			If i = _currentItem
-				_selectionColor.Set()
-				_DrawMenuText(i.ToString(), ypos)
+			
+				If _animateItem
+					SetScale 1.15, 1.25
+					SetColor 100, 100, 100
+					_DrawMenuText(i.ToString(), ypos)
+				
+					_selectionColor.Set()
+					SetBlend LIGHTBLEND
+					_DrawMenuText(i.ToString(), ypos)
+				Else
+					_selectionColor.Set()
+					SetAlpha 1
+					_DrawMenuText(i.ToString(), ypos)
+				EndIf
+
+				SetAlpha 1.0
+				SetBlend ALPHABLEND
+				SetScale 1, 1
 				_footerColor.set()
 				_DrawMenuText(i.GetFooter(), rrGetGraphicsHeight() - height)
 			Else
+				SetScale 1, 1
 				_itemcolor.Set()
-				_DrawMenuText(i.ToString(),ypos)
+				_DrawMenuText(i.ToString(), ypos)
 			EndIf
 			ypos:+height
 		Next
+		SetScale 1, 1
 	End Method
 
 	Method AddItem(item:TMenuItem)
@@ -132,13 +159,19 @@ Type TMenu
 		_footerColor.a = 1.0
 	End Method
 	
+	Method SetActiveItemAnimation(bool:Int)
+		_animateItem = bool
+	End Method
+	
 	Method SetLabel(l:String)
 		_label = l
 	End Method
 		
 	Method _DrawMenuText(text:String, ypos:Int)
-		Local xpos:Int = rrGetGraphicsWidth() / 2 - TextWidth(text) / 2
-		DrawText(text,xpos,ypos)
+		Local xscale:Float, yscale:Float
+		GetScale(xscale, yscale)
+		Local xpos:Int = rrGetGraphicsWidth() / 2 - (TextWidth(text) * xscale / 2)
+		DrawText(text, xpos, ypos - (TextHeight(text) * yscale / 2))
 	End Method
 	
 End Type
