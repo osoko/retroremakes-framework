@@ -455,7 +455,7 @@ Type TGraphicsService Extends TGameService
 		brl.Graphics.SetGraphics(_device)
 			
 		If _projectionMatrix.IsEnabled()
-			'_projectionMatrix.Set()
+			_projectionMatrix.Set()
 		End If
 		
 		EnablePolledInput()

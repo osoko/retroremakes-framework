@@ -228,10 +228,10 @@
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\TProjectionMatrix.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>1</X>
-        <Y>17</Y>
+        <X>17</X>
+        <Y>71</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -524,10 +524,10 @@
     </Included_File>
     <Included_File>
       <FileName>src\Services\Graphics\TGraphicsService.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>1</X>
-        <Y>28</Y>
+        <X>3</X>
+        <Y>457</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
