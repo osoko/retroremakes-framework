@@ -1,15 +1,56 @@
+Rem
+'
+' Copyright (c) 2007-2009 Wiebo de Wit <wiebo.de.wit@gmail.com>.
+'
+' All rights reserved. Use of this code is allowed under the
+' Artistic License 2.0 terms, as specified in the LICENSE file
+' distributed with this code, or available from
+' http://www.opensource.org/licenses/artistic-license-2.0.php
+'
+endrem
 
+rem
+	bbdoc: Manager for game menus
+endrem
 Type TMenuManager Extends TRenderable
 
+    rem
+        bbdocs: list containing all menus in the manager
+    endrem
 	Field _allMenus:TList
+    
+    rem
+        bbdoc: current active menu
+        about: commands send to the menu manager are performed on the current menu
+    endrem
 	Field _currentMenu:TMenu
+    
+    rem
+        bbdoc: stack containing menu traversal history
+    end rem
 	Field _menuHistory:TStack
-	
+    
+    rem
+        bbdoc: image font to use when rendering the menus
+        about: default font is used if no imagefont is used
+    endrem
 	Field _imageFont:TImageFont
 		
+    rem
+        bbdoc: vertical screen position of menus
+        about: menus are centered horizontally be default
+    end rem
 	Field _menuYpos:Int
+    
+    rem
+        bbdoc: default vertical screen position of menus
+    endrem
 	Const DEFAULT_MENU_YPOS:Int = 300
 	
+    rem
+        bbdoc: defaiult constructor
+        about: set defaults and creates a message channel so GameManagers can listen for menu events
+    endrem
 	Method New()
 		_allMenus = New TList
 		_menuHistory = New TStack
@@ -23,37 +64,67 @@ Type TMenuManager Extends TRenderable
 	Method Stop()
 	End Method
 
+    rem
+        bbdoc: Update the current menu
+        about: This will also update the current menu item.
+    endrem
 	Method Update()
 		_currentMenu.Update()
 	End Method
-	
+    
+    rem
+        bbdoc: render the current menu
+    endrem	
 	Method Render(tweening:Double, fixed:Int = False)
 		SetImageFont _imageFont
 		_currentMenu.Render(_menuYpos)
 	End Method
-	
+    
+    rem
+        bbdoc: set the font to use while drawing menus
+    endrem	
 	Method SetImageFont(font:TimageFont)
 		_imagefont = font
 	End Method
 
+    rem
+        bbdoc: change the vertical position of menus
+        about: menus are horizontally centered by default
+    endrem
 	Method SetMenuYpos(y:Int)
 		_menuYpos = y
 	End Method
 	
+    rem
+        bbdoc: add a new menu to the menu manager
+    endrem
 	Method AddMenu(m:TMenu)
 		_allMenus.AddLast(m)
 	End Method	
-		
+    
+    rem
+        bbdoc: add an item to the menu
+        about: item is added at the bottom of the menu
+    end rem
 	Method AddItemToMenu(m:TMenu, i:TMenuItem)
 		i._menu = m
 		i._menuManager = Self
 		m.AddItem(i)
 	End Method	
 
+    rem
+        bbdoc: set the current active menu
+    endrem
 	Method SetCurrentMenu(m:TMenu)
 		_currentMenu = m
 	End Method
-	
+    
+    rem
+        bbdoc: Go to the requested menu
+        about: Menu is found using the title of the menu
+        Current menu is pushed to the history stack
+        Built-in menus are synced to the service they are reflecting
+    endrem        
 	Method GoToMenu(label:String)
 		_menuHistory.Push(_currentMenu)
 		_currentMenu = TMenu(GetMenuByName(label))
@@ -72,7 +143,10 @@ Type TMenuManager Extends TRenderable
 		Next
 		
 	End Method
-
+    
+    rem
+        bbdoc: clear menu traversal history
+    endrem
 	Method ClearHistory()
 		_menuHistory.Clear()
 	End Method
@@ -81,25 +155,42 @@ Type TMenuManager Extends TRenderable
 '		_menuHistory.Push(_currentMenu)
 '		_currentMenu = TMenu(
 '	End Method
-	
+
+    rem
+        bbdoc: go to the previous menu
+        about: afterwards, focus is placed on the first item in the menu
+    endrem	
 	Method PreviousMenu()
 		If _menuHistory.Peek() = Null Then Return
 		_currentMenu = TMenu(_menuHistory.Pop())
 		_currentMenu.FirstItem()
 	End Method
 
+    rem
+        bbdoc: go to the next item in the current menu
+    endrem
 	Method NextItem()
 		_currentMenu.NextItem()
 	End Method
-	
+
+    rem
+        bbdoc: go to the previous item in the current menu
+    endrem	
 	Method PreviousItem()
 		_currentMenu.PreviousItem()
 	End Method
 	
+    rem
+        bbdoc: return the current item in the current menu
+    endrem    
 	Method GetCurrentItem:TMenuItem()
 		Return _currentMenu.GetCurrentItem()
 	End Method
-
+    
+    rem
+        bbdoc: select the next option on the current item
+        about: only works when the current item is a #TOptionMenuItem
+    endrem
 	Method NextOption:Int()
 		If TOptionMenuItem(_currentMenu.GetCurrentItem())
 			_currentMenu.NextOption()
@@ -107,7 +198,11 @@ Type TMenuManager Extends TRenderable
 		EndIf
 		Return False
 	End Method
-	
+
+	rem
+        bbdoc: select the previous option on the current item
+        about: only works when the current item is a #TOptionMenuItem
+    endrem
 	Method PreviousOption:Int()
 		If TOptionMenuItem(_currentMenu.GetCurrentItem())
 			_currentMenu.PreviousOption()
@@ -116,22 +211,31 @@ Type TMenuManager Extends TRenderable
 		Return False
 	End Method
 
+    rem
+        bbdoc: returns a menu by passing a name
+    endrem
 	Method GetMenuByName:TMenu(name:String)
 		For Local m:TMenu = EachIn _allMenus
 			If m.ToString() = name Then Return m
 		Next
 		Throw "could not find menu:" + name
 	End Method
-
-	'
-	'game manager calls this method to activate the current menu item.
+    
+    rem
+        bbdoc: activates the current menu item
+        about: runs the Activate() method in the current item. Only works
+        if the item is a #TActionMenuItem
+    endrem    
 	Method DoItemAction()
 		_currentMenu.GetCurrentItem().Activate()
 	End Method	
 	
-	'
-	'built-in framework menus
-	
+    rem
+        bbdoc: build a menu called "Configure Graphics"
+        about: this is a built-in menu which handles all needed operations for graphics screen management
+        Changed settings are saved by the TGraphicsService
+        Projection Matrix (Virtual Resolution) not yet implemented
+    end rem
 	Method BuildGraphicsMenu:TMenu(hertzFilter:Int = 0, depthFilter:Int = 0)
 	
 		Local m:TMenu
@@ -157,7 +261,6 @@ Type TMenuManager Extends TRenderable
 		i = New TOptionMenuItem
 		i.SetText("Resolution", "use left or right to select screen resolution")
 		AddItemToMenu(m, i)
-		
 
 		Local suffix:String
 		For Local mode:TGraphicsMode = EachIn g.GetModes()
@@ -239,22 +342,22 @@ endrem
 	
 	End Method
 	
-	Method BuildAudioMenu:TMenu()
-	End Method
+'	Method BuildAudioMenu:TMenu()
+'	End Method
 	
-	Method BuildInputMenu:TMenu()
-	End Method
+'	Method BuildInputMenu:TMenu()
+'	End Method
 	
-	'
-	'apply methods, for built-in menus
-	
+	rem
+        bbdoc: Apply the settings as defined in the built-in "Configure Graphics" menu to the TGraphicsService
+        about: settings are saved automatically by TGraphicsService
+    endrem
 	Method ApplyGraphicsMenu()
 	
 		Local m:TMenu = GetMenuByName("Configure Graphics")
 		Local list:TList = m.GetItems()
 		Local option:TMenuOption
 		Local g:TGraphicsService = TGraphicsService.GetInstance()
-		
 		
 		'
 		'walk past all menu items, read and set
@@ -312,12 +415,11 @@ endrem
 	
 	End Method
 	
-	'
-	'sync menu methods
-	
-	'these methods sync the build in menus to the settings currently in the config variables. this ensures that the menu settings reflect
-	'the current configuration. these methods are run when the menumanager is entering a built-in menu
-	
+    rem
+        bbdoc: Sync the built-in "Configure Graphics" menu to TGrahpicsDriver settings
+        about: This ensures that the menu reflects the current settings in TGraphicsDriver
+        Method is run when the menumanager is entering a built-in menu using GoToMenu()
+    endrem
 	Method SyncGraphicsMenu()
 		Local m:TMenu = GetMenuByName("Configure Graphics")
 		Local list:TList = m.GetItems()
