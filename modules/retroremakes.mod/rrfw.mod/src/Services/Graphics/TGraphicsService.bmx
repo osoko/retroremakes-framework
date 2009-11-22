@@ -17,7 +17,7 @@ Type TGraphicsService Extends TGameService
 	Global instance:TGraphicsService
 
 	Const DEFAULT_DIRECT_X:String = "DirectX7"
-	Const DEFAULT_GFX_DEPTH:Int = 16
+	Const DEFAULT_GFX_DEPTH:Int = 32
 	Const DEFAULT_GFX_FLAGS:Int = GRAPHICS_BACKBUFFER
 	Const DEFAULT_GFX_REFRESH:Int = 60
 	Const DEFAULT_GFX_VBLANK:String = "false"
@@ -35,6 +35,10 @@ Type TGraphicsService Extends TGameService
 		
 	?
 	
+	Const DEFAULT_GFX_PROJECTION_X:Float = 800.0
+	Const DEFAULT_GFX_PROJECTION_Y:Float = 600.0
+	Const DEFAULT_GFX_PROJECTION_ENABLED:String = "false"
+		
 	' The drivers that are available for use
 	Field _availableDrivers:String[]
 	
@@ -58,7 +62,10 @@ Type TGraphicsService Extends TGameService
 
 	' A sorted, de-duplicated list of available graphics modes.
 	Field _modes:TList = New TList
-		
+	
+	' A shortcut to the projection matrix
+	Field _projectionMatrix:TProjectionMatrix
+	
 	' The refresh rate of the graphics device we will be using
 	Field _refresh:Int
 	
@@ -206,6 +213,15 @@ Type TGraphicsService Extends TGameService
 		TLogger.GetInstance().LogInfo("[" + toString() + "] Deduplicated graphics modes found: " + _modes.Count())
 	End Method
 
+	
+	
+	rem
+		bbdoc: Get the aspect ratio of the physical display
+	endrem
+	Method GetAspectRatio:Float()
+		Return Float(GetWidth()) / Float(GetHeight())
+	End Method
+	
 	
 	
 	rem
@@ -373,6 +389,8 @@ Type TGraphicsService Extends TGameService
 			_availableDrivers[0] = "OpenGL"
 		?
 		
+		_projectionMatrix = TProjectionMatrix.GetInstance()
+		
 		SetFixedPointRendering(True)
 		TMessageService.GetInstance().CreateMessageChannel(CHANNEL_GRAPHICS, "Graphics Service")
 		Super.Initialise()
@@ -400,8 +418,9 @@ Type TGraphicsService Extends TGameService
 	
 		'Kill the existing graphics device if it exists
 		If _device
-			TLogger.GetInstance().LogInfo("[" + toString() + "] Closing existing graphics device")
+			TLogger.GetInstance().LogInfo("[" + toString() + "] Closing existing Graphics device")
 			DisablePolledInput()
+			
 			CloseGraphics(_device)
 			_device = Null
 		End If
@@ -435,8 +454,8 @@ Type TGraphicsService Extends TGameService
 		
 		brl.Graphics.SetGraphics(_device)
 			
-		If rrProjectionMatrixEnabled()
-			rrCreateProjectionMatrix()
+		If _projectionMatrix.IsEnabled()
+			'_projectionMatrix.Set()
 		End If
 		
 		EnablePolledInput()
@@ -648,7 +667,7 @@ End Function
 
 
 Function rrGetGraphicsWidth:Int()
-	If TProjectionMatrix.GetInstance().enabled
+	If TProjectionMatrix.GetInstance().IsEnabled()
 		Return rrGetProjectionMatrixWidth()
 	Else
 		Return TGraphicsService.GetInstance().GetWidth()
@@ -658,7 +677,7 @@ End Function
 
 
 Function rrGetGraphicsHeight:Int()
-	If TProjectionMatrix.GetInstance().enabled
+	If TProjectionMatrix.GetInstance().IsEnabled()
 		Return rrGetProjectionMatrixHeight()
 	Else
 		Return TGraphicsService.GetInstance().GetHeight()
