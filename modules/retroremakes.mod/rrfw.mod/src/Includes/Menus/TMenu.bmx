@@ -179,8 +179,9 @@ Type TMenu
 		
 	Method _DrawMenuText(text:String, ypos:Int)
 		Local xscale:Float, yscale:Float
+		Local xpos:Int
 		GetScale(xscale, yscale)
-		Local xpos:Int = rrGetGraphicsWidth() / 2 - (TextWidth(text) * xscale / 2)
+		xpos = rrGetGraphicsWidth() / 2 - TextWidth(text) * xscale / 2
 		DrawText(text, xpos, ypos - (TextHeight(text) * yscale / 2))
 	End Method
 	
