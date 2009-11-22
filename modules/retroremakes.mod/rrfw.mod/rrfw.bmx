@@ -31,6 +31,7 @@ Import brl.audio
 Import brl.audiosample
 Import brl.bmploader
 Import brl.d3d7max2d
+Import brl.d3d9max2d
 Import brl.directsoundaudio
 Import brl.dxgraphics
 Import brl.event
@@ -57,9 +58,6 @@ Import brl.polledinput
 Import brl.reflection
 Import brl.tgaloader
 Import brl.timer
-
-Import dbs.d3d9max2d
-Import dbs.dx9graphics
 
 Import gman.zipengine
 
@@ -154,6 +152,7 @@ Include "src\Includes\Graphics\Screenshot.bmx"
 Include "src\Includes\Graphics\TColour.bmx"
 Include "src\Includes\Graphics\TColourHSV.bmx"
 Include "src\Includes\Graphics\TColourRGB.bmx"
+Include "src\Includes\Graphics\TProjectionMatrix.bmx"
 Include "src\Includes\Graphics\TRenderable.bmx"
 Include "src\Includes\Graphics\TRenderState.bmx"
 
@@ -227,7 +226,6 @@ Include "src\Services\Debug\TConsole.bmx"
 Include "src\Services\Debug\TProfiler.bmx"
 
 Include "src\Services\Graphics\TGraphicsService.bmx"
-Include "src\Services\Graphics\TProjectionMatrix.bmx"
 Include "src\Services\Graphics\TColourOscillator\TColourGen.bmx"
 Include "src\Services\Graphics\TColourOscillator\TColourOscillator.bmx"
 Include "src\Services\Graphics\TScaleOscillator\TScaleGen.bmx"
