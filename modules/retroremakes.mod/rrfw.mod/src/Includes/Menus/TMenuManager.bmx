@@ -14,6 +14,9 @@ rem
 endrem
 Type TMenuManager Extends TRenderable
 
+	' The Singleton instance of this class
+	Global _instance:TMenuManager
+
     rem
         bbdocs: list containing all menus in the manager
     endrem
@@ -48,16 +51,32 @@ Type TMenuManager Extends TRenderable
 	Const DEFAULT_MENU_YPOS:Int = 300
 	
     rem
-        bbdoc: defaiult constructor
-        about: set defaults and creates a message channel so GameManagers can listen for menu events
+        bbdoc: default constructor
+        about: also set defaults and creates a message channel so GameManagers can listen for menu events
     endrem
 	Method New()
+	
+		If _instance Then rrThrow "Cannot create another instance of this singleton"
+		_instance = Self
+	
 		_allMenus = New TList
 		_menuHistory = New TStack
 		_menuYpos = DEFAULT_MENU_YPOS
 		rrCreateMessageChannel(CHANNEL_MENU, "Menu Manager")
 	End Method
 	
+	rem
+		bbdoc: Gets the Singleton instance of this class
+	endrem	
+	Function GetInstance:TMenuManager()
+		If Not _instance
+			Return New TMenuManager
+		Else
+			Return _instance
+		EndIf
+	End Function
+	
+		
 	Method Start()
 	End Method
 	

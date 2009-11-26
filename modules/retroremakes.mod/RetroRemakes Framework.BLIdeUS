@@ -4,10 +4,10 @@
     <Main_File>rrfw.bmx</Main_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Actors\TActor.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>143</Y>
+        <X>12</X>
+        <Y>17</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -20,10 +20,10 @@
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Actors\TImageActor.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>4</X>
-        <Y>78</Y>
+        <X>62</X>
+        <Y>5</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -44,7 +44,7 @@
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Animation\AnimationStyles\TBlinkAnimation.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
         <X>11</X>
         <Y>47</Y>
@@ -142,16 +142,16 @@
       <FileName>src\Includes\Graphics\Animation\AnimationStyles\TSetAlphaAnimation.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>42</X>
-        <Y>16</Y>
+        <X>7</X>
+        <Y>34</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Animation\AnimationStyles\TSetColourAnimation.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>26</X>
-        <Y>26</Y>
+        <X>1</X>
+        <Y>19</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -230,8 +230,8 @@
       <FileName>src\Includes\Graphics\TProjectionMatrix.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>1</X>
-        <Y>17</Y>
+        <X>12</X>
+        <Y>235</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -294,7 +294,7 @@
       <FileName>src\Includes\Menus\TActionMenuItem.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>11</X>
+        <X>1</X>
         <Y>23</Y>
       </Caret_Position>
     </Included_File>
@@ -318,8 +318,8 @@
       <FileName>src\Includes\Menus\TMenuManager.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>1</X>
-        <Y>27</Y>
+        <X>6</X>
+        <Y>9</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -334,7 +334,7 @@
       <FileName>src\Includes\Menus\TMenuOption.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>23</X>
+        <X>12</X>
         <Y>20</Y>
       </Caret_Position>
     </Included_File>
@@ -350,7 +350,7 @@
       <FileName>src\Includes\Menus\TSubMenuItem.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>8</X>
+        <X>1</X>
         <Y>21</Y>
       </Caret_Position>
     </Included_File>
@@ -443,6 +443,46 @@
       </Caret_Position>
     </Included_File>
     <Included_File>
+      <FileName>src\Includes\Particles\TEmitter.bmx</FileName>
+      <Document_Active>false</Document_Active>
+      <Caret_Position>
+        <X>0</X>
+        <Y>11</Y>
+      </Caret_Position>
+    </Included_File>
+    <Included_File>
+      <FileName>src\Includes\Particles\TParticle.bmx</FileName>
+      <Document_Active>true</Document_Active>
+      <Caret_Position>
+        <X>0</X>
+        <Y>13</Y>
+      </Caret_Position>
+    </Included_File>
+    <Included_File>
+      <FileName>src\Includes\Particles\TParticleLibrary.bmx</FileName>
+      <Document_Active>true</Document_Active>
+      <Caret_Position>
+        <X>0</X>
+        <Y>0</Y>
+      </Caret_Position>
+    </Included_File>
+    <Included_File>
+      <FileName>src\Includes\Particles\TParticleManager.bmx</FileName>
+      <Document_Active>true</Document_Active>
+      <Caret_Position>
+        <X>0</X>
+        <Y>24</Y>
+      </Caret_Position>
+    </Included_File>
+    <Included_File>
+      <FileName>src\Includes\Particles\TParticleValues.bmx</FileName>
+      <Document_Active>true</Document_Active>
+      <Caret_Position>
+        <X>11</X>
+        <Y>27</Y>
+      </Caret_Position>
+    </Included_File>
+    <Included_File>
       <FileName>src\Includes\TGameManager.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
@@ -526,8 +566,8 @@
       <FileName>src\Services\Graphics\TGraphicsService.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>1</X>
-        <Y>28</Y>
+        <X>3</X>
+        <Y>457</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -895,7 +935,7 @@
       <Document_Active>true</Document_Active>
       <Caret_Position>
         <X>0</X>
-        <Y>228</Y>
+        <Y>198</Y>
       </Caret_Position>
     </Included_File>
     <Compilation_Mode>GUI_Application</Compilation_Mode>

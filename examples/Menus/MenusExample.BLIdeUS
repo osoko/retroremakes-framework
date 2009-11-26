@@ -6,13 +6,13 @@
       <FileName>src\GameManager.bmx</FileName>
       <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>81</Y>
+        <X>1</X>
+        <Y>12</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>Menus.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
         <X>0</X>
         <Y>14</Y>
