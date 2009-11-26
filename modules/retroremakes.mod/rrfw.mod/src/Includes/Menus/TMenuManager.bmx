@@ -237,7 +237,7 @@ Type TMenuManager Extends TRenderable
 		For Local m:TMenu = EachIn _allMenus
 			If m.ToString() = name Then Return m
 		Next
-		Throw "could not find menu:" + name
+		rrThrow "could not find menu:" + name
 	End Method
     
     rem
