@@ -193,6 +193,12 @@ Include "src\Includes\Menus\TOptionMenuItem.bmx"
 Include "src\Includes\Menus\TMenuOption.bmx"
 Include "src\Includes\Menus\TMenuMessageData.bmx"
 
+'Particles
+Include "src\Includes\Particles\TParticleManager.bmx"
+Include "src\Includes\Particles\TParticleLibrary.bmx"
+
+
+
 ' Miscellaneous Maths and Algorithms
 Include "src\Includes\Maths\PolygonCollisions.bmx"
 Include "src\Includes\Maths\RC4Encrypt.bmx"

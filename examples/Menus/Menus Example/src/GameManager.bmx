@@ -79,7 +79,7 @@ Type MyGameManager Extends TGameManager
 		
 		
 	Method SetUpMenus()
-		MenuManager = New TMenuManager
+		MenuManager = TMenuManager.GetInstance()
 		Local m:TMenu
 		Local a:TActionMenuItem
 		Local s:TSubMenuItem
