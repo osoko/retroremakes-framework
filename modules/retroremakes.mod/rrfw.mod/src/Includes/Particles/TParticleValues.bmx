@@ -13,6 +13,7 @@ endrem
 '
 'values that can be controlled and manipulated over run time
 'values are color and float.
+'possibly change to animations in a later release. for now, straight port 
 
 Const BEHAVIOUR_ONCE:Int = 10
 Const BEHAVIOUR_REPEAT:Int = 11
