@@ -427,23 +427,7 @@
       </Caret_Position>
     </Included_File>
     <Included_File>
-      <FileName>src\Includes\Particles\TEmitter.bmx</FileName>
-      <Document_Active>false</Document_Active>
-      <Caret_Position>
-        <X>0</X>
-        <Y>11</Y>
-      </Caret_Position>
-    </Included_File>
-    <Included_File>
-      <FileName>src\Includes\Particles\TParticle.bmx</FileName>
-      <Document_Active>true</Document_Active>
-      <Caret_Position>
-        <X>0</X>
-        <Y>13</Y>
-      </Caret_Position>
-    </Included_File>
-    <Included_File>
-      <FileName>src\Includes\Particles\TParticleLibrary.bmx</FileName>
+      <FileName>src\Includes\Particles\TEffect.bmx</FileName>
       <Document_Active>true</Document_Active>
       <Caret_Position>
         <X>0</X>
@@ -451,19 +435,51 @@
       </Caret_Position>
     </Included_File>
     <Included_File>
-      <FileName>src\Includes\Particles\TParticleManager.bmx</FileName>
+      <FileName>src\Includes\Particles\TEmitter.bmx</FileName>
       <Document_Active>true</Document_Active>
       <Caret_Position>
         <X>0</X>
-        <Y>24</Y>
+        <Y>0</Y>
+      </Caret_Position>
+    </Included_File>
+    <Included_File>
+      <FileName>src\Includes\Particles\TParticle.bmx</FileName>
+      <Document_Active>true</Document_Active>
+      <Caret_Position>
+        <X>0</X>
+        <Y>30</Y>
+      </Caret_Position>
+    </Included_File>
+    <Included_File>
+      <FileName>src\Includes\Particles\TParticleImage.bmx</FileName>
+      <Document_Active>true</Document_Active>
+      <Caret_Position>
+        <X>0</X>
+        <Y>69</Y>
+      </Caret_Position>
+    </Included_File>
+    <Included_File>
+      <FileName>src\Includes\Particles\TParticleLibrary.bmx</FileName>
+      <Document_Active>true</Document_Active>
+      <Caret_Position>
+        <X>0</X>
+        <Y>20</Y>
+      </Caret_Position>
+    </Included_File>
+    <Included_File>
+      <FileName>src\Includes\Particles\TParticleManager.bmx</FileName>
+      <Document_Active>true</Document_Active>
+      <Caret_Position>
+        <X>34</X>
+        <Y>15</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Particles\TParticleValues.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>31</X>
-        <Y>161</Y>
+        <X>74</X>
+        <Y>15</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
