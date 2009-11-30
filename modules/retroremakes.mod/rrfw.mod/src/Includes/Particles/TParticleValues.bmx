@@ -10,7 +10,6 @@ Rem
 endrem
 
 
-
 '
 'values that can be controlled and manipulated over run time
 'values are color and float.
@@ -19,7 +18,7 @@ Const BEHAVIOUR_ONCE:Int = 10
 Const BEHAVIOUR_REPEAT:Int = 11
 Const BEHAVIOUR_PINGPONG:Int = 12
 
-Type TValueBASE Abstract
+Type TValue Abstract
 
 	Method New()
 		_mode = COUNTDOWN
@@ -89,7 +88,7 @@ Type TValueBASE Abstract
 	Field _changeValue:Float			' the value gets changed by this amount per tick
 End Type
 
-Type TFloatValue Extends TValueBASE
+Type TFloatValue Extends TValue
 
 	Method GetValue:Float()
 		Return _currentValue
@@ -160,7 +159,7 @@ Type TFloatValue Extends TValueBASE
 	Field _previousValue:Float
 End Type
 
-Type TColorValue Extends TValueBASE
+Type TColorValue Extends TValue
 
 	Method New()
 		_currentValue = New Trgb

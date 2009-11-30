@@ -9,8 +9,7 @@ Rem
 '
 endrem
 
-Type TParticle Extends TImageActor
-
+Type TParticle Extends TActor
 
 
 End Type
