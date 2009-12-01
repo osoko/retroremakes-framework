@@ -15,7 +15,32 @@ Const STYLE_BOX:Int 	 = 21
 Const STYLE_FOUNTAIN:Int = 22
 Const STYLE_LINE:Int 	 = 23
 
-Type TEmitter Extends TRenderable 'TEngineBase
+Type TEmitter Extends TActor' TRenderable 'TEngineBase
+
+
+	Field _id:String
+	Field _name:String
+	Field _description:String
+												' Emitters to sync settings to. this is needed for real-time preview and changing settings.
+	Field _appearanceParticle:TParticle			' particle to draw at Emitter center... used to visualize Emitter. created during Emitter clone
+	Field _shape:Int							' oval, square, directional, etc
+	Field _toSpawn:Object
+	Field _randomDirection:Int					' if true, each object is spawned in a random direction, not using the _angle value
+	Field _lineDensity:Int						' the longer a line Emitter, the more particles it spawns. here, lower is move. default = 125
+	Field _spawnDelay:Int						' delay between spawns
+	Field _currentSpawnDelay:Int				' timer for delay
+	Field _spawnAmount:Int						' how many to spawn when spawndelay is over
+	Field _spawnRND:Int							' ^^ jitter
+	Field _acceleration:Float					' initial speed of particles
+	Field _accelerationRND:Float				' ^^ jitter
+	Field _spawnAngle:Int						' random, align to Emitter, item setting
+	Field _spawnScale:TFloatValue				' item scale
+	Field _offsetX:TFloatValue
+	Field _offsetY:TFloatValue
+	Field _childList:TList
+	Field _isActive:Int
+	Field _isSticky:Int
+
 
 	Method New()
 		_childList = New TList
@@ -177,24 +202,4 @@ Type TEmitter Extends TRenderable 'TEngineBase
 		o.SetAcceleration( Sin(angle) * (_acceleration + accRND ), -Cos(angle) * (_acceleration + accRND) )
 	End Method
 
-	Field _id:String							' so editor can find 'live' Emitters
-												' Emitters to sync settings to. this is needed for real-time preview and changing settings.
-	Field _appearanceParticle:TParticle			' particle to draw at Emitter center... used to visualize Emitter. created during Emitter clone
-	Field _shape:Int							' oval, square, directional, etc
-	Field _toSpawn:Object
-	Field _randomDirection:Int					' if true, each object is spawned in a random direction, not using the _angle value
-	Field _lineDensity:Int						' the longer a line Emitter, the more particles it spawns. here, lower is move. default = 125
-	Field _spawnDelay:Int						' delay between spawns
-	Field _currentSpawnDelay:Int				' timer for delay
-	Field _spawnAmount:Int						' how many to spawn when spawndelay is over
-	Field _spawnRND:Int							' ^^ jitter
-	Field _acceleration:Float					' initial speed of particles
-	Field _accelerationRND:Float				' ^^ jitter
-	Field _spawnAngle:Int						' random, align to Emitter, item setting
-	Field _spawnScale:TFloatValue				' item scale
-	Field _offsetX:TFloatValue
-	Field _offsetY:TFloatValue
-	Field _childList:TList
-	Field _isActive:Int
-	Field _isSticky:Int
 End Type

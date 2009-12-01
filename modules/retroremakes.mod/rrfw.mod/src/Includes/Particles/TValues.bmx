@@ -22,9 +22,9 @@ Const BEHAVIOUR_PINGPONG:Int = 12
 Type TValue Abstract
 
 	Method New()
-		_mode = COUNTDOWN
-		_active = False
-		_behaviour = BEHAVIOUR_ONCE
+'		_mode = COUNTDOWN					'TODO: move to editor value
+'		_active = False
+'		_behaviour = BEHAVIOUR_ONCE
 	End Method
 
 	Method Update()
@@ -91,6 +91,11 @@ End Type
 
 Type TFloatValue Extends TValue
 
+	Field _startValue:Float
+	Field _endValue:Float
+	Field _currentValue:Float
+	Field _previousValue:Float
+
 	Method GetValue:Float()
 		Return _currentValue
 	End Method
@@ -152,20 +157,57 @@ Type TFloatValue Extends TValue
 		_endValue = val + 360
 	End Method
 
-	'***** PRIVATE *****
+	Method SettingsFromStream(s:TStream)
+		Local l:String, a:String[]
+		l = s.ReadLine()
+		l.Trim()
+		While l <> "#endfloat"
+			a = l.split("=")
+			Select a[0].ToLower()
+				Case "active"		_active = Int( a[1] )
+				Case "behaviour"	_behaviour = Int( a[1] )
+				Case "countdown"	_countdown_left = Int( a[1] )
+				Case "start"		_startValue = Float( a[1] )
+				Case "end"			_endValue = Float( a[1] )
+				Case "change"		_changeValue = Float( a[1] )
+				Case "random"
+			Default rrThrow l
+			End Select
+			l = s.ReadLine()
+			l.Trim()
+		Wend
+		ResetValue()
+	End Method
 
-	Field _startValue:Float
-	Field _endValue:Float
-	Field _currentValue:Float
-	Field _previousValue:Float
+	Method Clone:TFloatValue()
+		Local f:TFloatValue = New TFloatValue
+		f._active = _active
+		f._behaviour = _behaviour
+		f._countdown_left = _countdown_left
+		f._startValue = _startValue
+		f._endValue	= _endValue
+		f._changeValue = _changeValue
+		f.ResetValue()
+		Return f
+	End Method	
+
 End Type
 
 Type TColorValue Extends TValue
+
+
+	Field _currentValue:Trgb
+	Field _startValue:Trgb
+	Field _endValue:Trgb
 
 	Method New()
 		_currentValue = New Trgb
 		_startValue = New Trgb
 		_endValue = New Trgb
+		
+'		_mode = COUNTDOWN					'TODO: move to editor value
+'		_active = False
+'		_behaviour = BEHAVIOUR_ONCE		
 	End Method
 
 	Method Use()
@@ -191,16 +233,68 @@ Type TColorValue Extends TValue
 	Method SetPrevious()
 	End Method
 
-	'***** PRIVATE *****
+	Method SettingsFromStream(s:TStream)
+		Local l:String, a:String[], b:String[2]
+		l = s.ReadLine()
+		l.Trim()
+		While l <> "#endcolor"
+			a = l.split("=")
+			Select a[0].ToLower()
+				Case "active"		_active = Int(a[1])
+				Case "behaviour"	_behaviour = Int(a[1])
+				Case "countdown"	_countdown_left = Int(a[1])
+				Case "start"
+					b = a[1].split(",")
+					_startValue.Set( Float(b[0]), Float(b[1]), Float(b[2]) )
+				Case "end"
+					b = a[1].split(",")
+					_endValue.Set( Float(b[0]), Float(b[1]), Float(b[2]) )
+				Case "change"		_changeValue = Int(a[1])
+				Case "random"
+				Default rrThrow l
+			End Select
+			l = s.ReadLine()
+			l.Trim()
+		Wend
+		ResetValue()
+	End Method
 
-	Field _currentValue:Trgb
-	Field _startValue:Trgb
-	Field _endValue:Trgb
+	Method Clone:TColorValue()
+		Local c:TColorValue = New TColorValue
+		c._active = _active
+		c._behaviour = _behaviour
+		c._countdown_left = _countdown_left
+		
+		c._startValue = _startValue.Clone()
+		c._endValue = _endValue.Clone()
+'		_startValue.SettingsTo( c._startValue )
+'		_endValue.SettingsTo( c._endValue )
+		c._changeValue = _changeValue
+		c.ResetValue()
+		Return c
+	End Method
+
+	Method SetCurrentValue(r:Float, g:Float, b:Float)
+		_currentValue.Set(r,g,b)
+	End Method
+
+	Method SetStartValue(r:Float, g:Float, b:Float)
+		_startValue.Set(r,g,b)
+	End Method
+
+	Method SetEndValue(r:Float, g:Float, b:Float)
+		_endValue.Set(r,g,b)
+	End Method	
+		
+	
 End Type
 
-'
-'color type
+
+'RGB color type
 Type Trgb
+
+	Field _r:Float, _g:Float, _b:Float
+
 	Method New()
 		_r = 255
 		_g = 255
@@ -246,13 +340,18 @@ Type Trgb
 		Return False
 	End Method
 
-	Method SettingsTo(col:Trgb Var)
-		col._r = _r
-		col._g = _g
-		col._b = _b
+'	Method SettingsTo(col:Trgb Var)
+'		col._r = _r
+'		col._g = _g
+'		col._b = _b
+'	End Method
+	
+	Method Clone:Trgb()
+		Local c:Trgb = New Trgb
+		c._r = r
+		c._g = g
+		c._b = b
+		Return c
 	End Method
 
-	'***** PRIVATE *****
-
-	Field _r:Float, _g:Float, _b:Float
 End Type
