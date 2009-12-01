@@ -13,7 +13,6 @@ endrem
 '
 'an effect holds a list of emitters it has to spawn when called from the library.
 
-
 Type TEffect
 
 	Field _id:String
@@ -31,10 +30,11 @@ Type TEffect
 		l.Trim()
 		While l <> "#endeffect"
 			a = l.split("=")
-			Select a[0]
-				Case "gamename"		_id = a[1]						' store gamename of this effect so we can ask engine
-				Case "emitter"		_childList.AddLast( a[1] )		' gamename of emitters belonging to this effect, so engine can spawn them
-'				Default 			DebugLog "effect: " + l
+			Select a[0].ToLower()
+				Case "gamename" _id = a[1]				' store gamename of this effect so we can ask engine
+				Case "description" _description = a[1]
+				Case "emitter" _childList.AddLast(a[1])		' gamenames of emitters belonging to this effect, so engine can spawn them
+				Default rrThrow "effect: " + l
 			End Select
 			l = s.ReadLine()
 			l.Trim()
