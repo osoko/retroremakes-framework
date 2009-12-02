@@ -67,7 +67,7 @@ Type TActor Extends TRenderable Abstract
 	
 	rem
 		bbdoc: Get the actors colour
-		return TColourRGB
+		returns: TColourRGB
 	endrem
 	Method GetColour:TColourRGB()
 		Return _colour
