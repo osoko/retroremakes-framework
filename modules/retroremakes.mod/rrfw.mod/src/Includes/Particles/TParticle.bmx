@@ -9,82 +9,58 @@ Rem
 '
 endrem
 
-Type TParticle Extends TActor
-	
-	Field _id:String
-	Field _name:String
-	Field _description:String
 
+rem
+	bbdoc:custumizable particle
+endrem
+Type TParticle Extends TParticleActor
+
+	'image to draw
 	Field _image:TImage
+	
+	'frame from image to draw
 	Field _frame:Int
-	Field _blendType:Int
 	
-	Field _color:TColorValue				'todo merge
-	Field _alpha:TFloatValue				'todo ^
-	Field _scale:TFloatValue				' or move all these fields to an animation
-	Field _sizeX:TFloatValue
-	Field _sizeY:TFloatValue
-	Field _rotation:TFloatValue
-	Field _friction:Float
-
-	Field _velocity:TFloatValue
-	Field _acceleration:TFloatValue
+	'changeable color over time
+	Field _color:TColorValue
 	
-	Field _life:Int
+	'changeable alpha over time
+	Field _alpha:TFloatValue
 	
-'	Field _parent:TParticleEmitter
+	'parent of this particle. override field from TParticleActor as particles only have emitters as parent
+	Field _parent:TParticleEmitter
 
-
+	rem
+		bbdoc:default contructor
+	endrem	
 	Method New()
 		_color = New TColorValue
 		_alpha = New TFloatValue
-		_scale = New TFloatValue
-		_sizeX = New TFloatValue
-		_sizeY = New TFloatValue
-		_rotation = New TFloatValue
-		_velocity = New TVector2D
-		_acceleration = New TVector2D
-		_color = New TColorValue
 	End Method
-
+	
+	rem
+		bbdoc:destroys this particle
+		about:also removes the particle from its parent childlist
+	end rem
 	Method Destroy()
-		If _parent Then _parent.RemoveChild(Self)'TEmitter(_parent).RemoveChild(Self)
+		If _parent Then _parent.RemoveChild(Self)
+		life = 1
 	End Method
-
+	
+	rem
+		bbdoc:updates particle settings
+	endrem
 	Method Update()
-		UpdatePosition()	'do basic physics on position
-		
 		_color.Update()
 		_alpha.Update()
-		_rotation.Update()
-		_sizeX.Update()
-		_sizeY.Update()
-		_scale.Update()
-		
-		
-		If _life = -1 Then Return
 
-		_life:- 1
-		If _life = 0 Then Destroy()
-'			RemoveFromList()
-'		End If
-		
-	End Method
-		
-	Method UpdatePosition()
-
-		'do not use TActor.UpdatePreviousPosition as it also updates the animation manager. which we do not use
-		_previousPosition.SetV(_currentPosition)
-
-		_velocity.Multiply(1.0 - _friction, 1.0 - _friction)
-		
-		Local freq:Double = rrGetUpdateFrequency()
-		_velocity.Add(_acceleration.x * freq, _acceleration.y * freq)
-		
-		_currentPosition.AddV(_velocity)
-		_acceleration.Set(0, 0)
+		'run Update() in TParticleActor
+		Super.Update()		
 	End Method
 
+	rem
+		bbdoc:draws the particle on its current position
+	endrem
 	Method Render(tweening:Double, fixed:Int = False)
 		Interpolate(tweening)
 
@@ -92,12 +68,16 @@ Type TParticle Extends TActor
 		SetAlpha _alpha.GetValue()
 		SetScale(_sizeX.GetValue(), _sizeY.GetValue())
 		SetRotation _rotation.GetValue()
-		SetBlend _blendType
+		SetBlend _blendMode
 		_color.Use()
 
 		DrawImage _image, _renderPosition.x, _renderPosition.y, _frame
 	End Method
 	
+	rem
+		bbdoc:loads particle settings from passsed stream
+		about:the settings have been saved from the editor into a configuration file
+	endrem
 	Method SettingsFromStream(s:TStream, library:Object)
 		Local lib:TLibrary = TLibrary(library)
 		Local l:String, a:String[]
@@ -112,14 +92,14 @@ Type TParticle Extends TActor
 						rrThrow "no images for this particle!"
 						'_image = Null
 					Else
-						_image = TLibraryImage( lib.GetObject( a[1] ))
+						_image = TLibraryImage(lib.GetObject(a[1])).getimage()
 					End If
 				Case "frame"	_frame = Int( a[1] )
 				Case "friction" _friction = Float(a[1])
 				Case "life"		_life = Int( a[1] )
-				Case "blend"	_blendType = Int( a[1] )
+				Case "blend" _blendMode = Int(a[1])
 				Case "#color"	_color.SettingsFromStream( s )
-				Case "#angle"	_angle.SettingsFromStream( s )
+				Case "#angle" _rotation.SettingsFromStream(s)
 				Case "#alpha"	_alpha.SettingsFromStream( s )
 				Case "#sizex"	_sizeX.SettingsFromStream( s )
 				Case "#sizey"	_sizeY.SettingsFromStream( s )
@@ -130,8 +110,13 @@ Type TParticle Extends TActor
 			l.Trim()
 		Wend
 	End Method
-
-	Method Clone:TParticle()'(parent:TEmitter)
+	
+	rem
+		bbdoc:creates an exact copy of this particle
+		about:mainly used by emitter to create particles
+		returns:TParticle
+	endrem
+	Method Clone:TParticle()
 
 		Local p:TParticle = New TParticle
 '		p._parent = parent'SetParent( parent )							'TODO: move to emitter
@@ -140,14 +125,14 @@ Type TParticle Extends TActor
 		If p._frame = -1 Then p._frame = Rand(0, _image.frames - 1)		' -1 is a random frame
 		p._friction = _friction
 		p._life = _life
-		p._blendType = _blendType
+		p._blendMode = _blendMode
 		
 		p._color = _color.Clone()
 		p._rotation = _rotation.Clone()
 		p._alpha = _alpha.Clone()
 		p._sizeX = _sizeX.Clone()
 		p._sizeY = _sizeY.Clone()
-		p._scale = _scale.Clone()
+'		p._scale = _scale.Clone()
 		
 '		_color.SettingsToEngineColor(p._color)
 '		_rotation.SettingsToEngineFloat(p._rotation)
@@ -159,5 +144,13 @@ Type TParticle Extends TActor
 		Return p
 	End Method
 
+	rem
+		bbdoc:returns particles parent
+		returns:TParticleEmitter
+	endrem
+	Method GetParent:TParticleEmitter()
+		Return _parent
+	End Method
+	
 End Type
 

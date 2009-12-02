@@ -10,10 +10,10 @@ Rem
 endrem
 
 
-'
-'an effect holds a list of emitters it has to spawn when called from the library.
-
-Type TEffect
+rem
+	bbdoc: an effect holds a list of emitters it has to spawn when called from the library.
+endrem
+Type TParticleEffect
 
 	Field _id:String
 	Field _name:String

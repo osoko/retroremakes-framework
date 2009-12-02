@@ -15,16 +15,17 @@ Type TParticleManager
 	' The Singleton instance of this class
 	Global _instance:TParticleManager
 	
-	
 	' particle library
 	Field _library:TParticleLibrary
 	
+	rem
+		bbdoc:default constructor
+	endrem
 	Method New()
 		If _instance rrThrow "Cannot create multiple instances of this Singleton Type"
 		_instance = Self
 		_library = New TParticleLibrary
 	End Method
-
 	
 	rem
 		bbdoc: Gets the Singleton instance of this class
@@ -39,7 +40,8 @@ Type TParticleManager
 
 		
 	rem
-		bbdoc: Returns the particle library in the particle manager
+		bbdoc: Returns the particle library in this manager
+		returns:TParticleLibrary
 	endrem
 	Method GetParticleLibrary:TParticleLibrary()
 		Return _library
@@ -47,7 +49,8 @@ Type TParticleManager
 
 		
 	rem
-		bbdoc: Load the passed configuration file into the library
+		bbdoc: Loads the passed configuration file into the library
+		about: The configuration file has been created in the particle library editor
 	endrem
 	Method LoadConfiguration(filename:String)
 '		_library.LoadConfiguration(filename)
@@ -56,7 +59,6 @@ Type TParticleManager
 	rem
 		bbdoc: Clears the configuration in the library
 	endrem
-	
 	Method ClearConfiguration()
 '		_library.Clear()
 	End Method
