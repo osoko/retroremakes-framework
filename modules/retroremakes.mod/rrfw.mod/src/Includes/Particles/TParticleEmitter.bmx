@@ -10,48 +10,70 @@ Rem
 endrem
 
 
+'emitter shape constants
 Const STYLE_RADIAL:Int 	 = 20
 Const STYLE_BOX:Int 	 = 21
 Const STYLE_FOUNTAIN:Int = 22
 Const STYLE_LINE:Int 	 = 23
 
-Type TEmitter Extends TActor' TRenderable 'TEngineBase
+rem
+	bbdoc: base object for emitters
+	about: TParticleEmitter and TEmitterEmitter are based from this type
+endrem
+Type TEmitter Extends TParticleActor' Abstract
+								
+	'emitter shape: oval, square, directional, etc
+	Field _shape:Int
+	
+	'bool. if set,  each object is spawned in a random direction, not using the _angle value
+	Field _randomDirection:Int
+	
+	'the longer a line shaped Emitter, the more particles it spawns. here, lower is move. default = 125
+	'todo: this needs work.
+	Field _lineDensity:Int
+	
+	' delay (in ticks) between spawns	
+	Field _spawnDelay:Int
+	
+	'current delay
+	Field _currentSpawnDelay:Int
+	
+	'amount of objects to spawn in the same burst
+	Field _spawnAmount:Int
 
-
-	Field _id:String
-	Field _name:String
-	Field _description:String
-												' Emitters to sync settings to. this is needed for real-time preview and changing settings.
-	Field _appearanceParticle:TParticle			' particle to draw at Emitter center... used to visualize Emitter. created during Emitter clone
-	Field _shape:Int							' oval, square, directional, etc
-	Field _toSpawn:Object
-	Field _randomDirection:Int					' if true, each object is spawned in a random direction, not using the _angle value
-	Field _lineDensity:Int						' the longer a line Emitter, the more particles it spawns. here, lower is move. default = 125
-	Field _spawnDelay:Int						' delay between spawns
-	Field _currentSpawnDelay:Int				' timer for delay
-	Field _spawnAmount:Int						' how many to spawn when spawndelay is over
-	Field _spawnRND:Int							' ^^ jitter
+	'starting speed of spawned objects
 	Field _acceleration:Float					' initial speed of particles
-	Field _accelerationRND:Float				' ^^ jitter
-	Field _spawnAngle:Int						' random, align to Emitter, item setting
-	Field _spawnScale:TFloatValue				' item scale
+	
+	'a little jitter for _acceleration
+	Field _accelerationRND:Float
+	
+	'can be set to : random, align to Emitter, item setting
+	Field _spawnAngle:Int
+	
+	'spawned item scale. can be changed over time
+	Field _spawnScale:TFloatValue
+	
+	'offset from parent
 	Field _offsetX:TFloatValue
 	Field _offsetY:TFloatValue
-	Field _childList:TList
+	
+	'bool. emitter on or off
 	Field _isActive:Int
+	
+	'bool. if set, then changing an emitter property (rotation, scale, etc) also affects its children	
 	Field _isSticky:Int
-
-
+	
 	Method New()
 		_childList = New TList
 		_spawnScale = New TFloatValue
 		_offsetX = New TFloatValue
 		_offsetY = New TFloatValue
+		
 		_lineDensity = 90
 	End Method
 
 	Method Destroy()
-		For Local o:TEngineBase = EachIn _childList
+		For Local o:TParticleActor = EachIn _childList
 			o.SetParent( Null )
 		Next
 		_childList.Clear()
@@ -59,23 +81,30 @@ Type TEmitter Extends TActor' TRenderable 'TEngineBase
 	End Method
 
 	Method Update()
+	
+		'update TParticleActor
+		Super.Update()
 
 		If _parent
-			Local v:TVector = TObjectBase(_parent).GetPosition()
-			SetPosition( v.GetX(), v.GetY() )
+			_currentPosition.SetV(_parent._currentPosition)
+'			Local v:TVector = TObjectBase(_parent).GetPosition()
+'			SetPosition( v.GetX(), v.GetY() )
 		End If
 
-		If _appearanceParticle
-			_appearanceParticle.SetPosition( _position.GetX(), _position.GetY() )
-		End If
+'		If _appearanceParticle
+'			_appearanceParticle.SetPosition( _currentPosition.GetX(), _currentPosition.GetY() )
+'		End If
 
 		If _isActive = False Then Return
 
 		_offsetX.Update()
 		_offsetY.Update()
+'		_sizeX.Update()
+'		_sizeY.Update()
+'		_rotation.Update()
 
 		If _isSticky
-			RotateChildren( _angle.GetChanged() )
+			RotateChildren(_rotation.GetChanged())
 
 			Local v:TVector
 			If _parent
@@ -100,49 +129,21 @@ Type TEmitter Extends TActor' TRenderable 'TEngineBase
 				_spawnAmount = _sizeY.getValue() / _lineDensity
 				If _spawnAmount <= 0 Then _spawnAmount = 1
 			End If
-			If TLibraryParticle( _toSpawn ) Then _SpawnParticles( _angle.GetValue() )
-			If TLibraryEmitter( _toSpawn ) Then _SpawnEmitters( _angle.GetValue() )
+			If TLibraryParticle( _toSpawn ) Then _SpawnParticles( _rotation.GetValue() )
+			If TLibraryEmitter( _toSpawn ) Then _SpawnEmitters( _rotation.GetValue() )
 		EndIf
 	End Method
 
-	Method AddChild( o:Object )
-		If _childList.Contains( o ) Then Return
-		_childList.AddLast( o )
-	End Method
 
-	Method RemoveChild( o:Object )
-		_childList.Remove( o )
-	End Method
-
-	Method GetChildren:TList()
-		Return _childList
-	End Method
-
-	Method RotateChildren( amount:Float )
-		If _isSticky = False Then Return
-		For Local b:TEngineBase = EachIn _childList
-			b.RotatePosition( amount, _position )
-			b.TurnAngle( amount )
-			b.TurnDirection( amount )
-			'
-			'rotate child emitter children
-			If TEmitter(b) Then TEmitter(b).RotateChildren( amount )
-		Next
-	End Method
-
-	Method Enable()
-		_isActive = True
-	End Method
-
-	Method Disable()
-		_isActive = False
+	Method SetActive(bool:Int)
+		_isActive = bool
 	End Method
 
 	Method IsActive:Int()
 		Return _isActive
 	End Method
 
-	Method Draw( tween:Float )
+	Method Render(tweening:Double, fixed:Int)
 	End Method
 
 	'***** PRIVATE *****
@@ -161,10 +162,10 @@ Type TEmitter Extends TActor' TRenderable 'TEngineBase
 			If _randomDirection Then angle = Rnd(360)
 			Select _spawnAngle
 				Case ANGLE_EMITTER
-					p._angle.Lock( angle )
+					p._rotation.Lock( angle )
 				Case ANGLE_RANDOM
-					p._angle.Lock( Rnd(359) )
-					If Rand( 1, 10 ) < 6 Then p._angle._changeValue = -p._angle._changeValue	'chance to rotate the other way
+					p._rotation.Lock( Rnd(359) )
+					If Rand(1, 10) < 6 Then p._rotation._changeValue = -p._rotation._changeValue	'chance to rotate the other way
 			End Select
 
 			_ForceShapeSettings( TEngineBase(p), angle )
@@ -192,10 +193,10 @@ Type TEmitter Extends TActor' TRenderable 'TEngineBase
 		'placement according to each Emitter type
 		Select _shape
 			Case STYLE_RADIAL, STYLE_FOUNTAIN
-				o.SetPosition( _position.GetX() + Sin(angle) * _sizeX.GetValue()/2, _position.GetY() + -Cos(angle) * _sizeY.GetValue()/2 )
+				o.SetPosition( _currentPosition.GetX() + Sin(angle) * _sizeX.GetValue()/2, _currentPosition.GetY() + -Cos(angle) * _sizeY.GetValue()/2 )
 			Case STYLE_LINE
 				Local posOnLine:Float = Rnd(1, _sizeY.getValue())
-				o.SetPosition( _position.GetX() + Sin(angle) * posOnLine , _position.GetY() + -Cos(angle) * posOnLine )
+				o.SetPosition( _currentPosition.GetX() + Sin(angle) * posOnLine , _currentPosition.GetY() + -Cos(angle) * posOnLine )
 		End Select
 
 		Local accRND:Float = Rnd(_accelerationRND)

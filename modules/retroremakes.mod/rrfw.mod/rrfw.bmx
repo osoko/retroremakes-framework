@@ -194,12 +194,14 @@ Include "src\Includes\Menus\TMenuOption.bmx"
 Include "src\Includes\Menus\TMenuMessageData.bmx"
 
 'Particles
-Include "src\Includes\Particles\TEmitter.bmx"
-Include "src\Includes\Particles\TParticle.bmx"
 Include "src\Includes\Particles\TValues.bmx"
+Include "src\Includes\Particles\TParticleActor.bmx"
+Include "src\Includes\Particles\TParticle.bmx"
+Include "src\Includes\Particles\TParticleEmitter.bmx"
 Include "src\Includes\Particles\TParticleImage.bmx"
-Include "src\Includes\Particles\TParticleManager.bmx"
+Include "src\Includes\Particles\TParticleEffect.bmx"
 Include "src\Includes\Particles\TParticleLibrary.bmx"
+Include "src\Includes\Particles\TParticleManager.bmx"
 
 ' Miscellaneous Maths and Algorithms
 Include "src\Includes\Maths\PolygonCollisions.bmx"
