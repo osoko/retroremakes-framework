@@ -151,12 +151,27 @@ Type TFloatValue Extends TValue
 		_endValue:+val
 	End Method
 
-	Method Lock(val:Float)
-		_previousValue = val
-		_startValue = val
-		_currentValue = val
-		_endValue = val + 360
+	rem
+		bbdoc: freezes float on passed value
+	endrem
+	Method Freeze(value:Float)
+		_currentValue = value
+		_active = False
 	End Method
+	
+
+	rem
+		bbdoc: Randomizes float and its rotation direction
+		about: Does not touch the _active flag so if this is set to false, then no rotation will happen
+	endrem
+	Method Randomize()
+		Local range:Float = _endValue - _startValue
+		_startValue = Rnd(359)
+		_currentValue = _startValue
+		_endValue = _startValue + range
+		If Rand(1, 10) < 6 Then _changeValue = -_changeValue	'50% chance to rotate the other way
+	End Method
+	
 
 	Method LoadConfiguration(s:TStream)
 		Local l:String, a:String[]
@@ -178,10 +193,6 @@ Type TFloatValue Extends TValue
 			l.Trim()
 		Wend
 		ResetValue()
-		
-		'mode to countdown here?
-		
-		
 	End Method
 
 	Method Clone:TFloatValue()
@@ -209,7 +220,7 @@ Type TColorValue Extends TValue
 		_startValue = New Trgb
 		_endValue = New Trgb
 		
-'		_mode = COUNTDOWN					'TODO: move to editor value
+'		_mode = COUNTDOWN					'TODO: move to editor value??
 '		_active = False
 '		_behaviour = BEHAVIOUR_ONCE		
 	End Method
@@ -344,14 +355,6 @@ Type Trgb
 		Return False
 	End Method
 
-'	Method SettingsTo(col:Trgb Var)
-'		col._r = _r
-'		col._g = _g
-'		col._b = _b
-'	End Method
-
-
-	
 	Method Clone:Trgb()
 		Local c:Trgb = New Trgb
 		c._r = _r

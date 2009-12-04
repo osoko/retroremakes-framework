@@ -60,32 +60,20 @@ Type TParticle Extends TParticleActor
 		Interpolate(tweening)
 
 '		Self.SetRenderState()
-		SetAlpha _alpha.GetValue()
-		SetScale(_sizeX.GetValue(), _sizeY.GetValue())
-		SetRotation _rotation.GetValue()
-		SetBlend _blendMode
+		brl.max2d.SetAlpha _alpha.GetValue()
+		brl.max2d.SetScale(_sizeX.GetValue(), _sizeY.GetValue())
+		brl.max2d.SetRotation _rotation.GetValue()
+		brl.max2d.SetBlend _blendMode
+		
 		_color.Use()
 
-		
-'		SetBlend LIGHTBLEND
-'		SetAlpha 1
-		
 		DrawImage _image, _renderPosition.x, _renderPosition.y, _imageFrame
 
-'		SetColor 0, 255, 0
-'		SetAlpha 1.0
-'		SetScale 1, 1
-'		SetRotation 0
-'		DrawText "pos: " + _renderPosition.x + "," + _renderPosition.y, _currentPosition.x - 100, _currentPosition.y
-'		DrawText "alpha: " + _alpha.GetValue(), _currentPosition.x - 100, _currentPosition.y + 20
-'		DrawText "size: " + _sizeX.GetValue() + "," + _sizeY.GetValue(), _currentPosition.x - 100, _currentPosition.y + 40
-'		DrawText "rotation: " + _rotation.GetValue(), _currentPosition.x - 100, _currentPosition.y + 60
-		
 	End Method
 	
 	rem
-		bbdoc:loads particle settings from passsed stream
-		about:the settings have been saved from the editor into a configuration file
+		bbdoc: Loads particle settings from passsed stream
+		about: The settings have been saved from the editor into a configuration file
 	endrem
 	Method LoadConfiguration(s:TStream)
 		Local l:String, a:String[]
@@ -144,7 +132,7 @@ Type TParticle Extends TParticleActor
 	End Method
 
 	rem
-		bbdoc:returns particles parent
+		bbdoc:returns particle parent
 		returns:TParticleEmitter
 	endrem
 	Method GetParent:TParticleEmitter()
