@@ -16,8 +16,14 @@ Const STYLE_BOX:Int = 21
 Const STYLE_FOUNTAIN:Int = 22
 Const STYLE_LINE:Int = 23
 
+'spawned object rotation options
 Const SPAWN_ROTATION_EMITTER:Int = 25
 Const SPAWN_ROTATION_RND:Int = 26
+Const SPAWN_ROTATION_OBJECT:Int = 27
+
+'spawned object direction options
+Const SPAWN_DIRECTION_EMITTER:Int = 30
+Const SPAWN_DIRECTION_RND:Int = 31
 
 rem
 	bbdoc: emitter that can spawn particles and emitters
@@ -89,20 +95,15 @@ Type TParticleEmitter Extends TParticleActor
 		'update TParticleActor
 		Super.Update()
 		
-
-		
 		'force emitter position to parent
-		If _parent
-			_currentPosition.SetV(_parent._currentPosition)
-			'			Local v:TVector = TObjectBase(_parent).GetPosition()
-			'			SetPosition( v.GetX(), v.GetY() )
-		End If
-
-		If _isActive = False Then Return
+		If _parent Then _currentPosition.SetV(_parent._currentPosition)
 
 		_offsetX.Update()
 		_offsetY.Update()
 		_rotation.Update()
+		_spawnSize.Update()
+		
+		If _isActive = False Then Return
 
 		If _isSticky
 			RotateChildren(_rotation.GetChanged())
@@ -118,10 +119,8 @@ Type TParticleEmitter Extends TParticleActor
 			Next
 		End If
 
-		'spawn?
+		'spawn something?
 		If _spawnAmount = 0 Then Return
-		
-		_spawnSize.Update()
 		
 		_currentSpawnDelay:-1
 		If _currentSpawnDelay < 0
@@ -131,8 +130,8 @@ Type TParticleEmitter Extends TParticleActor
 				_spawnAmount = _sizeY.getValue() / _lineDensity
 				If _spawnAmount <= 0 Then _spawnAmount = 1
 			End If
-			If TParticle(_toSpawn) Then _SpawnParticles()
-			If TParticleEmitter(_toSpawn) Then _SpawnEmitters()
+			
+			DoSpawn()
 		EndIf
 	End Method
 
@@ -154,12 +153,12 @@ Type TParticleEmitter Extends TParticleActor
 				Case "accelerationrnd" _accelerationRND = Float(a[1])
 				Case "active" _isActive = Int(a[1])
 				Case "sticky" _isSticky = Int(a[1])
-				Case "spawndirection" _spawnDirection = Int(a[1])			'CHANGED!
-				Case "spawnrotation" _spawnRotation = Int(a[1])				'CHANGED!
+				Case "spawndirection" _spawnDirection = Int(a[1])
+				Case "spawnrotation" _spawnRotation = Int(a[1])
 				Case "life" _life = Int(a[1])
 				Case "shape" _shape = Int(a[1])
 				Case "friction" _friction = Float(a[1])
-				Case "spawn" _spawnID = a[1]					' store id. after loading, we get the objects for this. see TParticleLibrary.bmx
+				Case "spawn" _spawnID = a[1]					' store id. post processing is done in TParticleLibrary.bmx
 				Case "#rotation" _rotation.LoadConfiguration(s)
 				Case "#sizex" _sizeX.LoadConfiguration(s)
 				Case "#sizey" _sizeY.LoadConfiguration(s)
@@ -189,22 +188,14 @@ Type TParticleEmitter Extends TParticleActor
 		e._life = _life
 		e._spawnDirection = _spawnDirection
 		e._spawnRotation = _spawnRotation
-
 		e._friction = _friction
-		
+
 		e._rotation = _rotation.Clone()
 		e._sizeX = _sizeX.Clone()
 		e._sizeY = _sizeY.Clone()
 		e._offsetX = _offsetX.Clone()
 		e._offsetY = _offsetY.Clone()
 		e._spawnSize = _spawnSize.Clone()
-		
-'		_angle.SettingsToEngineFloat(e._angle)
-'		_sizeX.SettingsToEngineFloat(e._sizeX)
-'		_sizeY.SettingsToEngineFloat(e._sizeY)
-'		_offsetX.SettingsToEngineFloat(e._offsetX)
-'		_offsetY.SettingsToEngineFloat(e._offsetY)
-'		_spawnSize.SettingsToEngineFloat(e._spawnSize)
 		Return e
 	End Method
 
@@ -215,7 +206,6 @@ Type TParticleEmitter Extends TParticleActor
 	Method SetSpawnObject(o:TParticleActor)
 		_toSpawn = o
 	End Method
-	
 
 	Method SetActive(bool:Int)
 		_isActive = bool
@@ -239,74 +229,97 @@ Type TParticleEmitter Extends TParticleActor
 		
 	End Method
 
-	'***** PRIVATE *****
-	
-	'
-	'todo : both spawn methods can be merged. do casting in here.
-	
-	Method _SpawnParticles()
-	
-		Local rotation:Float = _rotation.GetValue()
-		Local p:TParticle
-		Local source:TParticle = TParticle(_toSpawn)
-		For Local amount:Int = 1 To _spawnAmount
-			p = source.Clone()
-			p.SetParent(Self)
-			Self.AddChild(p)
-			TLayerManager.GetInstance().AddRenderableToLayerById(p, _layer)
 
-			Local val:Float = _spawnSize.GetValue()
-			p._sizeX.Scale(val)
-			p._sizeY.Scale(val)
+	rem
+		bbdoc: spawns the object located in _toSpawn
+		about: does a cast to determine which object type is needed
+	endrem			
+	Method DoSpawn()
+		If TParticle(_toSpawn)
+			Local p:TParticle
+			Local source:TParticle = TParticle(_toSpawn)
+			For Local amount:Int = 1 To _spawnAmount
+				
+				'create it
+				p = source.Clone()
+				
+				'send it off
+				ForceEmitterSettings(p)', rotation)
+			Next
+			Return
+		EndIf
 			
-			If _spawnDirection = SPAWN_ROTATION_RND Then rotation = Rnd(360)
-'			Select _spawnDirection
-'				Case ANGLE_EMITTER
-'					p._rotation.Lock(rotation)
-'				Case ANGLE_RANDOM
-'					p._rotation.Lock(Rnd(359))
-'					If Rand(1, 10) < 6 Then p._rotation._changeValue = -p._rotation._changeValue	'chance to rotate the other way
-'			End Select
-
-			_ForceShapeSettings(p, rotation)
-		Next
+		If TParticleEmitter(_toSpawn)
+			Local s:TParticleEmitter
+			Local source:TParticleEmitter = TParticleEmitter(_toSpawn)
+			For Local amount:Int = 1 To _spawnAmount
+				s = source.Clone()
+				ForceEmitterSettings(s)', rotation)
+			Next
+			Return
+		EndIf
+	
 	End Method
+	
+	rem
+		bbdoc: forces the emitter settings on the spawned object
+		this includes direction, angle, scale, etc.
+		about: private method, not called from outside the emitter
+	endrem
+	Method ForceEmitterSettings(o:TParticleActor)
 
-	Method _SpawnEmitters()
-		Local rotation:Float = _rotation.GetValue()
-		Local s:TParticleEmitter
-		Local source:TParticleEmitter = TParticleEmitter(_toSpawn)
-		For Local amount:Int = 1 To _spawnAmount
-			s = source.Clone()
-			s.SetParent(Self)
-			Self.AddChild(s)
+		'add to the same layer as emitter
+		TLayerManager.GetInstance().AddRenderableToLayerById(o, _layer)
+		
+		'set relations
+		o.SetParent(Self)
+		Self.AddChild(o)
 
+		'scale spawned object to current emitter spawn size
+		Local val:Float = _spawnSize.GetValue()
+		o._sizeX.Scale(val)
+		o._sizeY.Scale(val)
+		
+		'determine where the object has to travel to
+		Local directionAngle:Float
+		
+		Select _spawnDirection
+			Case SPAWN_DIRECTION_EMITTER
+				directionAngle = _rotation.GetValue()
+				
+			Case SPAWN_DIRECTION_RND
 			
-			Local val:Float = _spawnSize.GetValue()
-			s._sizeX.Scale(val)
-			s._sizeY.Scale(val)
-
-			If _spawnDirection = SPAWN_ROTATION_RND Then rotation = Rnd(360)
-			_ForceShapeSettings(s, rotation)
-		Next
-	End Method
-
-	Method _ForceShapeSettings(o:TParticleActor, rotation:Float)
-		'
-		'placement according to each Emitter type
+				'set direction to random value. this means that the spawned object will move in a random direction
+				'this does not change the emitter rotation.
+				directionAngle = Rnd(360)
+		End Select
 		
-		o = TParticleActor(o)
+		'determine at which rotation angle the object is spawned
+		Select _spawnRotation
+			Case SPAWN_ROTATION_EMITTER
+			
+				'make sure the spawned object rotation is idential to its direction
+				o._rotation.Freeze(directionAngle)
+			Case SPAWN_ROTATION_RND
+			
+				'the rotation of the spawned object is random, and turns in a random direction (if value is active of course)
+				o._rotation.Randomize()
+			Case SPAWN_ROTATION_OBJECT
+				'do nothing. object keeps its own rotation value
+		End Select
 		
+		'determine emitter shape and force begin location on spawned object
 		Select _shape
 			Case STYLE_RADIAL, STYLE_FOUNTAIN
-				o.ResetPosition(_currentPosition.x + Sin(rotation) * _sizeX.GetValue() / 2, _currentPosition.y + -Cos(rotation) * _sizeY.GetValue() / 2)
+				o.ResetPosition(_currentPosition.x + Sin(directionAngle) * _sizeX.GetValue() / 2, _currentPosition.y + -Cos(directionAngle) * _sizeY.GetValue() / 2)
 			Case STYLE_LINE
 				Local posOnLine:Float = Rnd(1, _sizeY.getValue())
-				o.ResetPosition(_currentPosition.x + Sin(rotation) * posOnLine, _currentPosition.y + -Cos(rotation) * posOnLine)
+				o.ResetPosition(_currentPosition.x + Sin(directionAngle) * posOnLine, _currentPosition.y + -Cos(directionAngle) * posOnLine)
 		End Select
-
+		
+		'fire off object
 		Local accRND:Float = Rnd(_accelerationRND)
-		Local acc:TVector2D = TVector2D.Create(Sin(rotation) * (_acceleration + accRND), -Cos(rotation) * (_acceleration + accRND))
+		Local acc:TVector2D = TVector2D.Create(Sin(directionAngle) * (_acceleration + accRND), -Cos(directionAngle) * (_acceleration + accRND))
 		o.AddAcceleration(acc)
 		
 '		o.AddAcceleration(Sin(rotation) * (_acceleration + accRND), -Cos(rotation) * (_acceleration + accRND))
