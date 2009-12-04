@@ -193,8 +193,7 @@ Type TLayerManager Extends TGameService
 	endrem		
 	Function GetInstance:TLayerManager()
 		If Not _instance
-			_instance = New TLayerManager
-			Return _instance
+			Return New TLayerManager
 		Else
 			Return _instance
 		EndIf
@@ -268,6 +267,7 @@ Type TLayerManager Extends TGameService
 	endrem
 	Method New()
 		If _instance rrThrow "Cannot create multiple instances of Singleton Type"
+		_instance = Self
 		Initialise()
 	EndMethod
 	

@@ -30,7 +30,7 @@ Type MyGameManager Extends TGameManager
 	' This is basically were we do our game initialisation, and kick things off.		
 	Method Start()
 
-		layerManager = New TLayerManager
+		layerManager = TLayerManager.GetInstance()
 		layerManager.CreateLayer(0, "back")
 		layerManager.CreateLayer(1, "front")
 
