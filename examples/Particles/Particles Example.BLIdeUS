@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UnmanagedSolution xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Project>
+    <Main_File>Particles.bmx</Main_File>
+    <Included_File>
+      <FileName>src\GameManager.bmx</FileName>
+      <Document_Active>true</Document_Active>
+      <Caret_Position>
+        <X>6</X>
+        <Y>61</Y>
+      </Caret_Position>
+    </Included_File>
+    <Included_File>
+      <FileName>Particles.bmx</FileName>
+      <Document_Active>true</Document_Active>
+      <Caret_Position>
+        <X>13</X>
+        <Y>25</Y>
+      </Caret_Position>
+    </Included_File>
+    <Compilation_Mode>GUI_Application</Compilation_Mode>
+    <Context_Directory>\Particles Example</Context_Directory>
+    <Project_Name>Particles Example</Project_Name>
+    <BuildStep>1</BuildStep>
+    <Icon_File_Location>C:\Program Files (x86)\BLIde for BlitzMax\blide.ico</Icon_File_Location>
+    <Embed_Os_Theme>false</Embed_Os_Theme>
+    <Publish_as_ConsoleApp>false</Publish_as_ConsoleApp>
+    <Debug_Enabled_Publish>false</Debug_Enabled_Publish>
+    <Publish_NRV_Level>0</Publish_NRV_Level>
+  </Project>
+  <Compiler_Configuration>
+    <Quick_Build>true</Quick_Build>
+    <Debugging>true</Debugging>
+    <Command />
+    <Threaded>false</Threaded>
+    <Name />
+    <Company />
+    <Comments />
+    <Author />
+  </Compiler_Configuration>
+</UnmanagedSolution>
