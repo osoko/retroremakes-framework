@@ -9,39 +9,54 @@ Rem
 '
 endrem
 
-
 rem
 	bbdoc: an effect holds a list of emitters it has to spawn when called from the library.
 endrem
 Type TParticleEffect
 
-	Field _id:String
+	'id of this effect in the library
+	Field _libraryID:String
+	
+	'name used in the game
+	Field _gameName:String
+	
+	'friendly name
 	Field _name:String
+	
+	'handy description
 	Field _description:String
+	
+	'list containing the gamenames of the emitters to spawn
 	Field _childList:TList	
 
 	Method New()
 		_childList = New TList
 	End Method
-
-	Method SettingsFromStream( s:TStream, library:Object )
+	
+	rem
+		bbdoc: loads the effect settings from a file stream
+	endrem
+	Method LoadConfiguration(s:TStream)', library:Object )
 		Local l:String, a:String[]
 		l = s.ReadLine()
 		l.Trim()
 		While l <> "#endeffect"
 			a = l.split("=")
 			Select a[0].ToLower()
-				Case "gamename" _id = a[1]				' store gamename of this effect so we can ask engine
+				Case "id" _libraryID = a[1]
+				Case "gamename" _gameName = a[1]				' store gamename of this effect so we can ask engine
 				Case "description" _description = a[1]
-				Case "emitter" _childList.AddLast(a[1])		' gamenames of emitters belonging to this effect, so engine can spawn them
-				Default rrThrow "effect: " + l
+				Case "emitter" _childList.AddLast(a[1])			' gamenames of emitters belonging to this effect, so engine can spawn them
 			End Select
 			l = s.ReadLine()
 			l.Trim()
 		Wend
 	End Method
 
-	Method GetChildren:TList()
+	rem
+		bbdoc: returns list of emitter gamenames
+	endrem
+	Method GetList:TList()
 		Return _childList
 	End Method
 

@@ -54,8 +54,8 @@ Type TParticleActor Extends TActor Abstract
 	
 	'parent of this object
 	Field _parent:TActor
-	
-	Method Destroy() Abstract
+
+
 	Method Render(tweening:Double, fixed:Int) Abstract
 	
 	rem
@@ -67,6 +67,26 @@ Type TParticleActor Extends TActor Abstract
 		_rotation = New TFloatValue
 		_velocity = New TVector2D
 		_acceleration = New TVector2D
+		
+	End Method
+	
+	'remove object
+	Method Remove()
+	
+		'...from layer
+		TLayerManager.GetInstance().RemoveRenderable(Self)
+		
+		'...from parent childlist if needed
+		If _parent
+			If TParticleActor(_parent) Then TParticleActor(_parent).RemoveChild(Self)
+		EndIf
+		
+		'free children if needed...
+		If _childList
+			For Local a:TParticleActor = EachIn _childList
+				a.RemoveParent()
+			Next
+		End If
 		
 	End Method
 
@@ -87,11 +107,13 @@ Type TParticleActor Extends TActor Abstract
 		_previousPosition.SetV(_currentPosition)
 
 		'apply friction to current speed
-		_velocity.Multiply(1.0 - _friction, 1.0 - _friction)
+		_velocity.MulF(1.0 - _friction)
+'		_velocity.Multiply(1.0 - _friction, 1.0 - _friction)
 		
-		'add acceleration (divide by update frequency for fixed step)
+		'add acceleration (divide by update frequency for fixed step) to velocity
 		Local freq:Double = rrGetUpdateFrequency()
-		_velocity.Add(_acceleration.x * freq, _acceleration.y * freq)
+		_velocity.AddF(_acceleration.x * freq, _acceleration.y * freq)
+		'_velocity.Add(_acceleration.x * freq, _acceleration.y * freq)
 
 		'add velocity to the position		
 		_currentPosition.AddV(_velocity)
@@ -99,15 +121,10 @@ Type TParticleActor Extends TActor Abstract
 		'get rid of acceleration for the next step
 		_acceleration.Set(0, 0)
 		
-		
-		'update life
+		'update life, remove if dead.
 		If _life = -1 Then Return
-
-		_life:- 1
-		If _life = 0
-'			Destroy()
-'			RemoveFromList()
-		End If
+		_life:-1
+		If _life = 0 Then Self.Remove()
 		
 	End Method
 
@@ -162,7 +179,8 @@ Type TParticleActor Extends TActor Abstract
 		bbdoc:accelerate this object by passed 2d vector
 	endrem	
 	Method AddAcceleration(amount:TVector2D)
-		_acceleration.SetV(amount)
+		'_acceleration.SetV(amount)
+		_acceleration.AddV(amount)
 	End Method
 	
 	Method GetAcceleration:TVector2D()

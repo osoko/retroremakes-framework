@@ -11,7 +11,7 @@ endrem
 
 
 '
-'values that can be controlled and manipulated over run time
+'values that can be controlled and manipulated over time
 'values are color and float.
 'possibly change to animations in a later release. for now, straight port 
 
@@ -22,14 +22,15 @@ Const BEHAVIOUR_PINGPONG:Int = 12
 Type TValue Abstract
 
 	Method New()
-'		_mode = COUNTDOWN					'TODO: move to editor value
-'		_active = False
-'		_behaviour = BEHAVIOUR_ONCE
+		_mode = COUNTDOWN					'TODO: move to editor value
+		_active = False
+		_behaviour = BEHAVIOUR_ONCE
 	End Method
 
 	Method Update()
 		SetPrevious()
 		If _active = False Then Return
+		
 		Select _mode
 			Case COUNTDOWN
 				_countdown_left:-1
@@ -76,9 +77,9 @@ Type TValue Abstract
 	Method SetPrevious() Abstract
 
 	Const COUNTDOWN:Int = 1				' 1st pause, optional
-	Const RUNNING:Int = 2					' control type is running
+	Const RUNNING:Int = 2				' control type is running
 	Const ENDED:Int = 3					' control type has ended
-	Const STOPPED:Int = 4					' control has stopped or never needs to run
+	Const STOPPED:Int = 4				' control has stopped or never needs to run
 
 	'***** PRIVATE *****
 
@@ -157,26 +158,30 @@ Type TFloatValue Extends TValue
 		_endValue = val + 360
 	End Method
 
-	Method SettingsFromStream(s:TStream)
+	Method LoadConfiguration(s:TStream)
 		Local l:String, a:String[]
 		l = s.ReadLine()
 		l.Trim()
 		While l <> "#endfloat"
 			a = l.split("=")
 			Select a[0].ToLower()
-				Case "active"		_active = Int( a[1] )
-				Case "behaviour"	_behaviour = Int( a[1] )
-				Case "countdown"	_countdown_left = Int( a[1] )
-				Case "start"		_startValue = Float( a[1] )
-				Case "end"			_endValue = Float( a[1] )
-				Case "change"		_changeValue = Float( a[1] )
+				Case "active" _active = Int(a[1])
+				Case "behaviour" _behaviour = Int(a[1])
+				Case "countdown" _countdown_left = Int(a[1])
+				Case "start" _startValue = Float(a[1])
+				Case "end" _endValue = Float(a[1])
+				Case "change" _changeValue = Float(a[1])
 				Case "random"
-			Default rrThrow l
+				Default rrThrow l
 			End Select
 			l = s.ReadLine()
 			l.Trim()
 		Wend
 		ResetValue()
+		
+		'mode to countdown here?
+		
+		
 	End Method
 
 	Method Clone:TFloatValue()
@@ -194,7 +199,6 @@ Type TFloatValue Extends TValue
 End Type
 
 Type TColorValue Extends TValue
-
 
 	Field _currentValue:Trgb
 	Field _startValue:Trgb
@@ -222,7 +226,7 @@ Type TColorValue Extends TValue
 		Local temp:Trgb = _startValue
 		_startValue = _endValue
 		_endValue = temp
-		_currentValue.SettingsTo(_startValue)
+		_currentValue = _startValue.Clone()'.SettingsTo(_startValue)
 	End Method
 
 	Method UpdateValue:Int()
@@ -233,7 +237,7 @@ Type TColorValue Extends TValue
 	Method SetPrevious()
 	End Method
 
-	Method SettingsFromStream(s:TStream)
+	Method LoadConfiguration(s:TStream)
 		Local l:String, a:String[], b:String[2]
 		l = s.ReadLine()
 		l.Trim()
@@ -345,12 +349,14 @@ Type Trgb
 '		col._g = _g
 '		col._b = _b
 '	End Method
+
+
 	
 	Method Clone:Trgb()
 		Local c:Trgb = New Trgb
-		c._r = r
-		c._g = g
-		c._b = b
+		c._r = _r
+		c._g = _g
+		c._b = _b
 		Return c
 	End Method
 
