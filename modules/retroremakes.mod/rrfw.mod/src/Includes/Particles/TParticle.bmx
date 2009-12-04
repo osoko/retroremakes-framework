@@ -11,15 +11,18 @@ endrem
 
 
 rem
-	bbdoc:custumizable particle
+	bbdoc:customizable particle
 endrem
 Type TParticle Extends TParticleActor
+
+	'id of image in library
+	Field _imageID:String
 
 	'image to draw
 	Field _image:TImage
 	
 	'frame from image to draw
-	Field _frame:Int
+	Field _imageFrame:Int
 	
 	'changeable color over time
 	Field _color:TColorValue
@@ -39,15 +42,6 @@ Type TParticle Extends TParticleActor
 	End Method
 	
 	rem
-		bbdoc:destroys this particle
-		about:also removes the particle from its parent childlist
-	end rem
-	Method Destroy()
-		If _parent Then _parent.RemoveChild(Self)
-		life = 1
-	End Method
-	
-	rem
 		bbdoc:updates particle settings
 	endrem
 	Method Update()
@@ -55,7 +49,8 @@ Type TParticle Extends TParticleActor
 		_alpha.Update()
 
 		'run Update() in TParticleActor
-		Super.Update()		
+		Super.Update()
+		
 	End Method
 
 	rem
@@ -71,40 +66,50 @@ Type TParticle Extends TParticleActor
 		SetBlend _blendMode
 		_color.Use()
 
-		DrawImage _image, _renderPosition.x, _renderPosition.y, _frame
+		
+'		SetBlend LIGHTBLEND
+'		SetAlpha 1
+		
+		DrawImage _image, _renderPosition.x, _renderPosition.y, _imageFrame
+
+'		SetColor 0, 255, 0
+'		SetAlpha 1.0
+'		SetScale 1, 1
+'		SetRotation 0
+'		DrawText "pos: " + _renderPosition.x + "," + _renderPosition.y, _currentPosition.x - 100, _currentPosition.y
+'		DrawText "alpha: " + _alpha.GetValue(), _currentPosition.x - 100, _currentPosition.y + 20
+'		DrawText "size: " + _sizeX.GetValue() + "," + _sizeY.GetValue(), _currentPosition.x - 100, _currentPosition.y + 40
+'		DrawText "rotation: " + _rotation.GetValue(), _currentPosition.x - 100, _currentPosition.y + 60
+		
 	End Method
 	
 	rem
 		bbdoc:loads particle settings from passsed stream
 		about:the settings have been saved from the editor into a configuration file
 	endrem
-	Method SettingsFromStream(s:TStream, library:Object)
-		Local lib:TLibrary = TLibrary(library)
+	Method LoadConfiguration(s:TStream)
 		Local l:String, a:String[]
 		l = s.ReadLine()
 		l.Trim()
 		While l <> "#endparticle"
 			a = l.split("=")
 			Select a[0].ToLower()
-				Case "id"			_id = a[1]
-				Case "imageid"
-					If a[1] = "none"
-						rrThrow "no images for this particle!"
-						'_image = Null
-					Else
-						_image = TLibraryImage(lib.GetObject(a[1])).getimage()
-					End If
-				Case "frame"	_frame = Int( a[1] )
+				Case "id" _libraryID = a[1]
+				Case "desc" _description = a[1]
+				Case "name" _name = a[1]
+				Case "imageid" _imageID = a[1]
+				Case "frame" _imageFrame = Int(a[1])
 				Case "friction" _friction = Float(a[1])
-				Case "life"		_life = Int( a[1] )
+				Case "life" _life = Int(a[1])
 				Case "blend" _blendMode = Int(a[1])
-				Case "#color"	_color.SettingsFromStream( s )
-				Case "#angle" _rotation.SettingsFromStream(s)
-				Case "#alpha"	_alpha.SettingsFromStream( s )
-				Case "#sizex"	_sizeX.SettingsFromStream( s )
-				Case "#sizey"	_sizeY.SettingsFromStream( s )
+				
+				Case "#color" _color.LoadConfiguration(s)
+				Case "#rotation" _rotation.LoadConfiguration(s)
+				Case "#alpha" _alpha.LoadConfiguration(s)
+				Case "#sizex" _sizeX.LoadConfiguration(s)
+				Case "#sizey" _sizeY.LoadConfiguration(s)
 
-				Default rrThrow l
+				Default rrThrow "load: particle parameter not known: " + l
 			End Select
 			l = s.ReadLine()
 			l.Trim()
@@ -114,15 +119,17 @@ Type TParticle Extends TParticleActor
 	rem
 		bbdoc:creates an exact copy of this particle
 		about:mainly used by emitter to create particles
+		does not copy libraryID
 		returns:TParticle
 	endrem
 	Method Clone:TParticle()
 
 		Local p:TParticle = New TParticle
-'		p._parent = parent'SetParent( parent )							'TODO: move to emitter
-		p._image = _image'.GetImage()
-		p._frame = _frame
-		If p._frame = -1 Then p._frame = Rand(0, _image.frames - 1)		' -1 is a random frame
+		p._description = _description
+		p._image = _image
+		p._imageID = _imageID
+		p._imageFrame = _imageFrame
+		If p._imageFrame = -1 Then p._imageFrame = Rand(0, _image.frames.Length)		' -1 is a random frame
 		p._friction = _friction
 		p._life = _life
 		p._blendMode = _blendMode
@@ -132,14 +139,6 @@ Type TParticle Extends TParticleActor
 		p._alpha = _alpha.Clone()
 		p._sizeX = _sizeX.Clone()
 		p._sizeY = _sizeY.Clone()
-'		p._scale = _scale.Clone()
-		
-'		_color.SettingsToEngineColor(p._color)
-'		_rotation.SettingsToEngineFloat(p._rotation)
-'		_alpha.SettingsToEngineFloat(p._alpha)
-'		_sizeX.SettingsToEngineFloat(p._sizeX)
-'		_sizeY.SettingsToEngineFloat(p._sizeY)
-'		_scale.SettingsToEngineFloat(p._scale)
 		
 		Return p
 	End Method

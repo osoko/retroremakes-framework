@@ -10,93 +10,118 @@ Rem
 endrem
 
 
+rem
+	bbdoc: library for particle engine
+	about: particle objects (particles, emitter, effects) are stored in this library, ready
+	to be called by the game engine
+endrem
 Type TParticleLibrary
 
-	'library objects are stored in this tmap
+	'objects are stored in this tmap, using the _libraryID or _gameName fields as labels.
 	Field _objectMap:TMap
 
+	rem
+		bbdoc:default constructor
+	endrem
 	Method New()
 		_objectMap = New TMap
 	End Method
-
-	rem
 	
+	rem
+		bbdoc:loads the configuration file for the library
+	endrem
 	Method LoadConfiguration:Int(name:String)
 		Local in:TStream = ReadStream(name)
 		If Not in Then Return 0
 		While Not Eof(in)
 			Local line:String = in.ReadLine()
 			line.Trim()
-			Select line
+			Select line.ToLower()
 				Case "#image"
-'					Local i:TLibraryImage = New TLibraryImage
-'					i.SettingsFromStream( in )
-'					_StoreObject( i, i._id)
+					Local i:TParticleImage = New TParticleImage
+					i.LoadConfiguration(in)
+					_StoreObject(i, i._libraryID)
+					
 				Case "#particle"
-'					Local p:TLibraryParticle = New TLibraryParticle
-'					p.SettingsFromStream( in, Self )
-'					_StoreObject( p, p._id)
+					Local p:TParticle = New TParticle
+					p.LoadConfiguration(in)
+					_StoreObject(p, p._libraryID)
+					
 				Case "#effect"
-'					Local ef:TLibraryEffect = New TLibraryEffect
-'					ef.SettingsFromStream( in, Self )
-'					_StoreObject( ef, ef._id)
+					Local ef:TParticleEffect = New TParticleEffect
+					ef.LoadConfiguration(in)
+					
+					'store effect using gamename, not id
+					_StoreObject(ef, ef._gameName)
+					
 				Case "#emitter"
-'					Local e:TLibraryEmitter = New TLibraryEmitter
-'					e.SettingsFromStream( in, Self )
-'					_StoreObject( e, e._id)
+					Local e:TParticleEmitter = New TParticleEmitter
+					e.LoadConfiguration(in)
+					
+					'store emitter using gamename, not id
+					_StoreObject(e, e._gameName)
 
-				Default 		RuntimeError line
+				Default rrThrow line
 			End Select
 		Wend
 
-		'set the 'spawn object' after all objects have loaded.
-		'reason: if a emitter contains a emitter with an ID that is not yet in the library, it would not get set.
-		Local id:String
-		For Local s:TLibraryEmitter = EachIn MapValues(_objectMap)
-			id = String(s.GetSpawnObject())
-			If id <> "none" Then s.SetSpawnObject( GetObject(id) )
-		Next
 		in.Close()
+		
+		'do some post processing (put in references to actual objects instead of id's)
+
+		'add images to particles
+		Local i:TParticleImage
+		For Local p:TParticle = EachIn MapValues(_objectMap)
+			i = TParticleImage(GetObject(p._imageID))
+			p._image = i.GetImage()
+		Next
+		
+		'add spawn objects to emitters.
+		'as these can be emitters or particles, cast to TParticleActor
+		For Local e:TParticleEmitter = EachIn MapValues(_objectMap)
+			e._toSpawn = TParticleActor(GetObject(e._spawnID))
+		Next
+
 		Return 1
 	End Method
-
-	'***** ENGINE CLONE METHOD *****
-
-	Method CreateEmitter:TEmitter(name:String, x:Float, y:Float, parent:Object = Null)
-		Local source:TLibraryEmitter = TLibraryEmitter(Self.GetObject(name) )
-		If source = Null Then RuntimeError name
-		Local e:TEmitter = source.CloneToEngine( parent )
-		e.SetPosition(x,y)
-		If e.IsActive() Then e.Enable()
-		Return e
+	
+	rem
+		bbdoc: clears the library configuration
+	endrem	
+	Method Clear()
+		_objectMap.Clear()
 	End Method
 
-	Method CreateEffect( name:String, x:Float, y:Float, parent:Object )				' an effect creates multiple emitters
-		Local source:TLibraryEffect = TLibraryEffect( GetObject(name) )
-		If source = Null Then RuntimeError name
-		For Local ename:String = EachIn source._childList
-			CreateEmitter( ename, x, y, parent )
+	Method CloneEmitter:TParticleEmitter(name:String)', x:Float, y:Float, parent:Object = Null)
+		Local source:TParticleEmitter = TParticleEmitter(Self.GetObject(name))
+		If source = Null Then rrThrow "Cannot find emitter: " + name
+		Return source.Clone()
+	End Method
+	
+rem
+	Method CreateEffect(name:String, x:Float, y:Float, parent:Object)				' an effect creates multiple emitters
+		Local source:TParticleEffect = TParticleEffect(GetObject(name))
+		If Not source Then rrThrow "Cannot find effect: " + name
+		Local toCreate:TList = source.GetList()
+		For Local ename:String = EachIn toCreate
+			CreateEmitter(ename, x, y, parent)
 		Next
 
 	End Method
-
-	endrem	
+endrem
 	
 	'**** RETRIEVAL METHODS *****
 
 	Method GetObject:Object(id:String)
 		Local o:Object = MapValueForKey( _objectMap, id)
-		If o = Null Then rrThrow "not found id: " + id
+		If o = Null Then rrThrow "Library does not contain object with id : " + id
 		Return o
 	End Method
-
 
 	'***** PRIVATE *****
 
 	Method _StoreObject(o:Object, id:String)
 		MapInsert( _objectMap, id, o )
 	End Method
-
-	
 	
 End Type
