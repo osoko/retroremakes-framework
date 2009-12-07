@@ -4,7 +4,7 @@ Rem
 	of an animation.
 End Rem
 Type TResetPositionAnimation Extends TSetPositionAnimation
-	
+
 	Rem
 		bbdoc: Update the animation
 	End Rem

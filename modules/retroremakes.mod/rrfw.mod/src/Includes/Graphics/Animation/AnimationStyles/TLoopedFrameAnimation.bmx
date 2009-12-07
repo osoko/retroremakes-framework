@@ -69,6 +69,21 @@ Type TLoopedFrameAnimation Extends TAnimation
 
 	
 	
+	Rem
+		bbdoc:Returns a copy of the animation
+	End Rem
+	Method Copy:TAnimation()
+		Local animation:TLoopedFrameAnimation = New TLoopedFrameAnimation
+		animation._direction = _direction
+		animation._firstFrame = _firstFrame
+		animation._loopCount = _loopCount
+		animation._speed = _speed
+		animation.Reset()
+		Return animation
+	End Method
+
+	
+	
 	rem
 		bbdoc: Loops the animation
 		about: If there are still loops remaining to be performed

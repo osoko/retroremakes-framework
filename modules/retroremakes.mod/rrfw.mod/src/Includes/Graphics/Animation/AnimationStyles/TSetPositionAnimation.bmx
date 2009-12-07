@@ -20,6 +20,18 @@ Type TSetPositionAnimation Extends TAnimation
 
 
 		
+	Rem
+		bbdoc:Returns a copy of the animation
+	End Rem
+	Method Copy:TAnimation()
+		Local animation:TSetPositionAnimation = New TSetPositionAnimation
+		animation._position = _position.Copy()
+		animation.Reset()
+		Return animation
+	End Method
+
+	
+	
 	rem
 		bbdoc: Default constructor
 	endrem

@@ -23,6 +23,15 @@ Type TAnimation
 	
 	
 	rem
+		bbdoc: Returns a copy of the animation
+		about: Copy should be returned in a Reset state so it can immediately
+		be used elsewhere
+	endrem
+	Method Copy:TAnimation() Abstract
+	
+	
+	
+	rem
 		bbdoc: Initialise the animation
 		about: This should be overridden where required
 	endrem

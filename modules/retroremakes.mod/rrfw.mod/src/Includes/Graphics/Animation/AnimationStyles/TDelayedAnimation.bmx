@@ -29,6 +29,19 @@ Type TDelayedAnimation Extends TAnimation
 
 
 	
+	Rem
+		bbdoc:Returns a copy of the animation
+	End Rem
+	Method Copy:TAnimation()
+		Local animation:TDelayedAnimation = New TDelayedAnimation
+		animation._animation = _animation.Copy()
+		animation._delayTime = _delayTime
+		animation.Reset()
+		Return animation
+	End Method
+
+	
+	
 	rem
 		bbdoc: Default constructor
 	endrem

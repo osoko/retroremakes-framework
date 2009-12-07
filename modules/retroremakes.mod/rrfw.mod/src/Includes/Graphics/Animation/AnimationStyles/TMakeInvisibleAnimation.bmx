@@ -15,6 +15,17 @@ Rem
 End Rem
 Type TMakeInvisibleAnimation Extends TAnimation
 	
+	Rem
+		bbdoc:Returns a copy of the animation
+	End Rem
+	Method Copy:TAnimation()
+		Local animation:TMakeInvisibleAnimation = New TMakeInvisibleAnimation
+		animation.Reset()
+		Return animation
+	End Method
+
+	
+	
 	rem
 		bbdoc: Updates the animation
 	endrem

@@ -424,7 +424,7 @@ Type TGraphicsService Extends TGameService
 			CloseGraphics(_device)
 			_device = Null
 		End If
-		
+
 		Select GetDriver().ToUpper()
 			?Win32
 				Case "DIRECTX7"

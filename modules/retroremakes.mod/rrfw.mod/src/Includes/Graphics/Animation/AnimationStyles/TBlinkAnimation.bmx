@@ -29,6 +29,18 @@ Type TBlinkAnimation Extends TAnimation
 
 	
 	
+	Rem
+		bbdoc:Returns a copy of the animation
+	End Rem
+	Method Copy:TAnimation()
+		Local animation:TBlinkAnimation = New TBlinkAnimation
+		animation._speed = _speed
+		animation.Reset()
+		Return animation
+	End Method
+
+	
+	
 	rem
 		bbdoc: Default constructor
 	endrem

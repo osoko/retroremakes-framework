@@ -15,6 +15,17 @@ Rem
 End Rem
 Type TMakeVisibleAnimation Extends TAnimation
 
+	Rem
+		bbdoc:Returns a copy of the animation
+	End Rem
+	Method Copy:TAnimation()
+		Local animation:TMakeVisibleAnimation = New TMakeVisibleAnimation
+		animation.Reset()
+		Return animation
+	End Method
+
+	
+	
 	rem
 		bbdoc: Update the animation
 	endrem

@@ -28,6 +28,20 @@ Type TColourOscillatorAnimation Extends TAnimation
 	
 	
 	
+	Rem
+		bbdoc:Returns a copy of the animation
+	End Rem
+	Method Copy:TAnimation()
+		Local animation:TColourOscillatorAnimation = New TColourOscillatorAnimation
+		animation._colourGen = _colourGen
+		animation._ignoreAlpha = _ignoreAlpha
+		animation._offset = _offset
+		animation.Reset()
+		Return animation
+	End Method
+
+	
+	
 	' Default constructor
 	Method New()
 		_colourGen = New TColourGen

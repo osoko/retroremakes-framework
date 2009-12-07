@@ -20,6 +20,23 @@ Type TSetColourAnimation Extends TAnimation
 	
 	
 	
+	Rem
+		bbdoc:Returns a copy of the animation
+	End Rem
+	Method Copy:TAnimation()
+		Local animation:TSetColourAnimation = New TSetColourAnimation
+
+		animation._colour.r = _colour.r
+		animation._colour.g = _colour.g
+		animation._colour.b = _colour.b
+		animation._colour.a = _colour.a
+
+		animation.Reset()
+		Return animation
+	End Method
+
+	
+	
 	rem
 		bbdoc: Default constructor
 	endrem
