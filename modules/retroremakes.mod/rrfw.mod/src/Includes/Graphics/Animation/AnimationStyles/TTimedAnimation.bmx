@@ -29,6 +29,19 @@ Type TTimedAnimation Extends TAnimation
 
 
 
+	Rem
+		bbdoc:Returns a copy of the animation
+	End Rem
+	Method Copy:TAnimation()
+		Local animation:TTimedAnimation = New TTimedAnimation
+		animation._animation = _animation.Copy()
+		animation._animationLength = _animationLength
+		animation.Reset()
+		Return animation
+	End Method
+
+	
+	
 	rem
 		bbdoc: Default constructor
 	endrem
@@ -42,7 +55,7 @@ Type TTimedAnimation Extends TAnimation
 		bbdoc: Reset the animation
 	endrem
 	Method Reset()
-		_finishTime = null
+		_finishTime = Null
 		_animation.Reset()
 		Super.Reset()
 	End Method

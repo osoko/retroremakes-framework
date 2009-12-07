@@ -43,6 +43,29 @@ Type TLoopedAnimation Extends TAnimation
 	
 	
 	
+	Rem
+		bbdoc:Returns a copy of the animation
+	End Rem
+	Method Copy:TAnimation()
+		Local animation:TLoopedAnimation = New TLoopedAnimation
+		
+		animation._animationLoops = _animationLoops
+		
+		For Local entry:TAnimation = EachIn _finishedAnimations
+			animation._finishedAnimations.AddLast(entry.Copy())
+		Next
+		
+		For Local entry:TAnimation = EachIn _animations
+			animation._animations.AddLast(entry.Copy())
+		Next
+		
+		animation.Reset()
+			
+		Return animation
+	End Method
+
+	
+	
 	rem
 		 bbdoc: Loops the animation
 		 returns: true if all loops have completed, otherwise false
@@ -130,9 +153,9 @@ Type TLoopedAnimation Extends TAnimation
 		bbdoc: Reset the animation
 	endrem
 	Method Reset()
-		Super.Reset()
 		_loopsRemaining = _animationLoops
 		LoopReset()
+		Super.Reset()
 	End Method
 	
 	

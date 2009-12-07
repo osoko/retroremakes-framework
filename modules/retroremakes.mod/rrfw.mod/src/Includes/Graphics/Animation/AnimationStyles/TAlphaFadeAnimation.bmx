@@ -29,6 +29,20 @@ Type TAlphaFadeAnimation Extends TAnimation
 	
 
 
+	Rem
+		bbdoc:Returns a copy of the animation
+	End Rem
+	Method Copy:TAnimation()
+		Local animation:TAlphaFadeAnimation = New TAlphaFadeAnimation
+		animation._change = _change
+		animation._endAlpha = _endAlpha
+		animation._startAlpha = _startAlpha
+		animation.Reset()
+		Return animation
+	End Method
+
+	
+	
 	rem
 		bbdoc: Resets the animation to starting values
 	endrem

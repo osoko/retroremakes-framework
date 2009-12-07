@@ -33,6 +33,27 @@ Type TSequentialAnimation Extends TAnimation
 	
 	
 	
+	Rem
+		bbdoc:Returns a copy of the animation
+	End Rem
+	Method Copy:TAnimation()
+		Local animation:TSequentialAnimation = New TSequentialAnimation
+		
+		For Local entry:TAnimation = EachIn _finishedAnimations
+			animation._finishedAnimations.AddLast(entry.Copy())
+		Next
+		
+		For Local entry:TAnimation = EachIn _animations
+			animation._animations.AddLast(entry.Copy())
+		Next
+				
+		animation.Reset()
+		
+		Return animation
+	End Method
+
+	
+	
 	rem
 		bbdoc: Default constructor
 	endrem

@@ -25,6 +25,19 @@ Type TScaleOscillatorAnimation Extends TAnimation
 	
 	
 	
+	Rem
+		bbdoc:Returns a copy of the animation
+	End Rem
+	Method Copy:TAnimation()
+		Local animation:TScaleOscillatorAnimation = New TScaleOscillatorAnimation
+		animation._offset = _offset
+		animation._scaleGen = _scaleGen
+		animation.Reset()
+		Return animation
+	End Method
+
+	
+	
 	rem
 		bbdoc: Default constructor
 	endrem

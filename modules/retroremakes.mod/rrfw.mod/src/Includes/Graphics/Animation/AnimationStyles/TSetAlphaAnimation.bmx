@@ -21,6 +21,18 @@ Type TSetAlphaAnimation Extends TAnimation
 	
 	
 	
+	Rem
+		bbdoc:Returns a copy of the animation
+	End Rem
+	Method Copy:TAnimation()
+		Local animation:TSetAlphaAnimation = New TSetAlphaAnimation
+		animation._alpha = _alpha
+		animation.Reset()
+		Return animation
+	End Method
+
+	
+	
 	rem
 		bbdoc: Set the alpha value to use in this animation
 	endrem

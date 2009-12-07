@@ -33,7 +33,28 @@ Type TCompositeAnimation Extends TAnimation
 	End Method
 	
 	
-			
+	
+	Rem
+		bbdoc:Returns a copy of the animation
+	End Rem	
+	Method Copy:TCompositeAnimation()
+		Local animation:TCompositeAnimation = New TCompositeAnimation
+		
+		For Local entry:TAnimation = EachIn _animations
+			animation.AddAnimation(entry.Copy())
+		Next
+		
+		For Local entry:TAnimation = EachIn _finishedAnimations
+			animation.AddAnimation(entry.Copy())
+		Next
+		
+		animation.Reset()
+		
+		Return animation
+	End Method
+	
+	
+	
 	rem
 		bbdoc: Default constructor
 	endrem

@@ -31,7 +31,23 @@ Type TPointToPointPathAnimation Extends TAnimation
 
 	
 	
-	' Default constructor
+	Rem
+		bbdoc:Returns a copy of the animation
+	End Rem
+	Method Copy:TAnimation()
+		Local animation:TPointToPointPathAnimation = New TPointToPointPathAnimation
+		animation._endPosition = _endPosition.Copy()
+		animation._startPosition = _startPosition.Copy()
+		animation._timeStep = _timeStep
+		animation.Reset()
+		Return animation
+	End Method
+
+	
+	
+	rem
+		bbdoc: Default constructor
+	endrem
 	Method New()
 		_endPosition = New TVector2D
 		_startPosition = New TVector2D
