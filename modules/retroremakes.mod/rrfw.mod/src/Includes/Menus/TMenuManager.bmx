@@ -12,7 +12,7 @@ endrem
 rem
 	bbdoc: Manager for game menus
 endrem
-Type TMenuManager Extends TRenderable
+Type TMenuManager
 
 	' The Singleton instance of this class
 	Global _instance:TMenuManager
@@ -77,11 +77,11 @@ Type TMenuManager Extends TRenderable
 	End Function
 	
 		
-	Method Start()
-	End Method
+'	Method Start()
+	'End Method
 	
-	Method Stop()
-	End Method
+	'Method Stop()
+	'End Method
 
     rem
         bbdoc: Update the current menu
