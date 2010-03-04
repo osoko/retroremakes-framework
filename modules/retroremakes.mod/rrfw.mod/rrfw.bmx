@@ -74,6 +74,7 @@ Import retroremakes.service
 Import retroremakes.settings
 Import retroremakes.precision_counter
 Import retroremakes.profiler
+Import retroremakes.profiler_service
 
 Private
 
@@ -194,6 +195,7 @@ Include "src\Includes\Menus\TSubMenuItem.bmx"
 Include "src\Includes\Menus\TActionMenuItem.bmx"
 Include "src\Includes\Menus\TOptionMenuItem.bmx"
 Include "src\Includes\Menus\TMenuOption.bmx"
+Include "src\Includes\Menus\TMenuStyle.bmx"
 Include "src\Includes\Menus\TMenuMessageData.bmx"
 
 'Particles

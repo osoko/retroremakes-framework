@@ -1,6 +1,8 @@
 # use glob syntax.
 syntax: glob
 
+*.orig
+
 *.log
 *.exe
 *.ini

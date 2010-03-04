@@ -883,6 +883,7 @@ Type TGameEngine
 			RemoveService(myService)
 			myService = Null
 		Next
+		TGameSettings.GetInstance().Save()
 		logger.LogInfo("[" + toString() + "] Shutdown")
 		CloseLog()
 	End Method
