@@ -215,9 +215,4 @@ Function rrTimeStepNeeded:Int()
 End Function
 
 
-rem
-bbdoc: Throw a TEngineException error
-endrem
-Function rrThrow(message:String)
-	Throw (TEngineException.Create(message))
-End Function
+
