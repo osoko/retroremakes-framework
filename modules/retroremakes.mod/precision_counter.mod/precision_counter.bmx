@@ -12,8 +12,18 @@ endrem
 SuperStrict
 
 Rem
-bbdoc: RetroRemakes Framework: Profiler
+bbdoc: RetroRemakes Framework: Precision Counter
+about: The Precision Counter allows you to use a higher definition time soure
+than the internal BlitzMax Millisecs() command.
+<p />
+Note: This currently only works on Win32 platforms. All other platforms will
+return Millisecs() cast to a double to ensure compatability.
 EndRem
 Module retroremakes.precision_counter
 
-Include "Source\TPrecisionCounter.bmx"
+Include "Source/TNormalPrecisionCounter.bmx"
+Include "Source/TPrecisionCounter.bmx"
+
+?Win32
+	Include "Source/TPrecisionCounterWin32.bmx"
+?
