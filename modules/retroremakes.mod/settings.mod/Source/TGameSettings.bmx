@@ -12,7 +12,7 @@ endrem
 rem
 	bbdoc: Service for accessing saved engine and game settings.
 endrem
-Type TGameSettings Extends TGameService
+Type TGameSettings
 
 	Global instance:TGameSettings		' This holds the singleton instance of this Type
 
@@ -27,7 +27,6 @@ Type TGameSettings Extends TGameService
 	Method New()
 		If instance Throw "Cannot create multiple instances of this Singleton Type"
 		instance = Self
-		Self.Initialise()
 	EndMethod
 
 	rem
@@ -43,11 +42,6 @@ Type TGameSettings Extends TGameService
 		EndIf
 	EndFunction
 '#End Region 
-
-	Method Initialise()
-		SetName("Game Settings")
-		Super.Initialise()  'Call TGameService initialisation routines
-	End Method
 
 	Method SetIniFilePath(path:String)
 		iniFilePath = path
@@ -196,9 +190,8 @@ Type TGameSettings Extends TGameService
 	End Method	
 '#End Region 
 		
-	Method Shutdown()
+	Method Save()
 		iniFile.Save()
-		Super.Shutdown()  'Call TGameService shutdown routines
 	End Method
 	
 EndType

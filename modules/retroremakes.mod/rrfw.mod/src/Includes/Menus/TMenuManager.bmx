@@ -12,8 +12,13 @@ endrem
 rem
 	bbdoc: Manager for game menus
 endrem
-Type TMenuManager Extends TRenderable
+Type TMenuManager
 
+    rem
+        bbdoc: default vertical screen position of menus
+    endrem
+	Const DEFAULT_MENU_YPOS:Int = 300
+	
 	' The Singleton instance of this class
 	Global _instance:TMenuManager
 
@@ -27,17 +32,29 @@ Type TMenuManager Extends TRenderable
         about: commands send to the menu manager are performed on the current menu
     endrem
 	Field _currentMenu:TMenu
-    
-    rem
-        bbdoc: stack containing menu traversal history
-    end rem
-	Field _menuHistory:TStack
-    
+
+	' Default style to use if none have been supplied.
+	Field _defaultStyle:TMenuStyle
+	
+	' Style to use for deselected menu items
+	Field _deselectedItemStyle:TMenuStyle
+	
+	' Style to use for the footers
+	Field _footerStyle:TMenuStyle
+		
+	' Style to use for menu headers
+	Field _headerStyle:TMenuStyle
+	
     rem
         bbdoc: image font to use when rendering the menus
         about: default font is used if no imagefont is used
     endrem
-	Field _imageFont:TImageFont
+'	Field _imageFont:TImageFont
+		    
+    rem
+        bbdoc: stack containing menu traversal history
+    end rem
+	Field _menuHistory:TStack
 		
     rem
         bbdoc: vertical screen position of menus
@@ -45,26 +62,185 @@ Type TMenuManager Extends TRenderable
     end rem
 	Field _menuYpos:Int
     
+	' Style to use for selected menu items
+	Field _selectedItemStyle:TMenuStyle
+
+	
+		
     rem
-        bbdoc: default vertical screen position of menus
-    endrem
-	Const DEFAULT_MENU_YPOS:Int = 300
-	
+        bbdoc: add an item to the menu
+        about: item is added at the bottom of the menu
+    end rem
+	Method AddItemToMenu(menu:TMenu, item:TMenuItem)
+		menu.AddItem(item)
+	End Method
+
+
+
     rem
-        bbdoc: default constructor
-        about: also set defaults and creates a message channel so GameManagers can listen for menu events
+        bbdoc: add a new menu to the menu manager
     endrem
-	Method New()
+	Method AddMenu(m:TMenu)
+		_allMenus.AddLast(m)
+	End Method
+
+
 	
-		If _instance Then rrThrow "Cannot create another instance of this singleton"
-		_instance = Self
+'	Method BuildAudioMenu:TMenu()
+'	End Method
+
+
 	
-		_allMenus = New TList
-		_menuHistory = New TStack
-		_menuYpos = DEFAULT_MENU_YPOS
-		rrCreateMessageChannel(CHANNEL_MENU, "Menu Manager")
+   rem
+        bbdoc: build a menu called "Configure Graphics"
+        about: this is a built-in menu which handles all needed operations for graphics screen management
+        Changed settings are saved by the TGraphicsService
+        Projection Matrix (Virtual Resolution) not yet implemented
+    end rem
+	Function BuildGraphicsMenu:TMenu(hertzFilter:Int = 0, depthFilter:Int = 0)
+	
+		Local menuManager:TMenuManager = GetInstance()
+		
+		' Create the actual menu
+		Local graphicsMenu:TMenu = New TMenu
+		graphicsMenu.SetLabel("Configure Graphics")
+		menuManager.AddMenu(graphicsMenu)
+		
+		'
+		' Driver selector
+		'
+		Local driverSelector:TOptionMenuItem = New TOptionMenuItem
+		driverSelector.SetText("Driver", "use left or right to select graphics driver")
+		menuManager.AddItemToMenu(graphicsMenu, driverSelector)
+		
+		Local graphicsService:TGraphicsService = TGraphicsService.GetInstance()
+		
+		For Local driverName:String = EachIn graphicsService.GetAvailableDrivers()
+			Local driver:TMenuOption = New TMenuOption
+			driver.SetLabel(driverName)
+			driverSelector.AddOption(driver)
+		Next
+
+		'
+		' Resolution selector
+		'
+		Local resolutionSelector:TOptionMenuItem = New TOptionMenuItem
+		resolutionSelector.SetText("Resolution", "use left or right to select screen resolution")
+		menuManager.AddItemToMenu(graphicsMenu, resolutionSelector)
+
+		For Local mode:TGraphicsMode = EachIn graphicsService.GetModes()
+
+			If hertzFilter
+				If mode.hertz <> hertzFilter Then Continue
+			End If
+			
+			If depthFilter
+				If mode.depth <> depthFilter Then Continue
+			End If
+			
+			'Calculate the aspect ratio of the graphics mode
+			Local gcd:Int = rrGreatestCommonDivisor(mode.width, mode.height)
+			Local suffix:String = " (" + mode.width / gcd + ":" + mode.height / gcd + ")"
+			
+			' 16:10 modes may show up as 8:5 and 16:9 modes may show up as 85:48 when
+			' calculated this way, so we'll catch those and modify the suffix accordingly
+			If suffix = " (8:5)" Then suffix = " (16:10)"
+			If suffix = " (85:48)" Then suffix = " (16:9)"
+			
+			Local resolution:TMenuOption = New TMenuOption
+			
+			resolution.SetLabel(mode.width + " x " + mode.height + ", " + mode.hertz + " herz, " + mode.depth + " bit" + suffix)
+			resolution.SetOptionObject(mode)
+			resolutionSelector.AddOption(resolution)
+
+			'set option to currently set graphics resolution
+			If mode.width = graphicsService.GetWidth() And ..
+							mode.height = graphicsService.GetHeight() And ..
+							mode.hertz = graphicsService.GetRefresh() And ..
+							mode.depth = graphicsService.GetDepth()
+				
+				resolutionSelector.SetCurrentOption(resolution)
+			EndIf
+		Next
+		
+		'
+		' Windowed/Fullscreen options
+		'
+		Local windowedSelector:TOptionMenuItem = New TOptionMenuItem
+		windowedSelector.SetText("Screen Mode", "use left and right to change screen mode")
+		menuManager.AddItemToMenu(graphicsMenu, windowedSelector)
+	
+		Local windowedOption:TMenuOption = New TMenuOption
+		windowedOption.SetLabel("Window")
+		windowedSelector.AddOption(windowedOption)
+		
+		windowedOption = New TMenuOption
+		windowedOption.SetLabel("Full Screen")
+		windowedSelector.AddOption(windowedOption)
+		
+		'
+		' Vsync on/off
+		'		
+		Local vsyncSelector:TOptionMenuItem = New TOptionMenuItem
+		vsyncSelector.SetText("Vertical Sync", "use left or right to change vertical blank")
+		menuManager.AddItemToMenu(graphicsMenu, vsyncSelector)
+		
+		Local vsyncOption:TMenuOption = New TMenuOption
+		vsyncOption.SetLabel("On")
+		vsyncSelector.AddOption(vsyncOption)
+		vsyncOption = New TMenuOption
+		vsyncOption.SetLabel("Off")
+		vsyncSelector.AddOption(vsyncOption)
+		
+		'
+		' Apply option
+		'
+		Local applyAction:TActionMenuItem = New TActionMenuItem
+		applyAction.SetText("Apply", "select to apply settings")
+		
+		'game manager or game screen should listen for this.
+		applyAction.SetAction(MENU_ACTION_GRAPHICS_APPLY)
+		menuManager.AddItemToMenu(graphicsMenu, applyAction)
+		
+		'
+		' Back option
+		'
+		Local backMenu:TSubMenuItem = New TSubMenuItem
+		backMenu.SetText("Back"), "select to go to previous menu"
+		backMenu.SetNextMenu("back")
+		menuManager.AddItemToMenu(graphicsMenu, backMenu)
+	
+		Return graphicsMenu
+	
+	End Function
+	
+	
+	
+'	Method BuildInputMenu:TMenu()
+'	End Method
+
+
+		
+    rem
+        bbdoc: clear menu traversal history
+    endrem
+	Method ClearHistory()
+		_menuHistory.Clear()
 	End Method
 	
+	
+	
+    rem
+        bbdoc: activates the current menu item
+        about: runs the Activate() method in the current item. Only works
+        if the item is a #TActionMenuItem
+    endrem    
+	Method DoItemAction()
+		_currentMenu.GetCurrentItem().Activate()
+	End Method
+	
+	
+				
 	rem
 		bbdoc: Gets the Singleton instance of this class
 	endrem	
@@ -76,68 +252,20 @@ Type TMenuManager Extends TRenderable
 		EndIf
 	End Function
 	
-		
-	Method Start()
-	End Method
 	
-	Method Stop()
-	End Method
-
-    rem
-        bbdoc: Update the current menu
-        about: This will also update the current menu item.
-    endrem
-	Method Update()
-		_currentMenu.Update()
-	End Method
-    
-    rem
-        bbdoc: render the current menu
-    endrem	
-	Method Render(tweening:Double, fixed:Int = False)
-		SetImageFont _imageFont
-		_currentMenu.Render(_menuYpos)
-	End Method
-    
-    rem
-        bbdoc: set the font to use while drawing menus
-    endrem	
-	Method SetImageFont(font:TimageFont)
-		_imagefont = font
-	End Method
-
-    rem
-        bbdoc: change the vertical position of menus
-        about: menus are horizontally centered by default
-    endrem
-	Method SetMenuYpos(y:Int)
-		_menuYpos = y
-	End Method
 	
     rem
-        bbdoc: add a new menu to the menu manager
+        bbdoc: returns a menu by passing a name
     endrem
-	Method AddMenu(m:TMenu)
-		_allMenus.AddLast(m)
-	End Method	
-    
-    rem
-        bbdoc: add an item to the menu
-        about: item is added at the bottom of the menu
-    end rem
-	Method AddItemToMenu(m:TMenu, i:TMenuItem)
-		i._menu = m
-		i._menuManager = Self
-		m.AddItem(i)
-	End Method	
-
-    rem
-        bbdoc: set the current active menu
-    endrem
-	Method SetCurrentMenu(m:TMenu)
-		_currentMenu = m
+	Method GetMenuByName:TMenu(name:String)
+		For Local menu:TMenu = EachIn _allMenus
+			If menu.ToString() = name Then Return menu
+		Next
+		rrThrow "could not find menu:" + name
 	End Method
-    
+	
+	
+			
     rem
         bbdoc: Go to the requested menu
         about: Menu is found using the title of the menu
@@ -162,28 +290,27 @@ Type TMenuManager Extends TRenderable
 		Next
 		
 	End Method
-    
-    rem
-        bbdoc: clear menu traversal history
-    endrem
-	Method ClearHistory()
-		_menuHistory.Clear()
-	End Method
 	
-'	Method NextMenu()
-'		_menuHistory.Push(_currentMenu)
-'		_currentMenu = TMenu(
-'	End Method
-
+	
+		
     rem
-        bbdoc: go to the previous menu
-        about: afterwards, focus is placed on the first item in the menu
-    endrem	
-	Method PreviousMenu()
-		If _menuHistory.Peek() = Null Then Return
-		_currentMenu = TMenu(_menuHistory.Pop())
-		_currentMenu.FirstItem()
+        bbdoc: default constructor
+        about: also set defaults and creates a message channel so GameManagers can listen for menu events
+    endrem
+	Method New()
+		If _instance Then rrThrow "Cannot create another instance of this singleton"
+
+		_instance = Self
+	
+		_allMenus = New TList
+		_menuHistory = New TStack
+		_menuYpos = DEFAULT_MENU_YPOS
+		rrCreateMessageChannel(CHANNEL_MENU, "Menu Manager")
+		
+		_defaultStyle = new TMenuStyle
 	End Method
+
+
 
     rem
         bbdoc: go to the next item in the current menu
@@ -192,20 +319,15 @@ Type TMenuManager Extends TRenderable
 		_currentMenu.NextItem()
 	End Method
 
-    rem
-        bbdoc: go to the previous item in the current menu
-    endrem	
-	Method PreviousItem()
-		_currentMenu.PreviousItem()
-	End Method
 	
-    rem
-        bbdoc: return the current item in the current menu
-    endrem    
-	Method GetCurrentItem:TMenuItem()
-		Return _currentMenu.GetCurrentItem()
-	End Method
-    
+ 
+'	Method NextMenu()
+'		_menuHistory.Push(_currentMenu)
+'		_currentMenu = TMenu(
+'	End Method
+
+
+	
     rem
         bbdoc: select the next option on the current item
         about: only works when the current item is a #TOptionMenuItem
@@ -217,6 +339,29 @@ Type TMenuManager Extends TRenderable
 		EndIf
 		Return False
 	End Method
+	
+	
+	
+    rem
+        bbdoc: go to the previous item in the current menu
+    endrem	
+	Method PreviousItem()
+		_currentMenu.PreviousItem()
+	End Method
+
+	
+		
+    rem
+        bbdoc: go to the previous menu
+        about: afterwards, focus is placed on the first item in the menu
+    endrem	
+	Method PreviousMenu()
+		If _menuHistory.Peek() = Null Then Return
+		_currentMenu = TMenu(_menuHistory.Pop())
+		_currentMenu.FirstItem()
+	End Method
+
+
 
 	rem
         bbdoc: select the previous option on the current item
@@ -229,143 +374,105 @@ Type TMenuManager Extends TRenderable
 		EndIf
 		Return False
 	End Method
-
+	
+	
+			
     rem
-        bbdoc: returns a menu by passing a name
-    endrem
-	Method GetMenuByName:TMenu(name:String)
-		For Local m:TMenu = EachIn _allMenus
-			If m.ToString() = name Then Return m
-		Next
-		rrThrow "could not find menu:" + name
+        bbdoc: render the current menu
+    endrem	
+	Method Render(tweening:Double, fixed:Int = False)
+		'SetImageFont _imageFont
+		_currentMenu.Render(_menuYpos)
 	End Method
     
-    rem
-        bbdoc: activates the current menu item
-        about: runs the Activate() method in the current item. Only works
-        if the item is a #TActionMenuItem
-    endrem    
-	Method DoItemAction()
-		_currentMenu.GetCurrentItem().Activate()
-	End Method	
 	
-    rem
-        bbdoc: build a menu called "Configure Graphics"
-        about: this is a built-in menu which handles all needed operations for graphics screen management
-        Changed settings are saved by the TGraphicsService
-        Projection Matrix (Virtual Resolution) not yet implemented
-    end rem
-	Method BuildGraphicsMenu:TMenu(hertzFilter:Int = 0, depthFilter:Int = 0)
 	
-		Local m:TMenu
-		Local i:TOptionMenuItem
-		Local o:TMenuOption
-		
-		m = New TMenu
-		m.SetLabel("Configure Graphics")
-		AddMenu(m)
-		
-		i = New TOptionMenuItem
-		i.SetText("Driver", "use left or right to select graphics driver")
-		addItemToMenu(m, i)
-		
-		Local g:TGraphicsService = TGraphicsService.GetInstance()
-		
-		For Local driverName:String = EachIn g.GetAvailableDrivers()
-			o = New TMenuOption
-			o.SetLabel(driverName)
-			i.AddOption(o)
-		Next
-
-		i = New TOptionMenuItem
-		i.SetText("Resolution", "use left or right to select screen resolution")
-		AddItemToMenu(m, i)
-
-		Local suffix:String
-		For Local mode:TGraphicsMode = EachIn g.GetModes()
-			o = New TMenuOption
-			
-			If hertzFilter
-				If mode.hertz <> hertzFilter Then Continue
-			End If
-			
-			If depthFilter
-				If mode.depth <> depthFilter Then Continue
-			End If
-			
-			'Calculate the aspect ration of the graphics mode
-			Local gcd:Int = rrGreatestCommonDivisor(mode.width, mode.height)
-			suffix = " (" + mode.width / gcd + ":" + mode.height / gcd + ")"
-			
-			' 16:10 modes may show up as 8:5 when calculated this way, so we'll
-			' catch those and modify the suffix accordingly
-			If suffix = " (8:5)" Then suffix = " (16:10)"
-			If suffix = " (85:48)" Then suffix = " (16:9)"
-			
-			o.SetLabel(mode.width + " x " + mode.height + ", " + mode.hertz + " herz, " + mode.depth + " bit" + suffix)
-			o.SetOptionObject(mode)
-			i.AddOption(o)
-
-			'set option to currently set graphics resolution
-			If mode.width = g.GetWidth() And mode.height = g.GetHeight() And mode.hertz = g.GetRefresh() And mode.depth = g.GetDepth()
-				i.SetCurrentOption(o)
-			EndIf
-		Next
-		
-		i = New TOptionMenuItem
-		i.SetText("Screen Mode", "use left and right to change screen mode")
-		AddItemToMenu(m, i)
-		o = New TMenuOption
-		o.SetLabel("Window")
-		i.AddOption(o)
-		o = New TMenuOption
-		o.SetLabel("Full Screen")
-		i.AddOption(o)
-				
-		i = New TOptionMenuItem
-		i.SetText("Vertical Sync", "use left or right to change vertical blank")
-		AddItemToMenu(m, i)
-		o = New TMenuOption
-		o.SetLabel("On")
-		i.AddOption(o)
-		o = New TMenuOption
-		o.SetLabel("Off")
-		i.AddOption(o)
-Rem		
-		If rrProjectionMatrixEnabled()
-			i = New TOptionMenuItem
-			i.SetText("Aspect Ratio", "use left or right to change screen aspect")
-			m.AddItem(i)
-			o = New TMenuOption
-			o.SetLabel("Normal (4:3)")
-			i.AddOption(o)
-			o = New TMenuOption
-			o.SetLabel("Widescreen (16:9)")
-			i.AddOption(o)
-			o = New TMenuOption
-			o.SetLabel("Widescreen (16:10)")
-			i.AddOption(o)
-		EndIf
-endrem		
-		Local a:TActionMenuItem = New TActionMenuItem
-		a.SetText("Apply", "select to apply settings")
-		a.SetAction(MENU_ACTION_GRAPHICS_APPLY)							'game manager or game screen should listen for this.
-		AddItemToMenu(m, a)
-		
-		Local s:TSubMenuItem = New TSubMenuItem
-		s.SetText("Back"), "select to go to previous menu"
-		s.SetNextMenu("back")
-		AddItemToMenu(m, s)
-	
-		Return m
-	
+	rem
+		bbdoc: Set the style to use for selected menu items
+	endrem	
+	Method SetActiveItemStyle(style:TMenuStyle)
+		_selectedItemStyle = style
 	End Method
 	
-'	Method BuildAudioMenu:TMenu()
-'	End Method
 	
-'	Method BuildInputMenu:TMenu()
-'	End Method
+		
+    rem
+        bbdoc: set the current active menu
+    endrem
+	Method SetCurrentMenu(m:TMenu)
+		_currentMenu = m
+	End Method
+	
+	
+
+	rem
+		bbdoc: Set the style to use for menu footers
+	endrem	
+	Method SetFooterStyle(style:TMenuStyle)
+		_footerStyle = style
+	End Method
+	
+	
+	
+	rem
+		bbdoc: Set the style to use for menu headers
+	endrem	
+	Method SetHeaderStyle(style:TMenuStyle)
+		_headerStyle = style
+	End Method
+	
+	
+		
+    rem
+        bbdoc: set the font to use while drawing menus
+    endrem	
+	Method SetImageFont(font:TimageFont)
+		_defaultStyle.font = font
+	End Method
+
+	
+	
+    rem
+        bbdoc: change the vertical position of menus
+        about: menus are horizontally centered by default
+    endrem
+	Method SetMenuYpos(y:Int)
+		_menuYpos = y
+	End Method
+	
+	
+		
+    rem
+        bbdoc: Update the current menu
+        about: This will also update the current menu item.
+    endrem
+	Method Update()
+		_currentMenu.Update()
+	End Method
+    
+
+
+    
+
+
+
+    
+
+    
+
+	
+
+
+
+
+
+
+    
+	
+	
+ 
+	
+
 	
 	rem
         bbdoc: Apply the settings as defined in the built-in "Configure Graphics" menu to the TGraphicsService

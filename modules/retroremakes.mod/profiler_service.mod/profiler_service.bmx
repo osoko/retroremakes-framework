@@ -11,8 +11,12 @@ endrem
 
 SuperStrict
 
-Import muttley.inifilehandler
-Import muttley.logger
+Rem
+bbdoc: RetroRemakes Framework: Game Service
+EndRem
+Module retroremakes.profiler_service
 
-Include "Source/TGameSettings.bmx"
+Import retroremakes.profiler
+Import retroremakes.service
 
+Include "Source/TProfiler.bmx"

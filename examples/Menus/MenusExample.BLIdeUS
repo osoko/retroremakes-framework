@@ -6,8 +6,8 @@
       <FileName>src\GameManager.bmx</FileName>
       <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>1</X>
-        <Y>12</Y>
+        <X>2</X>
+        <Y>34</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -15,7 +15,7 @@
       <Document_Active>false</Document_Active>
       <Caret_Position>
         <X>0</X>
-        <Y>14</Y>
+        <Y>12</Y>
       </Caret_Position>
     </Included_File>
     <Compilation_Mode>GUI_Application</Compilation_Mode>
@@ -29,7 +29,7 @@
     <Publish_NRV_Level>5</Publish_NRV_Level>
   </Project>
   <Compiler_Configuration>
-    <Quick_Build>true</Quick_Build>
+    <Quick_Build>false</Quick_Build>
     <Debugging>true</Debugging>
     <Threaded>false</Threaded>
   </Compiler_Configuration>
