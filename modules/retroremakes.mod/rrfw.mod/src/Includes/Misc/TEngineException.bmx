@@ -10,18 +10,32 @@ rem
 endrem
 
 rem
-	bbdoc: Custom exception type
+	bbdoc: RetroRemakes Framework: Custom Exception
 endrem
 Type TEngineException Extends TBlitzException
+	
 	Field error:String
+	
 	
 	Method ToString$()
 		Return error
 	End Method
+	
+	
 	
 	Function Create:TEngineException(error:String)
 		Local t:TEngineException = New TEngineException
 		t.error=error
 		Return t
 	End Function
+	
 End Type
+
+
+
+rem
+bbdoc: Throw a TEngineException error
+endrem
+Function rrThrow(message:String)
+	Throw (TEngineException.Create(message))
+End Function
