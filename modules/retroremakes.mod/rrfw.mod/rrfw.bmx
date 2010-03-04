@@ -70,7 +70,10 @@ Import muttley.stack
 
 Import pub.freejoy
 
-
+Import retroremakes.service
+Import retroremakes.settings
+Import retroremakes.precision_counter
+Import retroremakes.profiler
 
 Private
 
@@ -221,19 +224,19 @@ Include "src\Includes\Misc\TMacroCommand.bmx"
 Include "src\Includes\Misc\TRegistry.bmx"
 
 ' Timing
-Include "src\Includes\Timing\TPrecisionCounter.bmx"
+'Include "src\Includes\Timing\TPrecisionCounter.bmx"
 
 ''
 '' Engine Services
 ''
-Include "src\Services\TGameService.bmx"
+'Include "src\Services\TGameService.bmx"
 
 Include "src\Services\Audio\TGameSoundChannel.bmx"
 Include "src\Services\Audio\TGameSound.bmx"
 Include "src\Services\Audio\TGameSoundHandler.bmx"
 
 Include "src\Services\Debug\TConsole.bmx"
-Include "src\Services\Debug\TProfiler.bmx"
+'Include "src\Services\Debug\TProfiler.bmx"
 
 Include "src\Services\Graphics\TGraphicsService.bmx"
 Include "src\Services\Graphics\TColourOscillator\TColourGen.bmx"
@@ -251,7 +254,7 @@ Include "src\Services\Score\TScoreService.bmx"
 Include "src\Services\Score\HighScoreTable\THighScoreEntry.bmx"
 Include "src\Services\Score\HighScoreTable\THighScoreTable.bmx"
 
-Include "src\Services\Settings\TGameSettings.bmx"
+'Include "src\Services\Settings\TGameSettings.bmx"
 
 Include "src\Services\Timing\TFixedTimestep.bmx"
 Include "src\Services\Timing\TFramesPerSecond.bmx"

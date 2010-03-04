@@ -1,6 +1,6 @@
 rem
 '
-' Copyright (c) 2007-2009 Paul Maskelyne <muttley@muttleyville.org>.
+' Copyright (c) 2007-2010 Paul Maskelyne <muttley@muttleyville.org>.
 '
 ' All rights reserved. Use of this code is allowed under the
 ' Artistic License 2.0 terms, as specified in the LICENSE file
@@ -72,12 +72,11 @@ Type TProfiler Extends TGameService
 	Method Start()
 		profilerEnabled = rrGetBoolVariable("DEBUG_PROFILER_ENABLED", DEFAULT_DEBUG_PROFILER_ENABLED, "Engine")
 		profilerShow = rrGetBoolVariable("DEBUG_PROFILER_SHOW", DEFAULT_DEBUG_PROFILER_SHOW, "Engine")
-		engineInstance = TGameEngine.GetInstance()
 	End Method
 			
 	Method DebugUpdate()
 	
-		If Not (profilerEnabled And engineInstance.debugEnabled) Then Return
+		If Not profilerEnabled Then Return
 		
 		Local now:Double = rrMillisecs()
 				
@@ -124,7 +123,7 @@ Type TProfiler Extends TGameService
 	
 	
 	Method DebugRender()
-		If Not (profilerEnabled And engineInstance.debugEnabled And profilerShow) Then Return
+		If Not (profilerEnabled And profilerShow) Then Return
 		
 		If font Then SetImageFont font
 		
@@ -199,106 +198,6 @@ Type TProfiler Extends TGameService
 			
 End Type
 
-
-Type TProfilerResult
-	Field link:TLink
-
-	Field name:String
-	Field parent_name:String
-	Field total_t:Double
-	Field avg_t:Double
-	Field level:Int
-	Field run_count:Int
-	
-	Method FromSample(sample:TProfilerSample)
-		name = sample.name
-		If sample.parent
-			parent_name = sample.parent.name
-		Else
-			parent_name = ""
-		End If
-		run_count = sample.run_count
-		total_t = sample.get_t()
-		avg_t = 0.0
-		If total_t > 0.0 Then avg_t = total_t / run_count
-		level = sample.level
-	End Method
-		
-End Type
-
-
-Type TProfilerSample
-	Field name:String
-	Field link:TLink
-	Field running:Int
-	Field start_t:Double
-	Field end_t:Double
-	Field total_t:Double
-	Field level:Int
-	Field parent:TProfilerSample
-	Field run_count:Int
-	
-	Global global_level:Int		' Depth of nested profiling
-
-	Global last_sample:TProfilerSample	' Last sample we have started
-	
-	
-	Method New()
-		running  = False
-		total_t = 0.0
-		run_count = 0.0
-	End Method
-	
-	Function DeleteSample(sample:TProfilerSample)
-		Assert(sample)
-		
-		RemoveLink(sample.link)
-	End Function
-	
-	
-	Method Start()
-		If(running)
-			TLogger.getInstance().LogWarning("[" + toString() + "] Sample already started: " + name)
-			Return
-		End If
-		
-		running = True
-		level = global_level
-
-		parent = last_sample
-		last_sample = Self
-
-	   global_level :+ 1
-		start_t = rrMillisecs()
-		run_count :+ 1
-	End Method
-
-		
-	Method Stop()
-		If(Not running)
-			TLogger.getInstance().LogWarning("[" + toString() + "] Sample has not been started: " + name)
-			Return
-		End If
-		
-		last_sample = parent
-		
-		running = False
-		global_level :- 1
-		end_t = rrMillisecs()
-		
-		total_t :+ (end_t-start_t)
-	End Method
-
-	
-	Method get_t:Double()
-		Local t:Double = total_t
-		total_t = 0.0
-		run_count = 0.0
-		Return t
-	End Method
-
-
-End Type
 
 
 Function rrCreateProfilerSample:TProfilerSample(name:String)

@@ -1,6 +1,6 @@
 rem
 '
-' Copyright (c) 2007-2009 Paul Maskelyne <muttley@muttleyville.org>.
+' Copyright (c) 2007-2010 Paul Maskelyne <muttley@muttleyville.org>.
 '
 ' All rights reserved. Use of this code is allowed under the
 ' Artistic License 2.0 terms, as specified in the LICENSE file
@@ -90,11 +90,6 @@ Type TGameService Abstract
 		bbdoc: Debug #TProfilerSample for the #DebugUpdate method
 	endrem	
 	Field debugUpdateProfiler:TProfilerSample
-	
-	rem
-		bbdoc: A reference to the game engine instance
-	endrem
-	Field engineInstance:TGameEngine
 		
 	rem
 		bbdoc: The human readable name of the #TGameService instance.
@@ -224,52 +219,27 @@ Type TGameService Abstract
 	endrem	
 	Field updateProfiler:TProfilerSample	
 
-	
-	rem
-		bbdoc: Add the #TGameService instance to the #TGameEngine.
-		returns:
-		about: This is adds a #TGameService instance to the #TGameEngine instance and
-		also write a LOG_INFO message to the #TGameEngine log file.  It also populates
-		the #updateMethod, #renderMethod, #startMethod, #debugUpdateMethod and
-		#debugRenderMethod Fields with a pointer to those Methods if they exist.
-	endrem					
-	Method AddService(service:TGameService)
-		TGameEngine.GetInstance().AddService(service)
 
-		Local serviceObject:Object = Object(service)
+
+	rem
+		bbdoc: Initialise the #TGameService instance.
+		returns:
+		about: This populates the #updateMethod, #renderMethod, #startMethod,
+		#debugUpdateMethod and #debugRenderMethod Fields with a pointer to those
+		Methods if they exist.
+		Once initialised it can be added to the #TGameEngine
+	endrem
+	Method Initialise()
+		Local serviceObject:Object = Object(Self)
 		Local id:TTypeId = TTypeId.ForObject(serviceObject)
 		Self.updateMethod:TMethod = id.FindMethod("Update")
 		Self.renderMethod:TMethod = id.FindMethod("Render")
 		Self.startMethod:TMethod = id.FindMethod("Start")
 		Self.debugUpdateMethod:TMethod = id.FindMethod("DebugUpdate")
 		Self.debugRenderMethod:TMethod = id.FindMethod("DebugRender")
-	EndMethod
-
-
-
-	rem
-		bbdoc: Initialise the #TGameService instance.
-		returns:
-		about: This uses the #AddService method to register itself with the
-		#TGameEngine instance and also writes a LOG_INFO message to the #TGameEngine
-		log file.
-	endrem
-	Method Initialise()
-		AddService(Self)
+		
 		TLogger.GetInstance().LogInfo("[" + ToString() + "] Initialised")
 	End Method
-
-	
-
-	rem
-		bbdoc: Remove the #TGameService instance from the #TGameEngine.
-		returns:
-		about: This is called by the #Shutdown Method and removes the #TGameService
-		instance from the TGameEngine instance.
-	endrem			
-	Method RemoveService(service:TGameService)
-		TGameEngine.GetInstance().RemoveService(service)
-	EndMethod
 
 
 
@@ -332,12 +302,10 @@ Type TGameService Abstract
 	rem
 		bbdoc: Shuts down the #TGameService instance
 		returns:
-		about: This is called by the #TGameEngine instance and also writes
-		when it shuts down.  It also writes a LOG_INFO message to the #TGameEngine
-		log file.
+		about: This is called by the #TGameEngine instance should do any tidying up
+		necessary before the #TGameEngine removes the service
 	endrem		
 	Method Shutdown()
-		RemoveService(Self)
 		TLogger.GetInstance().LogInfo("[" + ToString() + "] Shutdown")
 	End Method
 	

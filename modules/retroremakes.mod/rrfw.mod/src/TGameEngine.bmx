@@ -371,7 +371,11 @@ Type TGameEngine
 		
 		logFile = New TFileLogWriter
 		logFile.setFilename(GetGameDataDirectory() + "/" + GetGameName() + ".log")
-		logFile.setLevel(LOGGER_INFO)
+		?Debug
+			logFile.setLevel(LOGGER_DEBUG)
+		?Not debugEnabled
+			logFile.setLevel(LOGGER_INFO)
+		?
 		logger.addWriter(logFile)
 				
  		logger.LogInfo("Powered by the " + My.Application.Name + " v" + My.Application.VersionString + " (" + My.Application.Platform + "/" + My.Application.Architecture + ")")
@@ -661,21 +665,22 @@ Type TGameEngine
 		logger.LogInfo("[" + toString() + "] Executable: " + GetGameExecutable())
 		logger.LogInfo("[" + toString() + "] Game Name: " + GetGameName())
 
-		TResourceManager.GetInstance()
-		TFramesPerSecond.GetInstance()
+		AddService(TResourceManager.GetInstance())
+		AddService(TFramesPerSecond.GetInstance())
+		AddService(TColourOscillator.GetInstance())
+		AddService(TScaleOscillator.GetInstance())
+		AddService(TGraphicsService.GetInstance())
+		AddService(TFixedTimestep.GetInstance())
+		AddService(TGameSoundHandler.GetInstance())
+		AddService(TProfiler.GetInstance())
+		AddService(TConsole.GetInstance())
+		AddService(TScoreService.GetInstance())
+		AddService(TPhysicsManager.GetInstance())
+		AddService(TMessageService.GetInstance())
+		AddService(TInputManager.GetInstance())
+		AddService(TLayerManager.GetInstance())
+		
 		TProjectionMatrix.GetInstance()
-		TColourOscillator.GetInstance()
-		TScaleOscillator.GetInstance()
-		TGraphicsService.GetInstance()
-		TFixedTimestep.GetInstance()
-		TGameSoundHandler.GetInstance()
-		TProfiler.GetInstance()
-		TConsole.GetInstance()
-		TScoreService.GetInstance()
-		'TGameStateManager.GetInstance()
-		TPhysicsManager.GetInstance()
-		TMessageService.GetInstance()
-		TInputManager.GetInstance()
 		
 		'Add some commands to the console
 		rrAddConsoleCommand("services", "services - show all registered services", cmdServices)
@@ -875,6 +880,7 @@ Type TGameEngine
 		For Local myService:TGameService = EachIn LAllServices
 			logger.LogInfo("[" + toString() + "] Shutting down service: " + myService.ToString())
 			myService.Shutdown()
+			RemoveService(myService)
 			myService = Null
 		Next
 		logger.LogInfo("[" + toString() + "] Shutdown")

@@ -1,6 +1,6 @@
 SuperStrict
 
-Import retroremakes.rrfw
+Framework retroremakes.rrfw
 
 Include "TGameState.bmx"
 Include "TIntroState.bmx"
@@ -25,6 +25,8 @@ TGameEngine.GetInstance().SetGameManager(New GameManager)
 
 rrSetGraphicsWidth(640)
 rrSetGraphicsHeight(480)
+rrSetGraphicsDriver("OpenGL")
+
 rrDisableProjectionMatrix()
 
 rrEngineRun()
