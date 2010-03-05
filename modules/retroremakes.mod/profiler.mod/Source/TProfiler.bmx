@@ -16,31 +16,32 @@ Rem
 '	
 End Rem
 
-Type TProfiler Extends TGameService
+Type TProfiler
 
 	Global instance:TProfiler
 	
 	Const DEFAULT_DEBUG_PROFILER_ENABLED:String = "false"
-	Const DEFAULT_DEBUG_PROFILER_SHOW:String = "false"
+	Const DEFAULT_DEBUG_PROFILER_FILENAME:String = "profiler.txt"
 	
 	Field Lresults:TList = CreateList()
 	Field Lsamples:TList = CreateList()
 	
-	Field last_t:Double
-	Field dt:Double
+	Field _filename:String
+'	Field last_t:Double
+'	Field dt:Double
 	
-	Field min_interval:Double = 1000.0	'1 second
+'	Field min_interval:Double = 1000.0	'1 second
 	
-	Field profilerEnabled:Int
-	Field profilerShow:Int
+	Field _enabled:Int
+'	Field profilerShow:Int
 	
-	Field font:TImageFont
+'	Field font:TImageFont
 	
 '#Region Constructors
 	Method New()
 		If instance Throw "Cannot create multiple instances of this Singleton Type"
 		instance = Self
-		Self.Initialise()
+		Initialise()
 	EndMethod
 
 	Function Create:TProfiler()
@@ -57,33 +58,17 @@ Type TProfiler Extends TGameService
 '#End Region 	
 
 
+
 	Method Initialise()
-		SetName("Profiler")
-		updatePriority = 1000
-		renderPriority = 1000
+		_enabled = rrGetBoolVariable("DEBUG_PROFILER_ENABLED", DEFAULT_DEBUG_PROFILER_ENABLED, "Engine")
+		_filename = rrGetStringVariable("DEBUG_PROFILER_FILENAME", DEFAULT_DEBUG_PROFILER_FILENAME, "Engine")
+	End Method
 		
-		Super.Initialise()
-	End Method
-
-	Method Shutdown()
-		Super.Shutdown()  'Call TGameService shutdown routines
-	End Method
-
-	Method Start()
-		profilerEnabled = rrGetBoolVariable("DEBUG_PROFILER_ENABLED", DEFAULT_DEBUG_PROFILER_ENABLED, "Engine")
-		profilerShow = rrGetBoolVariable("DEBUG_PROFILER_SHOW", DEFAULT_DEBUG_PROFILER_SHOW, "Engine")
-	End Method
-			
-	Method DebugUpdate()
 	
-		If Not profilerEnabled Then Return
 		
-		Local now:Double = rrMillisecs()
-				
-		If (now - last_t < min_interval) Then Return
-
-		dt = now-last_t
-		last_t = now
+	Method CalculateResults()
+	
+		If Not _enabled Then Return
 		
 		ClearList(Lresults)
 		
@@ -119,42 +104,38 @@ Type TProfiler Extends TGameService
 			depth:+1
 		Wend
 
+		WriteResultsToFile()
 	End Method
 	
 	
-	Method DebugRender()
-		If Not (profilerEnabled And profilerShow) Then Return
+	
+	Method WriteResultsToFile()
+	
+		If Not _enabled Then Return
 		
-		If font Then SetImageFont font
+		Local file:TStream = WriteStream(_filename)
 		
-		Local x:Float = 8.0, y:Float = 8.0
-		Local xScale:Float, yScale:Float
-		GetScale(xScale, yScale)
-		Local str:String
-		
-		str = "         Profile Name         | tot/msec | avg/msec | % CPU | calls "
-		DrawText str,x,y
-		y:+Float(TextHeight(str) * yScale)
-		
-		str = "------------------------------+----------+----------+-------+-------"
-		DrawText str,x,y
-		y:+Float(TextHeight(str) * yScale)
-
+		file.WriteLine ("              Profile Name              | min/msec | max/msec | avg/msec | calls ")
+		file.WriteLine ("----------------------------------------+----------+----------+----------+-------")
 		
 		For Local result:TProfilerResult = EachIn Lresults
-			str = LSet(RSet(result.name, result.name.length + result.level), 29)
-			str :+ " | "
-			str :+ RSet(Left(String.FromDouble(result.total_t),6),8)
-			str :+ " | "
-			str :+ RSet(Left(String.FromDouble(result.avg_t),6),8)
-			str :+ " | "
-			str :+ RSet(Left(String.FromDouble(result.total_t*100.0/dt),5),5)
-			str :+ " | "
-			str :+ RSet(Left(result.run_count,6),5)
-			
-			DrawText str,x,y
-			y:+Float(TextHeight(str) * yScale)
+			If result.run_count > 0
+				Local str:String
+				str = LSet(RSet(result.name, result.name.length + result.level), 39)
+				str:+" | "
+				str:+RSet(Left(String.FromDouble(result.min_t), 8), 8)
+				str:+" | "
+				str:+RSet(Left(String.FromDouble(result.max_t), 8), 8)
+				str:+" | "
+				str:+RSet(Left(String.FromDouble(result.avg_t), 8), 8)
+				str:+" | "
+				str:+result.run_count
+				
+				file.WriteLine (str)
+			EndIf
 		Next
+		
+		file.Close()
 	End Method
 
 	
@@ -181,20 +162,12 @@ Type TProfiler Extends TGameService
 	End Method
 
 	Method Enable()
-		profilerEnabled = True
+		_enabled = True
 	End Method
 	
 	Method Disable()
-		profilerEnabled = False
+		_enabled = False
 	End Method
-
-	Method Show()
-		profilerShow = True
-	End Method
-	
-	Method Hide()
-		profilerShow = False
-	End Method		
 			
 End Type
 
@@ -225,10 +198,3 @@ Function rrDisableProfiler()
 	TProfiler.GetInstance().Disable()
 End Function
 
-Function rrShowProfiler()
-	TProfiler.GetInstance().Show()
-End Function
-
-Function rrHideProfiler()
-	TProfiler.GetInstance().Hide()
-End Function

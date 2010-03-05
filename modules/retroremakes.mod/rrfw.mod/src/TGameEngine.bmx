@@ -672,7 +672,6 @@ Type TGameEngine
 		AddService(TGraphicsService.GetInstance())
 		AddService(TFixedTimestep.GetInstance())
 		AddService(TGameSoundHandler.GetInstance())
-		AddService(TProfiler.GetInstance())
 		AddService(TConsole.GetInstance())
 		AddService(TScoreService.GetInstance())
 		AddService(TPhysicsManager.GetInstance())
@@ -681,6 +680,8 @@ Type TGameEngine
 		AddService(TLayerManager.GetInstance())
 		
 		TProjectionMatrix.GetInstance()
+		
+		TProfiler.GetInstance()
 		
 		'Add some commands to the console
 		rrAddConsoleCommand("services", "services - show all registered services", cmdServices)
@@ -761,13 +762,9 @@ Type TGameEngine
 		rrStartProfilerSample(renderProfile)
 		For Local service:TGameService = EachIn LRenderServices
 			rrPushRenderState
-			If debugEnabled
-				rrStartProfilerSample(service.renderProfiler)
-				service.renderMethod.Invoke(service, Null)
-				rrStopProfilerSample(service.renderProfiler)
-			Else
-				service.renderMethod.Invoke(service, Null)
-			EndIf
+			rrStartProfilerSample(service.renderProfiler)
+			service.renderMethod.Invoke(service, Null)
+			rrStopProfilerSample(service.renderProfiler)
 			rrPopRenderState
 		Next
 		
@@ -884,6 +881,7 @@ Type TGameEngine
 			myService = Null
 		Next
 		TGameSettings.GetInstance().Save()
+		TProfiler.GetInstance().CalculateResults()
 		logger.LogInfo("[" + toString() + "] Shutdown")
 		CloseLog()
 	End Method
@@ -943,13 +941,9 @@ Type TGameEngine
 		
 			rrStartProfilerSample(updateProfile)
 			For Local service:TGameService = EachIn LUpdateServices
-				If debugEnabled
-					rrStartProfilerSample(service.updateProfiler)
-					service.updateMethod.Invoke(service, Null)
-					rrStopProfilerSample(service.updateProfiler)
-				Else
-					service.updateMethod.Invoke(service, Null)
-				EndIf
+				rrStartProfilerSample(service.updateProfiler)
+				service.updateMethod.Invoke(service, Null)
+				rrStopProfilerSample(service.updateProfiler)
 			Next
 			
 			If gameManager Then gameManager.Update()
@@ -957,6 +951,7 @@ Type TGameEngine
 			If debugEnabled
 				DebugUpdate()
 			End If
+			
 			IncrementUpdateFrameCount()
 			rrStopProfilerSample(updateProfile)
 			

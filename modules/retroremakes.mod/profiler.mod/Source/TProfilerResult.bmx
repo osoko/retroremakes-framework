@@ -16,6 +16,8 @@ Type TProfilerResult
 	Field parent_name:String
 	Field total_t:Double
 	Field avg_t:Double
+	Field min_t:Double
+	Field max_t:Double
 	Field level:Int
 	Field run_count:Int
 	
@@ -31,6 +33,8 @@ Type TProfilerResult
 		avg_t = 0.0
 		If total_t > 0.0 Then avg_t = total_t / run_count
 		level = sample.level
+		min_t = sample._min_t
+		max_t = sample._max_t
 	End Method
 		
 End Type

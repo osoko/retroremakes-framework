@@ -12,8 +12,6 @@ endrem
 Type TScaleOscillator Extends TGameService
 
 	Global instance:TScaleOscillator		' This holds the singleton instance of this Type
-	
-	Field setScaleProfile:TProfilerSample
 
 	Method New()
 		If instance Throw "Cannot create multiple instances of this Singleton Type"
@@ -37,15 +35,9 @@ Type TScaleOscillator Extends TGameService
 		SetName("Scale Oscillator")
 		Super.Initialise()
 	End Method
-
-	Method Start()
-		setScaleProfile = rrCreateProfilerSample("Scale Oscillator")
-	End Method
 	
 	Method SetScaler(sg:TScaleGen, offset:Float = 0.0)
-		rrStartProfilerSample(setScaleProfile)
 		rrSetScaler(GenScaler(sg, offset))
-		rrStopProfilerSample(setScaleProfile)
 	End Method
 	
 	Method GenScaler:Short(sg:TScaleGen, offset:Float)

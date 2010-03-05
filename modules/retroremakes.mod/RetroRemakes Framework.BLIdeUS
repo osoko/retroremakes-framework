@@ -3,19 +3,35 @@
   <Project>
     <Main_File>precision_counter.bmx</Main_File>
     <Included_File>
+      <FileName>Source\TNormalPrecisionCounter.bmx</FileName>
+      <Document_Active>false</Document_Active>
+      <Caret_Position>
+        <X>1</X>
+        <Y>18</Y>
+      </Caret_Position>
+    </Included_File>
+    <Included_File>
       <FileName>Source\TPrecisionCounter.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>8</X>
+        <Y>39</Y>
+      </Caret_Position>
+    </Included_File>
+    <Included_File>
+      <FileName>Source\TPrecisionCounterWin32.bmx</FileName>
+      <Document_Active>false</Document_Active>
+      <Caret_Position>
+        <X>28</X>
+        <Y>24</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>precision_counter.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>38</X>
-        <Y>18</Y>
+        <X>22</X>
+        <Y>27</Y>
       </Caret_Position>
     </Included_File>
     <Compilation_Mode>GUI_Application</Compilation_Mode>
@@ -34,24 +50,24 @@
       <FileName>Source\TProfiler.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>2</X>
-        <Y>80</Y>
+        <X>6</X>
+        <Y>135</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>Source\TProfilerResult.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>10</Y>
+        <X>23</X>
+        <Y>36</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>Source\TProfilerSample.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>12</Y>
+        <X>43</X>
+        <Y>77</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -59,41 +75,14 @@
       <Document_Active>false</Document_Active>
       <Caret_Position>
         <X>0</X>
-        <Y>23</Y>
+        <Y>28</Y>
       </Caret_Position>
     </Included_File>
     <Compilation_Mode>GUI_Application</Compilation_Mode>
     <Context_Directory>\profiler.mod</Context_Directory>
     <Project_Name>profiler.mod</Project_Name>
-    <BuildStep>4</BuildStep>
-    <Icon_File_Location>C:\Program Files (x86)\BLIde for BlitzMax\blide.ico</Icon_File_Location>
-    <Embed_Os_Theme>true</Embed_Os_Theme>
-    <Publish_as_ConsoleApp>false</Publish_as_ConsoleApp>
-    <Debug_Enabled_Publish>false</Debug_Enabled_Publish>
-    <Publish_NRV_Level>5</Publish_NRV_Level>
-  </Project>
-  <Project>
-    <Main_File>profiler_service.bmx</Main_File>
-    <Included_File>
-      <FileName>profiler_service.bmx</FileName>
-      <Document_Active>false</Document_Active>
-      <Caret_Position>
-        <X>18</X>
-        <Y>21</Y>
-      </Caret_Position>
-    </Included_File>
-    <Included_File>
-      <FileName>Source\TProfiler.bmx</FileName>
-      <Document_Active>false</Document_Active>
-      <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
-      </Caret_Position>
-    </Included_File>
-    <Compilation_Mode>GUI_Application</Compilation_Mode>
-    <Context_Directory>\profiler_service.mod</Context_Directory>
-    <Project_Name>profiler_service.mod</Project_Name>
     <BuildStep>3</BuildStep>
+    <Icon_File_Location>C:\Program Files (x86)\BLIde for BlitzMax\blide.ico</Icon_File_Location>
     <Embed_Os_Theme>true</Embed_Os_Theme>
     <Publish_as_ConsoleApp>false</Publish_as_ConsoleApp>
     <Debug_Enabled_Publish>false</Debug_Enabled_Publish>
@@ -513,8 +502,8 @@
       <FileName>src\Includes\Misc\TEngineException.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>21</X>
-        <Y>14</Y>
+        <X>0</X>
+        <Y>32</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -601,8 +590,8 @@
       <FileName>src\Includes\Functions.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>1</X>
-        <Y>221</Y>
+        <X>0</X>
+        <Y>217</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -657,8 +646,8 @@
       <FileName>src\Services\Graphics\TColourOscillator\TColourOscillator.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>11</X>
-        <Y>48</Y>
+        <X>0</X>
+        <Y>44</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -673,16 +662,16 @@
       <FileName>src\Services\Graphics\TScaleOscillator\TScaleOscillator.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>13</X>
-        <Y>17</Y>
+        <X>0</X>
+        <Y>37</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Graphics\TGraphicsService.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>11</X>
-        <Y>617</Y>
+        <X>1</X>
+        <Y>314</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -866,7 +855,7 @@
       <Document_Active>false</Document_Active>
       <Caret_Position>
         <X>0</X>
-        <Y>202</Y>
+        <Y>310</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -1025,8 +1014,8 @@
       <FileName>src\TGameEngine.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>11</X>
-        <Y>888</Y>
+        <X>9</X>
+        <Y>952</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
@@ -1040,7 +1029,7 @@
     <Compilation_Mode>GUI_Application</Compilation_Mode>
     <Context_Directory>\rrfw.mod</Context_Directory>
     <Project_Name>rrfw.mod</Project_Name>
-    <BuildStep>6</BuildStep>
+    <BuildStep>5</BuildStep>
     <Icon_File_Location>C:\Program Files (x86)\BLIde for BlitzMax\blide.ico</Icon_File_Location>
     <Embed_Os_Theme>false</Embed_Os_Theme>
     <Publish_as_ConsoleApp>false</Publish_as_ConsoleApp>
@@ -1068,7 +1057,7 @@
     <Compilation_Mode>GUI_Application</Compilation_Mode>
     <Context_Directory>\service.mod</Context_Directory>
     <Project_Name>service.mod</Project_Name>
-    <BuildStep>5</BuildStep>
+    <BuildStep>4</BuildStep>
     <Icon_File_Location>C:\Program Files (x86)\BLIde for BlitzMax\blide.ico</Icon_File_Location>
     <Embed_Os_Theme>true</Embed_Os_Theme>
     <Publish_as_ConsoleApp>false</Publish_as_ConsoleApp>
@@ -1081,8 +1070,8 @@
       <FileName>Source\TGameSettings.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>194</Y>
+        <X>20</X>
+        <Y>46</Y>
       </Caret_Position>
     </Included_File>
     <Included_File>
