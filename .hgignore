@@ -11,5 +11,5 @@ syntax: glob
 *.a
 *.o
 *.s
-*.BLIdeUS.layout
+*.layout
 commands.html
