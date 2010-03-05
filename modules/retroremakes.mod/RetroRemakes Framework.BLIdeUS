@@ -1,93 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <UnmanagedSolution xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Project>
-    <Main_File>precision_counter.bmx</Main_File>
-    <Included_File>
-      <FileName>Source\TNormalPrecisionCounter.bmx</FileName>
-      <Document_Active>false</Document_Active>
-      <Caret_Position>
-        <X>1</X>
-        <Y>18</Y>
-      </Caret_Position>
-    </Included_File>
-    <Included_File>
-      <FileName>Source\TPrecisionCounter.bmx</FileName>
-      <Document_Active>false</Document_Active>
-      <Caret_Position>
-        <X>8</X>
-        <Y>39</Y>
-      </Caret_Position>
-    </Included_File>
-    <Included_File>
-      <FileName>Source\TPrecisionCounterWin32.bmx</FileName>
-      <Document_Active>false</Document_Active>
-      <Caret_Position>
-        <X>28</X>
-        <Y>24</Y>
-      </Caret_Position>
-    </Included_File>
-    <Included_File>
-      <FileName>precision_counter.bmx</FileName>
-      <Document_Active>false</Document_Active>
-      <Caret_Position>
-        <X>22</X>
-        <Y>27</Y>
-      </Caret_Position>
-    </Included_File>
-    <Compilation_Mode>GUI_Application</Compilation_Mode>
-    <Context_Directory>\precision_counter.mod</Context_Directory>
-    <Project_Name>precision_counter.mod</Project_Name>
-    <BuildStep>1</BuildStep>
-    <Icon_File_Location>C:\Program Files (x86)\BLIde for BlitzMax\blide.ico</Icon_File_Location>
-    <Embed_Os_Theme>true</Embed_Os_Theme>
-    <Publish_as_ConsoleApp>false</Publish_as_ConsoleApp>
-    <Debug_Enabled_Publish>false</Debug_Enabled_Publish>
-    <Publish_NRV_Level>5</Publish_NRV_Level>
-  </Project>
-  <Project>
-    <Main_File>profiler.bmx</Main_File>
-    <Included_File>
-      <FileName>Source\TProfiler.bmx</FileName>
-      <Document_Active>false</Document_Active>
-      <Caret_Position>
-        <X>6</X>
-        <Y>135</Y>
-      </Caret_Position>
-    </Included_File>
-    <Included_File>
-      <FileName>Source\TProfilerResult.bmx</FileName>
-      <Document_Active>false</Document_Active>
-      <Caret_Position>
-        <X>23</X>
-        <Y>36</Y>
-      </Caret_Position>
-    </Included_File>
-    <Included_File>
-      <FileName>Source\TProfilerSample.bmx</FileName>
-      <Document_Active>false</Document_Active>
-      <Caret_Position>
-        <X>43</X>
-        <Y>77</Y>
-      </Caret_Position>
-    </Included_File>
-    <Included_File>
-      <FileName>profiler.bmx</FileName>
-      <Document_Active>false</Document_Active>
-      <Caret_Position>
-        <X>0</X>
-        <Y>28</Y>
-      </Caret_Position>
-    </Included_File>
-    <Compilation_Mode>GUI_Application</Compilation_Mode>
-    <Context_Directory>\profiler.mod</Context_Directory>
-    <Project_Name>profiler.mod</Project_Name>
-    <BuildStep>3</BuildStep>
-    <Icon_File_Location>C:\Program Files (x86)\BLIde for BlitzMax\blide.ico</Icon_File_Location>
-    <Embed_Os_Theme>true</Embed_Os_Theme>
-    <Publish_as_ConsoleApp>false</Publish_as_ConsoleApp>
-    <Debug_Enabled_Publish>false</Debug_Enabled_Publish>
-    <Publish_NRV_Level>5</Publish_NRV_Level>
-  </Project>
   <Project>
     <Main_File>rrfw.bmx</Main_File>
     <Included_File>
@@ -97,6 +9,13 @@
         <X>12</X>
         <Y>17</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Actors\TFontActor.bmx</FileName>
@@ -105,6 +24,13 @@
         <X>1</X>
         <Y>36</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Actors\TImageActor.bmx</FileName>
@@ -113,6 +39,13 @@
         <X>62</X>
         <Y>5</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Actors\TPolygonActor.bmx</FileName>
@@ -121,6 +54,13 @@
         <X>0</X>
         <Y>24</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Animation\AnimationStyles\TAlphaFadeAnimation.bmx</FileName>
@@ -129,6 +69,13 @@
         <X>4</X>
         <Y>45</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Animation\AnimationStyles\TBlinkAnimation.bmx</FileName>
@@ -137,6 +84,13 @@
         <X>1</X>
         <Y>42</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Animation\AnimationStyles\TColourOscillatorAnimation.bmx</FileName>
@@ -145,6 +99,13 @@
         <X>1</X>
         <Y>29</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Animation\AnimationStyles\TCompositeAnimation.bmx</FileName>
@@ -153,6 +114,13 @@
         <X>1</X>
         <Y>56</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Animation\AnimationStyles\TDelayedAnimation.bmx</FileName>
@@ -161,6 +129,13 @@
         <X>1</X>
         <Y>42</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Animation\AnimationStyles\TLoopedAnimation.bmx</FileName>
@@ -169,6 +144,13 @@
         <X>3</X>
         <Y>62</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Animation\AnimationStyles\TLoopedFrameAnimation.bmx</FileName>
@@ -177,6 +159,13 @@
         <X>26</X>
         <Y>16</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Animation\AnimationStyles\TMakeInvisibleAnimation.bmx</FileName>
@@ -185,6 +174,13 @@
         <X>0</X>
         <Y>38</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Animation\AnimationStyles\TMakeVisibleAnimation.bmx</FileName>
@@ -193,6 +189,13 @@
         <X>19</X>
         <Y>22</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Animation\AnimationStyles\TPointToPointPathAnimation.bmx</FileName>
@@ -201,6 +204,13 @@
         <X>1</X>
         <Y>46</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Animation\AnimationStyles\TResetPositionAnimation.bmx</FileName>
@@ -209,6 +219,13 @@
         <X>0</X>
         <Y>6</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Animation\AnimationStyles\TScaleOscillatorAnimation.bmx</FileName>
@@ -217,6 +234,13 @@
         <X>1</X>
         <Y>39</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Animation\AnimationStyles\TSequentialAnimation.bmx</FileName>
@@ -225,6 +249,13 @@
         <X>18</X>
         <Y>51</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Animation\AnimationStyles\TSetAlphaAnimation.bmx</FileName>
@@ -233,6 +264,13 @@
         <X>1</X>
         <Y>33</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Animation\AnimationStyles\TSetColourAnimation.bmx</FileName>
@@ -241,6 +279,13 @@
         <X>33</X>
         <Y>31</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Animation\AnimationStyles\TSetPositionAnimation.bmx</FileName>
@@ -249,6 +294,13 @@
         <X>1</X>
         <Y>50</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Animation\AnimationStyles\TTimedAnimation.bmx</FileName>
@@ -257,6 +309,13 @@
         <X>52</X>
         <Y>20</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Animation\TAnimation.bmx</FileName>
@@ -265,6 +324,13 @@
         <X>1</X>
         <Y>0</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Animation\TAnimationManager.bmx</FileName>
@@ -273,6 +339,13 @@
         <X>25</X>
         <Y>39</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\GraphicsUtils.bmx</FileName>
@@ -281,6 +354,13 @@
         <X>0</X>
         <Y>0</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\Screenshot.bmx</FileName>
@@ -289,6 +369,13 @@
         <X>0</X>
         <Y>26</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\TColour.bmx</FileName>
@@ -297,6 +384,13 @@
         <X>1</X>
         <Y>3</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\TColourHSV.bmx</FileName>
@@ -305,6 +399,13 @@
         <X>1</X>
         <Y>1</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\TColourRGB.bmx</FileName>
@@ -313,6 +414,13 @@
         <X>23</X>
         <Y>2</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\TProjectionMatrix.bmx</FileName>
@@ -321,6 +429,13 @@
         <X>12</X>
         <Y>235</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\TRenderable.bmx</FileName>
@@ -329,6 +444,13 @@
         <X>60</X>
         <Y>82</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Graphics\TRenderState.bmx</FileName>
@@ -337,6 +459,13 @@
         <X>23</X>
         <Y>24</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Maths\PolygonCollisions.bmx</FileName>
@@ -345,6 +474,13 @@
         <X>36</X>
         <Y>7</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Maths\RC4Encrypt.bmx</FileName>
@@ -353,6 +489,13 @@
         <X>0</X>
         <Y>14</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Maths\TPolygon.bmx</FileName>
@@ -361,6 +504,13 @@
         <X>0</X>
         <Y>0</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Maths\TVector2D.bmx</FileName>
@@ -369,6 +519,13 @@
         <X>1</X>
         <Y>83</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Maths\Utility.bmx</FileName>
@@ -377,6 +534,13 @@
         <X>0</X>
         <Y>9</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Menus\TActionMenuItem.bmx</FileName>
@@ -385,6 +549,13 @@
         <X>18</X>
         <Y>25</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Menus\TMenu.bmx</FileName>
@@ -393,6 +564,13 @@
         <X>24</X>
         <Y>72</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Menus\TMenuItem.bmx</FileName>
@@ -401,6 +579,13 @@
         <X>1</X>
         <Y>52</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Menus\TMenuManager.bmx</FileName>
@@ -409,6 +594,13 @@
         <X>38</X>
         <Y>70</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Menus\TMenuMessageData.bmx</FileName>
@@ -417,6 +609,13 @@
         <X>0</X>
         <Y>20</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Menus\TMenuOption.bmx</FileName>
@@ -425,6 +624,13 @@
         <X>12</X>
         <Y>20</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Menus\TMenuStyle.bmx</FileName>
@@ -433,6 +639,13 @@
         <X>0</X>
         <Y>13</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Menus\TOptionMenuItem.bmx</FileName>
@@ -441,6 +654,13 @@
         <X>1</X>
         <Y>73</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Menus\TSubMenuItem.bmx</FileName>
@@ -449,6 +669,13 @@
         <X>6</X>
         <Y>9</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Misc\CloneObject.bmx</FileName>
@@ -457,6 +684,13 @@
         <X>7</X>
         <Y>40</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Misc\DataValidation.bmx</FileName>
@@ -465,6 +699,13 @@
         <X>0</X>
         <Y>0</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Misc\Logging.bmx</FileName>
@@ -473,6 +714,13 @@
         <X>3</X>
         <Y>9</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Misc\StringManipulation.bmx</FileName>
@@ -481,6 +729,13 @@
         <X>12</X>
         <Y>17</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Misc\TCommand.bmx</FileName>
@@ -489,6 +744,13 @@
         <X>0</X>
         <Y>0</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Misc\TCommandStack.bmx</FileName>
@@ -497,6 +759,13 @@
         <X>9</X>
         <Y>43</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Misc\TEngineException.bmx</FileName>
@@ -505,6 +774,13 @@
         <X>0</X>
         <Y>32</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Misc\TMacroCommand.bmx</FileName>
@@ -513,6 +789,13 @@
         <X>1</X>
         <Y>17</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Misc\TRegistry.bmx</FileName>
@@ -521,6 +804,13 @@
         <X>11</X>
         <Y>31</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Particles\TParticle.bmx</FileName>
@@ -529,6 +819,13 @@
         <X>25</X>
         <Y>27</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Particles\TParticleActor.bmx</FileName>
@@ -537,6 +834,13 @@
         <X>44</X>
         <Y>58</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Particles\TParticleEffect.bmx</FileName>
@@ -545,6 +849,13 @@
         <X>0</X>
         <Y>0</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Particles\TParticleEmitter.bmx</FileName>
@@ -553,6 +864,13 @@
         <X>4</X>
         <Y>263</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Particles\TParticleImage.bmx</FileName>
@@ -561,6 +879,13 @@
         <X>0</X>
         <Y>69</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Particles\TParticleLibrary.bmx</FileName>
@@ -569,6 +894,13 @@
         <X>0</X>
         <Y>20</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Particles\TParticleManager.bmx</FileName>
@@ -577,6 +909,13 @@
         <X>34</X>
         <Y>15</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Particles\TValues.bmx</FileName>
@@ -585,6 +924,13 @@
         <X>0</X>
         <Y>0</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\Functions.bmx</FileName>
@@ -593,6 +939,13 @@
         <X>0</X>
         <Y>217</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Includes\TGameManager.bmx</FileName>
@@ -601,6 +954,13 @@
         <X>0</X>
         <Y>14</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Audio\TGameSound.bmx</FileName>
@@ -609,6 +969,13 @@
         <X>1</X>
         <Y>1</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Audio\TGameSoundChannel.bmx</FileName>
@@ -617,6 +984,13 @@
         <X>1</X>
         <Y>1</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Audio\TGameSoundHandler.bmx</FileName>
@@ -625,6 +999,13 @@
         <X>9</X>
         <Y>405</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Debug\TConsole.bmx</FileName>
@@ -633,6 +1014,13 @@
         <X>20</X>
         <Y>54</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Graphics\TColourOscillator\TColourGen.bmx</FileName>
@@ -641,6 +1029,13 @@
         <X>0</X>
         <Y>0</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Graphics\TColourOscillator\TColourOscillator.bmx</FileName>
@@ -649,6 +1044,13 @@
         <X>0</X>
         <Y>44</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Graphics\TScaleOscillator\TScaleGen.bmx</FileName>
@@ -657,6 +1059,13 @@
         <X>0</X>
         <Y>0</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Graphics\TScaleOscillator\TScaleOscillator.bmx</FileName>
@@ -665,6 +1074,13 @@
         <X>0</X>
         <Y>37</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Graphics\TGraphicsService.bmx</FileName>
@@ -673,6 +1089,13 @@
         <X>1</X>
         <Y>314</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Input\Devices\Joystick\TJoystick.bmx</FileName>
@@ -681,6 +1104,13 @@
         <X>35</X>
         <Y>125</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Input\Devices\Joystick\TJoystickManager.bmx</FileName>
@@ -689,6 +1119,13 @@
         <X>0</X>
         <Y>170</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Input\Devices\Joystick\TJoystickMessageData.bmx</FileName>
@@ -697,6 +1134,13 @@
         <X>21</X>
         <Y>66</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Input\Devices\Keyboard\TKeyboard.bmx</FileName>
@@ -705,6 +1149,13 @@
         <X>33</X>
         <Y>92</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Input\Devices\Keyboard\TKeyboardMessageData.bmx</FileName>
@@ -713,6 +1164,13 @@
         <X>0</X>
         <Y>32</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Input\Devices\Mouse\TMouse.bmx</FileName>
@@ -721,6 +1179,13 @@
         <X>1</X>
         <Y>43</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Input\Devices\Mouse\TMouseMessageData.bmx</FileName>
@@ -729,6 +1194,13 @@
         <X>7</X>
         <Y>23</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Input\Devices\VirtualGamepad\TVirtualControls\JoystickMapping\TJoystickAxisMapping.bmx</FileName>
@@ -737,6 +1209,13 @@
         <X>0</X>
         <Y>17</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Input\Devices\VirtualGamepad\TVirtualControls\JoystickMapping\TJoystickButtonMapping.bmx</FileName>
@@ -745,6 +1224,13 @@
         <X>40</X>
         <Y>27</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Input\Devices\VirtualGamepad\TVirtualControls\JoystickMapping\TJoystickHatMapping.bmx</FileName>
@@ -753,6 +1239,13 @@
         <X>22</X>
         <Y>30</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Input\Devices\VirtualGamepad\TVirtualControls\KeyboardMapping\TKeyboardMapping.bmx</FileName>
@@ -761,6 +1254,13 @@
         <X>9</X>
         <Y>26</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Input\Devices\VirtualGamepad\TVirtualControls\MouseMapping\TMouseAxisMapping.bmx</FileName>
@@ -769,6 +1269,13 @@
         <X>21</X>
         <Y>58</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Input\Devices\VirtualGamepad\TVirtualControls\MouseMapping\TMouseButtonMapping.bmx</FileName>
@@ -777,6 +1284,13 @@
         <X>38</X>
         <Y>38</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Input\Devices\VirtualGamepad\TVirtualControls\TVirtualControl.bmx</FileName>
@@ -785,6 +1299,13 @@
         <X>28</X>
         <Y>442</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Input\Devices\VirtualGamepad\TVirtualControls\TVirtualControlMapping.bmx</FileName>
@@ -793,6 +1314,13 @@
         <X>1</X>
         <Y>150</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Input\Devices\VirtualGamepad\TVirtualControls\TVirtualControlMessageData.bmx</FileName>
@@ -801,6 +1329,13 @@
         <X>0</X>
         <Y>15</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Input\Devices\VirtualGamepad\TVirtualGamepad.bmx</FileName>
@@ -809,6 +1344,13 @@
         <X>4</X>
         <Y>42</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Input\Devices\VirtualGamepad\TVirtualGamepadManager.bmx</FileName>
@@ -817,6 +1359,13 @@
         <X>1</X>
         <Y>48</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Input\Recording\TInputRecorder.bmx</FileName>
@@ -825,6 +1374,13 @@
         <X>0</X>
         <Y>0</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Input\Recording\TInputSnapshot.bmx</FileName>
@@ -833,6 +1389,13 @@
         <X>0</X>
         <Y>0</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Input\TInputDevice.bmx</FileName>
@@ -841,6 +1404,13 @@
         <X>4</X>
         <Y>21</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Input\TInputManager.bmx</FileName>
@@ -849,6 +1419,13 @@
         <X>104</X>
         <Y>150</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Layers\TLayerManager.bmx</FileName>
@@ -857,6 +1434,13 @@
         <X>0</X>
         <Y>310</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Layers\TRenderLayer.bmx</FileName>
@@ -865,6 +1449,13 @@
         <X>4</X>
         <Y>51</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Messages\TMessage.bmx</FileName>
@@ -873,6 +1464,13 @@
         <X>10</X>
         <Y>34</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Messages\TMessageChannel.bmx</FileName>
@@ -881,6 +1479,13 @@
         <X>0</X>
         <Y>0</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Messages\TMessageData.bmx</FileName>
@@ -889,6 +1494,13 @@
         <X>0</X>
         <Y>18</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Messages\TMessageListener.bmx</FileName>
@@ -897,6 +1509,13 @@
         <X>22</X>
         <Y>6</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Messages\TMessageService.bmx</FileName>
@@ -905,6 +1524,13 @@
         <X>22</X>
         <Y>26</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Physics\TPhysicsManager.bmx</FileName>
@@ -913,6 +1539,13 @@
         <X>1</X>
         <Y>59</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Resources\ResourceTypes\TResourceAnimImage.bmx</FileName>
@@ -921,6 +1554,13 @@
         <X>0</X>
         <Y>0</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Resources\ResourceTypes\TResourceColourGen.bmx</FileName>
@@ -929,6 +1569,13 @@
         <X>0</X>
         <Y>0</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Resources\ResourceTypes\TResourceImage.bmx</FileName>
@@ -937,6 +1584,13 @@
         <X>0</X>
         <Y>0</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Resources\ResourceTypes\TResourceImageFont.bmx</FileName>
@@ -945,6 +1599,13 @@
         <X>0</X>
         <Y>0</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Resources\TResource.bmx</FileName>
@@ -953,6 +1614,13 @@
         <X>0</X>
         <Y>0</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Resources\TResourceManager.bmx</FileName>
@@ -961,6 +1629,13 @@
         <X>7</X>
         <Y>50</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Score\HighScoreTable\THighScoreEntry.bmx</FileName>
@@ -969,6 +1644,13 @@
         <X>0</X>
         <Y>0</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Score\HighScoreTable\THighScoreTable.bmx</FileName>
@@ -977,6 +1659,13 @@
         <X>0</X>
         <Y>0</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Score\TScore.bmx</FileName>
@@ -985,6 +1674,13 @@
         <X>22</X>
         <Y>50</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Score\TScoreService.bmx</FileName>
@@ -993,6 +1689,13 @@
         <X>7</X>
         <Y>50</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Timing\TFixedTimestep.bmx</FileName>
@@ -1001,6 +1704,13 @@
         <X>0</X>
         <Y>181</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\Services\Timing\TFramesPerSecond.bmx</FileName>
@@ -1009,6 +1719,13 @@
         <X>0</X>
         <Y>28</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\TGameEngine.bmx</FileName>
@@ -1017,80 +1734,100 @@
         <X>9</X>
         <Y>952</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges />
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>rrfw.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
         <X>0</X>
         <Y>0</Y>
       </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <OutlineColor>255:173:173:173</OutlineColor>
+        <Ranges>
+          <Range>
+            <StartPoint>
+              <X>0</X>
+              <Y>0</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>7</X>
+              <Y>9</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>0</Level>
+          </Range>
+          <Range>
+            <StartPoint>
+              <X>0</X>
+              <Y>13</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>7</X>
+              <Y>15</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>0</Level>
+          </Range>
+          <Range>
+            <StartPoint>
+              <X>37</X>
+              <Y>81</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>7</X>
+              <Y>124</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>0</Level>
+          </Range>
+          <Range>
+            <StartPoint>
+              <X>7</X>
+              <Y>128</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>8</X>
+              <Y>130</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>0</Level>
+          </Range>
+          <Range>
+            <StartPoint>
+              <X>0</X>
+              <Y>138</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>13</X>
+              <Y>298</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>0</Level>
+          </Range>
+        </Ranges>
+      </Folding>
     </Included_File>
     <Compilation_Mode>GUI_Application</Compilation_Mode>
     <Context_Directory>\rrfw.mod</Context_Directory>
     <Project_Name>rrfw.mod</Project_Name>
-    <BuildStep>5</BuildStep>
+    <BuildStep>1</BuildStep>
     <Icon_File_Location>C:\Program Files (x86)\BLIde for BlitzMax\blide.ico</Icon_File_Location>
     <Embed_Os_Theme>false</Embed_Os_Theme>
     <Publish_as_ConsoleApp>false</Publish_as_ConsoleApp>
     <Debug_Enabled_Publish>false</Debug_Enabled_Publish>
     <Publish_NRV_Level>0</Publish_NRV_Level>
-  </Project>
-  <Project>
-    <Main_File>service.bmx</Main_File>
-    <Included_File>
-      <FileName>Source\TGameService.bmx</FileName>
-      <Document_Active>false</Document_Active>
-      <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
-      </Caret_Position>
-    </Included_File>
-    <Included_File>
-      <FileName>service.bmx</FileName>
-      <Document_Active>false</Document_Active>
-      <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
-      </Caret_Position>
-    </Included_File>
-    <Compilation_Mode>GUI_Application</Compilation_Mode>
-    <Context_Directory>\service.mod</Context_Directory>
-    <Project_Name>service.mod</Project_Name>
-    <BuildStep>4</BuildStep>
-    <Icon_File_Location>C:\Program Files (x86)\BLIde for BlitzMax\blide.ico</Icon_File_Location>
-    <Embed_Os_Theme>true</Embed_Os_Theme>
-    <Publish_as_ConsoleApp>false</Publish_as_ConsoleApp>
-    <Debug_Enabled_Publish>false</Debug_Enabled_Publish>
-    <Publish_NRV_Level>5</Publish_NRV_Level>
-  </Project>
-  <Project>
-    <Main_File>settings.bmx</Main_File>
-    <Included_File>
-      <FileName>Source\TGameSettings.bmx</FileName>
-      <Document_Active>false</Document_Active>
-      <Caret_Position>
-        <X>20</X>
-        <Y>46</Y>
-      </Caret_Position>
-    </Included_File>
-    <Included_File>
-      <FileName>settings.bmx</FileName>
-      <Document_Active>false</Document_Active>
-      <Caret_Position>
-        <X>0</X>
-        <Y>17</Y>
-      </Caret_Position>
-    </Included_File>
-    <Compilation_Mode>GUI_Application</Compilation_Mode>
-    <Context_Directory>\settings.mod</Context_Directory>
-    <Project_Name>settings.mod</Project_Name>
-    <BuildStep>2</BuildStep>
-    <Icon_File_Location>C:\Program Files (x86)\BLIde for BlitzMax\blide.ico</Icon_File_Location>
-    <Embed_Os_Theme>true</Embed_Os_Theme>
-    <Publish_as_ConsoleApp>false</Publish_as_ConsoleApp>
-    <Debug_Enabled_Publish>false</Debug_Enabled_Publish>
-    <Publish_NRV_Level>5</Publish_NRV_Level>
   </Project>
   <Compiler_Configuration>
     <Quick_Build>false</Quick_Build>
