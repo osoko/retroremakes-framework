@@ -23,5 +23,6 @@ Import muttley.logger
 Import retroremakes.precision_counter
 Import retroremakes.settings
 
+Include "Source/TProfiler.bmx"
 Include "Source/TProfilerResult.bmx"
 Include "Source/TProfilerSample.bmx"

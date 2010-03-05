@@ -311,12 +311,6 @@ Type TLayerManager Extends TGameService
 	
 	
 	
-	Method ToString:String()
-		Return name + ":" + Super.ToString()
-	End Method
-	
-	
-	
 	rem
 		bbdoc: Update all layers
 	endrem

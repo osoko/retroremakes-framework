@@ -74,7 +74,6 @@ Import retroremakes.service
 Import retroremakes.settings
 Import retroremakes.precision_counter
 Import retroremakes.profiler
-Import retroremakes.profiler_service
 
 Private
 

@@ -11,6 +11,9 @@ endrem
 
 
 Type TProfilerSample
+	Field _firstSample:Int
+	Field _max_t:Double
+	Field _min_t:Double
 	Field name:String
 	Field link:TLink
 	Field running:Int
@@ -27,7 +30,8 @@ Type TProfilerSample
 	
 	
 	Method New()
-		running  = False
+		running = False
+		_firstSample = True
 		total_t = 0.0
 		run_count = 0.0
 	End Method
@@ -52,7 +56,7 @@ Type TProfilerSample
 		last_sample = Self
 
 	    global_level:+1
-		start_t = MilliSecs()
+		start_t = rrMillisecs()
 		run_count :+ 1
 	End Method
 
@@ -66,10 +70,24 @@ Type TProfilerSample
 		last_sample = parent
 		
 		running = False
-		global_level :- 1
-		end_t = MilliSecs()
 		
-		total_t :+ (end_t-start_t)
+		global_level:-1
+		
+		end_t = rrMillisecs()
+		
+		Local sample_t:Double = (end_t - start_t)
+		
+		If _firstSample
+			_firstSample = False
+			_max_t = sample_t
+			_min_t = sample_t
+		End If
+		
+		If sample_t < _min_t Then _min_t = sample_t
+		If sample_t > _max_t Then _max_t = sample_t
+				
+		total_t:+sample_t
+		
 	End Method
 
 	

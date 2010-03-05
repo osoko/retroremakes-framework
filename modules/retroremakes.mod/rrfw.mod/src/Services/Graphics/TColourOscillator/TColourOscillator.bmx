@@ -13,8 +13,6 @@ Type TColourOscillator Extends TGameService
 
 	Global instance:TColourOscillator		' This holds the singleton instance of this Type
 	
-	Field setColoursProfile:TProfilerSample
-	
 	Method New()
 		If instance Throw "Cannot create multiple instances of this Singleton Type"
 		instance = Self
@@ -37,21 +35,13 @@ Type TColourOscillator Extends TGameService
 		SetName("Colour Oscillator")
 		Super.Initialise()
 	End Method
-
-	Method Start()
-		setColoursProfile = rrCreateProfilerSample("Colour Oscillator")
-	End Method
 	
 	Method SetColours(cg:TColourGen, offset:Float = 0.0)
-		rrStartProfilerSample(setColoursProfile)
 		GenColours(cg, offset).Set()
-		rrStopProfilerSample(setColoursProfile)
 	End Method
 	
 	Method SetColoursWithoutAlpha(cg:TColourGen, offset:Float = 0.0)
-		rrStartProfilerSample(setColoursProfile)
 		GenColours(cg, offset).SetWithoutAlpha()
-		rrStopProfilerSample(setColoursProfile)		
 	End Method
 	
 	Method GenColours:TColourRGB(cg:TColourGen, offset:Float = 0.0)
