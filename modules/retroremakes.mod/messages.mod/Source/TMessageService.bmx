@@ -91,18 +91,18 @@ Type TMessageService Extends TGameService
 			
 			' One, and only one, argument for the on_message method
 			If args.Length <> 1 Then
-				rrThrow "Wrong number of arguments for the MessageListener() method!"
+				Throw "Wrong number of arguments for the MessageListener() method!"
 			EndIf
 			
 			' Only a TMessage can be sent to it!
 			If args[0].name() <> "TMessage" Then
-				rrThrow "MessageListener() should only take a TMessage argument!"
+				Throw "MessageListener() should only take a TMessage argument!"
 			EndIf
 		
 			' The object have a valid on_message method, send the message
 			receiver.invoke(message.receiver, [message])
 		Else
-			rrThrow "Recipient has no MessageListener() Method"
+			Throw "Recipient has no MessageListener() Method"
 		EndIf
 		
 	End Method

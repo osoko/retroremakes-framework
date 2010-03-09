@@ -355,6 +355,38 @@ Type TGameEngine
 	
 	
 	rem
+		bbdoc: Checks to see if the application has been suspended or not.
+		about: If it has it will create a temporary timer and use that to yield to
+		the system to free up CPU time. Once the application has been resumed, it
+		will reset the graphics if it was running in full-screen mode and it will
+		also reset the Fixed Timestep and FPS calculations.
+	endrem	
+	Method CheckIfActive()
+		If AppSuspended()
+			SetPaused(True)
+			Local susTimer:TTimer = CreateTimer(60)  'temporary timer to help free up CPU when game suspended
+			'wait until app is active again
+			While AppSuspended() 
+				WaitTimer(susTimer)   'Do nothing and free up CPU
+			Wend
+			If Not TGraphicsService.GetInstance().GetWindowed()
+				'When resuming from minimised full-screen display we need to recreate Grahics
+				'and set up the projection matrix again due to DirectX oddness
+				TLogger.GetInstance().LogInfo("[" + toString() + "] Resetting graphics mode")
+				TGraphicsService.GetInstance().Set()
+			EndIf
+			'Reset the fixed timestep timer so we don't have any glitches
+			SetPaused(False)
+			TFixedTimestep.GetInstance().Reset()
+			'TFramesPerSecond.GetInstance().Reset()
+			'rrResetFixedTimestep()
+			'rrResetFPS()
+		EndIf		
+	End Method
+	
+	
+		
+	rem
 		bbdoc: Close the logfile used by the #TGameEngine instance
 	endrem	
 	Method CloseLog()
@@ -693,6 +725,7 @@ Type TGameEngine
 		renderProfile = rrCreateProfilerSample("Engine: Render")
 		debugUpdateProfile = rrCreateProfilerSample("Engine: DebugUpdate")
 		debugRenderProfile = rrCreateProfilerSample("Engine: DebugRender")
+		
 		logger.LogInfo("[" + toString() + "] Initialised")
 	End Method
 
@@ -803,7 +836,7 @@ Type TGameEngine
 				' Main loop
 				While (GetEngineRunning() And Not AppTerminate())
 					rrStartProfilerSample(mainLoopProfile)
-					TGraphicsService.GetInstance().CheckIfActive()
+					CheckIfActive()
 				
 					Update()
 		
@@ -962,3 +995,8 @@ Type TGameEngine
 	End Method
 	
 End Type
+
+Function theEngine:TGameEngine()
+	Return TGameEngine.GetInstance()
+End Function
+

@@ -78,7 +78,7 @@ Type TProjectionMatrix
 		bbdoc: Default constructor
 	endrem
 	Method New()
-		If _instance rrThrow "Cannot create multiple instances of this Singleton Type"
+		If _instance Throw "Cannot create multiple instances of this Singleton Type"
 		_instance = Self
 		
 		SetWidth(DEFAULT_GFX_PROJECTION_X)

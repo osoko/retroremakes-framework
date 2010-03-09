@@ -78,36 +78,6 @@ Type TGraphicsService Extends TGameService
 	' Whether to run windowed or full-screen
 	Field _windowed:Int
 
-
-
-	rem
-		bbdoc: Checks to see if the application has been suspended or not.
-		about: If it has it will create a temporary timer and use that to yield to
-		the system to free up CPU time. Once the application has been resumed, it
-		will reset the graphics if it was running in full-screen mode and it will
-		also reset the Fixed Timestep and FPS calculations.
-	endrem
-	Method CheckIfActive()
-		If AppSuspended()
-			TGameEngine.GetInstance().SetPaused(True)
-			Local susTimer:TTimer = CreateTimer(60)  'temporary timer to help free up CPU when game suspended
-			'wait until app is active again
-			While AppSuspended() 
-				WaitTimer(susTimer)   'Do nothing and free up CPU
-			Wend
-			If Not _windowed
-				'When resuming from minimised full-screen display we need to recreate Grahics
-				'and set up the projection matrix again due to DirectX oddness
-				TLogger.GetInstance().LogInfo("[" + toString() + "] Resetting graphics mode")
-				Set()
-			EndIf
-			'Reset the fixed timestep timer so we don't have any glitches
-			TGameEngine.GetInstance().SetPaused(False)
-			rrResetFixedTimestep()
-			rrResetFPS()
-		EndIf		
-	End Method
-	
 	
 	
 	rem
@@ -402,7 +372,7 @@ Type TGraphicsService Extends TGameService
 		bbdoc: Default constructor
 	endrem
 	Method New()
-		If instance rrThrow "Cannot create multiple instances of this Singleton Type"
+		If instance Throw "Cannot create multiple instances of this Singleton Type"
 		instance = Self
 		Self.Initialise()
 	EndMethod
@@ -449,7 +419,7 @@ Type TGraphicsService Extends TGameService
 		EndIf
 		
 		If Not _device
-			rrThrow "Requested graphics mode unavailable: " + _width + "x" + _height + "x" + _depth + "@" + _refresh + "Hz"
+			Throw "Requested graphics mode unavailable: " + _width + "x" + _height + "x" + _depth + "@" + _refresh + "Hz"
 		EndIf
 		
 		brl.Graphics.SetGraphics(_device)

@@ -96,13 +96,13 @@ Type TFramesPerSecond Extends TGameService
 	rem
 		bbdoc: The colour to use for the FPS display font
 	endrem
-	Field displayColour:TColourRGB = New TColourRGB
+'	Field displayColour:TColourRGB = New TColourRGB
  
 	
 	rem
 		bbdoc: The font to use for the FPS display
 	endrem
-	Field displayFont:TImageFont
+'	Field displayFont:TImageFont
 
 	
 	rem
@@ -130,7 +130,7 @@ Type TFramesPerSecond Extends TGameService
 			</tr>					
 		</table>
 	endrem
-	Field displayMode:Int = FPS_DISPLAY_NORMAL
+'	Field displayMode:Int = FPS_DISPLAY_NORMAL
 
 
 	rem
@@ -159,7 +159,7 @@ Type TFramesPerSecond Extends TGameService
 			</tr>					
 		</table>
 	endrem	
-	Field displayPosition:Int = FPS_POSITION_TOP_LEFT
+'	Field displayPosition:Int = FPS_POSITION_TOP_LEFT
 
 	
 	
@@ -168,76 +168,76 @@ Type TFramesPerSecond Extends TGameService
 		about: This is overriden from #TGameService, see the documentation for
 		that class for more details
 	endrem
-	Method DebugRender()
-	
-		TRenderState.Push()
-		
-		Local font:TImageFont = GetDisplayFont()
-		If font
-			SetImageFont(font)
-		End If
-		
-		GetDisplayColour().Set()
-		
-		Local displayMode:Int = GetDisplayMode()
-		
-		If Not (displayMode = FPS_DISPLAY_OFF)
-		
-			Local displayFps:String
-			
-			Select displayMode
-				Case FPS_DISPLAY_NORMAL
-					displayFps = GetDisplayFps()
-				Case FPS_DISPLAY_VERBOSE
-					displayFps = GetDisplayFpsVerbose()
-			End Select
-					
-			Local x:Float
-			Local y:Float
-			
-			Select GetDisplayPosition()
-				Case FPS_POSITION_BOTTOM_LEFT
-					x = 0.0
-					y = TProjectionMatrix.GetInstance().GetHeight() - Float(TextHeight(displayFps))
-				Case FPS_POSITION_BOTTOM_RIGHT
-					x = TProjectionMatrix.GetInstance().GetWidth() - Float(TextWidth(displayFps))
-					y = TProjectionMatrix.GetInstance().GetHeight() - Float(TextHeight(displayFps))
-				Case FPS_POSITION_TOP_LEFT
-					x = 0.0
-					y = 0.0
-				Case FPS_POSITION_TOP_RIGHT
-					x = TProjectionMatrix.GetInstance().GetWidth() - Float(TextWidth(displayFps))
-					y = 0.0
-				Default
-					x = 0.0
-					y = 0.0
-			End Select
-			
-			DrawText(displayFps, x, y)
-			
-		EndIf
-		
-		TRenderState.Pop()
-		
-	End Method
-	
-	
-	
-	Rem
-		bbdoc: Get the displayColour value in this TFramesPerSecond object.
-	End Rem
-	Method GetDisplayColour:TColourRGB()
-		Return Self.displayColour
-	End Method
+'	Method DebugRender()
+'	
+'		TRenderState.Push()
+'		
+'		Local font:TImageFont = GetDisplayFont()
+'		If font
+'			SetImageFont(font)
+'		End If
+'		
+'		GetDisplayColour().Set()
+'		
+'		Local displayMode:Int = GetDisplayMode()
+'		
+'		If Not (displayMode = FPS_DISPLAY_OFF)
+'		
+'			Local displayFps:String
+'			
+'			Select displayMode
+'				Case FPS_DISPLAY_NORMAL
+'					displayFps = GetDisplayFps()
+'				Case FPS_DISPLAY_VERBOSE
+'					displayFps = GetDisplayFpsVerbose()
+'			End Select
+'					
+'			Local x:Float
+'			Local y:Float
+'			
+'			Select GetDisplayPosition()
+'				Case FPS_POSITION_BOTTOM_LEFT
+'					x = 0.0
+'					y = TProjectionMatrix.GetInstance().GetHeight() - Float(TextHeight(displayFps))
+'				Case FPS_POSITION_BOTTOM_RIGHT
+'					x = TProjectionMatrix.GetInstance().GetWidth() - Float(TextWidth(displayFps))
+'					y = TProjectionMatrix.GetInstance().GetHeight() - Float(TextHeight(displayFps))
+'				Case FPS_POSITION_TOP_LEFT
+'					x = 0.0
+'					y = 0.0
+'				Case FPS_POSITION_TOP_RIGHT
+'					x = TProjectionMatrix.GetInstance().GetWidth() - Float(TextWidth(displayFps))
+'					y = 0.0
+'				Default
+'					x = 0.0
+'					y = 0.0
+'			End Select
+'			
+'			DrawText(displayFps, x, y)
+'			
+'		EndIf
+'		
+'		TRenderState.Pop()
+'		
+'	End Method
 	
 	
 	
-	Rem
-		bbdoc: Get the displayFont value in this TFramesPerSecond object.
-	End Rem
-	Method GetDisplayFont:TImageFont()
-		Return Self.displayFont
-	End Method
+'	Rem
+'		bbdoc: Get the displayColour value in this TFramesPerSecond object.
+'	End Rem
+'	Method GetDisplayColour:TColourRGB()
+'		Return Self.displayColour
+'	End Method
+'	
+'	
+'	
+'	Rem
+'		bbdoc: Get the displayFont value in this TFramesPerSecond object.
+'	End Rem
+'	Method GetDisplayFont:TImageFont()
+'		Return Self.displayFont
+'	End Method
 	
 	
 				
@@ -260,21 +260,21 @@ Type TFramesPerSecond Extends TGameService
 	
 	
 	
-	Rem
-		bbdoc: Get the displayMode value in this TFramesPerSecond object.
-	End Rem
-	Method GetDisplayMode:Int()
-		Return Self.displayMode
-	End Method
-	
-	
-	
-	Rem
-		bbdoc: Get the displayPosition value in this TFramesPerSecond object.
-	End Rem
-	Method GetDisplayPosition:Int()
-		Return Self.displayPosition
-	End Method
+'	Rem
+'		bbdoc: Get the displayMode value in this TFramesPerSecond object.
+'	End Rem
+'	Method GetDisplayMode:Int()
+'		Return Self.displayMode
+'	End Method
+'	
+'	
+'	
+'	Rem
+'		bbdoc: Get the displayPosition value in this TFramesPerSecond object.
+'	End Rem
+'	Method GetDisplayPosition:Int()
+'		Return Self.displayPosition
+'	End Method
 	
 	
 			
@@ -350,7 +350,7 @@ Type TFramesPerSecond Extends TGameService
 		bbdoc: Constructor
 	endrem
 	Method New()
-		If instance rrThrow ("Cannot create multiple instances of this Singleton Type")
+		If instance Throw ("Cannot create multiple instances of this Singleton Type")
 		instance = Self
 		Self.Initialise()
 	EndMethod
@@ -371,41 +371,41 @@ Type TFramesPerSecond Extends TGameService
 	End Method
 		
 	
-	
-	Rem
-		bbdoc: Set the displayColour value for this TFramesPerSecond object.
-	End Rem
-	Method SetDisplayColour(value:TColourRGB)
-		Self.displayColour = value
-	End Method
-	
-	
-		
-	Rem
-		bbdoc: Set the displayFont value for this TFramesPerSecond object.
-	End Rem
-	Method SetDisplayFont(value:TImageFont)
-		Self.displayFont = value
-	End Method
-	
-	
-		
-	Rem
-		bbdoc: Set the displayMode value for this TFramesPerSecond object.
-	End Rem
-	Method SetDisplayMode(value:Int)
-		Self.displayMode = value
-	End Method
-	
-	
-		
-	Rem
-		bbdoc: Set the displayPosition value for this TFramesPerSecond object.
-	End Rem
-	Method SetDisplayPosition(value:Int)
-		Self.displayPosition = value
-	End Method
-	
+
+'	Rem
+'		bbdoc: Set the displayColour value for this TFramesPerSecond object.
+'	End Rem
+'	Method SetDisplayColour(value:TColourRGB)
+'		Self.displayColour = value
+'	End Method
+'	
+'	
+'		
+'	Rem
+'		bbdoc: Set the displayFont value for this TFramesPerSecond object.
+'	End Rem
+'	Method SetDisplayFont(value:TImageFont)
+'		Self.displayFont = value
+'	End Method
+'	
+'	
+'		
+'	Rem
+'		bbdoc: Set the displayMode value for this TFramesPerSecond object.
+'	End Rem
+'	Method SetDisplayMode(value:Int)
+'		Self.displayMode = value
+'	End Method
+'	
+'	
+'		
+'	Rem
+'		bbdoc: Set the displayPosition value for this TFramesPerSecond object.
+'	End Rem
+'	Method SetDisplayPosition(value:Int)
+'		Self.displayPosition = value
+'	End Method
+
 	
 		
 	rem
