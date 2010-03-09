@@ -16,7 +16,7 @@ bbdoc: RetroRemakes Framework: Profiler
 EndRem
 Module retroremakes.profiler
 
-Import brl.max2d
+'Import brl.max2d
 
 Import muttley.logger
 

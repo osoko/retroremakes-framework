@@ -49,10 +49,10 @@
     </Included_File>
     <Included_File>
       <FileName>profiler.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>1</X>
+        <Y>18</Y>
       </Caret_Position>
       <SplitVisible>false</SplitVisible>
       <SplitVertical>false</SplitVertical>
@@ -89,9 +89,10 @@
       </Folding>
     </Included_File>
     <Compilation_Mode>GUI_Application</Compilation_Mode>
-    <Context_Directory>C:\Development\Languages\BlitzMax-RRFW\mod\retroremakes.mod\profiler.mod</Context_Directory>
+    <Context_Directory>D:\Languages\BlitzMax-RRFW\mod\retroremakes.mod\profiler.mod</Context_Directory>
     <Project_Name>profiler.mod</Project_Name>
     <BuildStep>1</BuildStep>
+    <Icon_File_Location>C:\Program Files (x86)\BLIde for BlitzMax\blide.ico</Icon_File_Location>
     <Embed_Os_Theme>true</Embed_Os_Theme>
     <Publish_as_ConsoleApp>false</Publish_as_ConsoleApp>
     <Debug_Enabled_Publish>false</Debug_Enabled_Publish>
