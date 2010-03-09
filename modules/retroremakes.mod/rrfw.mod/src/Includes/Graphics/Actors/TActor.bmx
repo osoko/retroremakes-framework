@@ -182,7 +182,7 @@ Type TActor Extends TRenderable Abstract
 		bbdoc: Move the actor by the specified 2D vector
 	endrem	
 	Method MoveV(moveVector:TVector2D)
-		_currentPosition = rrVAdd(_currentPosition, moveVector)
+		_currentPosition = V2Add(_currentPosition, moveVector)
 	End Method
 	
 	

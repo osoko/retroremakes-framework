@@ -1,6 +1,6 @@
 rem
 '
-' Copyright (c) 2007-2009 Paul Maskelyne <muttley@muttleyville.org>.
+' Copyright (c) 2007-2010 Paul Maskelyne <muttley@muttleyville.org>.
 '
 ' All rights reserved. Use of this code is allowed under the
 ' Artistic License 2.0 terms, as specified in the LICENSE file
@@ -10,7 +10,9 @@ rem
 endrem
 
 Type TVector2D
-	Field x:Float,y:Float
+
+	Field x:Float
+	Field y:Float
 	
 	Function Create:TVector2D(x_in:Float,y_in:Float)
 		Local v:TVector2D = New TVector2D
@@ -131,19 +133,19 @@ Type TVector2D
 	
 End Type
 
-Function rrVAdd:TVector2D(v1:TVector2D, v2:TVector2D)
+Function V2Add:TVector2D(v1:TVector2D, v2:TVector2D)
 	Return TVector2D.Create(v1.x+v2.x, v1.y+v2.y)
 End Function
 
-Function rrVSub:TVector2D(v1:TVector2D, v2:TVector2D)
+Function V2Sub:TVector2D(v1:TVector2D, v2:TVector2D)
 	Return TVector2D.Create(v1.x-v2.x, v1.y-v2.y)
 End Function
 
-Function rrVMul:TVector2D(v:TVector2D, f:Float)
+Function V2Mul:TVector2D(v:TVector2D, f:Float)
 	Return TVector2D.Create(v.x*f, v.y*f)
 End Function
 
-Function rrVDiv:TVector2D(v:TVector2D, f:Float)
+Function V2Div:TVector2D(v:TVector2D, f:Float)
 	Assert(f<>0.0:Float)
 	Return TVector2D.Create(v.x/f, v.y/f)
 End Function

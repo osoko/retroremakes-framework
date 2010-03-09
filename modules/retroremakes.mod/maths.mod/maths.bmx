@@ -4,4 +4,5 @@ Module retroremakes.maths
 
 Import brl.math
 
+Include "Source/RC4.bmx"
 Include "Source/TVector2D.bmx"

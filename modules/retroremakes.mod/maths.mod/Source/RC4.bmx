@@ -1,6 +1,6 @@
 rem
 '
-' Copyright (c) 2007-2009 Paul Maskelyne <muttley@muttleyville.org>.
+' Copyright (c) 2007-2010 Paul Maskelyne <muttley@muttleyville.org>.
 
 ' All rights reserved. Use of this code is allowed under the
 ' Artistic License 2.0 terms, as specified in the LICENSE file
@@ -13,13 +13,13 @@ rem
 	bbdoc: Encrypt or Decrypt a string using an RC4 cypher
 	returns: Either an Encrypted or Decrypted String
 endrem
-Function rrRC4:String(inp:String, key:String)
-	Local s:Int[ 512 + Ceil( inp.Length * .55 ) ]
+Function RC4:String(inputString:String, key:String)
+	Local s:Int[ 512 + Ceil( inputString.Length * .55 ) ]
 	Local i:Int
 	Local j:Int
 	Local t:Int
 	Local x:Int
-	Local outbuf:Short Ptr = Short Ptr( Varptr s[512] )
+	Local outputBuffer:Short Ptr = Short Ptr(Varptr s[512])
  
     j = 0
     For i = 0 To 255
@@ -41,15 +41,15 @@ Function rrRC4:String(inp:String, key:String)
     
     i = 0
     j = 0
-    For x:Int = 0 To inp.Length-1
+    For x:Int = 0 To inputString.Length-1
         i = ( i + 1 ) & $ff
         j = ( j + s[i] ) & $ff
         t = s[i]
         s[i] = s[j]
         s[j] = t
         t = ( s[i] + s[j] ) & $ff
-        outbuf[x] = ( inp[x] ~ s[t] )
+        outputBuffer[x] = ( inputString[x] ~ s[t] )
     Next
 
-    Return String.FromShorts( outbuf, inp.Length )
+    Return String.FromShorts( outputBuffer, inputString.Length )
 End Function
