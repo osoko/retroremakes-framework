@@ -16,7 +16,7 @@ bbdoc: RetroRemakes Framework
 EndRem
 Module retroremakes.rrfw
 
-ModuleInfo "Version: 0.10.0"
+ModuleInfo "Version: 0.11.0"
 ModuleInfo "License: Artistic License 2.0"
 ModuleInfo "Author: Paul Maskelyne (Muttley) and others"
 ModuleInfo "Copyright: (C) 2007-2009 Paul Maskelyne"
@@ -28,34 +28,12 @@ Import bah.chipmunk
 Import bah.volumes
 
 Import brl.audio
-'Import brl.audiosample
-'Import brl.bmploader
-'Import brl.d3d7max2d
-'Import brl.d3d9max2d
-'Import brl.directsoundaudio
-'Import brl.dxgraphics
-'Import brl.event
-'Import brl.freeaudioaudio
 Import brl.freetypefont
-'Import brl.GLGraphics
-'Import brl.glmax2d
-'Import brl.Graphics
-'Import brl.hook
 Import brl.jpgloader
-'Import brl.keycodes
 Import pub.libjpeg
 Import pub.libpng
-'Import brl.linkedlist
-'Import brl.map
-'Import brl.max2d
-'Import brl.oggloader
-'Import pub.oggvorbis
-'Import pub.openal
-'Import pub.opengl
 Import brl.openalaudio
 Import brl.pngloader
-'Import brl.polledinput
-'Import brl.reflection
 Import brl.tgaloader
 Import brl.timer
 
@@ -92,7 +70,7 @@ Type Z9FTidiMC0vFnfyhMruuOv9Q8wGiAL0I Abstract
     Const MajorVersion:Int = 0
 	
 	'This Const contains the minor version number of the program
-    Const MinorVersion:Int = 10
+    Const MinorVersion:Int = 11
 	
 	'This string contains the name of the program
     Const Name:String = "RetroRemakes Framework"
@@ -159,12 +137,7 @@ Include "src\Includes\TGameManager.bmx"
  ' Miscellaneous Graphics
 Include "src\Includes\Graphics\GraphicsUtils.bmx"
 Include "src\Includes\Graphics\Screenshot.bmx"
-'Include "src\Includes\Graphics\TColour.bmx"
-'Include "src\Includes\Graphics\TColourHSV.bmx"
-'Include "src\Includes\Graphics\TColourRGB.bmx"
-'Include "src\Includes\Graphics\TProjectionMatrix.bmx"
 Include "src\Includes\Graphics\TRenderable.bmx"
-'Include "src\Includes\Graphics\TRenderState.bmx"
 
 ' Actors
 Include "src\Includes\Graphics\Actors\TActor.bmx"
@@ -216,9 +189,7 @@ Include "src\Includes\Particles\TParticleManager.bmx"
 
 ' Miscellaneous Maths and Algorithms
 Include "src\Includes\Maths\PolygonCollisions.bmx"
-Include "src\Includes\Maths\RC4Encrypt.bmx"
 Include "src\Includes\Maths\TPolygon.bmx"
-'Include "src\Includes\Maths\TVector2D.bmx"
 Include "src\Includes\Maths\Utility.bmx"
 
 Include "src\Includes\Misc\CloneObject.bmx"
@@ -231,22 +202,15 @@ Include "src\Includes\Misc\TEngineException.bmx"
 Include "src\Includes\Misc\TMacroCommand.bmx"
 Include "src\Includes\Misc\TRegistry.bmx"
 
-' Timing
-'Include "src\Includes\Timing\TPrecisionCounter.bmx"
-
 ''
 '' Engine Services
 ''
-'Include "src\Services\TGameService.bmx"
-
 Include "src\Services\Audio\TGameSoundChannel.bmx"
 Include "src\Services\Audio\TGameSound.bmx"
 Include "src\Services\Audio\TGameSoundHandler.bmx"
 
 Include "src\Services\Debug\TConsole.bmx"
-'Include "src\Services\Debug\TProfiler.bmx"
 
-'Include "src\Services\Graphics\TGraphicsService.bmx"
 Include "src\Services\Graphics\TColourOscillator\TColourGen.bmx"
 Include "src\Services\Graphics\TColourOscillator\TColourOscillator.bmx"
 Include "src\Services\Graphics\TScaleOscillator\TScaleGen.bmx"
@@ -261,11 +225,6 @@ Include "src\Services\Score\TScore.bmx"
 Include "src\Services\Score\TScoreService.bmx"
 Include "src\Services\Score\HighScoreTable\THighScoreEntry.bmx"
 Include "src\Services\Score\HighScoreTable\THighScoreTable.bmx"
-
-'Include "src\Services\Settings\TGameSettings.bmx"
-
-'Include "src\Services\Timing\TFixedTimestep.bmx"
-'Include "src\Services\Timing\TFramesPerSecond.bmx"
 
 Include "src\Services\Resources\ResourceTypes\TResourceImageFont.bmx"
 Include "src\Services\Resources\ResourceTypes\TResourceColourGen.bmx"
@@ -295,12 +254,6 @@ Include "src\Services\Input\Devices\Mouse\TMouseMessageData.bmx"
 
 Include "src\Services\Layers\TLayerManager.bmx"
 Include "src\Services\Layers\TRenderLayer.bmx"
-
-'Include "src\Services\Messages\TMessageService.bmx"
-'Include "src\Services\Messages\TMessage.bmx"
-'Include "src\Services\Messages\TMessageData.bmx"
-'Include "src\Services\Messages\TMessageChannel.bmx"
-'Include "src\Services\Messages\TMessageListener.bmx"
 
 '
 '#End Region 

@@ -55,7 +55,7 @@ Type THighScoreTable
 						scoreArray[x] = ReadShort( fileHandle )
 					Next
 					cryptScore = String.FromShorts( scoreArray, numShorts )	'convert to string
-					cryptScore = rrRC4(cryptScore, cryptKey) 	'decrypt
+					cryptScore = RC4(cryptScore, cryptKey) 	'decrypt
 					allEntries[i].SetScore( cryptScore.ToInt() )
 	
 					numShorts = ReadInt( fileHandle )
@@ -64,7 +64,7 @@ Type THighScoreTable
 						nameArray[x] = ReadShort( fileHandle )
 					Next				
 					cryptName = String.FromShorts( nameArray, numShorts )
-					cryptName = rrRC4(cryptName, cryptKey) 
+					cryptName = RC4(cryptName, cryptKey) 
 					allEntries[i].SetPlayerName( cryptName )
 	
 					numShorts = ReadInt( fileHandle )
@@ -73,7 +73,7 @@ Type THighScoreTable
 						timeArray[x] = ReadShort( fileHandle )
 					Next				
 					cryptTimePlayed = String.FromShorts( timeArray, numShorts )
-					cryptTimePlayed = rrRC4(cryptTimePlayed, cryptKey) 
+					cryptTimePlayed = RC4(cryptTimePlayed, cryptKey) 
 					allEntries[i].SetTimePlayed( cryptTimePlayed.ToLong() )
 				Next
 				CloseFile( fileHandle )
@@ -93,7 +93,7 @@ Type THighScoreTable
 				WriteLine( fileHandle, String(allEntries[ i ].GetTimePlayed()) )
 				WriteLine( fileHandle, allEntries[ i ].GetPlayerName() )
 			Next
-			CloseFile( fileHandle )
+			CloseFile(fileHandle)
 		Else
 			'Save encrypted high-score table
 			Local cryptScore:String
@@ -102,9 +102,9 @@ Type THighScoreTable
 			Local fileHandle:TStream = WriteFile( Filename )
 
 			For Local i:Int = 0 To maxEntries - 1
-				cryptScore = rrRC4(String(allEntries[i].GetScore()), cryptKey) 
-				cryptName = rrRC4(allEntries[i].GetPlayerName(), cryptKey) 
-				cryptTimePlayed = rrRC4(String(allEntries[i].GetTimePlayed()), cryptKey) 
+				cryptScore = RC4(String(allEntries[i].GetScore()), cryptKey) 
+				cryptName = RC4(allEntries[i].GetPlayerName(), cryptKey) 
+				cryptTimePlayed = RC4(String(allEntries[i].GetTimePlayed()), cryptKey) 
 				WriteInt( fileHandle, cryptScore.length )
 				For Local x:Int = 0 To cryptScore.length - 1
 					WriteShort( fileHandle, Short(cryptScore[x]) )

@@ -187,6 +187,4 @@ Type TColourGen
 		Return colours
 	End Function
 	
-
-		
 End Type
