@@ -85,7 +85,7 @@ Type TInputManager Extends TGameService
 		bbdoc: Default Constructor
 	endrem
 	Method New()
-		If _instance rrThrow "Cannot create multiple instances of this Singleton Type"
+		If _instance Throw "Cannot create multiple instances of this Singleton Type"
 		
 		_instance = Self
 		
@@ -127,7 +127,7 @@ Type TInputManager Extends TGameService
 		bbdoc: Starts the service
 	endrem
 	Method Start()
-		rrCreateMessageChannel(CHANNEL_INPUT, "Input Manager")
+		CreateMessageChannel(CHANNEL_INPUT, "Input Manager")
 		
 		If _keyboardEnabled
 			TKeyboard.GetInstance()

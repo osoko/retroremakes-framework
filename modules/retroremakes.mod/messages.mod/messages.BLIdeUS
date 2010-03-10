@@ -1,7 +1,96 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <UnmanagedSolution xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Project>
     <Main_File>messages.bmx</Main_File>
+    <Included_File>
+      <FileName>Source\HelperFunctions.bmx</FileName>
+      <Document_Active>true</Document_Active>
+      <Caret_Position>
+        <X>12</X>
+        <Y>22</Y>
+      </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <OutlineColor>255:173:173:173</OutlineColor>
+        <Ranges>
+          <Range>
+            <StartPoint>
+              <X>30</X>
+              <Y>0</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>12</X>
+              <Y>2</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>0</Level>
+          </Range>
+          <Range>
+            <StartPoint>
+              <X>57</X>
+              <Y>4</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>12</X>
+              <Y>6</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>0</Level>
+          </Range>
+          <Range>
+            <StartPoint>
+              <X>61</X>
+              <Y>8</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>12</X>
+              <Y>10</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>0</Level>
+          </Range>
+          <Range>
+            <StartPoint>
+              <X>48</X>
+              <Y>12</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>12</X>
+              <Y>14</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>0</Level>
+          </Range>
+          <Range>
+            <StartPoint>
+              <X>55</X>
+              <Y>16</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>12</X>
+              <Y>18</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>0</Level>
+          </Range>
+          <Range>
+            <StartPoint>
+              <X>55</X>
+              <Y>20</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>12</X>
+              <Y>22</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>0</Level>
+          </Range>
+        </Ranges>
+      </Folding>
+    </Included_File>
     <Included_File>
       <FileName>Source\TMessage.bmx</FileName>
       <Document_Active>false</Document_Active>
@@ -561,10 +650,10 @@
     </Included_File>
     <Included_File>
       <FileName>messages.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
         <X>0</X>
-        <Y>5</Y>
+        <Y>13</Y>
       </Caret_Position>
       <SplitVisible>false</SplitVisible>
       <SplitVertical>false</SplitVertical>
@@ -576,7 +665,7 @@
       </Folding>
     </Included_File>
     <Compilation_Mode>GUI_Application</Compilation_Mode>
-    <Context_Directory>D:\Languages\BlitzMax-RRFW\mod\retroremakes.mod\messages.mod</Context_Directory>
+    <Context_Directory></Context_Directory>
     <Project_Name>messages.mod</Project_Name>
     <BuildStep>1</BuildStep>
     <Icon_File_Location>C:\Program Files (x86)\BLIde for BlitzMax\blide.ico</Icon_File_Location>

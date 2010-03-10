@@ -139,7 +139,7 @@ Type TMenuManager
 			End If
 			
 			'Calculate the aspect ratio of the graphics mode
-			Local gcd:Int = rrGreatestCommonDivisor(mode.width, mode.height)
+			Local gcd:Int = GreatestCommonDivisor(mode.width, mode.height)
 			Local suffix:String = " (" + mode.width / gcd + ":" + mode.height / gcd + ")"
 			
 			' 16:10 modes may show up as 8:5 and 16:9 modes may show up as 85:48 when
@@ -305,7 +305,7 @@ Type TMenuManager
 		_allMenus = New TList
 		_menuHistory = New TStack
 		_menuYpos = DEFAULT_MENU_YPOS
-		rrCreateMessageChannel(CHANNEL_MENU, "Menu Manager")
+		CreateMessageChannel(CHANNEL_MENU, "Menu Manager")
 		
 		_defaultStyle = new TMenuStyle
 	End Method

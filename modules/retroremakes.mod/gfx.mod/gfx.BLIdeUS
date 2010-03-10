@@ -1,7 +1,48 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <UnmanagedSolution xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Project>
     <Main_File>gfx.bmx</Main_File>
+    <Included_File>
+      <FileName>Source\HelperFunctions.bmx</FileName>
+      <Document_Active>false</Document_Active>
+      <Caret_Position>
+        <X>49</X>
+        <Y>7</Y>
+      </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <OutlineColor>255:173:173:173</OutlineColor>
+        <Ranges>
+          <Range>
+            <StartPoint>
+              <X>0</X>
+              <Y>0</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>7</X>
+              <Y>4</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>0</Level>
+          </Range>
+          <Range>
+            <StartPoint>
+              <X>60</X>
+              <Y>5</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>11</X>
+              <Y>14</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>0</Level>
+          </Range>
+        </Ranges>
+      </Folding>
+    </Included_File>
     <Included_File>
       <FileName>Source\TFramesPerSecond.bmx</FileName>
       <Document_Active>false</Document_Active>
@@ -1858,7 +1899,6 @@
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
-        <OutlineColor>255:173:173:173</OutlineColor>
         <Ranges>
           <Range>
             <StartPoint>
@@ -2685,10 +2725,10 @@
     </Included_File>
     <Included_File>
       <FileName>gfx.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>27</X>
-        <Y>13</Y>
+        <X>0</X>
+        <Y>24</Y>
       </Caret_Position>
       <SplitVisible>false</SplitVisible>
       <SplitVertical>false</SplitVertical>
@@ -2700,7 +2740,7 @@
       </Folding>
     </Included_File>
     <Compilation_Mode>GUI_Application</Compilation_Mode>
-    <Context_Directory>D:\Languages\BlitzMax-RRFW\mod\retroremakes.mod\gfx.mod</Context_Directory>
+    <Context_Directory></Context_Directory>
     <Project_Name>gfx.mod</Project_Name>
     <BuildStep>1</BuildStep>
     <Icon_File_Location>C:\Program Files (x86)\BLIde for BlitzMax\blide.ico</Icon_File_Location>

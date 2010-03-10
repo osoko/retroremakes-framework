@@ -9,14 +9,13 @@ rem
 '
 endrem
 
-Type TColourOscillator Extends TGameService
+Type TColourOscillator
 
 	Global instance:TColourOscillator		' This holds the singleton instance of this Type
 	
 	Method New()
 		If instance Throw "Cannot create multiple instances of this Singleton Type"
 		instance = Self
-		Self.Initialise()
 	EndMethod
 
 	Function Create:TColourOscillator()
@@ -30,11 +29,6 @@ Type TColourOscillator Extends TGameService
 			Return instance
 		EndIf
 	EndFunction
-	
-	Method Initialise()
-		SetName("Colour Oscillator")
-		Super.Initialise()
-	End Method
 	
 	Method SetColours(cg:TColourGen, offset:Float = 0.0)
 		GenColours(cg, offset).Set()
@@ -74,15 +68,3 @@ Type TColourOscillator Extends TGameService
 	End Method	
 	
 EndType
-
-Function rrSetOscillatorColours(cg:TColourGen, offset:Float = 0.0)
-	TColourOscillator.GetInstance().SetColours(cg, offset)
-End Function
-
-Function rrSetOscillatorColoursWithoutAlpha(cg:TColourGen, offset:Float = 0.0)
-	TColourOscillator.GetInstance().SetColoursWithoutAlpha(cg, offset)
-End Function
-
-Function rrGenOscillatorColours:TColourRGB(cg:TColourGen, offset:Float = 0.0)
-	Return TColourOscillator.GetInstance().GenColours(cg, offset)
-End Function

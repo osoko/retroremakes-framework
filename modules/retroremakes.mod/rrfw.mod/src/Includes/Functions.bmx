@@ -9,29 +9,7 @@ rem
 '
 endrem
 
-Function rrGetMessageCount:Int()
-	Return TMessageService.GetInstance().GetMessageCount()
-End Function
 
-Function rrSubscribeToChannel(channel:Int, listener:Object)
-	TMessageService.GetInstance().SubscribeToChannel(channel, listener)
-End Function
-
-Function rrUnsubscribeFromChannel(channel:Int, listener:Object)
-	TMessageService.GetInstance().UnsubscribeFromChannel(channel, listener)
-End Function
-
-Function rrUnsubscribeAllChannels(listener:Object)
-	TMessageService.GetInstance().UnsubscribeAllChannels(listener)
-End Function
-
-Function rrCreateMessageChannel(channel:Int, name:String)
-	TMessageService.GetInstance().CreateMessageChannel(channel, name)
-End Function
-
-Function rrDeleteMessageChannel(channel:Int, name:String)
-	TMessageService.GetInstance().DeleteMessageChannel(channel, name)
-End Function
 
 
 
@@ -56,7 +34,19 @@ bbdoc: Inititalise the #TGameEngine instance.
 returns:
 endrem
 Function rrEngineInitialise()
-	TGameEngine.GetInstance()
+	Local engine:TGameEngine = TGameEngine.GetInstance()
+		
+	engine.AddService(TResourceManager.GetInstance())
+	engine.AddService(TFramesPerSecond.GetInstance())
+	engine.AddService(TGraphicsService.GetInstance())
+	engine.AddService(TFixedTimestep.GetInstance())
+	engine.AddService(TGameSoundHandler.GetInstance())
+	engine.AddService(TConsole.GetInstance())
+	engine.AddService(TScoreService.GetInstance())
+	engine.AddService(TPhysicsManager.GetInstance())
+	engine.AddService(TMessageService.GetInstance())
+	engine.AddService(TInputManager.GetInstance())
+	engine.AddService(TLayerManager.GetInstance())
 End Function
 
 

@@ -129,35 +129,35 @@ Type TColourGen
 	End Method
 	
 	Method SetRedLow(low:Int)
-		r_lo = rrCapValueToByte(low)
+		r_lo = CapValueToByte(low)
 	End Method
 	
 	Method SetGreenLow(low:Int)
-		g_lo = rrCapValueToByte(low)
+		g_lo = CapValueToByte(low)
 	End Method
 
 	Method SetBlueLow(low:Int)
-		b_lo = rrCapValueToByte(low)
+		b_lo = CapValueToByte(low)
 	End Method
 
 	Method SetAlphaLow(low:Int)
-		a_lo = rrCapValueToByte(low)
+		a_lo = CapValueToByte(low)
 	End Method
 	
 	Method SetRedHigh(high:Int)
-		r_hi = rrCapValueToByte(high)
+		r_hi = CapValueToByte(high)
 	End Method
 	
 	Method SetGreenHigh(high:Int)
-		g_hi = rrCapValueToByte(high)
+		g_hi = CapValueToByte(high)
 	End Method
 
 	Method SetBlueHigh(high:Int)
-		b_hi = rrCapValueToByte(high)
+		b_hi = CapValueToByte(high)
 	End Method
 
 	Method SetAlphaHigh(high:Int)
-		a_hi = rrCapValueToByte(high)
+		a_hi = CapValueToByte(high)
 	End Method			
 
 	Function Load:TColourGen(path:String)

@@ -11,7 +11,7 @@ Framework retroremakes.rrfw
 
 Incbin "media/Vernimb3_hopdown_anim.png"
 
-rrUseExeDirectoryForData()
+rrEngineInitialise()
 
 TGameEngine.GetInstance().SetGameManager(New GameManager)
 

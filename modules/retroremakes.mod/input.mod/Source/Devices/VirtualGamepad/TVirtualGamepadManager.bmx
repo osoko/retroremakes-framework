@@ -88,7 +88,7 @@ Type TVirtualGamepadManager Extends TInputDevice
 		bbdoc: Default constructor
 	endrem
 	Method New()
-		If _instance rrThrow "Cannot create multiple instances of Singleton Type"
+		If _instance Throw "Cannot create multiple instances of Singleton Type"
 		
 		_instance = Self
 		_nControllers = 0
