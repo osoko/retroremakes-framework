@@ -100,7 +100,7 @@ Type TVirtualGamepad
 	Method GetControlHitsStatus:Int(name:String)
 		Local control:TVirtualControl = TVirtualControl(_controls.ValueForKey(name))
 		If Not control
-			rrThrow "Attempt to access undefined Virtual Control: " + name
+			Throw "Attempt to access undefined Virtual Control: " + name
 		EndIf
 		Return control.GetHits()
 	End Method

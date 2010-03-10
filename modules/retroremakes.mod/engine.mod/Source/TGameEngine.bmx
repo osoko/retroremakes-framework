@@ -470,12 +470,12 @@ Type TGameEngine
 				Case 0
 					'directory doesn't exist
 					If Not CreateDir(AppDir + "/" + GetGameName())
-						rrThrow ("Unable to create game data directory: " + AppDir + "/" + GetGameName())
+						Throw ("Unable to create game data directory: " + AppDir + "/" + GetGameName())
 					End If
 					dir = AppDir + "/" + GetGameName() + "/"
 				Case 1
 					'file of that name exists
-					rrThrow ("Unable to create game data directory: " + AppDir + "/" + GetGameName())
+					Throw ("Unable to create game data directory: " + AppDir + "/" + GetGameName())
 				Case 2
 					'directory already exists, no problem
 					dir = AppDir + "/" + GetGameName() + "/"
@@ -608,7 +608,7 @@ Type TGameEngine
 		Local data:TKeyboardMessageData = TKeyboardMessageData(message.data)
 		Select data.key
 			Case KEY_F11
-				rrTakeScreenshot()
+				TakeScreenshot()
 		End Select
 	End Method
 		
@@ -697,27 +697,13 @@ Type TGameEngine
 		logger.LogInfo("[" + toString() + "] Executable: " + GetGameExecutable())
 		logger.LogInfo("[" + toString() + "] Game Name: " + GetGameName())
 
-		AddService(TResourceManager.GetInstance())
-		AddService(TFramesPerSecond.GetInstance())
-		AddService(TColourOscillator.GetInstance())
-		AddService(TScaleOscillator.GetInstance())
-		AddService(TGraphicsService.GetInstance())
-		AddService(TFixedTimestep.GetInstance())
-		AddService(TGameSoundHandler.GetInstance())
-		AddService(TConsole.GetInstance())
-		AddService(TScoreService.GetInstance())
-		AddService(TPhysicsManager.GetInstance())
-		AddService(TMessageService.GetInstance())
-		AddService(TInputManager.GetInstance())
-		AddService(TLayerManager.GetInstance())
+		'TProjectionMatrix.GetInstance()
 		
-		TProjectionMatrix.GetInstance()
-		
-		TProfiler.GetInstance()
+		'TProfiler.GetInstance()
 		
 		'Add some commands to the console
-		rrAddConsoleCommand("services", "services - show all registered services", cmdServices)
-		rrAddConsoleCommand("quit", "quit - quit the game", cmdQuit)
+		'rrAddConsoleCommand("services", "services - show all registered services", cmdServices)
+		'rrAddConsoleCommand("quit", "quit - quit the game", cmdQuit)
 		
 		' Main engine profilers for debugging purposes
 		mainLoopProfile = rrCreateProfilerSample("Engine: Main Loop")
@@ -748,7 +734,7 @@ Type TGameEngine
 		about: Will Throw an exception if you try to create more than one instance
 	endrem
 	Method New()
-		If instance rrThrow ("Cannot create multiple instances of Singleton Type")
+		If instance Throw ("Cannot create multiple instances of Singleton Type")
 		instance = Self
 		
 		' Automatically enable debug mode if we're running a debug version

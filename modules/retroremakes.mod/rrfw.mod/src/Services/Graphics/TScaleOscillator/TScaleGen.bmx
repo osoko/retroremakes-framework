@@ -60,19 +60,19 @@ Type TScaleGen
 	End Method
 
 	Method SetXLow(low:Int)
-		x_lo = rrCapValueToByte(low)
+		x_lo = CapValueToByte(low)
 	End Method
 
 	Method SetYLow(low:Int)
-		y_lo = rrCapValueToByte(low)
+		y_lo = CapValueToByte(low)
 	End Method
 
 	Method SetXHigh(high:Int)
-		x_hi = rrCapValueToByte(high)
+		x_hi = CapValueToByte(high)
 	End Method
 
 	Method SetYHigh(high:Int)
-		y_hi = rrCapValueToByte(high)
+		y_hi = CapValueToByte(high)
 	End Method	
 			
 EndType

@@ -4,6 +4,7 @@ Module retroremakes.messages
 
 Import retroremakes.service
 
+Include "Source/HelperFunctions.bmx"
 Include "Source/TMessage.bmx"
 Include "Source/TMessageChannel.bmx"
 Include "Source/TMessageData.bmx"

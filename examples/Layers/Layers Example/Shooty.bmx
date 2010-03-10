@@ -16,15 +16,15 @@ Include "src/TTitleScreen.bmx"
 
 rrUseExeDirectoryForData()
 
-TGameEngine.GetInstance()
+rrEngineInitialise()
 
-TGameEngine.GetInstance().SetGameManager(New GameManager)
+theEngine().SetGameManager(New GameManager)
 
 rrSetProjectionMatrixResolution(800.0, 600.0)
 rrEnableProjectionMatrix()
 rrSetUpdateFrequency(60.0)
 
-TGameEngine.GetInstance().Run()
+theEngine().Run()
 
 
 

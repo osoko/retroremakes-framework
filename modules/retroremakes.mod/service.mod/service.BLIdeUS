@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <UnmanagedSolution xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Project>
     <Main_File>service.bmx</Main_File>
@@ -853,7 +853,7 @@
       </Folding>
     </Included_File>
     <Compilation_Mode>GUI_Application</Compilation_Mode>
-    <Context_Directory>D:\Languages\BlitzMax-RRFW\mod\retroremakes.mod\service.mod</Context_Directory>
+    <Context_Directory></Context_Directory>
     <Project_Name>service.mod</Project_Name>
     <BuildStep>1</BuildStep>
     <Icon_File_Location>C:\Program Files (x86)\BLIde for BlitzMax\blide.ico</Icon_File_Location>

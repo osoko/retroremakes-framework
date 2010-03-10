@@ -133,7 +133,7 @@ Type TMouse Extends TInputDevice
 		bbdoc: Default Constructor
 	endrem
 	Method New()
-		If _instance rrThrow "Cannot create multiple instances of Singleton Type"
+		If _instance Throw "Cannot create multiple instances of Singleton Type"
 		
 		_instance = Self
 		

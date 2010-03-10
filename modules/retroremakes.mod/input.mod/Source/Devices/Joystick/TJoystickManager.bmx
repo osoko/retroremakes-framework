@@ -94,9 +94,9 @@ Type TJoystickManager Extends TInputDevice
 		SetJoystickCount(JoyCount())
 		
 		If GetJoystickCount() = 1
-			rrLogInfo("[" + toString() + "] Found " + GetJoystickCount() + " Joystick")
+			LogInfo("[" + ToString() + "] Found " + GetJoystickCount() + " Joystick")
 		Else
-			rrLogInfo("[" + toString() + "] Found " + GetJoystickCount() + " Joysticks")
+			LogInfo("[" + ToString() + "] Found " + GetJoystickCount() + " Joysticks")
 		EndIf
 		
 		ProfileJoysticks()

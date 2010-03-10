@@ -83,7 +83,7 @@ Type TLayerManager Extends TGameService
 			_layers.Sort()
 			Return True
 		Else
-			rrLogWarning("[" + tostring() + "] Unable to create layer with id: " + id + ", name: " + name + ..
+			LogWarning("[" + ToString() + "] Unable to create layer with id: " + id + ", name: " + name + ..
 				". A layer already exists with one or more of those values")
 			Return False
 		EndIf
@@ -266,7 +266,7 @@ Type TLayerManager Extends TGameService
 		about: You should not call this manually, instead you should use GetInstance()
 	endrem
 	Method New()
-		If _instance rrThrow "Cannot create multiple instances of Singleton Type"
+		If _instance Throw "Cannot create multiple instances of Singleton Type"
 		_instance = Self
 		Initialise()
 	EndMethod

@@ -2,9 +2,10 @@ SuperStrict
 
 Module retroremakes.gfx
 
-Import brl.GLMax2D
-Import brl.D3D7Max2D
-Import brl.D3D9Max2D
+Import brl.d3d7max2d
+Import brl.d3d9max2d
+Import brl.glmax2d
+Import brl.pngloader
 
 Import muttley.logger
 Import muttley.stack
@@ -15,6 +16,7 @@ Import retroremakes.service
 Import retroremakes.settings
 Import retroremakes.timing
 
+Include "Source/HelperFunctions.bmx"
 Include "Source/TFramesPerSecond.bmx"
 Include "Source/TGraphicsService.bmx"
 Include "Source/TProjectionMatrix.bmx"

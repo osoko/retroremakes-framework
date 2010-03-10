@@ -106,10 +106,10 @@ Type TRenderLayer Extends TRenderable
 	Method LogCurrentRenderables()
 		If _renderables.Count() > 0
 			For Local renderable:TRenderable = EachIn _renderables
-				rrLogInfo("[Layer: " + toString() + "] has renderable: " + renderable.ToString())
+				LogInfo("[Layer: " + ToString() + "] has renderable: " + renderable.ToString())
 			Next
 		Else
-			rrLogInfo("[Layer: " + toString() + "] has no renderables")
+			LogInfo("[Layer: " + ToString() + "] has no renderables")
 		EndIf
 	End Method
 	
