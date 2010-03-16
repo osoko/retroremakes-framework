@@ -50,6 +50,7 @@ Import retroremakes.layer
 Import retroremakes.manager
 Import retroremakes.maths
 Import retroremakes.messages
+Import retroremakes.registry
 Import retroremakes.renderable
 Import retroremakes.resource
 Import retroremakes.service
@@ -127,7 +128,7 @@ Include "src\Includes\Misc\TCommand.bmx"
 Include "src\Includes\Misc\TCommandStack.bmx"
 Include "src\Includes\Misc\TEngineException.bmx"
 Include "src\Includes\Misc\TMacroCommand.bmx"
-Include "src\Includes\Misc\TRegistry.bmx"
+'Include "src\Includes\Misc\TRegistry.bmx"
 
 ''
 '' Engine Services
