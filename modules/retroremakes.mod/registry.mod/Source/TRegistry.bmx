@@ -10,15 +10,13 @@ rem
 endrem
 
 rem
-bbdoc: Registry
-about: The registry allows you to store any object for later retrieval
-by a String index.
-{{
+bbdoc: The registry allows you to store any object for later retrieval
+about: <pre>
 Local myObject:TMyType = new TMyType
 TRegistry.GetInstance().Add("My Index", myObject)
 
 Local getMyObject:TMyType = TMyType(TRegistry.GetInstance().Get("My Index"))
-}}
+</pre>
 endrem
 Type TRegistry
 
@@ -30,11 +28,15 @@ Type TRegistry
 
 	
 	rem
-	bbdoc: Add on Object to the registry indexed by the provided index String
+	bbdoc: Add an Object to the registry indexed by the provided index String
+	about: An exception will be thrown if an Object with the provided index already
+	exists in the registry
 	endrem
 	Method Add(index:String, value:Object)
 		If Not IsRegistered(index)
 			_registry.Insert(index, value)
+		Else
+			Throw "An Object with index '" + index + "' already exists in the registry."
 		End If
 	End Method
 	
@@ -68,8 +70,7 @@ Type TRegistry
 	
 	
 	rem
-	bbdoc: Returns whether the registry contains an Object indexed by
-	the provided String
+	bbdoc: Returns whether the registry contains an Object indexed by the provided String
 	returns: True if the index exists, otherwise False
 	endrem
 	Method IsRegistered:Int(index:String)
