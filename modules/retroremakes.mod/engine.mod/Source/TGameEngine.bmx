@@ -225,13 +225,13 @@ Type TGameEngine
 	Field gameManager:TGameManager
 '#Region gameManager Get/Set Methods	
 	Rem
-		bbdoc: Get the gameManager value in this TGameEngine object.
+		bbdoc: Set the gameManager value in this TGameEngine object.
 	End Rem
 	Method SetGameManager(value:TGameManager)
 		gameManager = value
 	End Method
 	Rem
-		bbdoc: Set the gameManager value for this TGameEngine object.
+		bbdoc: Get the gameManager value for this TGameEngine object.
 	End Rem	
 	Method GetGameManager:TGameManager()
 		Return gameManager
