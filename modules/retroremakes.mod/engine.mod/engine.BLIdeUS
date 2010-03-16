@@ -6,8 +6,8 @@
       <FileName>Source\TGameEngine.bmx</FileName>
       <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>3</X>
-        <Y>877</Y>
+        <X>10</X>
+        <Y>227</Y>
       </Caret_Position>
       <SplitVisible>false</SplitVisible>
       <SplitVertical>false</SplitVertical>
@@ -2089,7 +2089,7 @@
       </Folding>
     </Included_File>
     <Compilation_Mode>GUI_Application</Compilation_Mode>
-    <Context_Directory>C:\Development\Languages\BlitzMax-RRFW\mod\retroremakes.mod\engine.mod</Context_Directory>
+    <Context_Directory>D:\Projects\RRFW\development\modules\retroremakes.mod\engine.mod</Context_Directory>
     <Project_Name>engine.mod</Project_Name>
     <BuildStep>1</BuildStep>
     <Icon_File_Location>C:\Program Files (x86)\BLIde for BlitzMax\blide.ico</Icon_File_Location>

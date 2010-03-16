@@ -505,7 +505,7 @@ Type TGraphicsService Extends TGameService
 	rem
 		bbdoc: Set the graphics mode provided
 	endrem
-	Method SetGraphics(width:Int, height:Int, depth:Int, refresh:Int, windowed:Int, vblank:Int, Driver:String)
+	Method SetGraphics(width:Int, height:Int, depth:Int, refresh:Int, windowed:Int, vblank:Int, driver:String)
 		SetDepth(depth)
 		SetWidth(width)
 		SetHeight(height)
