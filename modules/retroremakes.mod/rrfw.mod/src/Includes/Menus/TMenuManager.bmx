@@ -9,12 +9,12 @@ Rem
 '
 endrem
 
-rem
+Rem
 	bbdoc: Manager for game menus
 endrem
 Type TMenuManager
 
-    rem
+    Rem
         bbdoc: default vertical screen position of menus
     endrem
 	Const DEFAULT_MENU_YPOS:Int = 300
@@ -22,12 +22,12 @@ Type TMenuManager
 	' The Singleton instance of this class
 	Global _instance:TMenuManager
 
-    rem
+    Rem
         bbdocs: list containing all menus in the manager
     endrem
 	Field _allMenus:TList
     
-    rem
+    Rem
         bbdoc: current active menu
         about: commands send to the menu manager are performed on the current menu
     endrem
@@ -45,18 +45,18 @@ Type TMenuManager
 	' Style to use for menu headers
 	Field _headerStyle:TMenuStyle
 	
-    rem
+    Rem
         bbdoc: image font to use when rendering the menus
         about: default font is used if no imagefont is used
     endrem
 '	Field _imageFont:TImageFont
 		    
-    rem
+    Rem
         bbdoc: stack containing menu traversal history
     end rem
 	Field _menuHistory:TStack
 		
-    rem
+    Rem
         bbdoc: vertical screen position of menus
         about: menus are centered horizontally be default
     end rem
@@ -67,7 +67,7 @@ Type TMenuManager
 
 	
 		
-    rem
+    Rem
         bbdoc: add an item to the menu
         about: item is added at the bottom of the menu
     end rem
@@ -77,7 +77,7 @@ Type TMenuManager
 
 
 
-    rem
+    Rem
         bbdoc: add a new menu to the menu manager
     endrem
 	Method AddMenu(m:TMenu)
@@ -91,7 +91,7 @@ Type TMenuManager
 
 
 	
-   rem
+   Rem
         bbdoc: build a menu called "Configure Graphics"
         about: this is a built-in menu which handles all needed operations for graphics screen management
         Changed settings are saved by the TGraphicsService
@@ -221,7 +221,7 @@ Type TMenuManager
 
 
 		
-    rem
+    Rem
         bbdoc: clear menu traversal history
     endrem
 	Method ClearHistory()
@@ -230,7 +230,7 @@ Type TMenuManager
 	
 	
 	
-    rem
+    Rem
         bbdoc: activates the current menu item
         about: runs the Activate() method in the current item. Only works
         if the item is a #TActionMenuItem
@@ -241,7 +241,7 @@ Type TMenuManager
 	
 	
 				
-	rem
+	Rem
 		bbdoc: Gets the Singleton instance of this class
 	endrem	
 	Function GetInstance:TMenuManager()
@@ -254,7 +254,7 @@ Type TMenuManager
 	
 	
 	
-    rem
+    Rem
         bbdoc: returns a menu by passing a name
     endrem
 	Method GetMenuByName:TMenu(name:String)
@@ -266,7 +266,7 @@ Type TMenuManager
 	
 	
 			
-    rem
+    Rem
         bbdoc: Go to the requested menu
         about: Menu is found using the title of the menu
         Current menu is pushed to the history stack
@@ -293,7 +293,7 @@ Type TMenuManager
 	
 	
 		
-    rem
+    Rem
         bbdoc: default constructor
         about: also set defaults and creates a message channel so GameManagers can listen for menu events
     endrem
@@ -307,12 +307,12 @@ Type TMenuManager
 		_menuYpos = DEFAULT_MENU_YPOS
 		CreateMessageChannel(CHANNEL_MENU, "Menu Manager")
 		
-		_defaultStyle = new TMenuStyle
+		_defaultStyle = New TMenuStyle
 	End Method
 
 
 
-    rem
+    Rem
         bbdoc: go to the next item in the current menu
     endrem
 	Method NextItem()
@@ -328,7 +328,7 @@ Type TMenuManager
 
 
 	
-    rem
+    Rem
         bbdoc: select the next option on the current item
         about: only works when the current item is a #TOptionMenuItem
     endrem
@@ -342,16 +342,25 @@ Type TMenuManager
 	
 	
 	
-    rem
+    Rem
         bbdoc: go to the previous item in the current menu
     endrem	
 	Method PreviousItem()
 		_currentMenu.PreviousItem()
 	End Method
 
+
+
+    Rem
+        bbdoc: return the current item in the current menu
+    endrem    
+	Method GetCurrentItem:TMenuItem()
+		Return _currentMenu.GetCurrentItem()
+	End Method
+
 	
 		
-    rem
+    Rem
         bbdoc: go to the previous menu
         about: afterwards, focus is placed on the first item in the menu
     endrem	
@@ -363,7 +372,7 @@ Type TMenuManager
 
 
 
-	rem
+	Rem
         bbdoc: select the previous option on the current item
         about: only works when the current item is a #TOptionMenuItem
     endrem
@@ -377,7 +386,7 @@ Type TMenuManager
 	
 	
 			
-    rem
+    Rem
         bbdoc: render the current menu
     endrem	
 	Method Render(tweening:Double, fixed:Int = False)
@@ -387,7 +396,7 @@ Type TMenuManager
     
 	
 	
-	rem
+	Rem
 		bbdoc: Set the style to use for selected menu items
 	endrem	
 	Method SetActiveItemStyle(style:TMenuStyle)
@@ -396,7 +405,7 @@ Type TMenuManager
 	
 	
 		
-    rem
+    Rem
         bbdoc: set the current active menu
     endrem
 	Method SetCurrentMenu(m:TMenu)
@@ -405,7 +414,7 @@ Type TMenuManager
 	
 	
 
-	rem
+	Rem
 		bbdoc: Set the style to use for menu footers
 	endrem	
 	Method SetFooterStyle(style:TMenuStyle)
@@ -414,7 +423,7 @@ Type TMenuManager
 	
 	
 	
-	rem
+	Rem
 		bbdoc: Set the style to use for menu headers
 	endrem	
 	Method SetHeaderStyle(style:TMenuStyle)
@@ -423,7 +432,7 @@ Type TMenuManager
 	
 	
 		
-    rem
+    Rem
         bbdoc: set the font to use while drawing menus
     endrem	
 	Method SetImageFont(font:TimageFont)
@@ -432,7 +441,7 @@ Type TMenuManager
 
 	
 	
-    rem
+    Rem
         bbdoc: change the vertical position of menus
         about: menus are horizontally centered by default
     endrem
@@ -442,7 +451,7 @@ Type TMenuManager
 	
 	
 		
-    rem
+    Rem
         bbdoc: Update the current menu
         about: This will also update the current menu item.
     endrem
@@ -474,7 +483,7 @@ Type TMenuManager
 	
 
 	
-	rem
+	Rem
         bbdoc: Apply the settings as defined in the built-in "Configure Graphics" menu to the TGraphicsService
         about: settings are saved automatically by TGraphicsService
     endrem
@@ -541,7 +550,7 @@ endrem
 	
 	End Method
 	
-    rem
+    Rem
         bbdoc: Sync the built-in "Configure Graphics" menu to TGrahpicsDriver settings
         about: This ensures that the menu reflects the current settings in TGraphicsDriver
         Method is run when the menumanager is entering a built-in menu using GoToMenu()
