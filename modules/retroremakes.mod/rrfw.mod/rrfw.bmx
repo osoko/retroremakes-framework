@@ -53,6 +53,7 @@ Import retroremakes.messages
 Import retroremakes.registry
 Import retroremakes.renderable
 Import retroremakes.resource
+Import retroremakes.score
 Import retroremakes.service
 Import retroremakes.settings
 Import retroremakes.sfx
@@ -128,7 +129,6 @@ Include "src\Includes\Misc\TCommand.bmx"
 Include "src\Includes\Misc\TCommandStack.bmx"
 Include "src\Includes\Misc\TEngineException.bmx"
 Include "src\Includes\Misc\TMacroCommand.bmx"
-'Include "src\Includes\Misc\TRegistry.bmx"
 
 ''
 '' Engine Services
@@ -138,11 +138,6 @@ Include "src\Services\Debug\TConsole.bmx"
 Include "src\Services\Graphics\TScaleOscillator\TScaleGen.bmx"
 Include "src\Services\Graphics\TScaleOscillator\TScaleOscillator.bmx"
 
-Include "src\Services\Score\TScore.bmx"
-Include "src\Services\Score\TScoreService.bmx"
-Include "src\Services\Score\HighScoreTable\THighScoreEntry.bmx"
-Include "src\Services\Score\HighScoreTable\THighScoreTable.bmx"
-
 Include "src\Services\Physics\TPhysicsManager.bmx"
 
-'#End Region 
+'#End Region
