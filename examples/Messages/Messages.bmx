@@ -181,13 +181,13 @@ Type MsgExample Extends TGameManager
 	Method Start()
 		Initialise()
 		' Register with input channel
-		rrSubscribeToChannel(CHANNEL_INPUT, Self)		
+		TMessageService.GetInstance().SubscribeToChannel(CHANNEL_INPUT, Self)
 	End Method
 	
 	Method Stop()
 		' Unsubscribe from channels if the GameState is suspended to ensure
 		' that we don't receive messages if we're not active.
-		rrUnsubscribeFromChannel(CHANNEL_INPUT, Self)		
+		TMessageService.GetInstance().UnsubscribeFromChannel(CHANNEL_INPUT, Self)
 	End Method
 	
 	Method MessageListener( message:TMessage )
@@ -240,7 +240,7 @@ Type MsgExample Extends TGameManager
 		bug.draw_all()
 		
 		DrawText "Bugs: "+Bug.list.count(), 0,0
-		DrawText "Messages in queue: "+rrGetMessageCount(), 0,12
+		DrawText "Messages in queue: " + TMessageService.GetInstance().GetMessageCount(), 0, 12
 	EndMethod
 
 

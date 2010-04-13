@@ -18,7 +18,7 @@ Include "src/GameManager.bmx"
 
 rrUseExeDirectoryForData()
 
-TGameEngine.GetInstance()
+rrEngineInitialise()
 
 rrSetProjectionMatrixResolution(800, 600)
 rrEnableProjectionMatrix()

@@ -74,23 +74,23 @@ Type Blob
 		channel = Rand(1, 3)
 		Select channel
 			Case 1
-				rrSubscribeToChannel(CHANNEL_1, Self)
+				TMessageService.GetInstance().SubscribeToChannel(CHANNEL_1, Self)
 				col.r = 255
 				col.g = 0
 				col.b = 0				
 			Case 2
-				rrSubscribeToChannel(CHANNEL_2, Self)
+				TMessageService.GetInstance().SubscribeToChannel(CHANNEL_2, Self)
 				col.r = 0
 				col.g = 255
 				col.b = 0				
 			Case 3
-				rrSubscribeToChannel(CHANNEL_3, Self)
+				TMessageService.GetInstance().SubscribeToChannel(CHANNEL_3, Self)
 				col.r = 0
 				col.g = 0
 				col.b = 255				
 		End Select
 		
-		rrSubscribeToChannel(CHANNEL_GLOBAL, Self)
+		TMessageService.GetInstance().SubscribeToChannel(CHANNEL_GLOBAL, Self)
 	EndMethod
 
 	
@@ -152,13 +152,13 @@ Type GameManager Extends TGameManager
 	
 	Method Start()
 		Initialise()
-		rrSubscribeToChannel(CHANNEL_INPUT, Self)
+		TMessageService.GetInstance().SubscribeToChannel(CHANNEL_INPUT, Self)
 	End Method
 	
 	Method Stop()
 		' Unsubscribe from channels if the GameState is suspended to ensure
 		' that we don't receive messages if we're not active.
-		rrUnsubscribeFromChannel(CHANNEL_INPUT, Self)
+		TMessageService.GetInstance().UnsubscribeFromChannel(CHANNEL_INPUT, Self)
 	End Method
 	
 	Method Render(tweening:Double, fixed:Int = False)

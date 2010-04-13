@@ -72,12 +72,12 @@ Type TDemoState4 Extends TGameState
 	End Method
 
 	Method Stop()
-		rrUnsubscribeFromChannel(CHANNEL_INPUT, Self)
+		TMessageService.GetInstance().UnsubscribeFromChannel(CHANNEL_INPUT, Self)
 	End Method
 	
 	Method Start()
 		Initialise()
-		rrSubscribeToChannel(CHANNEL_INPUT, Self)
+		TMessageService.GetInstance().SubscribeToChannel(CHANNEL_INPUT, Self)
 	End Method
 
 	Method MessageListener(message:TMessage)

@@ -4,6 +4,8 @@ Framework retroremakes.rrfw
 
 Incbin "media/crate.png"
 
+rrEngineInitialise()
+
 rrUseExeDirectoryForData()
 
 TGameEngine.GetInstance().SetGameManager(New GameManager)

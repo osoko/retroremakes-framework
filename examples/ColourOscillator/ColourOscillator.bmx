@@ -37,13 +37,13 @@ Type GameManager Extends TGameManager
 	
 	Method Stop()
 		' Unsubscribe from the input channel
-		rrUnsubscribeFromChannel(CHANNEL_INPUT, Self)
+		TMessageService.GetInstance().UnsubscribeFromChannel(CHANNEL_INPUT, Self)
 	End Method
 	
 	Method Start()
 		Initialise()
 		' Subscribe to the input channel
-		rrSubscribeToChannel(CHANNEL_INPUT, Self)	
+		TMessageService.GetInstance().SubscribeToChannel(CHANNEL_INPUT, Self)
 	End Method
 	
 	Method Update()
@@ -97,12 +97,12 @@ Type GameManager Extends TGameManager
 		DrawText("Alpha Speed: " + colours.GetAlphaSpeed(), 2, startY + (15 * i))
 		i:+1
 		
-		rrSetOscillatorColours(colours)
+		TColourOscillator.GetInstance().SetColours(colours)
 		DrawRect(400 - 100, 300 - 100, 200, 200)
 		
 		SetImageFont(exampleFont)
 		
-		rrSetOscillatorColours(colours, 100.0)
+		TColourOscillator.GetInstance().SetColours(colours, 100.0)
 		DrawText("Example Text", 400 - (TextWidth("Example Text") / 2), 420)
 		
 		SetImageFont(controlFont)
@@ -159,7 +159,7 @@ Type GameManager Extends TGameManager
 			
 	Method SetColours(Current:Int)
 		If Current = activeOption
-			rrSetOscillatorColours(activeOptionColour)
+			TColourOscillator.GetInstance().SetColours(activeOptionColour)
 		Else
 			SetColor(255, 255, 255)
 			SetAlpha(1.0)

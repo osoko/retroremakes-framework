@@ -40,7 +40,7 @@ Type GameManager Extends TGameManager
 	Field states:TGameState[]
 	
 	Method Start()
-		rrSubscribeToChannel(CHANNEL_INPUT, Self)
+		TMessageService.GetInstance().SubscribeToChannel(CHANNEL_INPUT, Self)
 		
 		layerManager = TLayerManager.GetInstance()
 		layerManager.CreateLayer(0, "myLayer")
@@ -65,7 +65,7 @@ Type GameManager Extends TGameManager
 	End Method
 	
 	Method Stop()
-		rrUnsubscribeFromChannel(CHANNEL_INPUT, Self)
+		TMessageService.GetInstance().UnsubscribeFromChannel(CHANNEL_INPUT, Self)
 	End Method
 	
 	Method Render(tweening:Double, fixed:Int = False)
