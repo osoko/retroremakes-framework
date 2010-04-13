@@ -34,11 +34,11 @@ Type GameManager Extends TGameManager
 	
 	Method Start()
 		Initialise()
-		rrSubscribeToChannel(CHANNEL_INPUT, Self)
+		TMessageService.GetInstance().SubscribeToChannel(CHANNEL_INPUT, Self)
 	End Method
 	
 	Method Stop()
-		rrUnsubscribeFromChannel(CHANNEL_INPUT, Self)
+		TMessageService.GetInstance().UnsubscribeFromChannel(CHANNEL_INPUT, Self)
 	End Method
 	
 	Method Update()

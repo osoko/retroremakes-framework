@@ -544,8 +544,8 @@
       <FileName>Shooty.bmx</FileName>
       <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>27</Y>
+        <X>43</X>
+        <Y>20</Y>
       </Caret_Position>
       <SplitVisible>false</SplitVisible>
       <SplitVertical>false</SplitVertical>
@@ -557,7 +557,7 @@
       </Folding>
     </Included_File>
     <Compilation_Mode>GUI_Application</Compilation_Mode>
-    <Context_Directory>\Layers Example</Context_Directory>
+    <Context_Directory>\Layers Example\</Context_Directory>
     <Project_Name>Shooty</Project_Name>
     <BuildStep>1</BuildStep>
     <Icon_File_Location>C:\Program Files (x86)\BLIde for BlitzMax\blide.ico</Icon_File_Location>
