@@ -11,13 +11,14 @@ endrem
 
 SuperStrict
 
-Module retroremakes.score
+Module retroremakes.scale_oscillator
+
+Import brl.max2d
 
 Import retroremakes.engine
 Import retroremakes.maths
 Import retroremakes.service
 
-Include "Source/THighScoreEntry.bmx"
-Include "Source/THighScoreTable.bmx"
-Include "Source/TScore.bmx"
-Include "Source/TScoreService.bmx"
+Include "Source/HelperFunctions.bmx"
+Include "Source/TScaleGen.bmx"
+Include "Source/TScaleOscillator.bmx"

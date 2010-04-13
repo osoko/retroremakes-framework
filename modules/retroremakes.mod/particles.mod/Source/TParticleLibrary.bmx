@@ -61,7 +61,7 @@ Type TParticleLibrary
 					'store emitter using gamename, not id
 					_StoreObject(e, e._gameName)
 
-				Default rrThrow line
+				Default Throw line
 			End Select
 		Wend
 
@@ -94,7 +94,7 @@ Type TParticleLibrary
 
 	Method CloneEmitter:TParticleEmitter(name:String)', x:Float, y:Float, parent:Object = Null)
 		Local source:TParticleEmitter = TParticleEmitter(Self.GetObject(name))
-		If source = Null Then rrThrow "Cannot find emitter: " + name
+		If source = Null Then Throw "Cannot find emitter: " + name
 		Return source.Clone()
 	End Method
 	
@@ -114,7 +114,7 @@ endrem
 
 	Method GetObject:Object(id:String)
 		Local o:Object = MapValueForKey( _objectMap, id)
-		If o = Null Then rrThrow "Library does not contain object with id : " + id
+		If o = Null Then Throw "Library does not contain object with id : " + id
 		Return o
 	End Method
 

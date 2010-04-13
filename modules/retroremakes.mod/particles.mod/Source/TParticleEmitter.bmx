@@ -165,7 +165,7 @@ Type TParticleEmitter Extends TParticleActor
 				Case "#spawnscale" _spawnSize.LoadConfiguration(s)
 				Case "#offsetx" _offsetX.LoadConfiguration(s)
 				Case "#offsety" _offsetY.LoadConfiguration(s)
-				Default rrThrow "emitter parameter not found: " + l
+				Default Throw "emitter parameter not found: " + l
 			End Select
 			l = s.ReadLine()
 			l.Trim()

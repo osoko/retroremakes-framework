@@ -187,7 +187,7 @@ Type TFloatValue Extends TValue
 				Case "end" _endValue = Float(a[1])
 				Case "change" _changeValue = Float(a[1])
 				Case "random"
-				Default rrThrow l
+				Default Throw l
 			End Select
 			l = s.ReadLine()
 			l.Trim()
@@ -266,7 +266,7 @@ Type TColorValue Extends TValue
 					_endValue.Set( Float(b[0]), Float(b[1]), Float(b[2]) )
 				Case "change"		_changeValue = Int(a[1])
 				Case "random"
-				Default rrThrow l
+				Default Throw l
 			End Select
 			l = s.ReadLine()
 			l.Trim()

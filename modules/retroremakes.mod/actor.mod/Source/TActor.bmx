@@ -220,7 +220,7 @@ Type TActor Extends TRenderable Abstract
 		If value > 0 And value < 6
 			_blendMode = value
 		Else
-			rrThrow "Unsupported Blend Mode: " + value
+			Throw "Unsupported Blend Mode: " + value
 		End If
 	End Method
 	

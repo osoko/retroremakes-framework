@@ -46,7 +46,7 @@ Type TParticleImage
 				Case "framey" _frameDimensionY = Int(a[1])
 				Case "count" _frameCount = Int(a[1])
 				Case "handle" _handlePoint = Int(a[1])
-					Default rrThrow l
+					Default Throw l
 			End Select
 			l = s.ReadLine()
 			l.Trim()
@@ -60,7 +60,7 @@ Type TParticleImage
 		Else
 			_image = LoadImage(_imageFilename)
 		End If
-		If _image = Null Then rrThrow _imageFilename
+		If _image = Null Then Throw _imageFilename
 		Self.SetHandlePoint()
 	End Method
 
