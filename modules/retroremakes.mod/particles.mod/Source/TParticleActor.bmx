@@ -111,7 +111,7 @@ Type TParticleActor Extends TActor Abstract
 '		_velocity.Multiply(1.0 - _friction, 1.0 - _friction)
 		
 		'add acceleration (divide by update frequency for fixed step) to velocity
-		Local freq:Double = rrGetUpdateFrequency()
+		Local freq:Double = TFixedTimestep.GetInstance().GetUpdateFrequency()
 		_velocity.AddF(_acceleration.x * freq, _acceleration.y * freq)
 		'_velocity.Add(_acceleration.x * freq, _acceleration.y * freq)
 

@@ -85,7 +85,7 @@ Type TTimedAnimation Extends TAnimation
 	endrem
 	Method Update:Int(actor:TActor)
 		If Not _animation
-			rrThrow "TTimedAnimation does not have an assigned TAnimation"
+			Throw "TTimedAnimation does not have an assigned TAnimation"
 		EndIf
 		
 		If Not _finishTime

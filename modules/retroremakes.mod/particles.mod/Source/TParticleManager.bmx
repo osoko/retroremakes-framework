@@ -22,7 +22,7 @@ Type TParticleManager
 		bbdoc:default constructor
 	endrem
 	Method New()
-		If _instance rrThrow "Cannot create multiple instances of this Singleton Type"
+		If _instance Throw "Cannot create multiple instances of this Singleton Type"
 		_instance = Self
 		_library = New TParticleLibrary
 	End Method

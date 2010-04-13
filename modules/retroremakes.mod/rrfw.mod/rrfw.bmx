@@ -1,6 +1,6 @@
 rem
 '
-' Copyright (c) 2007-2009 Paul Maskelyne <muttley@muttleyville.org>.
+' Copyright (c) 2007-2010 Paul Maskelyne <muttley@muttleyville.org>.
 '
 ' All rights reserved. Use of this code is allowed under the
 ' Artistic License 2.0 terms, as specified in the LICENSE file
@@ -41,6 +41,7 @@ Import muttley.stack
 
 Import pub.freejoy
 
+Import retroremakes.actor
 Import retroremakes.colour
 Import retroremakes.engine
 Import retroremakes.manager
@@ -50,6 +51,7 @@ Import retroremakes.layer
 Import retroremakes.manager
 Import retroremakes.maths
 Import retroremakes.messages
+Import retroremakes.particles
 Import retroremakes.registry
 Import retroremakes.renderable
 Import retroremakes.resource
@@ -70,33 +72,6 @@ Include "src\Includes\Functions.bmx"
  ' Miscellaneous Graphics
 Include "src\Includes\Graphics\GraphicsUtils.bmx"
 
-' Actors
-Include "src\Includes\Graphics\Actors\TActor.bmx"
-Include "src\Includes\Graphics\Actors\TFontActor.bmx"
-Include "src\Includes\Graphics\Actors\TImageActor.bmx"
-Include "src\Includes\Graphics\Actors\TPolygonActor.bmx"
-
-' Animations
-Include "src\Includes\Graphics\Animation\TAnimation.bmx"
-Include "src\Includes\Graphics\Animation\TAnimationManager.bmx"
-Include "src\Includes\Graphics\Animation\AnimationStyles\TAlphaFadeAnimation.bmx"
-Include "src\Includes\Graphics\Animation\AnimationStyles\TBlinkAnimation.bmx"
-Include "src\Includes\Graphics\Animation\AnimationStyles\TColourOscillatorAnimation.bmx"
-Include "src\Includes\Graphics\Animation\AnimationStyles\TCompositeAnimation.bmx"
-Include "src\Includes\Graphics\Animation\AnimationStyles\TDelayedAnimation.bmx"
-Include "src\Includes\Graphics\Animation\AnimationStyles\TLoopedAnimation.bmx"
-Include "src\Includes\Graphics\Animation\AnimationStyles\TLoopedFrameAnimation.bmx"
-Include "src\Includes\Graphics\Animation\AnimationStyles\TMakeInvisibleAnimation.bmx"
-Include "src\Includes\Graphics\Animation\AnimationStyles\TMakeVisibleAnimation.bmx"
-Include "src\Includes\Graphics\Animation\AnimationStyles\TPointToPointPathAnimation.bmx"
-Include "src\Includes\Graphics\Animation\AnimationStyles\TResetPositionAnimation.bmx"
-Include "src\Includes\Graphics\Animation\AnimationStyles\TScaleOscillatorAnimation.bmx"
-Include "src\Includes\Graphics\Animation\AnimationStyles\TSequentialAnimation.bmx"
-Include "src\Includes\Graphics\Animation\AnimationStyles\TSetAlphaAnimation.bmx"
-Include "src\Includes\Graphics\Animation\AnimationStyles\TSetColourAnimation.bmx"
-Include "src\Includes\Graphics\Animation\AnimationStyles\TSetPositionAnimation.bmx"
-Include "src\Includes\Graphics\Animation\AnimationStyles\TTimedAnimation.bmx"
-
 'Menus
 Include "src\Includes\Menus\TMenuManager.bmx"
 Include "src\Includes\Menus\TMenu.bmx"
@@ -107,16 +82,6 @@ Include "src\Includes\Menus\TOptionMenuItem.bmx"
 Include "src\Includes\Menus\TMenuOption.bmx"
 Include "src\Includes\Menus\TMenuStyle.bmx"
 Include "src\Includes\Menus\TMenuMessageData.bmx"
-
-'Particles
-Include "src\Includes\Particles\TValues.bmx"
-Include "src\Includes\Particles\TParticleActor.bmx"
-Include "src\Includes\Particles\TParticle.bmx"
-Include "src\Includes\Particles\TParticleEmitter.bmx"
-Include "src\Includes\Particles\TParticleImage.bmx"
-Include "src\Includes\Particles\TParticleEffect.bmx"
-Include "src\Includes\Particles\TParticleLibrary.bmx"
-Include "src\Includes\Particles\TParticleManager.bmx"
 
 ' Miscellaneous Maths and Algorithms
 Include "src\Includes\Maths\PolygonCollisions.bmx"
@@ -134,9 +99,6 @@ Include "src\Includes\Misc\TMacroCommand.bmx"
 '' Engine Services
 ''
 Include "src\Services\Debug\TConsole.bmx"
-
-Include "src\Services\Graphics\TScaleOscillator\TScaleGen.bmx"
-Include "src\Services\Graphics\TScaleOscillator\TScaleOscillator.bmx"
 
 Include "src\Services\Physics\TPhysicsManager.bmx"
 

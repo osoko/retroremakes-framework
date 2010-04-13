@@ -97,7 +97,7 @@ Type TParticle Extends TParticleActor
 				Case "#sizex" _sizeX.LoadConfiguration(s)
 				Case "#sizey" _sizeY.LoadConfiguration(s)
 
-				Default rrThrow "load: particle parameter not known: " + l
+				Default Throw "load: particle parameter not known: " + l
 			End Select
 			l = s.ReadLine()
 			l.Trim()
