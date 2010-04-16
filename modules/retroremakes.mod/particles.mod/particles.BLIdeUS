@@ -814,7 +814,6 @@
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
-        <OutlineColor>255:173:173:173</OutlineColor>
         <Ranges>
           <Range>
             <StartPoint>
@@ -3198,7 +3197,6 @@
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
-        <OutlineColor>255:173:173:173</OutlineColor>
         <Ranges>
           <Range>
             <StartPoint>
@@ -3267,8 +3265,8 @@
       <FileName>main.bmx</FileName>
       <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>28</Y>
+        <X>23</X>
+        <Y>17</Y>
       </Caret_Position>
       <SplitVisible>false</SplitVisible>
       <SplitVertical>false</SplitVertical>
@@ -3304,7 +3302,6 @@
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
-        <OutlineColor>255:173:173:173</OutlineColor>
         <Ranges>
           <Range>
             <StartPoint>
@@ -3429,7 +3426,6 @@
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
-        <OutlineColor>255:173:173:173</OutlineColor>
         <Ranges>
           <Range>
             <StartPoint>
@@ -3482,7 +3478,6 @@
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
-        <OutlineColor>255:173:173:173</OutlineColor>
         <Ranges>
           <Range>
             <StartPoint>
@@ -3547,7 +3542,6 @@
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
-        <OutlineColor>255:173:173:173</OutlineColor>
         <Ranges>
           <Range>
             <StartPoint>
@@ -3659,7 +3653,7 @@
     <Publish_NRV_Level>0</Publish_NRV_Level>
   </Project>
   <Compiler_Configuration>
-    <Quick_Build>false</Quick_Build>
+    <Quick_Build>true</Quick_Build>
     <Debugging>true</Debugging>
     <Threaded>false</Threaded>
   </Compiler_Configuration>
