@@ -88,7 +88,6 @@ Include "src\Includes\Maths\PolygonCollisions.bmx"
 Include "src\Includes\Maths\TPolygon.bmx"
 
 Include "src\Includes\Misc\CloneObject.bmx"
-Include "src\Includes\Misc\Logging.bmx"
 Include "src\Includes\Misc\StringManipulation.bmx"
 Include "src\Includes\Misc\TEngineException.bmx"
 
