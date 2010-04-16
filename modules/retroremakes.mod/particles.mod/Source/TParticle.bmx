@@ -1,6 +1,6 @@
 Rem
 '
-' Copyright (c) 2007-2009 Wiebo de Wit <wiebo.de.wit@gmail.com>.
+' Copyright (c) 2007-2010 Wiebo de Wit <wiebo.de.wit@gmail.com>.
 '
 ' All rights reserved. Use of this code is allowed under the
 ' Artistic License 2.0 terms, as specified in the LICENSE file
@@ -60,9 +60,9 @@ Type TParticle Extends TParticleActor
 		Interpolate(tweening)
 
 '		Self.SetRenderState()
-		brl.max2d.SetAlpha _alpha.GetValue()
-		brl.max2d.SetScale(_sizeX.GetValue(), _sizeY.GetValue())
-		brl.max2d.SetRotation _rotation.GetValue()
+		brl.max2d.SetAlpha _alpha.GetCurrentValue()
+		brl.max2d.SetScale(_sizeX.GetCurrentValue(), _sizeY.GetCurrentValue())
+		brl.max2d.SetRotation _rotation.GetCurrentValue()
 		brl.max2d.SetBlend _blendMode
 		
 		_color.Use()
@@ -70,6 +70,37 @@ Type TParticle Extends TParticleActor
 		DrawImage _image, _renderPosition.x, _renderPosition.y, _imageFrame
 
 	End Method
+	
+	
+	
+	rem
+		bbdoc: Sets particle properties using configuration text
+		about: not complete yet, will replace LoadConfiguration()
+		returns: True if all properties were set
+	endrem
+	Method SetProperties:Int(values:String)
+		values.Trim()
+		Local array:String[] = values.Split(",")
+		Local index:Int = 0
+		Local property:String[]
+		
+		While index < array.Length
+			property = array[index].Split("=")
+			Select property[0].ToLower()
+				Case "id"
+					_libraryID = property[1]
+				Case "desc"
+					_description = property[1]
+				Default
+					Return False
+			End Select
+		Wend
+		
+		Return True
+	
+	End Method
+	
+	
 	
 	rem
 		bbdoc: Loads particle settings from passsed stream
