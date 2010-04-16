@@ -1,6 +1,6 @@
 Rem
 '
-' Copyright (c) 2007-2009 Wiebo de Wit <wiebo.de.wit@gmail.com>.
+' Copyright (c) 2009-2010 Wiebo de Wit <wiebo.de.wit@gmail.com>.
 '
 ' All rights reserved. Use of this code is allowed under the
 ' Artistic License 2.0 terms, as specified in the LICENSE file
@@ -12,7 +12,8 @@ endrem
 rem
 	bbdoc: base object for all particle engine objects
 	about: includes information and methods needed for particle and emitters.
-	This adds the functionality needed for emitters and particles and some editor/library related fields.
+	This adds the functionality needed for emitters and particles and 
+	some editor/library related fields.
 endrem
 Type TParticleActor Extends TActor Abstract
 
@@ -67,7 +68,6 @@ Type TParticleActor Extends TActor Abstract
 		_rotation = New TFloatValue
 		_velocity = New TVector2D
 		_acceleration = New TVector2D
-		
 	End Method
 	
 	'remove object

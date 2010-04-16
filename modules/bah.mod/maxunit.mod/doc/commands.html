@@ -1,0 +1,277 @@
+<html><head><title>MaxUnit - Unit Testing reference</title>
+<link rel=stylesheet Type=text/css href='../../../../doc/bmxstyle.css'>
+</head><body>
+<table width=100% cellspacing=0><tr align=center><td class=small>&nbsp;</td>
+<td class=small width=1%><b>BaH.MaxUnit:</b></td>
+<td class=small width=1%><a href=#types class=small>Types</a></td>
+<td class=small width=1%><a href=#modinfo class=small>Modinfo</a></td>
+<td class=small width=1%><a href='../../../../mod/bah.mod/maxunit.mod/maxunit.bmx' class=small>Source</a></td>
+<td class=small>&nbsp;</td></tr></table>
+<h1>MaxUnit - Unit Testing</h1>
+<img src="logo.png" align="right" />
+<p>A unit testing Module based loosely on JUnit.</p>
+To define a test :<br>
+<ol>
+<li> implement a sub-Type of TTest</li>
+<li> initialize the user states by creating a Method tagged with {before}</li>
+<li> clean-up after a test by creating a Method tagged with {after}.</li>
+</ol>
+Here is an example:
+<pre>
+Type MyTest Extends TTest
+<p>
+	Local value1:Int
+	Local value2:Int
+<p>
+	Method setup() { before }
+		value1 = 2
+		value2 = 3
+	End Method
+<p>
+End Type
+</pre>
+For each test implement a <b>Method</b> which interacts with the fixture. You tell MaxUnit that this is a test Method by
+tagging it with {test}. The Method can otherwise be called anything you like. It should take no parameters and not
+return anything.<br>
+Verify the expected results with assertions specified by calling <b>assertTrue</b> with a boolean.
+<pre>
+	Method testAdd() { test }
+		Local result:Int = value1 + value2
+		assertTrue(result = 5)
+	End Method
+</pre>
+Finally, you can run the tests by creating an instance of the TTestSuite and calling its <b>run</b> method.
+<pre>
+New TTestSuite.run()
+</pre>
+The following code snippet is a complete example, including a failed test :<br>
+You can open the source <a href="example.bmx">here</a>.
+<pre>
+SuperStrict
+<p>
+Import BaH.MaxUnit
+<p>
+New TTestSuite.run()
+<p>
+Type MyTest Extends TTest
+<p>
+	Field  value1:Int
+	Field value2:Int
+<p>
+	Method setup() { before }
+		value1 = 2
+		value2 = 3
+	End Method
+<p>
+	Method testAdd() { test }
+		Local result:Int = value1 + value2
+		assertTrue(result = 5)
+	End Method
+	
+	Method testMultiply() { test }
+		Local result:Int = value1 * value2
+		assertEqualsI(6, result)
+	End Method
+<p>
+	Method testOops() { test }
+		Local result:Int = value1 + value2
+		assertEqualsI(2, result, "Just here to show a failed test...")
+	End Method
+<p>
+End Type
+</pre>
+The above program should produce the following output :
+<pre>
+[0] ..F
+<p>
+There was 1 failure:
+1) testOops
+    assertEqualsI() : Just here to show a failed test... expected:<2> but was:<5>
+<p>
+
+FAILURES!!!
+Tests run: 3,  Failures: 1,  Errors: 0
+Time: 0.0
+<p>
+Process complete
+</pre>
+<h2><a name=types></a>Types Summary</h2><table class=doc width=100%>
+<tr><td class=docleft width=1%><a href=#TAssert>TAssert</a></td><td class=docright>
+A set of assert methods.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#TTest>TTest</a></td><td class=docright>
+A test defines a set of test methods to test.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#TTestSuite>TTestSuite</a></td><td class=docright>
+A test suite defines the fixture to run multiple tests.
+</td></tr>
+</table>
+<h2
+ id=typesdet>Types
+</h2>
+<table class=doc width=100% cellspacing=3 id=TAssert>
+<tr><td class=doctop colspan=2>Type TAssert</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>A set of assert methods.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>Messages are only displayed when an assert fails.</td></tr>
+</table>
+<table class=doc width=90% align=center><tr ><th class=doctop colspan=2 align=left><a name=TAssert_functions></a>Functions Summary</th></tr>
+<tr><td class=docleft width=1%><a href=#assertEquals>assertEquals</a></td><td class=docright>
+Asserts that two objects are equal.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#assertEqualsB>assertEqualsB</a></td><td class=docright>
+Asserts that two bytes are equal.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#assertEqualsD>assertEqualsD</a></td><td class=docright>
+Asserts that two doubles are equal.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#assertEqualsF>assertEqualsF</a></td><td class=docright>
+Asserts that two floats are equal.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#assertEqualsI>assertEqualsI</a></td><td class=docright>
+Asserts that two ints are equal.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#assertEqualsL>assertEqualsL</a></td><td class=docright>
+Asserts that two longs are equal.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#assertEqualsS>assertEqualsS</a></td><td class=docright>
+Asserts that two shorts are equal.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#assertFalse>assertFalse</a></td><td class=docright>
+Asserts that a condition is false.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#assertNotNull>assertNotNull</a></td><td class=docright>
+Asserts that an object isn't null.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#assertNotSame>assertNotSame</a></td><td class=docright>
+Asserts that two objects refer different objects.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#assertNull>assertNull</a></td><td class=docright>
+Asserts that an Object is null.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#assertSame>assertSame</a></td><td class=docright>
+Asserts that two objects refer to the same object.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#assertTrue>assertTrue</a></td><td class=docright>
+Asserts that a condition is true.
+</td></tr>
+<tr><td class=docleft width=1%><a href=#fail>fail</a></td><td class=docright>
+Fails a test with the given message.
+</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=assertEquals>
+<tr><td class=doctop colspan=2>Function assertEquals(expected:Object, actual:Object, message:String = Null)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Asserts that two objects are equal.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>If they are not an AssertionFailedException is thrown with the given message.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=assertEqualsB>
+<tr><td class=doctop colspan=2>Function assertEqualsB(expected:Byte, actual:Byte, message:String = Null)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Asserts that two bytes are equal.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>If they are not an AssertionFailedException is thrown with the given message.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=assertEqualsD>
+<tr><td class=doctop colspan=2>Function assertEqualsD(expected:Double, actual:Double, delta:Double = 0, message:String = Null)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Asserts that two doubles are equal.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>If they are not an AssertionFailedException is thrown with the given message.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=assertEqualsF>
+<tr><td class=doctop colspan=2>Function assertEqualsF(expected:Float, actual:Float, delta:Float = 0, message:String = Null)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Asserts that two floats are equal.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>If they are not an AssertionFailedException is thrown with the given message.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=assertEqualsI>
+<tr><td class=doctop colspan=2>Function assertEqualsI(expected:Int, actual:Int, message:String = Null)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Asserts that two ints are equal.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>If they are not an AssertionFailedException is thrown with the given message.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=assertEqualsL>
+<tr><td class=doctop colspan=2>Function assertEqualsL(expected:Long, actual:Long, message:String = Null)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Asserts that two longs are equal.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>If they are not an AssertionFailedException is thrown with the given message.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=assertEqualsS>
+<tr><td class=doctop colspan=2>Function assertEqualsS(expected:Short, actual:Short, message:String = Null)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Asserts that two shorts are equal.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>If they are not an AssertionFailedException is thrown with the given message.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=assertFalse>
+<tr><td class=doctop colspan=2>Function assertFalse(bool:Int, message:String = Null)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Asserts that a condition is false.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>If it isn't it throws an AssertionFailedException with the given message.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=assertNotNull>
+<tr><td class=doctop colspan=2>Function assertNotNull(obj:Object, message:String = Null)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Asserts that an object isn't null.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>If it is an AssertionFailedException is thrown with the given message.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=assertNotSame>
+<tr><td class=doctop colspan=2>Function assertNotSame(expected:Object, actual:Object, message:String = Null)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Asserts that two objects refer different objects.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>If they are an AssertionFailedException is thrown with the given message.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=assertNull>
+<tr><td class=doctop colspan=2>Function assertNull(obj:Object, message:String = Null)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Asserts that an Object is null.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=assertSame>
+<tr><td class=doctop colspan=2>Function assertSame(expected:Object, actual:Object, message:String = Null)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Asserts that two objects refer to the same object.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>If they are not an AssertionFailedException is thrown with the given message.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=assertTrue>
+<tr><td class=doctop colspan=2>Function assertTrue(bool:Int, message:String = Null)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Asserts that a condition is true.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>If it isn't it throws an AssertionFailedException with the given message.</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=fail>
+<tr><td class=doctop colspan=2>Function fail(message:String)</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Fails a test with the given message.</td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=TTest>
+<tr><td class=doctop colspan=2>Type TTest Extends TAssert</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>A test defines a set of test methods to test.</td></tr>
+<tr><td class=docleft width=1%>Information</td><td class=docright>Extend TTest to define your own tests.
+<p>
+Tag a method with {before} and initiliaze any variables/data in that method
+</p>
+<p>
+Tag a method with {after} to release any permanent resources you allocated in the setup.
+</p>
+<p>
+For each test method you want to run, tag it with {test}
+</p>
+<p>
+Any methods not tagged are ignored by MaxUnit.
+</p></td></tr>
+</table>
+<br>
+<table class=doc width=100% cellspacing=3 id=TTestSuite>
+<tr><td class=doctop colspan=2>Type TTestSuite Extends TAssert</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>A test suite defines the fixture to run multiple tests.</td></tr>
+</table>
+<table class=doc width=90% align=center><tr ><th class=doctop colspan=2 align=left><a name=TTestSuite_methods></a>Methods Summary</th></tr>
+<tr><td class=docleft width=1%><a href=#run>run</a></td><td class=docright>
+Runs the suite of tests.
+</td></tr>
+</table>
+<table class=doc width=100% cellspacing=3 id=run>
+<tr><td class=doctop colspan=2>Method run()</td></tr>
+<tr><td class=docleft width=1%>Description</td><td class=docright>Runs the suite of tests.</td></tr>
+</table>
+<br>
+<h2 id=modinfo>Module Information</h2>
+<table width=100%>
+<tr><th width=1%>Version</th><td>1.03</td></tr>
+<tr><th width=1%>License</th><td>MIT</td></tr>
+<tr><th width=1%>Author</th><td>Bruce A Henderson</td></tr>
+<tr><th width=1%>Credit</th><td>Based loosely on the JUnit testing framework by Erich Gamma and Kent Beck. see junit.org</td></tr>
+<tr><th width=1%>Copyright</th><td>(c) 2006,2007 Bruce A Henderson</td></tr>
+<tr><th width=1%>History</th><td>1.03</td></tr>
+<tr><th width=1%>History</th><td>Improved multiple test-types support.</td></tr>
+<tr><th width=1%>History</th><td>Changed tags to before/after and beforetype/aftertype</td></tr>
+<tr><th width=1%>History</th><td>1.02</td></tr>
+<tr><th width=1%>History</th><td>Re-written to use reflection.</td></tr>
+<tr><th width=1%>History</th><td>1.01</td></tr>
+<tr><th width=1%>History</th><td>Added delta parameter for assertEqualsF and assertEqualsD</td></tr>
+<tr><th width=1%>History</th><td>1.00 Initial Release</td></tr>
+</body></html>
