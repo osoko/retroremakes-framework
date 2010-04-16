@@ -804,10 +804,10 @@
     </Included_File>
     <Included_File>
       <FileName>Source\TParticle.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>33</X>
-        <Y>44</Y>
+        <X>15</X>
+        <Y>91</Y>
       </Caret_Position>
       <SplitVisible>false</SplitVisible>
       <SplitVertical>false</SplitVertical>
@@ -3188,7 +3188,7 @@
     </Included_File>
     <Included_File>
       <FileName>floatValueTest.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
         <X>0</X>
         <Y>23</Y>
@@ -3268,7 +3268,7 @@
       <Document_Active>true</Document_Active>
       <Caret_Position>
         <X>0</X>
-        <Y>21</Y>
+        <Y>28</Y>
       </Caret_Position>
       <SplitVisible>false</SplitVisible>
       <SplitVertical>false</SplitVertical>
@@ -3294,7 +3294,7 @@
     </Included_File>
     <Included_File>
       <FileName>managerTest.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
         <X>1</X>
         <Y>23</Y>
@@ -3419,7 +3419,7 @@
     </Included_File>
     <Included_File>
       <FileName>particleActorTest.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
         <X>41</X>
         <Y>15</Y>
@@ -3472,10 +3472,10 @@
     </Included_File>
     <Included_File>
       <FileName>particleTest.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>2</X>
-        <Y>18</Y>
+        <X>0</X>
+        <Y>24</Y>
       </Caret_Position>
       <SplitVisible>false</SplitVisible>
       <SplitVertical>false</SplitVertical>
@@ -3537,7 +3537,7 @@
     </Included_File>
     <Included_File>
       <FileName>valueTest.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
         <X>0</X>
         <Y>8</Y>
