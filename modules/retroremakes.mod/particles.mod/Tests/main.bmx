@@ -9,12 +9,20 @@ Rem
 '
 endrem
 
+SuperStrict
+
 Framework bah.maxunit
+
 Import retroremakes.particles
 
 Include "valueTest.bmx"
-'Include "particleActorTest.bmx"
-'Include "particleTest.bmx"
-'Include "managerTest.bmx"
+Include "floatValueTest.bmx"
+Include "managerTest.bmx"
+Include "particleActorTest.bmx"
+Include "particleTest.bmx"
+
+' Mocks used by the tests
+Include "Mocks/TValueMOCK.bmx"
+Include "Mocks/TParticleActorMOCK.bmx"
 
 New TTestSuite.run()
