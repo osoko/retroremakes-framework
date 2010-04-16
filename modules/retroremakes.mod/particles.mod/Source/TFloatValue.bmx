@@ -19,11 +19,11 @@ Type TFloatValue Extends TValue
 	Field _currentValue:Float
 	Field _previousValue:Float
 
-		
-		
+
+			
 	rem
-		bbdoc: Updates the value according to the 
-		about: 
+		bbdoc: Updates the value
+		about: used by TValue.Update(), you shouldn't need to call this
 		returns: True if the value has reached its end value
 	endrem
 	Method UpdateValue:Int()
@@ -58,8 +58,46 @@ Type TFloatValue Extends TValue
 		_currentValue = value
 		_previousValue = value
 	End Method
+	
 
-		
+	
+	rem
+		bbdoc: Sets the start value
+	endrem
+	Method SetStartValue(value:Float)
+		_startValue = value
+	End Method
+
+	
+	
+	rem
+		bbdoc: Returns the start value
+		returns: Float
+	endrem
+	Method GetStartValue:Float()
+		Return _startValue
+	End Method
+
+	
+	
+	rem
+		bbdoc: Sets the end value
+	endrem
+	Method SetEndValue(value:Float)
+		_endValue = value
+	End Method
+
+	
+	
+	rem
+		bbdoc: Returns the end value
+		returns: Float
+	endrem
+	Method GetEndValue:Float()
+		Return _endValue
+	End Method
+
+	
 		
 	rem
 		bbdoc: Returns the difference between the current and the previous value
@@ -72,20 +110,20 @@ Type TFloatValue Extends TValue
 	
 
 	rem
-		bbdoc: reverses the start and end values and sets the current value
+		bbdoc: reverses the start and end values ' and sets the current value
 		to the new start value
 	endrem
 	Method ReverseChange()
 		Local temp:Float = _startValue
 		_startValue = _endValue
 		_endValue = temp
-		Self.ResetValue()
+'		Self.ResetValue()
 	End Method
 	
 	
 	
 	rem
-		bbdoc: Sets the current value to the start value
+		bbdoc: Sets the current value to its start value
 	endrem
 	Method ResetValue()
 		_currentValue = _startValue
@@ -102,16 +140,24 @@ Type TFloatValue Extends TValue
 	End Method
 
 	
-
-	Method Scale(val:Float)
+	
+	rem
+		bbdoc: scales the range and change amount by passed value
+	endrem
+	Method ScaleRange(val:Float)
 		_startValue:*val
 		_endValue:*val
 		_changeAmount:*val
-		ResetValue()
+'		ResetValue()
 	End Method
-
-	Method Slide(val:Float)
-		_currentValue:+val
+	
+	
+	
+	rem
+		bbdoc: moves the range by passed amount
+	endrem
+	Method MoveRange(val:Float)
+'		_currentValue:+val
 		_startValue:+val
 		_endValue:+val
 	End Method
@@ -119,18 +165,19 @@ Type TFloatValue Extends TValue
 	
 	
 	rem
-		bbdoc: freezes float on passed value
+		bbdoc: fixes float on passed value
+		about: this basically turns the value into a static float
 	endrem
-	Method Freeze(value:Float)
+	Method Fix(value:Float)
 		_currentValue = value
 		_active = False
 	End Method
 	
 
+	
 	rem
-		bbdoc: Randomizes float and its rotation direction
-		about: Does not touch the _active flag so if this is set to false,
-		then no rotation will happen
+		bbdoc: Randomizes value and rotation direction
+		about: takes the current range into account
 	endrem
 	Method Randomize()
 		Local range:Float = _endValue - _startValue
@@ -141,6 +188,26 @@ Type TFloatValue Extends TValue
 		'50% chance to rotate the other way
 		If Rand(1, 10) < 6 Then _changeAmount = -_changeAmount
 	End Method
+
+	
+
+	rem
+		bbdoc: creates a clone of this float value
+		returns: TFloatValue
+	endrem
+	Method Clone:TFloatValue()
+		Local f:TFloatValue = New TFloatValue
+		f._active = _active
+		f._behaviour = _behaviour
+		f._countdown_left = _countdown_left
+		f._startValue = _startValue
+		f._endValue	= _endValue
+		f._changeAmount = _changeAmount
+		f._mode = _mode
+		'f.ResetValue()
+		Return f
+	End Method	
+		
 	
 
 	Method LoadConfiguration(s:TStream)
@@ -164,17 +231,5 @@ Type TFloatValue Extends TValue
 		Wend
 		ResetValue()
 	End Method
-
-	Method Clone:TFloatValue()
-		Local f:TFloatValue = New TFloatValue
-		f._active = _active
-		f._behaviour = _behaviour
-		f._countdown_left = _countdown_left
-		f._startValue = _startValue
-		f._endValue	= _endValue
-		f._changeAmount = _changeAmount
-		f.ResetValue()
-		Return f
-	End Method	
 
 End Type

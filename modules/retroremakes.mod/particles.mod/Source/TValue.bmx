@@ -39,7 +39,7 @@ Type TValue Abstract
 	Method UpdateValue:Int() Abstract
 	Method ResetValue() Abstract
 	Method ReverseChange() Abstract
-	Method SetPrevious() Abstract	
+'	Method SetPrevious() Abstract	
 
 	Method New()
 		_mode = MODE_COUNTDOWN
@@ -48,7 +48,7 @@ Type TValue Abstract
 	End Method
 
 	Method Update()
-		SetPrevious()
+		'SetPrevious()
 		If _active = False Then Return
 		
 		Select _mode
@@ -143,6 +143,26 @@ Type TValue Abstract
 	endrem	
 	Method GetChangeAmount:Float()
 		Return _changeAmount
+	End Method
+	
+	
+		
+	rem
+		bbdoc: Returns the ticks left of the pre-change countdown
+		returns: Float
+	endrem		
+	Method GetCountdown:Int()
+		Return _countdown_left
+	End Method
+	
+	
+	
+	rem
+		bbdoc: Sets the time in ticks of pre-change countdown
+		about: use this to set a wait time before the value change begins
+	endrem	
+	Method SetCountdown(amount:Int)
+		_countdown_left = amount
 	End Method
 
 End Type
