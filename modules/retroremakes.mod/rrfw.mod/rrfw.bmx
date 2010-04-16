@@ -50,6 +50,7 @@ Import retroremakes.Input
 Import retroremakes.layer
 Import retroremakes.manager
 Import retroremakes.maths
+Import retroremakes.menu
 Import retroremakes.messages
 Import retroremakes.particles
 Import retroremakes.registry
@@ -72,24 +73,13 @@ Include "src\Includes\Functions.bmx"
  ' Miscellaneous Graphics
 Include "src\Includes\Graphics\GraphicsUtils.bmx"
 
-'Menus
-Include "src\Includes\Menus\TMenuManager.bmx"
-Include "src\Includes\Menus\TMenu.bmx"
-Include "src\Includes\Menus\TMenuItem.bmx"
-Include "src\Includes\Menus\TSubMenuItem.bmx"
-Include "src\Includes\Menus\TActionMenuItem.bmx"
-Include "src\Includes\Menus\TOptionMenuItem.bmx"
-Include "src\Includes\Menus\TMenuOption.bmx"
-Include "src\Includes\Menus\TMenuStyle.bmx"
-Include "src\Includes\Menus\TMenuMessageData.bmx"
-
 ' Miscellaneous Maths and Algorithms
 Include "src\Includes\Maths\PolygonCollisions.bmx"
 Include "src\Includes\Maths\TPolygon.bmx"
 
 Include "src\Includes\Misc\CloneObject.bmx"
 Include "src\Includes\Misc\StringManipulation.bmx"
-Include "src\Includes\Misc\TEngineException.bmx"
+'Include "src\Includes\Misc\TEngineException.bmx"
 
 ''
 '' Engine Services
