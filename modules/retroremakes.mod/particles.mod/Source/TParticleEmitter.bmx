@@ -106,7 +106,7 @@ Type TParticleEmitter Extends TParticleActor
 		If _isActive = False Then Return
 
 		If _isSticky
-			RotateChildren(_rotation.GetChanged())
+			RotateChildren(_rotation.GetChangedAmount())
 
 			Local v:TVector2D
 			If _parent
@@ -127,7 +127,7 @@ Type TParticleEmitter Extends TParticleActor
 			_currentSpawnDelay = _spawnDelay
 
 			If _shape = STYLE_LINE
-				_spawnAmount = _sizeY.getValue() / _lineDensity
+				_spawnAmount = _sizeY.GetCurrentValue() / _lineDensity
 				If _spawnAmount <= 0 Then _spawnAmount = 1
 			End If
 			
@@ -276,7 +276,7 @@ Type TParticleEmitter Extends TParticleActor
 		Self.AddChild(o)
 
 		'scale spawned object to current emitter spawn size
-		Local val:Float = _spawnSize.GetValue()
+		Local val:Float = _spawnSize.GetCurrentValue()
 		o._sizeX.Scale(val)
 		o._sizeY.Scale(val)
 		
@@ -285,7 +285,7 @@ Type TParticleEmitter Extends TParticleActor
 		
 		Select _spawnDirection
 			Case SPAWN_DIRECTION_EMITTER
-				directionAngle = _rotation.GetValue()
+				directionAngle = _rotation.GetCurrentValue()
 				
 			Case SPAWN_DIRECTION_RND
 			
@@ -311,9 +311,9 @@ Type TParticleEmitter Extends TParticleActor
 		'determine emitter shape and force begin location on spawned object
 		Select _shape
 			Case STYLE_RADIAL, STYLE_FOUNTAIN
-				o.ResetPosition(_currentPosition.x + Sin(directionAngle) * _sizeX.GetValue() / 2, _currentPosition.y + -Cos(directionAngle) * _sizeY.GetValue() / 2)
+				o.ResetPosition(_currentPosition.x + Sin(directionAngle) * _sizeX.GetCurrentValue() / 2, _currentPosition.y + -Cos(directionAngle) * _sizeY.GetCurrentValue() / 2)
 			Case STYLE_LINE
-				Local posOnLine:Float = Rnd(1, _sizeY.getValue())
+				Local posOnLine:Float = Rnd(1, _sizeY.GetCurrentValue())
 				o.ResetPosition(_currentPosition.x + Sin(directionAngle) * posOnLine, _currentPosition.y + -Cos(directionAngle) * posOnLine)
 		End Select
 		
