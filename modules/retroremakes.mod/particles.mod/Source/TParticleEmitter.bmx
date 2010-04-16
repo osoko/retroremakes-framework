@@ -277,8 +277,8 @@ Type TParticleEmitter Extends TParticleActor
 
 		'scale spawned object to current emitter spawn size
 		Local val:Float = _spawnSize.GetCurrentValue()
-		o._sizeX.Scale(val)
-		o._sizeY.Scale(val)
+		o._sizeX.ScaleRange(val)
+		o._sizeY.ScaleRange(val)
 		
 		'determine where the object has to travel to
 		Local directionAngle:Float
@@ -299,7 +299,7 @@ Type TParticleEmitter Extends TParticleActor
 			Case SPAWN_ROTATION_EMITTER
 			
 				'make sure the spawned object rotation is idential to its direction
-				o._rotation.Freeze(directionAngle)
+				o._rotation.Fix(directionAngle)
 			Case SPAWN_ROTATION_RND
 			
 				'the rotation of the spawned object is random, and turns in a random direction (if value is active of course)

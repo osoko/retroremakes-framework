@@ -154,7 +154,7 @@ Type TParticleActor Extends TActor Abstract
 		about:takes changeable value into account
 	endrem
 	Method ChangeRotation(amount:Float)
-		_rotation.Slide(amount)
+		_rotation.MoveRange(amount)
 	End Method
 	
 	rem

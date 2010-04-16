@@ -1,4 +1,13 @@
-'contains tests for value, float, and color values
+Rem
+'
+' Copyright (c) 2007-2010 Wiebo de Wit <wiebo.de.wit@gmail.com>.
+'
+' All rights reserved. Use of this code is allowed under the
+' Artistic License 2.0 terms, as specified in the LICENSE file
+' distributed with this code, or available from
+' http://www.opensource.org/licenses/artistic-license-2.0.php
+'
+endrem
 
 Type valueTest Extends TTest
 
@@ -37,15 +46,15 @@ Type valueTest Extends TTest
 	End Method
 	
 	'can we alter the amount by which the value changes?
-	Method testSetChangeAmount()
-		v.SetChangeAmount(2.0)
+	Method testSetChangeAmount() {test}
+ 		v.SetChangeAmount(2.0)
 		assertEqualsF(2.0, v.GetChangeAmount())
+	End Method
+	
+	'can we set a pre-change countdown?
+	Method testSetCountdown() {test}
+		v.SetCountdown(10)
+		assertEqualsI(10, v.GetCountdown())
 	End Method
 
 End Type
-
-
-
-
-
-

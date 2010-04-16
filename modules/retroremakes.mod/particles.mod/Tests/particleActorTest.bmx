@@ -5,7 +5,13 @@ Type particleActorTest Extends TTest
 	Field p:TParticleActorMOCK
 	
 	Method setup() {before}
+		Graphics 800, 600
 		p = New TParticleActorMOCK
+	End Method
+	
+	Method cleanup() {after}
+		p = Null
+		EndGraphics()
 	End Method
 	
 	' Can we create a particleActor?
