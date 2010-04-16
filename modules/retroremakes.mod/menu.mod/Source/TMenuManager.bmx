@@ -1,13 +1,13 @@
 Rem
 '
-' Copyright (c) 2007-2009 Wiebo de Wit <wiebo.de.wit@gmail.com>.
+' Copyright (c) 2007-2010 Wiebo de Wit <wiebo.de.wit@gmail.com>.
 '
 ' All rights reserved. Use of this code is allowed under the
 ' Artistic License 2.0 terms, as specified in the LICENSE file
 ' distributed with this code, or available from
 ' http://www.opensource.org/licenses/artistic-license-2.0.php
 '
-endrem
+EndRem
 
 Rem
 	bbdoc: Manager for game menus
@@ -261,7 +261,7 @@ Type TMenuManager
 		For Local menu:TMenu = EachIn _allMenus
 			If menu.ToString() = name Then Return menu
 		Next
-		rrThrow "could not find menu:" + name
+		Throw "could not find menu:" + name
 	End Method
 	
 	
@@ -298,7 +298,7 @@ Type TMenuManager
         about: also set defaults and creates a message channel so GameManagers can listen for menu events
     endrem
 	Method New()
-		If _instance Then rrThrow "Cannot create another instance of this singleton"
+		If _instance Then Throw "Cannot create another instance of this singleton"
 
 		_instance = Self
 	
