@@ -804,10 +804,10 @@
     </Included_File>
     <Included_File>
       <FileName>Source\TParticle.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>7</X>
-        <Y>142</Y>
+        <X>33</X>
+        <Y>44</Y>
       </Caret_Position>
       <SplitVisible>false</SplitVisible>
       <SplitVertical>false</SplitVertical>
@@ -1083,7 +1083,6 @@
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
-        <OutlineColor>255:173:173:173</OutlineColor>
         <Ranges>
           <Range>
             <StartPoint>
@@ -2715,7 +2714,6 @@
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
-        <OutlineColor>255:173:173:173</OutlineColor>
         <Ranges>
           <Range>
             <StartPoint>
@@ -3044,7 +3042,6 @@
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
-        <OutlineColor>255:173:173:173</OutlineColor>
         <Ranges>
           <Range>
             <StartPoint>
@@ -3074,19 +3071,124 @@
   <Project>
     <Main_File>main.bmx</Main_File>
     <Included_File>
-      <FileName>media\particle.csv</FileName>
+      <FileName>Mocks\TParticleActorMOCK.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
         <X>0</X>
-        <Y>0</Y>
+        <Y>7</Y>
       </Caret_Position>
       <SplitVisible>false</SplitVisible>
       <SplitVertical>false</SplitVertical>
-      <SplitSize>0</SplitSize>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges>
+          <Range>
+            <StartPoint>
+              <X>23</X>
+              <Y>1</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>8</X>
+              <Y>6</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>0</Level>
+          </Range>
+          <Range>
+            <StartPoint>
+              <X>42</X>
+              <Y>3</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>11</X>
+              <Y>4</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>1</Level>
+          </Range>
+        </Ranges>
+      </Folding>
+    </Included_File>
+    <Included_File>
+      <FileName>Mocks\TValueMOCK.bmx</FileName>
+      <Document_Active>false</Document_Active>
+      <Caret_Position>
+        <X>0</X>
+        <Y>15</Y>
+      </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <Ranges>
+          <Range>
+            <StartPoint>
+              <X>15</X>
+              <Y>0</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>8</X>
+              <Y>14</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>0</Level>
+          </Range>
+          <Range>
+            <StartPoint>
+              <X>25</X>
+              <Y>2</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>11</X>
+              <Y>3</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>1</Level>
+          </Range>
+          <Range>
+            <StartPoint>
+              <X>20</X>
+              <Y>5</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>11</X>
+              <Y>6</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>1</Level>
+          </Range>
+          <Range>
+            <StartPoint>
+              <X>23</X>
+              <Y>8</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>11</X>
+              <Y>9</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>1</Level>
+          </Range>
+          <Range>
+            <StartPoint>
+              <X>21</X>
+              <Y>11</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>11</X>
+              <Y>12</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>1</Level>
+          </Range>
+        </Ranges>
+      </Folding>
     </Included_File>
     <Included_File>
       <FileName>floatValueTest.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
         <X>0</X>
         <Y>23</Y>
@@ -3166,7 +3268,7 @@
       <Document_Active>true</Document_Active>
       <Caret_Position>
         <X>0</X>
-        <Y>28</Y>
+        <Y>21</Y>
       </Caret_Position>
       <SplitVisible>false</SplitVisible>
       <SplitVertical>false</SplitVertical>
@@ -3192,10 +3294,10 @@
     </Included_File>
     <Included_File>
       <FileName>managerTest.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>1</X>
+        <Y>23</Y>
       </Caret_Position>
       <SplitVisible>false</SplitVisible>
       <SplitVertical>false</SplitVertical>
@@ -3316,126 +3418,8 @@
       </Folding>
     </Included_File>
     <Included_File>
-      <FileName>Mocks\TParticleActorMOCK.bmx</FileName>
-      <Document_Active>false</Document_Active>
-      <Caret_Position>
-        <X>0</X>
-        <Y>7</Y>
-      </Caret_Position>
-      <SplitVisible>false</SplitVisible>
-      <SplitVertical>false</SplitVertical>
-      <SplitSize>138</SplitSize>
-      <Folding>
-        <AllowOutlining>true</AllowOutlining>
-        <OutlineColor>255:173:173:173</OutlineColor>
-        <Ranges>
-          <Range>
-            <StartPoint>
-              <X>23</X>
-              <Y>1</Y>
-            </StartPoint>
-            <EndPoint>
-              <X>8</X>
-              <Y>6</Y>
-            </EndPoint>
-            <Visible>true</Visible>
-            <Level>0</Level>
-          </Range>
-          <Range>
-            <StartPoint>
-              <X>42</X>
-              <Y>3</Y>
-            </StartPoint>
-            <EndPoint>
-              <X>11</X>
-              <Y>4</Y>
-            </EndPoint>
-            <Visible>true</Visible>
-            <Level>1</Level>
-          </Range>
-        </Ranges>
-      </Folding>
-    </Included_File>
-    <Included_File>
-      <FileName>Mocks\TValueMOCK.bmx</FileName>
-      <Document_Active>false</Document_Active>
-      <Caret_Position>
-        <X>0</X>
-        <Y>15</Y>
-      </Caret_Position>
-      <SplitVisible>false</SplitVisible>
-      <SplitVertical>false</SplitVertical>
-      <SplitSize>138</SplitSize>
-      <Folding>
-        <AllowOutlining>true</AllowOutlining>
-        <OutlineColor>255:173:173:173</OutlineColor>
-        <Ranges>
-          <Range>
-            <StartPoint>
-              <X>15</X>
-              <Y>0</Y>
-            </StartPoint>
-            <EndPoint>
-              <X>8</X>
-              <Y>14</Y>
-            </EndPoint>
-            <Visible>true</Visible>
-            <Level>0</Level>
-          </Range>
-          <Range>
-            <StartPoint>
-              <X>25</X>
-              <Y>2</Y>
-            </StartPoint>
-            <EndPoint>
-              <X>11</X>
-              <Y>3</Y>
-            </EndPoint>
-            <Visible>true</Visible>
-            <Level>1</Level>
-          </Range>
-          <Range>
-            <StartPoint>
-              <X>20</X>
-              <Y>5</Y>
-            </StartPoint>
-            <EndPoint>
-              <X>11</X>
-              <Y>6</Y>
-            </EndPoint>
-            <Visible>true</Visible>
-            <Level>1</Level>
-          </Range>
-          <Range>
-            <StartPoint>
-              <X>23</X>
-              <Y>8</Y>
-            </StartPoint>
-            <EndPoint>
-              <X>11</X>
-              <Y>9</Y>
-            </EndPoint>
-            <Visible>true</Visible>
-            <Level>1</Level>
-          </Range>
-          <Range>
-            <StartPoint>
-              <X>21</X>
-              <Y>11</Y>
-            </StartPoint>
-            <EndPoint>
-              <X>11</X>
-              <Y>12</Y>
-            </EndPoint>
-            <Visible>true</Visible>
-            <Level>1</Level>
-          </Range>
-        </Ranges>
-      </Folding>
-    </Included_File>
-    <Included_File>
       <FileName>particleActorTest.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
         <X>41</X>
         <Y>15</Y>
@@ -3488,10 +3472,10 @@
     </Included_File>
     <Included_File>
       <FileName>particleTest.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>19</X>
-        <Y>7</Y>
+        <X>2</X>
+        <Y>18</Y>
       </Caret_Position>
       <SplitVisible>false</SplitVisible>
       <SplitVertical>false</SplitVertical>
@@ -3553,7 +3537,7 @@
     </Included_File>
     <Included_File>
       <FileName>valueTest.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
         <X>0</X>
         <Y>8</Y>

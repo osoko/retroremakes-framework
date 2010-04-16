@@ -192,7 +192,7 @@ Type TActor Extends TRenderable Abstract
 		_animationManager = New TAnimationManager
 		_animationManager.SetActor(Self)
 
-		_blendMode = brl.max2d.GetBlend()
+		'_blendMode = brl.max2d.GetBlend()
 		_colour = New TColourRGB
 		_currentPosition = New TVector2D
 		_previousPosition = New TVector2D
