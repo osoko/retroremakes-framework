@@ -210,7 +210,7 @@ Type TConsole Extends TGameService
 				Case 13 'Return
 					If (Len(inputField)>0)
 					
-						Local cmdList:TList = rrSplitString(inputField, " ")
+						Local cmdList:TList = New TList.FromArray(inputField.Split(" "))
 						Local args:String[] = New String[cmdList.Count()-1]
 						Local cmd:String = String(cmdList.ValueAtIndex(0))
 						
@@ -426,8 +426,8 @@ End If
 		
 		While (Not Eof(fh))
 		
-			Local cmdList:TList = rrSplitString(ReadLine(fh), " ")
-			Local fargs:String[] = New String[cmdList.Count()-1]
+			Local cmdList:TList = New TList.FromArray(ReadLine(fh).Split(" "))
+			Local fargs:String[] = New String[cmdList.Count() - 1]
 			Local cmd:String = String(cmdList.ValueAtIndex(0))
 			
 			If (cmdList.Count() > 1)
