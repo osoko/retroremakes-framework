@@ -11,45 +11,6 @@ endrem
 
 ' Various Graphical Helper Functions
 
-rem
-bbdoc: Create a packed 32bit RGBA colour value
-about:
-Takes @red, @green, @blue and @alpha values which should be in the range of 0 to 255
-endrem
-Function rrMakeRGBA:Int(red:Int, green:Int, blue:Int, alpha:Int)
-	Return (red Shl 24 | (green & $ff) Shl 16 | (blue & $ff) Shl 8 | (alpha & $ff))
-EndFunction
-
-rem
-bbdoc: Unpack a packed 32bit RGBA colour value
-about:
-Sets the provided @red, @green, @blue and @alpha variables to the values in the 32bit RGBA colour value
-endrem
-Function rrUnpackRGBA(packedColour:Int Var, red:Int Var, green:Int Var, blue:Int Var, alpha:Float Var)
-	red = (packedColour Shr 24) & $ff
-	green = (packedColour Shr 16) & $ff
-	blue = (packedColour Shr 8) & $ff
-	alpha = Float((packedColour) & $ff) / 255.0
-EndFunction
-
-rem
-bbdoc: Sets the Colour and Alpha values to those in a 32bit RGBA colour value
-about:
-Sets the Colour and Alpha values to those unpacked from a 32bit RGBA colour value
-endrem
-Function rrSetRGBA(packedColour:Int)
-	Local red:Int
-	Local green:Int
-	Local blue:Int
-	Local alpha:Float
-	
-	rrUnpackRGBA(packedColour, red, green, blue, alpha)
-
-	SetColor red, green, blue
-	SetAlpha alpha
-EndFunction
-
-
 Rem
 bbdoc:Draws a polygon at the specified coordinates.
 returns:
