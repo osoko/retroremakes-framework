@@ -1,0 +1,16 @@
+# use glob syntax.
+syntax: glob
+
+*.orig
+
+*.log
+*.exe
+*.ini
+
+*.i
+*.a
+*.o
+*.s
+*.layout
+commands.html
+glob:*.bak
