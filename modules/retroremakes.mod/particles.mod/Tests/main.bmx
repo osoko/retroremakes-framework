@@ -17,9 +17,9 @@ Import retroremakes.particles
 Include "valueTest.bmx"
 Include "floatValueTest.bmx"
 Include "colorValueTest.bmx"
-'Include "managerTest.bmx"
-'Include "particleActorTest.bmx"
-'Include "particleTest.bmx"
+Include "particleActorTest.bmx"
+Include "particleTest.bmx"
+Include "managerTest.bmx"
 
 ' Mocks used by the tests
 Include "Mocks/TValueMOCK.bmx"

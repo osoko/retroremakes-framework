@@ -144,7 +144,7 @@ Type TParticleEmitter Extends TParticleActor
 			Select a[0].ToLower()
 			
 				Case "id" _libraryID = a[1]
-				Case "name" _name = a[1]
+				Case "name" _editorName = a[1]
 				Case "gamename" _gameName = a[1]
 				Case "desc" _description = a[1]
 				Case "spawndelay" _spawnDelay = Int(a[1])

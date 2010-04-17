@@ -115,7 +115,7 @@ Type TParticle Extends TParticleActor
 			Select a[0].ToLower()
 				Case "id" _libraryID = a[1]
 				Case "desc" _description = a[1]
-				Case "name" _name = a[1]
+				Case "name" _editorName = a[1]
 				Case "imageid" _imageID = a[1]
 				Case "frame" _imageFrame = Int(a[1])
 				Case "friction" _friction = Float(a[1])
