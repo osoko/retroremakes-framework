@@ -119,11 +119,10 @@ Type particleActorTest Extends TTest
 		'use applyphysics() in MOCK
 		p.ApplyPhysics()
 		
-
 		Local result:Tvector2D = p.GetVelocity()
-		assertEqualsF(0.9, result.x)
-		assertEqualsF(1.9, result.y)
-			
+		assertEqualsF(1.0 * 0.9, result.x)
+		assertEqualsF(2.0 * 0.9, result.y)
+		
 	End Method
 	
 	' can we add a child, and will it know its parent?

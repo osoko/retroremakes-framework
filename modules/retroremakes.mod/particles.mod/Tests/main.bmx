@@ -18,8 +18,10 @@ Include "valueTest.bmx"
 Include "floatValueTest.bmx"
 Include "colorValueTest.bmx"
 Include "particleActorTest.bmx"
-Include "particleTest.bmx"
-Include "managerTest.bmx"
+Include "particleImageTest.bmx"
+'Include "particleTest.bmx"
+'Include "particleLibraryTest.bmx"
+Include "libraryConfigurationTest.bmx"
 
 ' Mocks used by the tests
 Include "Mocks/TValueMOCK.bmx"

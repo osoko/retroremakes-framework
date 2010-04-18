@@ -14,10 +14,10 @@ Type particleTest Extends TTest
 	End Method
 	
 	' Can we set the particle properties using a config string?
-	Method testSetProperties() {test}
-		Local result:Int = p.SetProperties("id=1,desc=Test Particle")
-		assertTrue(result)
-	End Method
+'	Method testSetProperties() {test}
+'		Local result:Int = p.SetProperties("id=1,desc=Test Particle")
+'		assertTrue(result)
+'	End Method
 
 End Type
 
