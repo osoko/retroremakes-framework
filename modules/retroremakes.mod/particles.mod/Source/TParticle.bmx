@@ -9,7 +9,6 @@ Rem
 '
 endrem
 
-
 rem
 	bbdoc:customizable particle
 endrem
@@ -29,20 +28,24 @@ Type TParticle Extends TParticleActor
 	
 	'changeable alpha over time
 	Field _alpha:TFloatValue
-	
-	'parent of this particle. override field from TParticleActor as particles only have emitters as parent
-	Field _parent:TParticleEmitter
 
+	' length of the array used in import and export settings
+	Field settingsLength:Int = 9
+		
+	
+	
 	rem
-		bbdoc:default contructor
+	bbdoc: Default contructor
 	endrem	
 	Method New()
 		_color = New TColorValue
 		_alpha = New TFloatValue
 	End Method
 	
+	
+	
 	rem
-		bbdoc:updates particle settings
+	bbdoc: Updates particle
 	endrem
 	Method Update()
 		_color.Update()
@@ -52,9 +55,21 @@ Type TParticle Extends TParticleActor
 		Super.Update()
 		
 	End Method
-
+	
+	
+	
 	rem
-		bbdoc:draws the particle on its current position
+	bbdoc: Sets reference to image
+	about: Called by the library for post processing.
+	endrem
+	Method SetImage()
+	
+	End Method
+
+	
+	
+	rem
+	bbdoc: Render particle
 	endrem
 	Method Render(tweening:Double, fixed:Int = False)
 		Interpolate(tweening)
@@ -74,72 +89,48 @@ Type TParticle Extends TParticleActor
 	
 	
 	rem
-		bbdoc: Sets particle properties using configuration text
-		about: not complete yet, will replace LoadConfiguration()
-		returns: True if all properties were set
+	bbdoc: Imports particle settings from an string array
 	endrem
-	Method SetProperties:Int(values:String)
-		values.Trim()
-		Local array:String[] = values.Split(",")
-		Local index:Int = 0
-		Local property:String[]
+	Method ImportSettings(settings:String[])
+		If settings.length <> settingsLength Then Throw "Particle array not complete!"
 		
-		While index < array.Length
-			property = array[index].Split("=")
-			Select property[0].ToLower()
-				Case "id"
-					_libraryID = property[1]
-				Case "desc"
-					_description = property[1]
-				Default
-					Return False
-			End Select
-		Wend
+		_libraryID = settings[1]
+		_editorName = settings[2]
+		_description = settings[3]
+		_imageID = settings[4]
+		_imageFrame = Int(settings[5])
+		_friction = Float(settings[6])
+		_life = Int(settings[7])
+		_blendMode = Int(settings[8])
 		
-		Return True
-	
-	End Method
-	
-	
-	
-	rem
-		bbdoc: Loads particle settings from passsed stream
-		about: The settings have been saved from the editor into a configuration file
-	endrem
-	Method LoadConfiguration(s:TStream)
-		Local l:String, a:String[]
-		l = s.ReadLine()
-		l.Trim()
-		While l <> "#endparticle"
-			a = l.split("=")
-			Select a[0].ToLower()
-				Case "id" _libraryID = a[1]
-				Case "desc" _description = a[1]
-				Case "name" _editorName = a[1]
-				Case "imageid" _imageID = a[1]
-				Case "frame" _imageFrame = Int(a[1])
-				Case "friction" _friction = Float(a[1])
-				Case "life" _life = Int(a[1])
-				Case "blend" _blendMode = Int(a[1])
+		'slice up array to get float and color arrays
+		Local index:Int = 9
+		Local slice:String[]
 				
-				Case "#color" _color.LoadConfiguration(s)
-				Case "#rotation" _rotation.LoadConfiguration(s)
-				Case "#alpha" _alpha.LoadConfiguration(s)
-				Case "#sizex" _sizeX.LoadConfiguration(s)
-				Case "#sizey" _sizeY.LoadConfiguration(s)
-
-				Default Throw "load: particle parameter not known: " + l
-			End Select
-			l = s.ReadLine()
-			l.Trim()
-		Wend
+		slice = settings[index..index + 6]
+		_rotation.ImportSettings(slice)
+		
+		index:+7
+		slice = settings[index..index + 6]
+		_alpha.ImportSettings(slice)
+		
+		index:+7
+		slice = settings[index..index + 6]
+		_sizeX.ImportSettings(slice)
+		
+		index:+7
+		slice = settings[index..index + 6]
+		_sizeY.ImportSettings(slice)
+		
+		index:+7
+'		_color.ImportSettings(slice)
 	End Method
 	
+
+	
 	rem
-		bbdoc:creates an exact copy of this particle
-		about:mainly used by emitter to create particles
-		does not copy libraryID
-		returns:TParticle
+		bbdoc: Creates an exact copy of this particle
+		returns: TParticle
 	endrem
 	Method Clone:TParticle()
 
@@ -160,14 +151,6 @@ Type TParticle Extends TParticleActor
 		p._sizeY = _sizeY.Clone()
 		
 		Return p
-	End Method
-
-	rem
-		bbdoc:returns particle parent
-		returns:TParticleEmitter
-	endrem
-	Method GetParent:TParticleEmitter()
-		Return _parent
 	End Method
 	
 End Type

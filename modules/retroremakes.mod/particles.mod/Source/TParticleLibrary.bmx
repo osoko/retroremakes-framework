@@ -50,7 +50,7 @@ Type TParticleLibrary
 					
 				Case "#particle"
 					Local p:TParticle = New TParticle
-					p.LoadConfiguration(in)
+					'p.LoadConfiguration(in)
 					_StoreObject(p, p._libraryID)
 					
 				Case "#effect"

@@ -106,16 +106,88 @@ Type floatValueTest Extends TTest
 	
 	'can we fix the float at a value?
 	Method testFix() {test}
-		f.SetCurrentValue(1.0)
 		f.Fix(3.0)
 		
 		assertFalse(f.GetActive())
 		assertEqualsF(3.0, f.GetCurrentValue())
 		
+		f.Update()
+		assertEqualsF(3.0, f.GetCurrentValue())
+		
+	End Method
+		
+	'does import throw exception when array header is not ok?
+	Method testDoesImportThrowExceptionOnBadLabel() {test}
+		Local array:String[7]
+		array[0] = "float_baaaad"
+		
+		Try
+			f.ImportSettings(array)
+		Catch result:String
+			assertEquals("Array not a float array!", result)
+		End Try
+		
+	End Method
+
+	'does import throw exception when array length is not ok?	
+	Method testDoesImportThrowExceptionOnWrongLength() {test}
+		Local array:String[18]
+		array[0] = "float"
+		
+		Try
+			f.ImportSettings(array)
+		Catch result:String
+			assertEquals("Float array not complete!", result)
+		End Try
 	End Method
 	
-	'can we load settings from string?
+	'can we import settings from array?
+	Method testImportSettings() {test}
 	
+		Local array:String[7]
+		array[0] = "float"
+		array[1] = "1"
+		array[2] = String(BEHAVIOUR_REPEAT)
+		array[3] = "10"
+		array[4] = "2.0"
+		array[5] = "3.0"
+		array[6] = "0.2"
+		
+		f.ImportSettings(array)
+		
+		assertEqualsI(True, f.GetActive())
+		assertEqualsI(BEHAVIOUR_REPEAT, f.GetBehaviour())
+		assertEqualsF(1.0, f.GetActive())
+		assertEqualsI(10, f.GetCountDown())
+		assertEqualsF(2.0, f.GetStartValue())
+		assertEqualsF(3.0, f.GetEndValue())
+		assertEqualsF(0.2, f.GetChangeAmount())
+	
+	End Method
+	
+	'can we export settings to array?
+	Method testExportSettings() {test}
+	
+		Local array:String[7]
+		array[0] = "float"
+		array[1] = "1"
+		array[2] = String(BEHAVIOUR_REPEAT)
+		array[3] = "10"
+		array[4] = "2.0"
+		array[5] = "3.0"
+		array[6] = "0.2"
+		
+		f.ImportSettings(array)
+		Local array2:String[] = f.ExportSettings()
+		
+		assertEquals("float", array2[0])
+		assertEquals("1", array2[1])
+		assertEqualsI(BEHAVIOUR_REPEAT, Int(array2[2]))
+		assertEqualsI(10, Int(array2[3]))
+		assertEqualsF(2.0, Float(array2[4]))
+		assertEqualsF(3.0, Float(array2[5]))
+		assertEqualsF(0.2, Float(array2[6]))
+	End Method	
 	
 	
 End Type

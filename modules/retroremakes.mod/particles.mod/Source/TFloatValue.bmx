@@ -19,7 +19,8 @@ Type TFloatValue Extends TValue
 	Field _currentValue:Float
 	Field _previousValue:Float
 
-
+	' length of the array used in import and export settings
+	Field settingsLength:Int = 7
 			
 	rem
 		bbdoc: Updates the value
@@ -192,7 +193,7 @@ Type TFloatValue Extends TValue
 	
 
 	rem
-		bbdoc: creates a clone of this float value
+		bbdoc: Creates a clone of this float value
 		returns: TFloatValue
 	endrem
 	Method Clone:TFloatValue()
@@ -207,29 +208,40 @@ Type TFloatValue Extends TValue
 		'f.ResetValue()
 		Return f
 	End Method	
-		
 	
 
-	Method LoadConfiguration(s:TStream)
-		Local l:String, a:String[]
-		l = s.ReadLine()
-		l.Trim()
-		While l <> "#endfloat"
-			a = l.split("=")
-			Select a[0].ToLower()
-				Case "active" _active = Int(a[1])
-				Case "behaviour" _behaviour = Int(a[1])
-				Case "countdown" _countdown_left = Int(a[1])
-				Case "start" _startValue = Float(a[1])
-				Case "end" _endValue = Float(a[1])
-				Case "change" _changeAmount = Float(a[1])
-				Case "random"
-				Default Throw l
-			End Select
-			l = s.ReadLine()
-			l.Trim()
-		Wend
-		ResetValue()
+	
+	rem
+	bbdoc: Imports Float settings from a string array
+	endrem	
+	Method ImportSettings(settings:String[])
+		If settings.length <> settingsLength Then Throw "Float array not complete!"
+		If settings[0] <> "float" Then Throw "Array not a float array!"
+		
+		_active = Int(settings[1])
+		_behaviour = Int(settings[2])
+		_countdown_left = Int(settings[3])
+		_startValue = Float(settings[4])
+		_endValue = Float(settings[5])
+		_changeAmount = Float(settings[6])
 	End Method
-
+	
+	
+	
+	rem
+	bbdoc: Exports Float settings to a string array
+	returns: String array
+	endrem	
+	Method ExportSettings:String[] ()
+		Local settings:String[settingsLength]
+		settings[0] = "float"
+		settings[1] = String(_active)
+		settings[2] = String(_behaviour)
+		settings[3] = String(_countdown_left)
+		settings[4] = String(_startValue)
+		settings[5] = String(_endValue)
+		settings[6] = String(_changeAmount)
+		Return settings
+	End Method
+	
 End Type

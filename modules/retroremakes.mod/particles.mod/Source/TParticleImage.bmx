@@ -121,6 +121,7 @@ Type TParticleImage
 	endrem
 	Method ImportSettings(settings:String[])
 		If settings.length <> settingsLength Then Throw "Image array not complete!"
+		If settings[0] <> "image" Then Throw "Array not an Image array!"
 		
 		_libraryID = settings[1]
 		_editorName = settings[2]
@@ -136,9 +137,10 @@ Type TParticleImage
 	
 	rem
 	bbdoc: Exports image settings to a string array
+	returns: String array
 	endrem
 	Method ExportSettings:String[] ()
-		Local settings:String[8]
+		Local settings:String[settingsLength]
 		settings[0] = "image"
 		settings[1] = _libraryID
 		settings[2] = _editorName

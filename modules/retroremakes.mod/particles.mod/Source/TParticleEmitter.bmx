@@ -159,12 +159,12 @@ Type TParticleEmitter Extends TParticleActor
 				Case "shape" _shape = Int(a[1])
 				Case "friction" _friction = Float(a[1])
 				Case "spawn" _spawnID = a[1]					' store id. post processing is done in TParticleLibrary.bmx
-				Case "#rotation" _rotation.LoadConfiguration(s)
-				Case "#sizex" _sizeX.LoadConfiguration(s)
-				Case "#sizey" _sizeY.LoadConfiguration(s)
-				Case "#spawnscale" _spawnSize.LoadConfiguration(s)
-				Case "#offsetx" _offsetX.LoadConfiguration(s)
-				Case "#offsety" _offsetY.LoadConfiguration(s)
+'				Case "#rotation" _rotation.LoadConfiguration(s)
+'				Case "#sizex" _sizeX.LoadConfiguration(s)
+'				Case "#sizey" _sizeY.LoadConfiguration(s)
+'				Case "#spawnscale" _spawnSize.LoadConfiguration(s)
+'				Case "#offsetx" _offsetX.LoadConfiguration(s)
+'				Case "#offsety" _offsetY.LoadConfiguration(s)
 				Default Throw "emitter parameter not found: " + l
 			End Select
 			l = s.ReadLine()
