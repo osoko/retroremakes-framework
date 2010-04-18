@@ -32,50 +32,11 @@ Type TLibraryConfiguration
 		If Not library Then Throw("No configuration loaded!")
 		Return library
 	End Method
-
-	
-	rem
-	bbdoc: Loads library configuration file and adds objects to the library
-	endrem
-	Method ReadConfiguration:Int(filename:String)
-	
-		Local fileHandle:TStream = ReadFile(filename)
-		If Not fileHandle Then Return False
-		
-		If Not library
-			library = New TMap
-		Else
-			library.Clear()
-		EndIf
-		
-		While Not Eof(fileHandle)
-			Local line:String = Trim(ReadLine(fileHandle))
-			
-			'ignore blank lines
-			If line = "" Then Continue
-			
-			Local settings:String[] = line.Split(",")
-			Select settings[0]
-				Case "image"
-					ImportImage(settings)
-				Case "particle"
-				
-			End Select
-			
-		Wend
-				
-		CloseFile(fileHandle)
-		configurationName = filename
-		
-		'do post process
-		
-		Return True
-	End Method
 	
 	
 	
 	rem
-	bbdoc: Adds particle world settings to the library map
+	bbdoc: Adds particle world settings to the library
 	about: These settings are stored with the id "world"
 	endrem
 	Method AddWorld(settings:String)
@@ -85,7 +46,7 @@ Type TLibraryConfiguration
 
 	
 	rem
-	bbdoc: Adds an image to the library map
+	bbdoc: Adds an image to the library
 	about: a blank TParticleImage is added if no settings are specified
 	endrem
 	Method AddImage(settings:String[] = Null)
@@ -97,19 +58,19 @@ Type TLibraryConfiguration
 	
 	
 	rem
-	bbdoc: Adds a particle to the library map
+	bbdoc: Adds a particle to the library
 	about: a blank TParticle is added if no settings are specified
 	endrem
 	Method AddParticle(settings:String[] = Null)
-'		Local p:TParticle = New TParticle
-'		If settings Then p.ImportSettings(settings)
-'		StoreObject(p, p.GetID())
+		Local p:TParticle = New TParticle
+		If settings Then p.ImportSettings(settings)
+		StoreObject(p, p.GetID())
 	End Method
 	
 	
 	
 	rem
-	bbdoc: Stores an object in the library map
+	bbdoc: Stores an object in the library
 	endrem
 	Method StoreObject(o:Object, id:String)
 		library.Insert(id, o)
@@ -129,10 +90,51 @@ Type TLibraryConfiguration
 	
 	
 	rem
+	bbdoc: Loads library configuration file and adds objects to the library
+	endrem
+	Method ReadConfiguration:Int(filename:String)
+	
+		Local fileHandle:TStream = ReadFile(filename)
+		If Not fileHandle Then Return False
+		
+		If Not library
+			library = New TMap
+		Else
+			library.Clear()
+		EndIf
+		
+		While Not Eof(fileHandle)
+			Local line:String = Trim(ReadLine(fileHandle))
+			
+			'ignore blank lines and comments
+			If line = "" Then Continue
+			If line[0] = "#" Then Continue
+			
+			Local settings:String[] = line.Split(",")
+			Select settings[0]
+				Case "image"
+					AddImage(settings)
+				Case "particle"
+					AddParticle(settings)
+			End Select
+			
+		Wend
+				
+		CloseFile(fileHandle)
+		configurationName = filename
+		
+		'do post process
+		
+		Return True
+	End Method		
+	
+	
+	
+	rem
 	bbdoc: Saves the library configuration to a file
 	about: The current configuration name is used if no filename is given
 	endrem	
-	Method SaveConfiguration:Int(filename:String = "")
+	Method WriteConfiguration:Int(filename:String = "")
 	
 		If filename = "" Then filename = configurationName
 		
@@ -142,7 +144,5 @@ Type TLibraryConfiguration
 		
 		Return True
 	End Method
-	
-	
 
 End Type

@@ -8,6 +8,10 @@ Type particleTest Extends TTest
 		p = New TParticle
 	End Method
 	
+	Method cleanup() {after}
+		p = Null
+	End Method
+	
 	' Can we create a particle?
 	Method testCreateParticle() {test}
 		assertNotNull(p)
