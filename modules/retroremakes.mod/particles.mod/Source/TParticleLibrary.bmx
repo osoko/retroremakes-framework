@@ -1,6 +1,6 @@
 Rem
 '
-' Copyright (c) 2007-2009 Wiebo de Wit <wiebo.de.wit@gmail.com>.
+' Copyright (c) 2007-2010 Wiebo de Wit <wiebo.de.wit@gmail.com>.
 '
 ' All rights reserved. Use of this code is allowed under the
 ' Artistic License 2.0 terms, as specified in the LICENSE file
@@ -11,24 +11,30 @@ endrem
 
 
 rem
-	bbdoc: library for particle engine
-	about: particle objects (particles, emitter, effects) are stored in this library, ready
-	to be called by the game engine
+bbdoc: object library for particle engine
 endrem
 Type TParticleLibrary
 
 	'objects are stored in this tmap, using the _libraryID or _gameName fields as labels.
 	Field _objectMap:TMap
-
+	
+	Field _configuration:TLibraryConfiguration
+	
+	'last loaded configuration file
+	Field _configurationName:String
+	
+	
 	rem
-		bbdoc:default constructor
+	bbdoc: Default constructor
 	endrem
 	Method New()
 		_objectMap = New TMap
 	End Method
 	
+	
+	
 	rem
-		bbdoc:loads the configuration file for the library
+	bbdoc: Loads the configuration file for the library
 	endrem
 	Method LoadConfiguration:Int(name:String)
 		Local in:TStream = ReadStream(name)
@@ -39,7 +45,7 @@ Type TParticleLibrary
 			Select line.ToLower()
 				Case "#image"
 					Local i:TParticleImage = New TParticleImage
-					i.LoadConfiguration(in)
+	'				i.LoadConfiguration(in)
 					_StoreObject(i, i._libraryID)
 					
 				Case "#particle"
@@ -85,13 +91,17 @@ Type TParticleLibrary
 		Return 1
 	End Method
 	
+	
+	
 	rem
-		bbdoc: clears the library configuration
+	bbdoc: clears the library configuration
 	endrem	
 	Method Clear()
 		_objectMap.Clear()
 	End Method
 
+	
+	
 	Method CloneEmitter:TParticleEmitter(name:String)', x:Float, y:Float, parent:Object = Null)
 		Local source:TParticleEmitter = TParticleEmitter(Self.GetObject(name))
 		If source = Null Then Throw "Cannot find emitter: " + name
@@ -110,16 +120,23 @@ rem
 	End Method
 endrem
 	
-	'**** RETRIEVAL METHODS *****
+	
 
+
+	rem
+	bbdoc: Returns an object from the library, using the id string.
+	endrem
 	Method GetObject:Object(id:String)
 		Local o:Object = MapValueForKey( _objectMap, id)
 		If o = Null Then Throw "Library does not contain object with id : " + id
 		Return o
 	End Method
 
-	'***** PRIVATE *****
 
+	
+	rem
+	bbdoc: Stores an object in the library, using the id string as identifier
+	endrem
 	Method _StoreObject(o:Object, id:String)
 		MapInsert( _objectMap, id, o )
 	End Method
