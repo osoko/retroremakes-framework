@@ -168,7 +168,7 @@ Type TLoopedAnimation Extends TAnimation
 			_loopCount = count
 			_loopsRemaining = _loopCount
 		Else
-			Throw "Loop count must be -1 or > 0."
+			Throw "Loop count must be -1 or > 0"
 		EndIf	
 	End Method
 	
