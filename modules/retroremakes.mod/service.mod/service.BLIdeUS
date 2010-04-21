@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <UnmanagedSolution xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Project>
     <Main_File>service.bmx</Main_File>
@@ -6,8 +6,8 @@
       <FileName>Source\TGameService.bmx</FileName>
       <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>71</X>
+        <Y>20</Y>
       </Caret_Position>
       <SplitVisible>false</SplitVisible>
       <SplitVertical>false</SplitVertical>
@@ -853,8 +853,65 @@
       </Folding>
     </Included_File>
     <Compilation_Mode>GUI_Application</Compilation_Mode>
-    <Context_Directory></Context_Directory>
+    <Context_Directory>\</Context_Directory>
     <Project_Name>service.mod</Project_Name>
+    <BuildStep>2</BuildStep>
+    <Icon_File_Location>C:\Program Files (x86)\BLIde for BlitzMax\blide.ico</Icon_File_Location>
+    <Embed_Os_Theme>true</Embed_Os_Theme>
+    <Publish_as_ConsoleApp>false</Publish_as_ConsoleApp>
+    <Debug_Enabled_Publish>false</Debug_Enabled_Publish>
+    <Publish_NRV_Level>5</Publish_NRV_Level>
+  </Project>
+  <Project>
+    <Main_File>Main.bmx</Main_File>
+    <Included_File>
+      <FileName>Mocks\TGameServiceMOCK.bmx</FileName>
+      <Document_Active>true</Document_Active>
+      <Caret_Position>
+        <X>0</X>
+        <Y>0</Y>
+      </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <OutlineColor>255:173:173:173</OutlineColor>
+        <Ranges>
+          <Range>
+            <StartPoint>
+              <X>21</X>
+              <Y>1</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>8</X>
+              <Y>3</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>0</Level>
+          </Range>
+        </Ranges>
+      </Folding>
+    </Included_File>
+    <Included_File>
+      <FileName>Main.bmx</FileName>
+      <Document_Active>true</Document_Active>
+      <Caret_Position>
+        <X>0</X>
+        <Y>7</Y>
+      </Caret_Position>
+      <SplitVisible>false</SplitVisible>
+      <SplitVertical>false</SplitVertical>
+      <SplitSize>138</SplitSize>
+      <Folding>
+        <AllowOutlining>true</AllowOutlining>
+        <OutlineColor>255:173:173:173</OutlineColor>
+        <Ranges />
+      </Folding>
+    </Included_File>
+    <Compilation_Mode>GUI_Application</Compilation_Mode>
+    <Context_Directory>\Tests\</Context_Directory>
+    <Project_Name>Tests</Project_Name>
     <BuildStep>1</BuildStep>
     <Icon_File_Location>C:\Program Files (x86)\BLIde for BlitzMax\blide.ico</Icon_File_Location>
     <Embed_Os_Theme>true</Embed_Os_Theme>
