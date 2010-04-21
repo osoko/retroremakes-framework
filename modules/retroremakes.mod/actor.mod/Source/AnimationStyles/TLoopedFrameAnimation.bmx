@@ -162,8 +162,12 @@ Type TLoopedFrameAnimation Extends TAnimation
 		about: A value of -1 will loop the animation forever
 	endrem		
 	Method SetLoopCount(count:Int)
-		_loopCount = count
-		_loopsRemaining = _loopCount
+		If count > 0 Or count = -1
+			_loopCount = count
+			_loopsRemaining = _loopCount
+		Else
+			Throw "Loop count must be -1 or > 0"
+		EndIf
 	End Method
 
 	

@@ -20,7 +20,7 @@ Type TLoopedAnimation Extends TAnimation
 	Const DEFAULT_NUM_LOOPS:Int = -1
 	
 	' The number of loops to perform
-	Field _animationLoops:Int
+	Field _loopCount:Int
 	
 	' The active animations in the looop
 	Field _animations:TList
@@ -49,7 +49,7 @@ Type TLoopedAnimation Extends TAnimation
 	Method Copy:TAnimation()
 		Local animation:TLoopedAnimation = New TLoopedAnimation
 		
-		animation._animationLoops = _animationLoops
+		animation._loopCount = _loopCount
 		
 		For Local entry:TAnimation = EachIn _finishedAnimations
 			animation._finishedAnimations.AddLast(entry.Copy())
@@ -120,8 +120,8 @@ Type TLoopedAnimation Extends TAnimation
 		bbdoc: Default constructor
 	endrem
 	Method New()
-		_animationLoops = DEFAULT_NUM_LOOPS
-		_loopsRemaining = _animationLoops
+		_loopCount = DEFAULT_NUM_LOOPS
+		_loopsRemaining = _loopCount
 		_animations = New TList
 		_finishedAnimations = New TList
 	End Method
@@ -153,7 +153,7 @@ Type TLoopedAnimation Extends TAnimation
 		bbdoc: Reset the animation
 	endrem
 	Method Reset()
-		_loopsRemaining = _animationLoops
+		_loopsRemaining = _loopCount
 		LoopReset()
 		Super.Reset()
 	End Method
@@ -163,8 +163,13 @@ Type TLoopedAnimation Extends TAnimation
 	rem
 		bbdoc: Set the amount of loops to perform
 	endrem
-	Method SetAnimationLoops(value:Int)
-		_animationLoops = value
+	Method SetLoopCount(count:Int)
+		If count > 0 Or count = -1
+			_loopCount = count
+			_loopsRemaining = _loopCount
+		Else
+			Throw "Loop count must be -1 or > 0."
+		EndIf	
 	End Method
 	
 
