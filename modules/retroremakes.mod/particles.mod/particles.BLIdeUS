@@ -596,7 +596,7 @@
     </Included_File>
     <Included_File>
       <FileName>Source\TFloatValue.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
         <X>22</X>
         <Y>232</Y>
@@ -606,7 +606,7 @@
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
-        <OutlineColor>255:70:150:176</OutlineColor>
+        <OutlineColor>255:173:173:173</OutlineColor>
         <Ranges>
           <Range>
             <StartPoint>
@@ -1153,7 +1153,7 @@
     </Included_File>
     <Included_File>
       <FileName>Source\TLibraryConfiguration.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
         <X>1</X>
         <Y>34</Y>
@@ -1163,7 +1163,7 @@
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
-        <OutlineColor>255:70:150:176</OutlineColor>
+        <OutlineColor>255:173:173:173</OutlineColor>
         <Ranges>
           <Range>
             <StartPoint>
@@ -1518,7 +1518,7 @@
     </Included_File>
     <Included_File>
       <FileName>Source\TParticle.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
         <X>10</X>
         <Y>152</Y>
@@ -1528,7 +1528,7 @@
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
-        <OutlineColor>255:70:150:176</OutlineColor>
+        <OutlineColor>255:173:173:173</OutlineColor>
         <Ranges>
           <Range>
             <StartPoint>
@@ -1727,7 +1727,7 @@
     </Included_File>
     <Included_File>
       <FileName>Source\TParticleActor.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
         <X>52</X>
         <Y>37</Y>
@@ -1737,7 +1737,7 @@
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
-        <OutlineColor>255:70:150:176</OutlineColor>
+        <OutlineColor>255:173:173:173</OutlineColor>
         <Ranges>
           <Range>
             <StartPoint>
@@ -2681,7 +2681,6 @@
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
-        <OutlineColor>255:70:150:176</OutlineColor>
         <Ranges>
           <Range>
             <StartPoint>
@@ -3096,7 +3095,7 @@
     </Included_File>
     <Included_File>
       <FileName>Source\TParticleImage.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
         <X>11</X>
         <Y>168</Y>
@@ -3106,7 +3105,7 @@
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
-        <OutlineColor>255:70:150:176</OutlineColor>
+        <OutlineColor>255:173:173:173</OutlineColor>
         <Ranges>
           <Range>
             <StartPoint>
@@ -3507,7 +3506,6 @@
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
-        <OutlineColor>255:70:150:176</OutlineColor>
         <Ranges>
           <Range>
             <StartPoint>
@@ -4032,7 +4030,6 @@
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
-        <OutlineColor>255:70:150:176</OutlineColor>
         <Ranges>
           <Range>
             <StartPoint>
@@ -4436,7 +4433,7 @@
     <Publish_NRV_Level>5</Publish_NRV_Level>
   </Project>
   <Project>
-    <Main_File>main.bmx</Main_File>
+    <Main_File>Main.bmx</Main_File>
     <Included_File>
       <FileName>media\stars.png</FileName>
       <Document_Active>false</Document_Active>
@@ -4471,6 +4468,7 @@
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
+        <OutlineColor>255:173:173:173</OutlineColor>
         <Ranges>
           <Range>
             <StartPoint>
@@ -4535,6 +4533,7 @@
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
+        <OutlineColor>255:173:173:173</OutlineColor>
         <Ranges>
           <Range>
             <StartPoint>
@@ -4603,14 +4602,15 @@
       <FileName>colorValueTest.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>24</X>
-        <Y>111</Y>
+        <X>0</X>
+        <Y>67</Y>
       </Caret_Position>
       <SplitVisible>false</SplitVisible>
       <SplitVertical>false</SplitVertical>
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
+        <OutlineColor>255:173:173:173</OutlineColor>
         <Ranges>
           <Range>
             <StartPoint>
@@ -4749,7 +4749,7 @@
     </Included_File>
     <Included_File>
       <FileName>floatValueTest.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
         <X>26</X>
         <Y>34</Y>
@@ -4759,7 +4759,7 @@
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
-        <OutlineColor>255:70:150:176</OutlineColor>
+        <OutlineColor>255:173:173:173</OutlineColor>
         <Ranges>
           <Range>
             <StartPoint>
@@ -4970,7 +4970,7 @@
     </Included_File>
     <Included_File>
       <FileName>libraryConfigurationTest.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
         <X>1</X>
         <Y>12</Y>
@@ -4980,7 +4980,7 @@
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
-        <OutlineColor>255:70:150:176</OutlineColor>
+        <OutlineColor>255:173:173:173</OutlineColor>
         <Ranges>
           <Range>
             <StartPoint>
@@ -5094,18 +5094,18 @@
       </Folding>
     </Included_File>
     <Included_File>
-      <FileName>main.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <FileName>Main.bmx</FileName>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>27</X>
-        <Y>17</Y>
+        <X>11</X>
+        <Y>11</Y>
       </Caret_Position>
       <SplitVisible>false</SplitVisible>
       <SplitVertical>false</SplitVertical>
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
-        <OutlineColor>255:70:150:176</OutlineColor>
+        <OutlineColor>255:173:173:173</OutlineColor>
         <Ranges>
           <Range>
             <StartPoint>
@@ -5134,6 +5134,7 @@
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
+        <OutlineColor>255:173:173:173</OutlineColor>
         <Ranges>
           <Range>
             <StartPoint>
@@ -5258,6 +5259,7 @@
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
+        <OutlineColor>255:173:173:173</OutlineColor>
         <Ranges>
           <Range>
             <StartPoint>
@@ -5504,17 +5506,17 @@
     </Included_File>
     <Included_File>
       <FileName>particleImageTest.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>38</X>
-        <Y>31</Y>
+        <X>36</X>
+        <Y>13</Y>
       </Caret_Position>
       <SplitVisible>false</SplitVisible>
       <SplitVertical>false</SplitVertical>
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
-        <OutlineColor>255:70:150:176</OutlineColor>
+        <OutlineColor>255:173:173:173</OutlineColor>
         <Ranges>
           <Range>
             <StartPoint>
@@ -5675,6 +5677,7 @@
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
+        <OutlineColor>255:173:173:173</OutlineColor>
         <Ranges>
           <Range>
             <StartPoint>
@@ -5751,7 +5754,7 @@
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
-        <OutlineColor>255:70:150:176</OutlineColor>
+        <OutlineColor>255:173:173:173</OutlineColor>
         <Ranges>
           <Range>
             <StartPoint>
@@ -5944,11 +5947,10 @@
     <Context_Directory>\Tests\</Context_Directory>
     <Project_Name>Tests</Project_Name>
     <BuildStep>2</BuildStep>
-    <Icon_File_Location>C:\Program Files (x86)\BLIde for BlitzMax\blide.ico</Icon_File_Location>
-    <Embed_Os_Theme>false</Embed_Os_Theme>
+    <Embed_Os_Theme>true</Embed_Os_Theme>
     <Publish_as_ConsoleApp>false</Publish_as_ConsoleApp>
     <Debug_Enabled_Publish>false</Debug_Enabled_Publish>
-    <Publish_NRV_Level>0</Publish_NRV_Level>
+    <Publish_NRV_Level>5</Publish_NRV_Level>
   </Project>
   <Compiler_Configuration>
     <Quick_Build>false</Quick_Build>
