@@ -119,7 +119,7 @@ Type TTestSuite Extends TAssert
 	Rem
 	bbdoc: Runs the suite of tests.
 	End Rem
-	Method run()
+	Method run:Int()
 		startTime = MilliSecs()
 	
 		_addTests()
@@ -216,6 +216,7 @@ Type TTestSuite Extends TAssert
 		
 		_PrintLine("Time: " + ((endTime - startTime)/1000) + "." + (((endTime - startTime) Mod 1000)))
 	
+		Return e + f
 	End Method
 	
 	Method performTest(t:TTestFunction, First:Int = False, last:Int = False)
