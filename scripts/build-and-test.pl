@@ -87,6 +87,14 @@ sub runCommand
 
 
 
+sub usage
+{
+	print "How you does use it...\n";
+}
+
+
+
+
 if (@ARGV > 0)
 {
     GetOptions ('blitzmax=s' => \$blitzmaxPath);
