@@ -1,12 +1,11 @@
+use strict;
+use warnings;
+
 use Getopt::Long;
 
 our $blitzmaxPath;
 our $binPath;
 our $modulePath;
-
-open (our $logFile, ">build-and-test.log");
-
-
 
 sub compileAndRunTests
 {
@@ -19,26 +18,21 @@ sub compileAndRunTests
 	{
 		my $prefix = "test-$module";
 		
-		logAndPrint ("Building tests for module: $module\n");
+		print "Building tests for module: $module\n";
 		
 		runCommand ("$binPath/bmk makeapp -t gui -o $testsDirectory/$prefix.debug.exe $testsDirectory/Main.bmx");
 		runCommand ("$binPath/bmk makeapp -r -t gui -o $testsDirectory/$prefix.release.exe $testsDirectory/Main.bmx");
 		runCommand ("$binPath/bmk makeapp -h -t gui -o $testsDirectory/$prefix.debug.mt.exe $testsDirectory/Main.bmx");
 		runCommand ("$binPath/bmk makeapp -h -r -t gui -o $testsDirectory/$prefix.release.mt.exe $testsDirectory/Main.bmx");		
 		
-		logAndPrint ("Running tests for module: $module\n\n");
+		print "Running tests for module: $module\n";
 		
-		logAndPrint ("Singled-threaded debug build\n");
-		runCommand ("$testsDirectory/$prefix.debug.exe", 1);
-		
-		logAndPrint ("Singled-threaded release build\n");
-		runCommand ("$testsDirectory/$prefix.release.exe", 1);
-		
-		logAndPrint ("Multi-threaded debug build\n");
-		runCommand ("$testsDirectory/$prefix.debug.mt.exe", 1);
-		
-		logAndPrint ("Multi-threaded release build\n");
-		runCommand ("$testsDirectory/$prefix.release.mt.exe", 1);				
+		print "Singled-threaded debug build\n";
+		runCommand ("$testsDirectory/$prefix.debug.exe");
+	}
+	else
+	{
+		print "Module $module has no tests defined.\n";
 	}
 }
 
@@ -75,50 +69,21 @@ sub findAllModules
 
 
 
-sub logAndPrint
-{
-	my ($message) = @_;
-	
-	print "$message";
-	logToFile ($message);	
-}
-
-
-
-sub logToFile
-{
-	my ($message) = @_;
-	
-	print $logFile "$message";
-}
-
-
-
 sub runCommand
 {
-	my ($cmd, $printToScreen) = @_;
+	my ($cmd) = @_;
 	
-	logToFile ("\nRunning command: $cmd\n");
+	print "Running command: $cmd\n";
 
 	my $returnCode = system ($cmd);
-	print "Return code: $?\n";
 	
-	#open (my $output, "$cmd 2>&1 |") or die "Can't run '$cmd'\n$!\n";
-    #
-    #while (<$output>)
-    #{
-    #	print $logFile $_;
-    #	
-    #	if ($printToScreen)
-    #	{
-    #		print $_;
-    #	}
-    #}
-	#
-    #close $output or die "Command failed: $? : $!";	
+	if ($returnCode)
+	{
+		$returnCode = $returnCode >> 8;
+		print "$cmd exited with code: $returnCode";
+		exit $returnCode;
+	}
 }
-
-
 
 
 
@@ -127,34 +92,37 @@ if (@ARGV > 0)
     GetOptions ('blitzmax=s' => \$blitzmaxPath);
 }
 
+unless ($blitzmaxPath)
+{
+	$blitzmaxPath = $ENV{BLITZMAX};
+}
+
 if (-d $blitzmaxPath)
 {
 	$binPath = $blitzmaxPath . "/bin";
 	$modulePath = $blitzmaxPath . "/mod/retroremakes.mod";
 	
-	logAndPrint "Using BlitzMax directory: $blitzmaxPath\n";
+	print "Using BlitzMax directory: $blitzmaxPath\n";
     
-    logAndPrint "\nBuilding modules...\n";
+	print "\nBuilding modules...\n\n";
     
-    # Build single-threaded debug and release versions of the modules
-	runCommand ("$binPath/bmk makemods retroremakes");
+	# Build single-threaded debug and release versions of the modules
+	runCommand ("$binPath/bmk makemods -a retroremakes");
     
-    # Build multi-threaded debug and release versions of the modules
-	runCommand ("$binPath/bmk makemods -h retroremakes");
+	print "\nCompiling and running unit tests...\n\n";
     
-    logAndPrint "\nCompiling and running unit tests...\n";
+	my @modules = findAllModules ($modulePath);
     
-    my @modules = findAllModules ($modulePath);
-    
-    foreach my $module (@modules)
-    {
-    	compileAndRunTests ($module);
-    }
+	foreach my $module (@modules)
+	{
+		compileAndRunTests ($module);
+	}
+
+	exit 1
 }
 else
 {
-	logAndPrint "No BlitzMax path.";
+	print "No BlitzMax path.";
 	exit 1;
 }
 
-close ($logFile);   
