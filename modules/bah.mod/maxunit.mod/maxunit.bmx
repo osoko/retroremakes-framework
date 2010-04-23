@@ -216,7 +216,7 @@ Type TTestSuite Extends TAssert
 		
 		_PrintLine("Time: " + ((endTime - startTime)/1000) + "." + (((endTime - startTime) Mod 1000)))
 	
-		Return e + f
+		Return f
 	End Method
 	
 	Method performTest(t:TTestFunction, First:Int = False, last:Int = False)
