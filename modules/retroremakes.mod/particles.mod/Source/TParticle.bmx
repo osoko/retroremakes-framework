@@ -10,7 +10,7 @@ Rem
 endrem
 
 rem
-	bbdoc:customizable particle
+	bbdoc: Customizable particle
 endrem
 Type TParticle Extends TParticleActor
 
@@ -31,7 +31,7 @@ Type TParticle Extends TParticleActor
 
 	' length of the array used in import and export settings
 	Field settingsLength:Int = 9
-		
+	
 	
 	
 	rem
@@ -48,12 +48,12 @@ Type TParticle Extends TParticleActor
 	bbdoc: Updates particle
 	endrem
 	Method Update()
-		_color.Update()
-		_alpha.Update()
 
 		'run Update() in TParticleActor
 		Super.Update()
-		
+
+		_color.Update()
+		_alpha.Update()
 	End Method
 	
 	
@@ -62,8 +62,10 @@ Type TParticle Extends TParticleActor
 	bbdoc: Sets reference to image
 	about: Called by the library for post processing.
 	endrem
-	Method SetImage()
+	Method SetImage(library:TLibraryConfiguration)
 	
+		Local i:TParticleImage = TParticleImage(library.GetObject(_imageID))
+		_image = i.GetImage()
 	End Method
 
 	
@@ -123,7 +125,31 @@ Type TParticle Extends TParticleActor
 		_sizeY.ImportSettings(slice)
 		
 		index:+7
-'		_color.ImportSettings(slice)
+		slice = settings[index..index + 11]
+		_color.ImportSettings(slice)
+	End Method
+	
+	
+	rem
+	bbdoc: Exports particle settings to string array
+	returns: String array
+	endrem
+	Method ExportSettings(settings:String[])
+		Local array:String[settingsLength]
+		settings[0] = "particle"
+		settings[1] = _libraryID
+		settings[2] = _editorName
+		settings[3] = _description
+
+		settings[4] = String(_imageID)
+		settings[5] = String(_imageFrame)
+		settings[6] = String(_friction)
+		settings[7] = String(_life)
+		settings[8] = String(_blendMode)
+		
+todo	'how to fill rest!!?!?!?!?!?
+	
+		Return array
 	End Method
 	
 
@@ -139,16 +165,19 @@ Type TParticle Extends TParticleActor
 		p._image = _image
 		p._imageID = _imageID
 		p._imageFrame = _imageFrame
-		If p._imageFrame = -1 Then p._imageFrame = Rand(0, _image.frames.Length)		' -1 is a random frame
+		
+		' -1 is a random frame
+		If p._imageFrame = -1 Then p._imageFrame = Rand(0, _image.frames.Length)
+		
 		p._friction = _friction
 		p._life = _life
 		p._blendMode = _blendMode
 		
-		p._color = _color.Clone()
 		p._rotation = _rotation.Clone()
 		p._alpha = _alpha.Clone()
 		p._sizeX = _sizeX.Clone()
 		p._sizeY = _sizeY.Clone()
+		p._color = _color.Clone()
 		
 		Return p
 	End Method

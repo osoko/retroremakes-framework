@@ -23,6 +23,9 @@ Type TLibraryConfiguration
 	'type containing the 'world' settings (gravity, updatefreq, etc)
 	'Field world:TParticleWorldSettings
 	
+	'id to use when adding a new object to the library
+	Field nextID:Int
+	
 	
 	
 	rem
@@ -48,11 +51,13 @@ Type TLibraryConfiguration
 	rem
 	bbdoc: Adds an image to the library
 	about: a blank TParticleImage is added if no settings are specified
+	returns: the new TParticleImage
 	endrem
-	Method AddImage(settings:String[] = Null)
+	Method AddImage:TParticleImage(settings:String[] = Null)
 		Local i:TParticleImage = New TParticleImage
 		If settings Then i.ImportSettings(settings)
 		StoreObject(i, i.GetID())
+		Return i
 	End Method
 	
 	
@@ -60,11 +65,13 @@ Type TLibraryConfiguration
 	rem
 	bbdoc: Adds a particle to the library
 	about: a blank TParticle is added if no settings are specified
+	returns: the new TParticle
 	endrem
-	Method AddParticle(settings:String[] = Null)
+	Method AddParticle:TParticle(settings:String[] = Null)
 		Local p:TParticle = New TParticle
 		If settings Then p.ImportSettings(settings)
 		StoreObject(p, p.GetID())
+		Return p
 	End Method
 	
 	
@@ -73,7 +80,17 @@ Type TLibraryConfiguration
 	bbdoc: Stores an object in the library
 	endrem
 	Method StoreObject(o:Object, id:String)
+	
+		If id = ""
+			id = String(nextID)
+			TParticleActor(o).SetID(id)
+		EndIf
+		
 		library.Insert(id, o)
+		
+		'advance id counter if needed
+		If Int(id) >= nextID Then nextID = Int(id) + 1
+		
 	End Method
 	
 	
