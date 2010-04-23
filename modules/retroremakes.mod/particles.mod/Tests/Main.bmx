@@ -27,4 +27,4 @@ Include "libraryConfigurationTest.bmx"
 Include "Mocks/TValueMOCK.bmx"
 Include "Mocks/TParticleActorMOCK.bmx"
 
-New TTestSuite.run()
+exit_(New TTestSuite.run())

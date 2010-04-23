@@ -6,4 +6,4 @@ Import retroremakes.actor
 Include "TLoopedAnimationTests.bmx"
 Include "TLoopedFrameAnimationTests.bmx"
 
-New TTestSuite.run()
+exit_(New TTestSuite.run())

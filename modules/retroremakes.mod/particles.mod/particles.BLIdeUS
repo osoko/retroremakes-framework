@@ -606,7 +606,6 @@
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
-        <OutlineColor>255:173:173:173</OutlineColor>
         <Ranges>
           <Range>
             <StartPoint>
@@ -1163,7 +1162,6 @@
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
-        <OutlineColor>255:173:173:173</OutlineColor>
         <Ranges>
           <Range>
             <StartPoint>
@@ -1528,7 +1526,6 @@
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
-        <OutlineColor>255:173:173:173</OutlineColor>
         <Ranges>
           <Range>
             <StartPoint>
@@ -1737,7 +1734,6 @@
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
-        <OutlineColor>255:173:173:173</OutlineColor>
         <Ranges>
           <Range>
             <StartPoint>
@@ -3105,7 +3101,6 @@
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
-        <OutlineColor>255:173:173:173</OutlineColor>
         <Ranges>
           <Range>
             <StartPoint>
@@ -4468,7 +4463,6 @@
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
-        <OutlineColor>255:173:173:173</OutlineColor>
         <Ranges>
           <Range>
             <StartPoint>
@@ -4533,7 +4527,6 @@
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
-        <OutlineColor>255:173:173:173</OutlineColor>
         <Ranges>
           <Range>
             <StartPoint>
@@ -4610,7 +4603,6 @@
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
-        <OutlineColor>255:173:173:173</OutlineColor>
         <Ranges>
           <Range>
             <StartPoint>
@@ -4759,7 +4751,6 @@
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
-        <OutlineColor>255:173:173:173</OutlineColor>
         <Ranges>
           <Range>
             <StartPoint>
@@ -4980,7 +4971,6 @@
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
-        <OutlineColor>255:173:173:173</OutlineColor>
         <Ranges>
           <Range>
             <StartPoint>
@@ -5097,8 +5087,8 @@
       <FileName>Main.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>11</X>
-        <Y>11</Y>
+        <X>27</X>
+        <Y>29</Y>
       </Caret_Position>
       <SplitVisible>false</SplitVisible>
       <SplitVertical>false</SplitVertical>
@@ -5134,7 +5124,6 @@
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
-        <OutlineColor>255:173:173:173</OutlineColor>
         <Ranges>
           <Range>
             <StartPoint>
@@ -5259,7 +5248,6 @@
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
-        <OutlineColor>255:173:173:173</OutlineColor>
         <Ranges>
           <Range>
             <StartPoint>
@@ -5516,7 +5504,6 @@
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
-        <OutlineColor>255:173:173:173</OutlineColor>
         <Ranges>
           <Range>
             <StartPoint>
@@ -5677,7 +5664,6 @@
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
-        <OutlineColor>255:173:173:173</OutlineColor>
         <Ranges>
           <Range>
             <StartPoint>
@@ -5754,7 +5740,6 @@
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
-        <OutlineColor>255:173:173:173</OutlineColor>
         <Ranges>
           <Range>
             <StartPoint>
@@ -5947,6 +5932,7 @@
     <Context_Directory>\Tests\</Context_Directory>
     <Project_Name>Tests</Project_Name>
     <BuildStep>2</BuildStep>
+    <Icon_File_Location>C:\Program Files (x86)\BLIde for BlitzMax\blide.ico</Icon_File_Location>
     <Embed_Os_Theme>true</Embed_Os_Theme>
     <Publish_as_ConsoleApp>false</Publish_as_ConsoleApp>
     <Debug_Enabled_Publish>false</Debug_Enabled_Publish>

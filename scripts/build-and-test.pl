@@ -6,6 +6,9 @@ use Getopt::Long;
 our $blitzmaxPath;
 our $binPath;
 our $modulePath;
+our $showUsage;
+
+
 
 sub compileAndRunTests
 {
@@ -18,21 +21,14 @@ sub compileAndRunTests
 	{
 		my $prefix = "test-$module";
 		
-		print "Building tests for module: $module\n";
+		print "Building and running tests for module: $module";
 		
-		runCommand ("$binPath/bmk makeapp -t gui -o $testsDirectory/$prefix.debug.exe $testsDirectory/Main.bmx");
-		runCommand ("$binPath/bmk makeapp -r -t gui -o $testsDirectory/$prefix.release.exe $testsDirectory/Main.bmx");
-		runCommand ("$binPath/bmk makeapp -h -t gui -o $testsDirectory/$prefix.debug.mt.exe $testsDirectory/Main.bmx");
-		runCommand ("$binPath/bmk makeapp -h -r -t gui -o $testsDirectory/$prefix.release.mt.exe $testsDirectory/Main.bmx");		
-		
-		print "Running tests for module: $module\n";
-		
-		print "Singled-threaded debug build\n";
+		runCommand ("$binPath/bmk makeapp -t console -o $testsDirectory/$prefix.debug.exe $testsDirectory/Main.bmx");
 		runCommand ("$testsDirectory/$prefix.debug.exe");
 	}
 	else
 	{
-		print "Module $module has no tests defined.\n";
+		print "No tests defined for module: $module\n";
 	}
 }
 
@@ -72,8 +68,6 @@ sub findAllModules
 sub runCommand
 {
 	my ($cmd) = @_;
-	
-	print "Running command: $cmd\n";
 
 	my $returnCode = system ($cmd);
 	
@@ -87,17 +81,42 @@ sub runCommand
 
 
 
-sub usage
+sub showUsage
 {
-	print "How you does use it...\n";
-}
+	print <<EOF;
+	
+    build-and-test: RetroRemakes Framework Build/Test Tool
 
+    This tool builds all framework modules and then runs all unit tests that
+    have been created for each module.
+    
+    usage:
+
+        build-and-test --blitzmax C:\\Tools\\BlitzMax
+  
+    options:
+
+	    --blitzmax      BlitzMax installation directory
+	    --usage|help|?  This information
+
+    Setting the BLITZMAX environment variable negates the need to use the
+    --blitzmax option.
+    
+    If both the BLITZMAX environemnt variable and the --blitzmax command
+    line option are used, the value specified on the command line takes
+    precedence.  
+
+EOF
+
+   exit 1
+}
 
 
 
 if (@ARGV > 0)
 {
-    GetOptions ('blitzmax=s' => \$blitzmaxPath);
+    GetOptions ('blitzmax=s' => \$blitzmaxPath,
+    			'help|?|usage' => \$showUsage);
 }
 
 unless ($blitzmaxPath)
@@ -105,6 +124,11 @@ unless ($blitzmaxPath)
 	$blitzmaxPath = $ENV{BLITZMAX};
 }
 
+if ($showUsage)
+{
+	showUsage();
+}
+	
 if (-d $blitzmaxPath)
 {
 	$binPath = $blitzmaxPath . "/bin";
@@ -115,9 +139,7 @@ if (-d $blitzmaxPath)
 	print "\nBuilding modules...\n\n";
     
 	# Build single-threaded debug and release versions of the modules
-	runCommand ("$binPath/bmk makemods -a retroremakes");
-    
-	print "\nCompiling and running unit tests...\n\n";
+	runCommand ("$binPath/bmk makemods retroremakes");
     
 	my @modules = findAllModules ($modulePath);
     
@@ -126,11 +148,11 @@ if (-d $blitzmaxPath)
 		compileAndRunTests ($module);
 	}
 
-	exit 1
+	print "\nAll tests ran successfully.\n";
+	exit 0
 }
 else
 {
-	print "No BlitzMax path.";
-	exit 1;
+	print "BlitzMax path not specified and BLITZMAX environemnt variable not set.\n";
+	showUsage();
 }
-

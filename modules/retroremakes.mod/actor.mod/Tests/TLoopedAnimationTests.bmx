@@ -22,5 +22,5 @@ Type TLoopedAnimationTests Extends TTest
 		End Try
 		assertFalse(succeeded, "Able to set loop count to zero.")
 	End Method
-	
+
 End Type
