@@ -23,6 +23,11 @@ Type particleTest Extends TTest
 '		assertTrue(result)
 '	End Method
 
+'import
+'export
+'clone
+'set image
+
 End Type
 
 

@@ -18,18 +18,17 @@ Const HANDLE_RIGHT:Int = 104
 
 rem
 bbdoc: Image type used by particles
-about: Not extended from TParticleActor because object is never live in the engine.
 endrem
-Type TParticleImage
+Type TParticleImage Extends TParticleActor
 
 	'id in library
-	Field _libraryID:String
+'	Field _libraryID:String
 	
 	'friendly name in editor
-	Field _editorName:String
+'	Field _editorName:String
 	
 	'handy text
-	Field _description:String
+'	Field _description:String
 	
 	'the actual image
 	Field _image:TImage
@@ -51,58 +50,62 @@ Type TParticleImage
 	Field settingsLength:Int = 9
 
 	
+	Method Render(tweening:Double, fixed:Int)
+	End Method
+	
+	
 	
 	rem
 	bbdoc: Sets ID of this object
 	endrem
-	Method SetID(newID:String)
-		_libraryID = newID
-	End Method
+'	Method SetID(newID:String)
+'		_libraryID = newID
+'	End Method
 	
 	
 	
 	rem
 	bbdoc: Returns this objects' ID
 	endrem
-	Method GetID:String()
-		Return _libraryID
-	End Method
+'	Method GetID:String()
+'		Return _libraryID
+'	End Method
 	
 	
 	
 	rem
 	bbdoc: Sets editor name
 	endrem
-	Method SetEditorName(name:String)
-		_editorName = name
-	End Method
+'	Method SetEditorName(name:String)
+'		_editorName = name
+'	End Method
 
 		
 
 	rem
 	bbdoc: Returns this objects' editorname
 	endrem
-	Method GetEditorName:String()
-		Return _editorName
-	End Method
+'	Method GetEditorName:String()
+'		Return _editorName
+'	End Method
 
 	
 	
 	rem
 	bbdoc: Sets description text
 	endrem
-	Method SetDescription(name:String)
-		_description = name
-	End Method
+'	Method SetDescription(name:String)
+'		_description = name
+'	End Method
 
 		
 
 	rem
 	bbdoc: Returns this objects' description text
 	endrem
-	Method GetDescription:String()
-		Return _description
-	End Method	
+'	Method GetDescription:String()
+'		Return _description
+'	End Method	
 	
 	
 	

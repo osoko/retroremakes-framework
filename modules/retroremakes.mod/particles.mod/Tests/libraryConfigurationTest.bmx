@@ -63,5 +63,15 @@ Type LibraryConfigurationTest Extends TTest
 		assertEquals("Handy Image", i.GetDescription())
 	End Method
 	
+	'can we retrieve a new, empty object from the library?
+	Method testAddNewObjectToLibrary() {test}
+		c.ReadConfiguration("media/test_library.csv")
+		
+		Local i:TParticleImage = c.AddImage()
+		Local id:String = i.GetID()
+		Local retrieved:TParticleImage = TParticleImage(c.GetObject(id))
+		
+		assertSame(i, retrieved)
+	End Method
 
 End Type

@@ -15,7 +15,10 @@ Type TColorValue Extends TValue
 	Field _startColor:Trgb
 	Field _endColor:Trgb
 
-	
+	' length of the array used in import and export settings
+	Field settingsLength:Int = 11
+
+		
 	
 	rem
 		bbdoc: default constructor
@@ -44,7 +47,7 @@ Type TColorValue Extends TValue
 		bbdoc: resets the current color to the start color values
 	endrem
 	Method ResetValue()
-		_currentColor.Set(_startColor._r, _startColor._g, _startColor._b)
+		_currentColor.Set(_startColor.r, _startColor.g, _startColor.b)
 	End Method	
 	
 	
@@ -53,7 +56,7 @@ Type TColorValue Extends TValue
 		bbdoc: uses the current color
 	endrem
 	Method Use()
-		SetColor _currentColor._r, _currentColor._g, _currentColor._b
+		SetColor _currentColor.r, _currentColor.g, _currentColor.b
 	End Method
 	
 	
@@ -141,91 +144,130 @@ Type TColorValue Extends TValue
 	End Method
 	
 	
-
-	Method LoadConfiguration(s:TStream)
-		Local l:String, a:String[], b:String[2]
-		l = s.ReadLine()
-		l.Trim()
-		While l <> "#endcolor"
-			a = l.split("=")
-			Select a[0].ToLower()
-				Case "active"		_active = Int(a[1])
-				Case "behaviour"	_behaviour = Int(a[1])
-				Case "countdown"	_countdown_left = Int(a[1])
-				Case "start"
-					b = a[1].split(",")
-					_startColor.Set(Float(b[0]), Float(b[1]), Float(b[2]))
-				Case "end"
-					b = a[1].split(",")
-					_endColor.Set(Float(b[0]), Float(b[1]), Float(b[2]))
-				Case "change" _changeAmount = Int(a[1])
-				Case "random"
-				Default Throw l
-			End Select
-			l = s.ReadLine()
-			l.Trim()
-		Wend
-		ResetValue()
+	
+	rem
+	bbdoc: Imports Color settings from a string array
+	endrem	
+	Method ImportSettings(settings:String[])
+		If settings.length <> settingsLength Then Throw "Color array not complete!"
+		If settings[0] <> "color" Then Throw "Array not a color array!"
+		_active = Int(settings[1])
+		_behaviour = Int(settings[2])
+		_countdown_left = Int(settings[3])
+		_changeAmount = Float(settings[4])
+		_startColor.Set(Float(settings[5]), Float(settings[6]), Float(settings[7]))
+		_endColor.Set(Float(settings[8]), Float(settings[9]), Float(settings[10]))
+	End Method
+	
+	
+	
+	rem
+	bbdoc: Exports Color settings to a string array
+	returns: String array
+	endrem	
+	Method ExportSettings:String[] ()
+		Local settings:String[settingsLength]
+		settings[0] = "color"
+		settings[1] = String(_active)
+		settings[2] = String(_behaviour)
+		settings[3] = String(_countdown_left)
+		settings[4] = String(_changeAmount)
+		settings[5] = String(_startColor.r)
+		settings[6] = String(_startColor.g)
+		settings[7] = String(_startColor.b)
+		settings[8] = String(_endColor.r)
+		settings[9] = String(_endColor.g)
+		settings[10] = String(_endColor.b)
+		Return settings
 	End Method
 	
 End Type
 
 
-'RGB color type
+rem
+bbdoc: Changeable RGB color value
+endrem
 Type Trgb
 
-	Field _r:Float, _g:Float, _b:Float
+	Field r:Float, g:Float, b:Float
 
+	
+	
+	rem
+	bbdoc: Default contructor
+	endrem
 	Method New()
-		_r = 255
-		_g = 255
-		_b = 255
+		r = 255
+		g = 255
+		b = 255
 	End Method
 
-	Method Set(r:Float, g:Float, b:Float)
-		_r = r
-		_g = g
-		_b = b
+	
+	
+	rem
+	bbdoc: Sets the color RGB values
+	endrem
+	Method Set(red:Float, green:Float, blue:Float)
+		r = red
+		g = green
+		b = blue
 	End Method
 
+	
+	
+	rem
+	bbdoc: Change RGB values from start to end color
+	endrem
 	Method ChangeTo(col:Trgb, amount:Float)
-		If _r < col._r
-			_r:+amount
-			If _r > col._r Then _r = col._r
-			ElseIf _r > col._r
-				_r:-amount
-				If _r < col._r Then _r = col._r
+		If r < col.r
+			r:+amount
+			If r > col.r Then r = col.r
+			ElseIf r > col.r
+				r:-amount
+				If r < col.r Then r = col.r
 		End If
-		If _g < col._g
-			_g:+amount
-			If _g > col._g Then _g = col._g
-			ElseIf _g > col._g
-				_g:-amount
-				If _g < col._g Then _g = col._g
+		If g < col.g
+			g:+amount
+			If g > col.g Then g = col.g
+			ElseIf g > col.g
+				g:-amount
+				If g < col.g Then g = col.g
 		End If
-		If _b < col._b
-			_b:+amount
-			If _b > col._b Then _b = col._b
-			ElseIf _b > col._b
-				_b:-amount
-				If _b < col._b Then _b = col._b
+		If b < col.b
+			b:+amount
+			If b > col.b Then b = col.b
+			ElseIf b > col.b
+				b:-amount
+				If b < col.b Then b = col.b
 		End If
 	End Method
+	
+	
 
+	rem
+	bbdoc: Compares color to passed color type
+	Returns: True if RBG values are the same
+	endrem
 	Method Same:Int(col:Trgb)
-		Local r:Int = False, g:Int = False, b:Int = False
-		If _r = col._r Then r = True
-		If _g = col._g Then g = True
-		If _b = col._b Then b = True
-		If r And g And b Then Return True
+		Local red:Int = False, green:Int = False, blue:Int = False
+		If r = col.r Then red = True
+		If g = col.g Then green = True
+		If b = col.b Then blue = True
+		If red And green And blue Then Return True
 		Return False
 	End Method
 
+	
+	
+	rem
+	bbdoc: Creates an exact copy of this RGB value
+	returns: Trgb
+	endrem
 	Method Clone:Trgb()
 		Local c:Trgb = New Trgb
-		c._r = _r
-		c._g = _g
-		c._b = _b
+		c.r = r
+		c.g = g
+		c.b = b
 		Return c
 	End Method
 
