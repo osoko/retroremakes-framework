@@ -19,7 +19,7 @@ Include "floatValueTest.bmx"
 Include "colorValueTest.bmx"
 Include "particleActorTest.bmx"
 Include "particleImageTest.bmx"
-'Include "particleTest.bmx"
+Include "particleTest.bmx"
 'Include "particleLibraryTest.bmx"
 Include "libraryConfigurationTest.bmx"
 
