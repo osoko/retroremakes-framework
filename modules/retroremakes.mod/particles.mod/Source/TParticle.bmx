@@ -30,7 +30,7 @@ Type TParticle Extends TParticleActor
 	Field _alpha:TFloatValue
 
 	' length of the array used in import and export settings
-	Field settingsLength:Int = 9
+	Field settingsLength:Int = 48
 	
 	
 	
@@ -94,7 +94,9 @@ Type TParticle Extends TParticleActor
 	bbdoc: Imports particle settings from an string array
 	endrem
 	Method ImportSettings(settings:String[])
+	
 		If settings.length <> settingsLength Then Throw "Particle array not complete!"
+		If settings[0] <> "particle" Then Throw "Array not a particle array!"
 		
 		_libraryID = settings[1]
 		_editorName = settings[2]
@@ -108,20 +110,20 @@ Type TParticle Extends TParticleActor
 		'slice up array to get float and color arrays
 		Local index:Int = 9
 		Local slice:String[]
-				
-		slice = settings[index..index + 6]
+						
+		slice = settings[index..index + 7]
 		_rotation.ImportSettings(slice)
 		
 		index:+7
-		slice = settings[index..index + 6]
+		slice = settings[index..index + 7]
 		_alpha.ImportSettings(slice)
 		
 		index:+7
-		slice = settings[index..index + 6]
+		slice = settings[index..index + 7]
 		_sizeX.ImportSettings(slice)
 		
 		index:+7
-		slice = settings[index..index + 6]
+		slice = settings[index..index + 7]
 		_sizeY.ImportSettings(slice)
 		
 		index:+7
@@ -130,33 +132,67 @@ Type TParticle Extends TParticleActor
 	End Method
 	
 	
+	
 	rem
 	bbdoc: Exports particle settings to string array
 	returns: String array
 	endrem
-	Method ExportSettings(settings:String[])
+	Method ExportSettings:String[] (settings:String[])
 		Local array:String[settingsLength]
-		settings[0] = "particle"
-		settings[1] = _libraryID
-		settings[2] = _editorName
-		settings[3] = _description
+		array[0] = "particle"
+		array[1] = _libraryID
+		array[2] = _editorName
+		array[3] = _description
 
-		settings[4] = String(_imageID)
-		settings[5] = String(_imageFrame)
-		settings[6] = String(_friction)
-		settings[7] = String(_life)
-		settings[8] = String(_blendMode)
+		array[4] = String(_imageID)
+		array[5] = String(_imageFrame)
+		array[6] = String(_friction)
+		array[7] = String(_life)
+		array[8] = String(_blendMode)
 		
-todo	'how to fill rest!!?!?!?!?!?
+		
+		Local index:Int = 9
+		Local floatSettings:String[] = _rotation.ExportSettings()
+		SetArrayValues(floatSettings, array, index)
+		
+		index:+7
+		floatSettings = _alpha.ExportSettings()
+		SetArrayValues(floatSettings, array, index)
+
+		index:+7
+		floatSettings = _sizeX.ExportSettings()
+		SetArrayValues(floatSettings, array, index)
+		
+		index:+7
+		floatSettings = _sizeY.ExportSettings()
+		SetArrayValues(floatSettings, array, index)
+	
+		index:+7
+		Local colorSettings:String[] = _color.ExportSettings()
+		SetArrayValues(colorSettings, array, index)
 	
 		Return array
+
 	End Method
 	
-
+	
 	
 	rem
-		bbdoc: Creates an exact copy of this particle
-		returns: TParticle
+	bbdoc: Passes source array values to destination array, starting at the passed Index
+	endrem
+	Method SetArrayValues(source:String[], destination:String[], destinationIndex:Int)
+		Local sourceIndex:Int
+		For sourceIndex = 0 To source.Length - 1
+			destination[destinationIndex] = source[sourceIndex]
+			destinationIndex:+1
+		Next
+	End Method
+
+	
+	
+	rem
+	bbdoc: Creates an exact copy of this particle
+	returns: TParticle
 	endrem
 	Method Clone:TParticle()
 
