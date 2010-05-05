@@ -21,7 +21,7 @@ sub compileAndRunTests
 	{
 		my $prefix = "test-$module";
 		
-		print "Building and running tests for module: $module";
+		print "Building and running tests for module: $module\n";
 		
 		runCommand ("$binPath/bmk makeapp -t console -o $testsDirectory/$prefix.debug.exe $testsDirectory/Main.bmx");
 		runCommand ("$testsDirectory/$prefix.debug.exe");
