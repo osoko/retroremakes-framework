@@ -19,7 +19,7 @@ Module retroremakes.rrfw
 ModuleInfo "Version: 0.11.0"
 ModuleInfo "License: Artistic License 2.0"
 ModuleInfo "Author: Paul Maskelyne (Muttley) and others"
-ModuleInfo "Copyright: (C) 2007-2009 Paul Maskelyne"
+ModuleInfo "Copyright: (C) 2007-2010 Paul Maskelyne"
 ModuleInfo "E-Mail: muttley@muttleyville.org"
 ModuleInfo "Website: http://code.google.com/p/retroremakes-framework/"
 ModuleInfo "Forum: http://www.muttleyville.org/forum/"
