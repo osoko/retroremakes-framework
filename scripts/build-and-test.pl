@@ -21,10 +21,11 @@ sub compileAndRunTests
 	{
 		my $prefix = "test-$module";
 		
-		print "Building and running tests for module: $module";
+		print "Building and running tests for module: $module\n";
 		
 		runCommand ("$binPath/bmk makeapp -t console -o $testsDirectory/$prefix.debug.exe $testsDirectory/Main.bmx");
 		runCommand ("$testsDirectory/$prefix.debug.exe");
+		print "\n";
 	}
 	else
 	{
@@ -74,7 +75,7 @@ sub runCommand
 	if ($returnCode)
 	{
 		$returnCode = $returnCode >> 8;
-		print "$cmd exited with code: $returnCode";
+		print "$cmd exited with code: $returnCode\n";
 		exit $returnCode;
 	}
 }

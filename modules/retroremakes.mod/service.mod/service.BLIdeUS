@@ -6,8 +6,8 @@
       <FileName>Source\TGameService.bmx</FileName>
       <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>71</X>
-        <Y>20</Y>
+        <X>11</X>
+        <Y>241</Y>
       </Caret_Position>
       <SplitVisible>false</SplitVisible>
       <SplitVertical>false</SplitVertical>
@@ -868,8 +868,8 @@
       <FileName>Mocks\TGameServiceMOCK.bmx</FileName>
       <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>2</X>
-        <Y>8</Y>
+        <X>0</X>
+        <Y>20</Y>
       </Caret_Position>
       <SplitVisible>false</SplitVisible>
       <SplitVertical>false</SplitVertical>

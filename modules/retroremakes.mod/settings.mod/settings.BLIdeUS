@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <UnmanagedSolution xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Project>
     <Main_File>settings.bmx</Main_File>
@@ -6,8 +6,8 @@
       <FileName>Source\TGameSettings.bmx</FileName>
       <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>37</X>
-        <Y>36</Y>
+        <X>1</X>
+        <Y>199</Y>
       </Caret_Position>
       <SplitVisible>false</SplitVisible>
       <SplitVertical>false</SplitVertical>
@@ -35,7 +35,7 @@
             </StartPoint>
             <EndPoint>
               <X>7</X>
-              <Y>196</Y>
+              <Y>200</Y>
             </EndPoint>
             <Visible>true</Visible>
             <Level>0</Level>
@@ -570,19 +570,19 @@
           </Range>
           <Range>
             <StartPoint>
-              <X>89</X>
-              <Y>198</Y>
+              <X>25</X>
+              <Y>196</Y>
             </StartPoint>
             <EndPoint>
-              <X>12</X>
-              <Y>200</Y>
+              <X>11</X>
+              <Y>198</Y>
             </EndPoint>
             <Visible>true</Visible>
-            <Level>0</Level>
+            <Level>1</Level>
           </Range>
           <Range>
             <StartPoint>
-              <X>96</X>
+              <X>89</X>
               <Y>202</Y>
             </StartPoint>
             <EndPoint>
@@ -594,7 +594,7 @@
           </Range>
           <Range>
             <StartPoint>
-              <X>78</X>
+              <X>96</X>
               <Y>206</Y>
             </StartPoint>
             <EndPoint>
@@ -606,7 +606,7 @@
           </Range>
           <Range>
             <StartPoint>
-              <X>82</X>
+              <X>78</X>
               <Y>210</Y>
             </StartPoint>
             <EndPoint>
@@ -618,7 +618,7 @@
           </Range>
           <Range>
             <StartPoint>
-              <X>88</X>
+              <X>82</X>
               <Y>214</Y>
             </StartPoint>
             <EndPoint>
@@ -630,7 +630,7 @@
           </Range>
           <Range>
             <StartPoint>
-              <X>95</X>
+              <X>88</X>
               <Y>218</Y>
             </StartPoint>
             <EndPoint>
@@ -642,7 +642,7 @@
           </Range>
           <Range>
             <StartPoint>
-              <X>76</X>
+              <X>95</X>
               <Y>222</Y>
             </StartPoint>
             <EndPoint>
@@ -654,7 +654,7 @@
           </Range>
           <Range>
             <StartPoint>
-              <X>80</X>
+              <X>76</X>
               <Y>226</Y>
             </StartPoint>
             <EndPoint>
@@ -666,7 +666,7 @@
           </Range>
           <Range>
             <StartPoint>
-              <X>94</X>
+              <X>80</X>
               <Y>230</Y>
             </StartPoint>
             <EndPoint>
@@ -678,7 +678,7 @@
           </Range>
           <Range>
             <StartPoint>
-              <X>101</X>
+              <X>94</X>
               <Y>234</Y>
             </StartPoint>
             <EndPoint>
@@ -690,7 +690,7 @@
           </Range>
           <Range>
             <StartPoint>
-              <X>80</X>
+              <X>101</X>
               <Y>238</Y>
             </StartPoint>
             <EndPoint>
@@ -702,7 +702,7 @@
           </Range>
           <Range>
             <StartPoint>
-              <X>84</X>
+              <X>80</X>
               <Y>242</Y>
             </StartPoint>
             <EndPoint>
@@ -714,7 +714,7 @@
           </Range>
           <Range>
             <StartPoint>
-              <X>91</X>
+              <X>84</X>
               <Y>246</Y>
             </StartPoint>
             <EndPoint>
@@ -726,7 +726,7 @@
           </Range>
           <Range>
             <StartPoint>
-              <X>98</X>
+              <X>91</X>
               <Y>250</Y>
             </StartPoint>
             <EndPoint>
@@ -738,7 +738,7 @@
           </Range>
           <Range>
             <StartPoint>
-              <X>78</X>
+              <X>98</X>
               <Y>254</Y>
             </StartPoint>
             <EndPoint>
@@ -750,7 +750,7 @@
           </Range>
           <Range>
             <StartPoint>
-              <X>82</X>
+              <X>78</X>
               <Y>258</Y>
             </StartPoint>
             <EndPoint>
@@ -762,7 +762,7 @@
           </Range>
           <Range>
             <StartPoint>
-              <X>85</X>
+              <X>82</X>
               <Y>262</Y>
             </StartPoint>
             <EndPoint>
@@ -774,7 +774,7 @@
           </Range>
           <Range>
             <StartPoint>
-              <X>92</X>
+              <X>85</X>
               <Y>266</Y>
             </StartPoint>
             <EndPoint>
@@ -786,7 +786,7 @@
           </Range>
           <Range>
             <StartPoint>
-              <X>74</X>
+              <X>92</X>
               <Y>270</Y>
             </StartPoint>
             <EndPoint>
@@ -798,7 +798,7 @@
           </Range>
           <Range>
             <StartPoint>
-              <X>78</X>
+              <X>74</X>
               <Y>274</Y>
             </StartPoint>
             <EndPoint>
@@ -810,7 +810,7 @@
           </Range>
           <Range>
             <StartPoint>
-              <X>88</X>
+              <X>78</X>
               <Y>278</Y>
             </StartPoint>
             <EndPoint>
@@ -822,7 +822,7 @@
           </Range>
           <Range>
             <StartPoint>
-              <X>95</X>
+              <X>88</X>
               <Y>282</Y>
             </StartPoint>
             <EndPoint>
@@ -834,7 +834,7 @@
           </Range>
           <Range>
             <StartPoint>
-              <X>76</X>
+              <X>95</X>
               <Y>286</Y>
             </StartPoint>
             <EndPoint>
@@ -846,7 +846,7 @@
           </Range>
           <Range>
             <StartPoint>
-              <X>80</X>
+              <X>76</X>
               <Y>290</Y>
             </StartPoint>
             <EndPoint>
@@ -858,7 +858,7 @@
           </Range>
           <Range>
             <StartPoint>
-              <X>91</X>
+              <X>80</X>
               <Y>294</Y>
             </StartPoint>
             <EndPoint>
@@ -870,7 +870,7 @@
           </Range>
           <Range>
             <StartPoint>
-              <X>98</X>
+              <X>91</X>
               <Y>298</Y>
             </StartPoint>
             <EndPoint>
@@ -882,7 +882,7 @@
           </Range>
           <Range>
             <StartPoint>
-              <X>78</X>
+              <X>98</X>
               <Y>302</Y>
             </StartPoint>
             <EndPoint>
@@ -894,7 +894,7 @@
           </Range>
           <Range>
             <StartPoint>
-              <X>82</X>
+              <X>78</X>
               <Y>306</Y>
             </StartPoint>
             <EndPoint>
@@ -906,7 +906,7 @@
           </Range>
           <Range>
             <StartPoint>
-              <X>94</X>
+              <X>82</X>
               <Y>310</Y>
             </StartPoint>
             <EndPoint>
@@ -918,7 +918,7 @@
           </Range>
           <Range>
             <StartPoint>
-              <X>101</X>
+              <X>94</X>
               <Y>314</Y>
             </StartPoint>
             <EndPoint>
@@ -930,7 +930,7 @@
           </Range>
           <Range>
             <StartPoint>
-              <X>80</X>
+              <X>101</X>
               <Y>318</Y>
             </StartPoint>
             <EndPoint>
@@ -942,12 +942,24 @@
           </Range>
           <Range>
             <StartPoint>
-              <X>84</X>
+              <X>80</X>
               <Y>322</Y>
             </StartPoint>
             <EndPoint>
               <X>12</X>
               <Y>324</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>0</Level>
+          </Range>
+          <Range>
+            <StartPoint>
+              <X>84</X>
+              <Y>326</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>12</X>
+              <Y>328</Y>
             </EndPoint>
             <Visible>true</Visible>
             <Level>0</Level>
@@ -984,7 +996,7 @@
       </Folding>
     </Included_File>
     <Compilation_Mode>GUI_Application</Compilation_Mode>
-    <Context_Directory></Context_Directory>
+    <Context_Directory>\</Context_Directory>
     <Project_Name>settings.mod</Project_Name>
     <BuildStep>1</BuildStep>
     <Icon_File_Location>C:\Program Files (x86)\BLIde for BlitzMax\blide.ico</Icon_File_Location>
