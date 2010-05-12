@@ -194,6 +194,10 @@ Type TGameSettings
 		iniFile.Save()
 	End Method
 	
+	Method ToString:String()
+		Return "Settings"
+	End Method
+	
 EndType
 
 Function rrGetBoolVariable:Int(name:String, defaultValue:String, section:String = "Game")

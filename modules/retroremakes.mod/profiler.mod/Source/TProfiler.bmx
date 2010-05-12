@@ -169,6 +169,10 @@ Type TProfiler
 		_enabled = False
 	End Method
 			
+	Method ToString:String()
+		Return "Profiler"
+	End Method
+	
 End Type
 
 
