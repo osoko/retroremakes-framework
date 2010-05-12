@@ -141,6 +141,8 @@ if (-d $blitzmaxPath)
 	# Build single-threaded debug and release versions of the modules
 	runCommand ("$binPath/bmk makemods retroremakes");
     
+    print "\nBuilding and running all tests...\n\n";
+
 	my @modules = findAllModules ($modulePath);
     
 	foreach my $module (@modules)

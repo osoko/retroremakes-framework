@@ -84,6 +84,5 @@ Include "src\Includes\Misc\CloneObject.bmx"
 ''
 Include "src\Services\Debug\TConsole.bmx"
 
-Include "src\Services\Physics\TPhysicsManager.bmx"
 
 '#End Region

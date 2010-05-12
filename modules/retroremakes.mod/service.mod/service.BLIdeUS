@@ -4,7 +4,7 @@
     <Main_File>service.bmx</Main_File>
     <Included_File>
       <FileName>Source\TGameService.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
         <X>71</X>
         <Y>20</Y>
@@ -14,6 +14,7 @@
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
+        <OutlineColor>255:173:173:173</OutlineColor>
         <Ranges>
           <Range>
             <StartPoint>
@@ -812,7 +813,7 @@
     </Included_File>
     <Included_File>
       <FileName>service.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
         <X>0</X>
         <Y>20</Y>
@@ -822,6 +823,7 @@
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
+        <OutlineColor>255:173:173:173</OutlineColor>
         <Ranges>
           <Range>
             <StartPoint>
@@ -864,16 +866,17 @@
     <Main_File>Main.bmx</Main_File>
     <Included_File>
       <FileName>Mocks\TGameServiceMOCK.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>0</Y>
+        <X>2</X>
+        <Y>8</Y>
       </Caret_Position>
       <SplitVisible>false</SplitVisible>
       <SplitVertical>false</SplitVertical>
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
+        <OutlineColor>255:173:173:173</OutlineColor>
         <Ranges>
           <Range>
             <StartPoint>
@@ -882,10 +885,58 @@
             </StartPoint>
             <EndPoint>
               <X>8</X>
-              <Y>3</Y>
+              <Y>19</Y>
             </EndPoint>
             <Visible>true</Visible>
             <Level>0</Level>
+          </Range>
+          <Range>
+            <StartPoint>
+              <X>21</X>
+              <Y>3</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>11</X>
+              <Y>5</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>1</Level>
+          </Range>
+          <Range>
+            <StartPoint>
+              <X>21</X>
+              <Y>7</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>11</X>
+              <Y>9</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>1</Level>
+          </Range>
+          <Range>
+            <StartPoint>
+              <X>16</X>
+              <Y>11</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>11</X>
+              <Y>13</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>1</Level>
+          </Range>
+          <Range>
+            <StartPoint>
+              <X>16</X>
+              <Y>15</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>11</X>
+              <Y>17</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>1</Level>
           </Range>
         </Ranges>
       </Folding>
@@ -902,7 +953,6 @@
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
-        <OutlineColor>255:173:173:173</OutlineColor>
         <Ranges />
       </Folding>
     </Included_File>

@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <UnmanagedSolution xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Project>
     <Main_File>engine.bmx</Main_File>
     <Included_File>
       <FileName>Source\TGameEngine.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>10</X>
-        <Y>227</Y>
+        <X>39</X>
+        <Y>206</Y>
       </Caret_Position>
       <SplitVisible>false</SplitVisible>
       <SplitVertical>false</SplitVertical>
@@ -2051,8 +2051,8 @@
       <FileName>engine.bmx</FileName>
       <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>31</X>
-        <Y>27</Y>
+        <X>0</X>
+        <Y>1</Y>
       </Caret_Position>
       <SplitVisible>false</SplitVisible>
       <SplitVertical>false</SplitVertical>
@@ -2089,7 +2089,7 @@
       </Folding>
     </Included_File>
     <Compilation_Mode>GUI_Application</Compilation_Mode>
-    <Context_Directory></Context_Directory>
+    <Context_Directory>\</Context_Directory>
     <Project_Name>engine.mod</Project_Name>
     <BuildStep>1</BuildStep>
     <Icon_File_Location>C:\Program Files (x86)\BLIde for BlitzMax\blide.ico</Icon_File_Location>

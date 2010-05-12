@@ -2,6 +2,8 @@ SuperStrict
 
 Framework retroremakes.rrfw
 
+Import bah.chipmunk
+
 Include "TGameState.bmx"
 Include "TIntroState.bmx"
 Include "TDemoState1.bmx"
@@ -40,6 +42,7 @@ Type GameManager Extends TGameManager
 	Field states:TGameState[]
 	
 	Method Start()
+		InitChipmunk()
 		TMessageService.GetInstance().SubscribeToChannel(CHANNEL_INPUT, Self)
 		
 		layerManager = TLayerManager.GetInstance()
