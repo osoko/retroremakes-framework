@@ -144,22 +144,5 @@ Type TLibraryConfiguration
 		
 		Return True
 	End Method		
-	
-	
-	
-	rem
-	bbdoc: Saves the library configuration to a file
-	about: The current configuration name is used if no filename is given
-	endrem	
-	Method WriteConfiguration:Int(filename:String = "")
-	
-		If filename = "" Then filename = configurationName
-		
-		'TMap.
-		
-	
-		
-		Return True
-	End Method
 
 End Type

@@ -54,7 +54,7 @@ Type MAIN_FRAMEBase Extends wxFrame
 	Const MENU_SHOWHELPERS:Int = 1015
 	Const MENU_ABOUT:Int = 1016
 
-	Method Create:MAIN_FRAMEBase(parent:wxWindow = Null,id:Int = wxID_ANY, title:String = "ParticlesMAX", x:Int = -1, y:Int = -1, w:Int = 507, h:Int = 500, style:Int = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL)
+	Method Create:MAIN_FRAMEBase(parent:wxWindow = Null, id:Int = wxID_ANY, title:String = "RRFW ParticlesMAX", x:Int = -1, y:Int = -1, w:Int = 507, h:Int = 500, style:Int = wxDEFAULT_FRAME_STYLE | wxTAB_TRAVERSAL)
 		return MAIN_FRAMEBase(Super.Create(parent, id, title, x, y, w, h, style))
 	End Method
 

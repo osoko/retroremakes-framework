@@ -25,6 +25,7 @@ sub compileAndRunTests
 		
 		runCommand ("$binPath/bmk makeapp -t console -o $testsDirectory/$prefix.debug.exe $testsDirectory/Main.bmx");
 		runCommand ("$testsDirectory/$prefix.debug.exe");
+		print "\n";
 	}
 	else
 	{
@@ -74,7 +75,7 @@ sub runCommand
 	if ($returnCode)
 	{
 		$returnCode = $returnCode >> 8;
-		print "$cmd exited with code: $returnCode";
+		print "$cmd exited with code: $returnCode\n";
 		exit $returnCode;
 	}
 }
@@ -141,6 +142,8 @@ if (-d $blitzmaxPath)
 	# Build single-threaded debug and release versions of the modules
 	runCommand ("$binPath/bmk makemods retroremakes");
     
+    print "\nBuilding and running all tests...\n\n";
+
 	my @modules = findAllModules ($modulePath);
     
 	foreach my $module (@modules)
