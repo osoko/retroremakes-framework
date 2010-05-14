@@ -1,0 +1,7 @@
+RRFM - The RetroRemake Framework
+--------------------------------
+
+Install Guide
+-------------
+1. Copy the contents of the modules directory to your BlitzMax\mod directory.
+2. Build the modules and away you go.
