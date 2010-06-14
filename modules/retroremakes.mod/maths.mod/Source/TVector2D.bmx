@@ -123,7 +123,7 @@ Type TVector2D
 		y = y - v.y
 		Local qx:Float =  x * Cs + y * Sn
 		Local qy:Float = -x * Sn + y * Cs
-		x = qx - v.x
+		x = qx + v.x
 		y = qy + v.y
 	EndMethod
 
