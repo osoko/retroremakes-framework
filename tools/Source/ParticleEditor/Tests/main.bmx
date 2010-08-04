@@ -11,28 +11,28 @@ endrem
 
 'unit tests for particleMAX RRFW edition
 
-SuperStrict
-
-Framework bah.maxunit
-
-Import wx.wxApp
-Import wx.wxPropGrid
-Import wx.wxglmax2D
-Import wx.wxTimer
-Import wx.wxMouseEvent
-Import wx.wxTextEntryDialog
-
-'gui definition file. created with wxCodeGen.
-Import "../source/gui.bmx"
-
-Import muttley.inifilehandler
-Import retroremakes.particles
-
-Include "../source/TEditorLibraryConfiguration.bmx"
-'Include "../source/particleEditor.bmx"
-'Include "../source/RenderCanvas.bmx"
-
-Include "librarytest.bmx"
-'Include "imagetest.bmx"
-
-exit_(New TTestSuite.run())
+'SuperStrict
+'
+'Framework bah.maxunit
+'
+'Import wx.wxApp
+'Import wx.wxPropGrid
+'Import wx.wxglmax2D
+'Import wx.wxTimer
+'Import wx.wxMouseEvent
+'Import wx.wxTextEntryDialog
+'
+''gui definition file. created with wxCodeGen.
+'Import "../source/gui.bmx"
+'
+'Import muttley.inifilehandler
+'Import retroremakes.particles
+'
+'Include "../source/TEditorLibraryConfiguration.bmx"
+''Include "../source/particleEditor.bmx"
+''Include "../source/RenderCanvas.bmx"
+'
+'Include "librarytest.bmx"
+''Include "imagetest.bmx"
+'
+'exit_(New TTestSuite.run())
