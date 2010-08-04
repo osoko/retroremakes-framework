@@ -11,27 +11,18 @@ endrem
 
 SuperStrict
 
-'Framework wx.wxApp
-'Import wx.wxPropGrid
-'Import wx.wxglmax2D
-'Import wx.wxTimer
-'Import wx.wxMouseEvent
-'Import wx.wxTextEntryDialog
+Framework maxgui.drivers
+Import maxgui.proxygadgets
 
-'gui definition file. created with wxCodeGen.
-'Import "gui.bmx"
+Import wdw.propertygrid
+Import wdw.LIBRARY
 
-'Import brl.PNGLoader
-'Import brl.BMPLoader
-'Import brl.Random
-'Import brl.FileSystem
-
-'Import muttley.inifilehandler
+Import muttley.inifilehandler
 'Import retroremakes.particles
 
-'Include "TEditorLibraryConfiguration.bmx"
-'Include "RenderCanvas.bmx"
-'Include "particleEditor.bmx"
+Include "TAppBase.bmx"
+Include "TEditorGui.bmx"
+Include "TEditorMain.bmx"
 
-
-
+Local editor:TEditorMain = New TEditorMain
+editor.Run()

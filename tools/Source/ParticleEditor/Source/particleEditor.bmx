@@ -27,93 +27,15 @@ end rem
 SetGraphicsDriver wxGLMax2DDriver()
 
 
-'set up globals
-
-Global AppDir:String = CurrentDir()
-
-'rendercanvas global links
-'Global GL_canvasDrawTimer:wxTimer
-'Global GL_engineUpdateTimer:wxTimer
-'Global GL_toDraw:Object
-
-'global references
-Global PROPERTY_GRID:wxPropertyGrid
-Global RENDER_CANVAS:MyRenderCanvas
-Global LIBRARY:TEditorLibraryConfiguration
-
-'Global SELECTION_PROPERTY:wxPropertyCategory
-
-New MyApp.Run()
-
-
-Type MyApp Extends wxApp
-
-	'application frame reference
-	Field frame:MAIN_FRAME
-	
-	rem
-	bbdoc: Called when the application is started
-	endrem
-	Method OnInit:Int()
-		frame = MAIN_FRAME(New MAIN_FRAME.Create())
-		SetTopWindow(frame)
-		frame.Fit()
-		frame.Show(True)
-		Return True
-	End Method
-End Type
-
-
-
 ' MAIN_FRAMEbase is in gui.bmx
 Type MAIN_FRAME Extends MAIN_FRAMEBase
 
-	'ini file handler
-	Field configFile:TINIFile
-		
-	'tree shortcuts
-	Field _imageRoot:wxTreeItemId
-	Field _particleRoot:wxTreeItemId
-	Field _effectRoot:wxTreeItemId
-	Field _emitterRoot:wxTreeItemId
-	Field _projectRoot:wxTreeItemId
-
-	'currently selected object
-	Field _selection:Object
-	
-	'currently selected tree item
-	Field _selectedTreeItem:wxTreeItemId
-	
-	'last dragged object
-	Field _draggedItem:Object
-
-	'true when item added/changed. false when library is saved.	
-	Field _changes:Int
-		
-	
 	
 	rem
 	bbdoc: Called automatically when the frame is created
 	endrem
 	Method OnInit()
-		Super.OnInit()
-
-		ReadConfiguration()
 				
-		'not supported in wxCodeGen
-		left_splitter.setsashgravity(0.0)
-		right_splitter.setsashgravity(1.0)		
-		
-		'set up render canvas. needed because WXformbuilder does not support Max2D
-		RENDER_CANVAS = MyRenderCanvas(New MyRenderCanvas.Create(m_panel_render, -1, GRAPHICS_BACKBUFFER | GRAPHICS_DEPTHBUFFER))
-		render_sizer.add(RENDER_CANVAS, 1, wxEXPAND, 5)
-		Local array:Int[] = configFile.GetIntValues("Layout", "BackdropColor")
-		RENDER_CANVAS.SetBGColor(array[0], array[1], array[2])
-	
-		SyncMenusToConfiguration()
-		SetLayout()
-		CreateTree()
-		CreatePropertyGrid()
 		
 		LIBRARY = New TEditorLibraryConfiguration
 		If configFile.GetBoolValue("Library", "AutoLoad")
@@ -141,136 +63,7 @@ Type MAIN_FRAME Extends MAIN_FRAMEBase
 
 	End Method
 
-	
-	
-	rem
-	bbdoc: Cleans up at closing time
-	endrem	
-	Method OnClose(Event:wxCloseEvent)
-		rem
-		If CONFIG.GetValueInt("autoSave") = False
-		If _changes
-		Local choice:Int = Confirm("Library contains unsaved changes!~rAre you sure you want to exit?")
-		If choice = 0 Then
-		If Event Then Event.veto()
-		Return
-		End If
-		End If
-		Else
-		If _changed Then LIBRARY.SaveConfiguration(CONFIG.GetValueString("library") )
-		_changed=False
-		EndIf
 
-		GL_engineUpdateTimer.Stop()
-		RENDER_CANVAS.drawTimer.Stop()
-
-		endrem		
-		configFile.Save()
-		
-		Self.Destroy()
-	End Method
-	
-	
-	
-	rem
-	bbdoc: Loads ini file
-	about: Creates default settings if ini file cannot be loaded
-	endrem
-	Method ReadConfiguration()
-		configFile = TINIFile.Create("editorconfig.ini")
-		
-		If Not configFile.Load()
-			configFile.CreateMissingEntries(True)
-			configFile.AddSection("Layout")
-			configFile.SetIntValue("Layout", "Xposition", 0)
-			configFile.SetIntValue("Layout", "Yposition", 0)
-			configFile.SetIntValue("Layout", "Width", 600)
-			configFile.SetIntValue("Layout", "Height", 800)
-			configFile.SetIntValue("Layout", "LeftSplitter", 200)
-			configFile.SetIntValue("Layout", "RightSplitter", 400)
-			Local array:Int[3]
-			array[0] = 50
-			array[1] = 50
-			array[2] = 50
-			configFile.SetIntValues("Layout", "BackdropColor", array)
-			configFile.SetBoolValue("Layout", "ShowHelpers", "false")
-					
-			configFile.AddSection("Library")
-			configFile.SetBoolValue("Library", "AutoSave", "true")
-			configFile.SetBoolValue("Library", "AutoLoad", "false")
-			configFile.SetStringValue("Library", "LibraryName", "")
-		EndIf
-		
-	End Method
-
-	
-	
-	rem
-	bbdoc: Sets menu flags according to settings in ini file
-	endrem
-	Method SyncMenusToConfiguration()
-		If configFile.GetBoolValue("Library", "AutoLoad") = True Then menuItem_LoadLastLib.check()
-		If configFile.GetBoolValue("Library", "AutoSave") = True Then menuItem_AutoSave.check()
-		If configFile.GetBoolValue("Layout", "ShowHelpers") Then menuItem_ShowHelpers.check()
-	End Method
-
-		
-		
-	rem
-	bbdoc: Sets the application layout as configured
-	endrem
-	Method SetLayout()
-		SetPosition(configFile.GetIntValue("Layout", "Xposition"), configFile.GetIntValue("Layout", "Yposition"))
-		SetSize(configFile.GetIntValue("Layout", "Width"), configFile.GetIntValue("Layout", "Height"))
-		left_splitter.SetSashPosition(configFile.GetIntValue("Layout", "LeftSplitter"))
-		right_splitter.SetSashPosition(configFile.GetIntValue("Layout", "RightSplitter"))
-	End Method
-	
-	
-	
-	rem
-	bbdoc: Sets up the tree control
-	endrem	
-	Method CreateTree()
-		Local treeRoot:wxTreeItemId = LIBRARY_TREE.Addroot("Editor")
-		Local libRoot:wxTreeItemId = LIBRARY_TREE.AppendItem(treeRoot, "Library")
-		'
-		'create sub items and set references
-		_imageRoot = LIBRARY_TREE.AppendItem(libRoot, "Images")
-		_particleRoot = LIBRARY_TREE.AppendItem(libRoot, "Particles")
-		_emitterRoot = LIBRARY_TREE.AppendItem(libRoot, "Emitters")
-		_effectRoot = LIBRARY_TREE.AppendItem(libRoot, "Effects")
-		_projectRoot = LIBRARY_TREE.AppendItem(treeRoot, "Projects")
-	End Method
-	
-	
-	
-	rem
-	bbdoc: Sets up the property grid
-	endrem
-	Method CreatePropertyGrid()
-		PROPERTY_GRID = New wxPropertyGrid.Create(m_panel_propgrid, wxID_ANY, -1, -1, 200, -1, wxTR_DEFAULT_STYLE)
-		PROPERTY_GRID.SetExtraStyle(wxPG_EX_HELP_AS_TOOLTIPS)
-		propgrid_sizer.Add(PROPERTY_GRID, 1, wxEXPAND, 5)
-		
-		'connect events
-		Connect(PROPERTY_GRID.GetId(), wxEVT_PG_CHANGING, _OnPropertyChanging)			' value is about to change
-		Connect(PROPERTY_GRID.GetId(), wxEVT_PG_CHANGED, _OnPropertyChange)				' value has changed
-
-		'editor backdrop color
-		Local editor:wxPropertyCategory = New wxPropertyCategory.Create("Editor", "editor_category")
-		PROPERTY_GRID.append(editor)
-		PROPERTY_GRID.AppendIn(editor, New wxColourProperty.Create("Background Color", "editor_bgcolor"))
-		PROPERTY_GRID.AppendIn(editor, New wxIntProperty.Create("Update Frequency (hz)", "editor_engine_herz"))
-
-		'		PROPERTY_GRID.append(TeditorImage.CreateGridProperty())
-		'		PROPERTY_GRID.append(TEditorParticle.CreateGridProperty())
-		'		PROPERTY_GRID.append(TeditorEmitter.CreateGridProperty())
-		'		PROPERTY_GRID.append(TeditorEffect.CreateGridProperty())
-		'		PROPERTY_GRID.append(TeditorProject.CreateGridProperty())
-	End Method
-	
-	
 	
 	rem
 	bbdoc: Clears the library
@@ -317,19 +110,7 @@ Type MAIN_FRAME Extends MAIN_FRAMEBase
 		'EndIf
 		SetWindowTitle()
 	End Method
-	
-	
-	
-	rem
-	bbdoc: Clears all items in the tree control
-	endrem
-	Method ClearTree()
-		LIBRARY_TREE.DeleteChildren(_imageRoot)
-		LIBRARY_TREE.DeleteChildren(_particleRoot)
-		LIBRARY_TREE.DeleteChildren(_effectRoot)
-		LIBRARY_TREE.DeleteChildren(_emitterRoot)
-		LIBRARY_TREE.DeleteChildren(_projectRoot)
-	End Method
+
 
 	
 	
@@ -362,33 +143,7 @@ Type MAIN_FRAME Extends MAIN_FRAMEBase
 
 	
 		
-	Method OnChangeAutoLoad(Event:wxCommandEvent)
-		If menuItem_LoadLastLib.IsChecked()
-			configFile.SetStringValue("Library", "AutoLoad", "true")
-		Else
-			configFile.SetStringValue("Library", "AutoLoad", "false")
-		EndIf
-	End Method
 
-	
-	
-	Method OnChangeAutoSave(Event:wxCommandEvent)
-		If menuItem_AutoSave.IsChecked()
-			configFile.SetStringValue("Library", "AutoSave", "true")
-		Else
-			configFile.SetStringValue("Library", "AutoSave", "false")
-		EndIf
-	End Method
-
-	
-	
-	Method OnChangeShowHelpers(Event:wxCommandEvent)
-		If menuItem_ShowHelpers.IsChecked()
-			configFile.SetStringValue("Layout", "ShowHelpers", "true")
-		Else
-			configFile.SetStringValue("Layout", "ShowHelpers", "false")
-		EndIf	
-	End Method
 
 	
 	
@@ -398,9 +153,7 @@ Type MAIN_FRAME Extends MAIN_FRAMEBase
 
 	
 	
-	Method OnAbout(Event:wxCommandEvent)
-		Notify("RRFW ParticlesMAX by Wiebo de Wit~nALPHA version!")
-	End Method
+
 
 	
 	
@@ -842,13 +595,7 @@ Type MAIN_FRAME Extends MAIN_FRAMEBase
 EndRem
 	
 	
-	rem
-	bbdoc: Sets window title to reflect loaded library
-	endrem
-	Method SetWindowTitle()
-		If _changed = False Then SetTitle("RRFW ParticlesMAX - " + StripDir(configFile.GetStringValue("Library", "LibraryName")))
-		If _changed = True Then SetTitle("RRFW ParticlesMAX - " + StripDir(configFile.GetStringValue("Library", "LibraryName") + "*"))
-	End Method
+
 
 End Type
 
