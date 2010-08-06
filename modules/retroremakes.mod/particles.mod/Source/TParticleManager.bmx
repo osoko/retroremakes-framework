@@ -1,6 +1,6 @@
 Rem
 '
-' Copyright (c) 2007-2010 Wiebo de Wit <wiebo.de.wit@gmail.com>.
+' Copyright (c) 2010 Wiebo de Wit <wiebo.de.wit@gmail.com>.
 '
 ' All rights reserved. Use of this code is allowed under the
 ' Artistic License 2.0 terms, as specified in the LICENSE file
@@ -27,6 +27,8 @@ Type TParticleManager
 		_library = New TParticleLibrary
 	End Method
 	
+	
+	
 	rem
 		bbdoc: Gets the Singleton instance of this class
 	endrem	
@@ -52,16 +54,10 @@ Type TParticleManager
 		bbdoc: Loads the passed configuration file into the library
 		about: The configuration file has been created in the particle library editor
 	endrem
-	Method LoadConfiguration(filename:String)
-		_library.LoadConfiguration(filename)
+	Method ReadConfiguration(filename:String)
+		_library.ReadConfiguration(filename)
 	End Method
 	
-	rem
-		bbdoc: Clears the configuration in the library
-	endrem
-'	Method ClearConfiguration()
-'		_library.Clear()
-'	End Method
 	
 		
 	rem
@@ -76,25 +72,25 @@ Type TParticleManager
 		about: game name is defined in the particle library editor, layerID defines the layer to add the emitter to
 		returns: TParticleEmitter
 	endrem
-	Method CreateEmitter:TParticleEmitter(gamename:String, layerID:Int, xpos:Float = 0, ypos:Float = 0, parent:Object = Null)
-		Local e:TParticleEmitter = _library.CloneEmitter(gamename)
-		e.SetParent(TActor(parent))
-		e.SetPosition(xpos, ypos)
-		TLayerManager.GetInstance().AddRenderableToLayerById(e, layerID)
-		Return e
-	End Method
+'	Method CreateEmitter:TParticleEmitter(gamename:String, layerID:Int, xpos:Float = 0, ypos:Float = 0, parent:Object = Null)
+'		Local e:TParticleEmitter = _library.CloneEmitter(gamename)
+'		e.SetParent(TActor(parent))
+'		e.SetPosition(xpos, ypos)
+'		TLayerManager.GetInstance().AddRenderableToLayerById(e, layerID)
+'		Return e
+'	End Method
 
 	rem
 		bbdoc: Create an effect using its game name
 		about: game name is defined in the particle library editor, layer ID defines the layer to add the emitters to
 	endrem
-	Method CreateEffect(gamename:String, layerID:Int, xpos:Float = 0, ypos:Float = 0, parent:Object = Null)
-	
-		Local e:TParticleEffect = TParticleEffect(_library.GetObject(gamename))
-		Local list:TList = e.GetList()
-		For Local name:String = EachIn list
-			Self.CreateEmitter(name, layerID, xpos, ypos, parent)
-		Next
-	End Method
+'	Method CreateEffect(gamename:String, layerID:Int, xpos:Float = 0, ypos:Float = 0, parent:Object = Null)
+'	
+'		Local e:TParticleEffect = TParticleEffect(_library.GetObject(gamename))
+'		Local list:TList = e.GetList()
+'		For Local name:String = EachIn list
+'			Self.CreateEmitter(name, layerID, xpos, ypos, parent)
+'		Next
+'	End Method
 
 End Type

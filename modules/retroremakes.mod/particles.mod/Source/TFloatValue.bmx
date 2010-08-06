@@ -193,8 +193,8 @@ Type TFloatValue Extends TValue
 	
 
 	rem
-		bbdoc: Creates a clone of this float value
-		returns: TFloatValue
+	bbdoc: Creates a clone of this float value
+	returns: TFloatValue
 	endrem
 	Method Clone:TFloatValue()
 		Local f:TFloatValue = New TFloatValue
@@ -212,36 +212,62 @@ Type TFloatValue Extends TValue
 
 	
 	rem
-	bbdoc: Imports Float settings from a string array
+	bbdoc: Imports settings from a stream
 	endrem	
-	Method ImportSettings(settings:String[])
-		If settings.length <> settingsLength Then Throw "Float array not complete!"
-		If settings[0] <> "float" Then Throw "Array not a float array!"
-		
-		_active = Int(settings[1])
-		_behaviour = Int(settings[2])
-		_countdown_left = Int(settings[3])
-		_startValue = Float(settings[4])
-		_endValue = Float(settings[5])
-		_changeAmount = Float(settings[6])
-	End Method
+	Method ReadPropertiesFromStream:Int(stream:TStream)
 	
+		Local value:String[]
+		Local line:String
+		
+		line = ReadLine(stream).Trim()
+		line.ToLower()
+	
+		While line <> "[end float]"
+		
+			value = line.Split("=")
+			
+			Select value[0]
+				Case "active"
+					_active = Int(value[1])
+				Case "behaviour"
+					_behaviour = Int(value[1])
+				Case "countdown"
+					_countdown_left = Int(value[1])
+				Case "start"
+					_startValue = Float(value[1])
+				Case "end"
+					_endValue = Float(value[1])
+				Case "change"
+					_changeAmount = Float(value[1])
+				Case "", "[float]"
+					'skip empty lines
+				Default
+
+'					Return False
+					Throw "" + value[0] + " is not a recognized label"
+			End Select
+		
+			line = ReadLine(stream).Trim()
+			line.ToLower()
+		Wend
+		Return True
+	End Method	
+
 	
 	
 	rem
-	bbdoc: Exports Float settings to a string array
-	returns: String array
+	bbdoc: Exports settings to stream
 	endrem	
-	Method ExportSettings:String[] ()
-		Local settings:String[settingsLength]
-		settings[0] = "float"
-		settings[1] = String(_active)
-		settings[2] = String(_behaviour)
-		settings[3] = String(_countdown_left)
-		settings[4] = String(_startValue)
-		settings[5] = String(_endValue)
-		settings[6] = String(_changeAmount)
-		Return settings
-	End Method
-	
+	Method WritePropertiesToStream:Int(stream:TStream, label:String)
+		WriteLine(stream, "[" + label + "]")
+		WriteLine(stream, "active=" + String(_active))
+		WriteLine(stream, "behaviour=" + String(_behaviour))
+		WriteLine(stream, "countdown=" + String(_countdown_left))
+		WriteLine(stream, "start=" + String(_startValue))
+		WriteLine(stream, "end=" + String(_endValue))
+		WriteLine(stream, "change=" + String(_changeAmount))
+		WriteLine(stream, "[end float]")
+		Return True
+	End Method		
+		
 End Type

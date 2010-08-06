@@ -1,6 +1,6 @@
 Rem
 '
-' Copyright (c) 2007-2010 Wiebo de Wit <wiebo.de.wit@gmail.com>.
+' Copyright (c) 2010 Wiebo de Wit <wiebo.de.wit@gmail.com>.
 '
 ' All rights reserved. Use of this code is allowed under the
 ' Artistic License 2.0 terms, as specified in the LICENSE file
@@ -9,26 +9,19 @@ Rem
 '
 endrem
 
-'image handle locations            TODO: change to a descriptive string?
+'image handle locations
 Const HANDLE_CENTER:Int = 100
 Const HANDLE_TOP:Int = 101
 Const HANDLE_BOTTOM:Int = 102
 Const HANDLE_LEFT:Int = 103
 Const HANDLE_RIGHT:Int = 104
 
+
+
 rem
 bbdoc: Image type used by particles
 endrem
 Type TParticleImage Extends TParticleActor
-
-	'id in library
-'	Field _libraryID:String
-	
-	'friendly name in editor
-'	Field _editorName:String
-	
-	'handy text
-'	Field _description:String
 	
 	'the actual image
 	Field _image:TImage
@@ -45,67 +38,10 @@ Type TParticleImage Extends TParticleActor
 	
 	'image center
 	Field _handlePoint:Int
-	
-	' length of the array used in import and export settings
-	Field settingsLength:Int = 9
 
 	
 	Method Render(tweening:Double, fixed:Int)
 	End Method
-	
-	
-	
-	rem
-	bbdoc: Sets ID of this object
-	endrem
-'	Method SetID(newID:String)
-'		_libraryID = newID
-'	End Method
-	
-	
-	
-	rem
-	bbdoc: Returns this objects' ID
-	endrem
-'	Method GetID:String()
-'		Return _libraryID
-'	End Method
-	
-	
-	
-	rem
-	bbdoc: Sets editor name
-	endrem
-'	Method SetEditorName(name:String)
-'		_editorName = name
-'	End Method
-
-		
-
-	rem
-	bbdoc: Returns this objects' editorname
-	endrem
-'	Method GetEditorName:String()
-'		Return _editorName
-'	End Method
-
-	
-	
-	rem
-	bbdoc: Sets description text
-	endrem
-'	Method SetDescription(name:String)
-'		_description = name
-'	End Method
-
-		
-
-	rem
-	bbdoc: Returns this objects' description text
-	endrem
-'	Method GetDescription:String()
-'		Return _description
-'	End Method	
 	
 	
 	
@@ -120,46 +56,91 @@ Type TParticleImage Extends TParticleActor
 	
 	
 	rem
-	bbdoc: Imports image settings from an string array
+	bbdoc: Sets image file name path
+	endrem	
+	Method SetImageFileName(filename:String)
+		_imageFilename = filename
+	End Method
+	
+	
+	
+	rem
+	bbdoc: Returns image file name path
 	endrem
-	Method ImportSettings(settings:String[])
-		If settings.length <> settingsLength Then Throw "Image array not complete!"
-		If settings[0] <> "image" Then Throw "Array not an Image array!"
+	Method GetImageFileName:String()
+		Return _imageFilename
+	End Method
+	
+	
+	
+	rem
+	bbdoc: Imports settings from a stream
+	endrem	
+	Method ReadPropertiesFromStream:Int(stream:TStream)
+	
+		Local value:String[]
+		Local line:String
 		
-		_libraryID = settings[1]
-		_editorName = settings[2]
-		_description = settings[3]
-		_imageFilename = settings[4]
-		_frameCount = Int(settings[5])
-		_frameDimensionX = Int(settings[6])
-		_frameDimensionY = Int(settings[7])
-		_handlePoint = Int(settings[8])
+		line = ReadLine(stream).Trim()
+		line.ToLower()
+	
+		While line <> "[end image]"
+		
+			value = line.Split("=")
+			
+			Select value[0]
+				Case "id"
+					_libraryID = Int(value[1])
+				Case "name"
+					_editorName = value[1]
+				Case "description"
+					_description = value[1]
+				Case "filename"
+					_imageFilename = value[1]
+				Case "framecount"
+					_frameCount = Int(value[1])
+				Case "framedimensionX"
+					_frameDimensionX = Int(value[1])
+				Case "framedimensionY"
+					_frameDimensionY = Int(value[1])
+				Case "handlepoint"
+					_handlePoint = Int(value[1])
+				Case "", "[image]"
+				Default
+					Return False
+'					Throw "" + value[0] + " is not a recognized label"
+			End Select
+		
+			line = ReadLine(stream).Trim()
+			line.ToLower()
+		Wend
+		
+		Return _libraryID
 	End Method
 	
 	
 	
 	rem
-	bbdoc: Exports image settings to a string array
-	returns: String array
-	endrem
-	Method ExportSettings:String[] ()
-		Local settings:String[settingsLength]
-		settings[0] = "image"
-		settings[1] = _libraryID
-		settings[2] = _editorName
-		settings[3] = _description
-		settings[4] = _imageFilename
-		settings[5] = String(_frameCount)
-		settings[6] = String(_frameDimensionX)
-		settings[7] = String(_frameDimensionY)
-		settings[8] = String(_handlePoint)
-		Return settings
-	End Method
+	bbdoc: Exports settings to stream
+	endrem	
+	Method WritePropertiesToStream:Int(stream:TStream)
+		WriteLine(stream, "[image]")
+		WriteLine(stream, "id=" + String(_libraryID))
+		WriteLine(stream, "name=" + _editorName)
+		WriteLine(stream, "description=" + _description)
+		WriteLine(stream, "filename=" + _imageFilename)
+		WriteLine(stream, "framecount=" + String(_frameCount))
+		WriteLine(stream, "framedimensionX=" + String(_frameDimensionX))
+		WriteLine(stream, "framedimensionY=" + String(_frameDimensionY))
+		WriteLine(stream, "handlepoint=" + String(_handlePoint))
+		WriteLine(stream, "[end image]")
+		Return True
+	End Method	
 	
 	
 	
 	rem
-	bbdoc: Loads the image file as configured
+	bbdoc: Loads the image file as configured. Name etc. must already be set
 	endrem
 	Method LoadImageFile()
 		If _frameCount > 0

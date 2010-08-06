@@ -1,6 +1,6 @@
 Rem
 '
-' Copyright (c) 2009-2010 Wiebo de Wit <wiebo.de.wit@gmail.com>.
+' Copyright (c) 2010 Wiebo de Wit <wiebo.de.wit@gmail.com>.
 '
 ' All rights reserved. Use of this code is allowed under the
 ' Artistic License 2.0 terms, as specified in the LICENSE file
@@ -10,12 +10,12 @@ Rem
 endrem
 
 rem
-	bbdoc: base object for all particle engine objects
+bbdoc: base object for all particle engine objects
 endrem
 Type TParticleActor Extends TActor Abstract
 
 	'id in library
-	Field _libraryID:String
+	Field _libraryID:Int
 
 	'name in-game
 	Field _gameName:String
@@ -75,7 +75,7 @@ Type TParticleActor Extends TActor Abstract
 	rem
 	bbdoc: Sets ID of this object
 	endrem
-	Method SetID(newID:String)
+	Method SetID(newID:Int)
 		_libraryID = newID
 	End Method
 	
@@ -84,7 +84,7 @@ Type TParticleActor Extends TActor Abstract
 	rem
 	bbdoc: Returns this objects' ID
 	endrem
-	Method GetID:String()
+	Method GetID:Int()
 		Return _libraryID
 	End Method
 	

@@ -13,6 +13,7 @@ SuperStrict
 
 Framework bah.maxunit
 Import retroremakes.particles
+Import wdw.library
 
 Include "valueTest.bmx"
 Include "floatValueTest.bmx"
@@ -21,7 +22,6 @@ Include "particleActorTest.bmx"
 Include "particleImageTest.bmx"
 Include "particleTest.bmx"
 'Include "particleLibraryTest.bmx"
-Include "libraryConfigurationTest.bmx"
 
 ' Mocks used by the tests
 Include "Mocks/TValueMOCK.bmx"

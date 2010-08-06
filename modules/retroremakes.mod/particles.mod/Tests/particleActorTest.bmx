@@ -46,9 +46,9 @@ Type particleActorTest Extends TTest
 	
 	'can we set the id?
 	Method testSetID() {test}
-		Local id:String = "1"
+		Local id:Int = 1
 		p.SetID(id)
-		assertEquals(id, p.GetID())
+		assertEqualsI(id, p.GetID())
 	End Method
 	
 	'can we set the gamename?

@@ -146,41 +146,67 @@ Type TColorValue Extends TValue
 	
 	
 	rem
-	bbdoc: Imports Color settings from a string array
+		bbdoc: Imports settings from a stream
 	endrem	
-	Method ImportSettings(settings:String[])
-		If settings.length <> settingsLength Then Throw "Color array not complete!"
-		If settings[0] <> "color" Then Throw "Array not a color array!"
-		_active = Int(settings[1])
-		_behaviour = Int(settings[2])
-		_countdown_left = Int(settings[3])
-		_changeAmount = Float(settings[4])
-		_startColor.Set(Float(settings[5]), Float(settings[6]), Float(settings[7]))
-		_endColor.Set(Float(settings[8]), Float(settings[9]), Float(settings[10]))
-	End Method
+	Method ReadPropertiesFromStream:Int(stream:TStream)
 	
+		Local value:String[2]
+		Local colors:String[3]
+		Local line:String
+		
+		line = ReadLine(stream).Trim()
+		line.ToLower()
+	
+		While line <> "[end color]"
+		
+			value = line.Split("=")
+			
+			Select value[0]
+				Case "active"
+					_active = Int(value[1])
+				Case "behaviour"
+					_behaviour = Int(value[1])
+				Case "countdown"
+					_countdown_left = Int(value[1])
+				Case "change"
+					_changeAmount = Float(value[1])
+				Case "start"
+					colors = value[1].Split(",")
+					_startColor.set(Float(colors[0]), Float(colors[1]), Float(colors[2]))
+				Case "end"
+					colors = value[1].Split(",")
+					_endColor.set(Float(colors[0]), Float(colors[1]), Float(colors[2]))
+				Case "", "[color]"
+					'skip empty lines
+				Default
+
+'					Return False
+					Throw "" + value[0] + " is not a recognized label"
+			End Select
+		
+			line = ReadLine(stream).Trim()
+			line.ToLower()
+		Wend
+		Return True
+	End Method	
+
 	
 	
 	rem
-	bbdoc: Exports Color settings to a string array
-	returns: String array
+		bbdoc: Exports settings to stream
 	endrem	
-	Method ExportSettings:String[] ()
-		Local settings:String[settingsLength]
-		settings[0] = "color"
-		settings[1] = String(_active)
-		settings[2] = String(_behaviour)
-		settings[3] = String(_countdown_left)
-		settings[4] = String(_changeAmount)
-		settings[5] = String(_startColor.r)
-		settings[6] = String(_startColor.g)
-		settings[7] = String(_startColor.b)
-		settings[8] = String(_endColor.r)
-		settings[9] = String(_endColor.g)
-		settings[10] = String(_endColor.b)
-		Return settings
-	End Method
-	
+	Method WritePropertiesToStream:Int(stream:TStream, label:String)
+		WriteLine(stream, "[" + label + "]")
+		WriteLine(stream, "active=" + String(_active))
+		WriteLine(stream, "behaviour=" + String(_behaviour))
+		WriteLine(stream, "countdown=" + String(_countdown_left))
+		WriteLine(stream, "start=" + String(_startColor.r) + "," + String(_startColor.g) + "," + String(_startColor.b))
+		WriteLine(stream, "end=" + String(_endColor.r) + "," + String(_endColor.g) + "," + String(_endColor.b))
+		WriteLine(stream, "change=" + String(_changeAmount))
+		WriteLine(stream, "[end color]")
+		Return True
+	End Method		
+		
 End Type
 
 

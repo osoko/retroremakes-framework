@@ -1,6 +1,6 @@
 Rem
 '
-' Copyright (c) 2007-2010 Wiebo de Wit <wiebo.de.wit@gmail.com>.
+' Copyright (c) 2010 Wiebo de Wit <wiebo.de.wit@gmail.com>.
 '
 ' All rights reserved. Use of this code is allowed under the
 ' Artistic License 2.0 terms, as specified in the LICENSE file
@@ -11,34 +11,9 @@ endrem
 
 Type particleImageTest Extends TTest
 	Field i:TParticleImage
-	Field arrayForSingleImage:String[9]
-	Field arrayForMultiframeImage:String[9]
-	
 
 	Method setup() {before}
 		i = New TParticleImage
-
-		' create config arrays
-		arrayForSingleImage[0] = "image"
-		arrayForSingleImage[1] = "1"
-		arrayForSingleImage[2] = "My Image"
-		arrayForSingleImage[3] = "Handy image"
-		arrayForSingleImage[4] = "media\stars.png"
-		arrayForSingleImage[5] = "0"
-		arrayForSingleImage[6] = "0"
-		arrayForSingleImage[7] = "0"
-		arrayForSingleImage[8] = "100"
-		
-		arrayForMultiframeImage[0] = "image"
-		arrayForMultiframeImage[1] = "1"
-		arrayForMultiframeImage[2] = "My Image"
-		arrayForMultiframeImage[3] = "Handy Image"
-		arrayForMultiframeImage[4] = "media\stars.png"
-		arrayForMultiframeImage[5] = "4"
-		arrayForMultiframeImage[6] = "8"
-		arrayForMultiframeImage[7] = "8"
-		arrayForMultiframeImage[8] = "100"
-		
 	End Method
 	
 	Method cleanup() {after}
@@ -60,55 +35,10 @@ Type particleImageTest Extends TTest
 		
 	End Method
 	
-	'do we get an error if the settings array is not complete?
-	Method testSettingsArrayLength() {test}
-		Local badArray:String[4]
-		Try
-			i.ImportSettings(badArray)
-		Catch result:String
-			assertEquals("Image array not complete!", result)
-		EndTry
-	End Method
-	
-	'can we import the settings from an array?
-	Method testImportSettingsFromArray()
-		
-		i.ImportSettings(arrayForMultiframeImage)
-		
-		assertEquals("1", i.GetID())
-		assertEquals("My Image", i.getEditorName())
-		assertEquals("Handy image", i.GetDescription())
-		
-		'the following asserts adress fields directly as they have no interface
-		assertEquals("media\stars.png", i._imageFileName)
-		assertEqualsI(4, i._frameCount)
-		assertEqualsI(8, i._frameDimensionX)
-		assertEqualsI(8, i._frameDimensionY)
-		assertEqualsI(100, i._handlePoint)
-	
-	End Method
-	
-	'can we export the settings to an array?
-	Method testExportSettingsToArray()
-		
-		i.ImportSettings(arrayForMultiframeImage)
-		Local export:String[] = i.ExportSettings()
-			
-		assertEquals(export[0], "image")
-		assertEquals(export[1], i.GetID())
-		assertEquals(export[2], i.getEditorName())
-		assertEquals(export[3], i.GetDescription())
-		assertEquals(export[4], i._imageFileName)
-		assertEqualsI(Int(export[5]), i._frameCount)
-		assertEqualsI(Int(export[6]), i._frameDimensionX)
-		assertEqualsI(Int(export[7]), i._frameDimensionY)
-		assertEqualsI(Int(export[8]), i._handlePoint)
-	End Method
-	
 	'do we get an exception when image cannot be loaded?
 	Method testImageLoadError() {test}
-		arrayForSingleImage[4] = "bad.png"
-		i.ImportSettings(arrayForSingleImage)
+		i.SetImageFileName("bad.png")
+		
 		Try
 			i.LoadImageFile()
 		Catch result:String
@@ -118,18 +48,73 @@ Type particleImageTest Extends TTest
 	
 	'can we load an image?
 	Method testLoadImage() {test}
-		i.ImportSettings(arrayForSingleImage)
+		SetSingleImageConfig()
+
 		i.LoadImageFile()
-		
 		assertNotNull(i._image)
 	End Method
 	
 	'can we load multi frame image?
 	Method testLoadMultiFrameImage() {test}
-		i.ImportSettings(arrayForMultiframeImage)
+		SetMultiImageConfig()
+
 		i.LoadImageFile()
-		
 		assertNotNull(i._image)
 	End Method
 
+	
+	'can we export settings to stream?
+	Method testWriteSettings() {test}
+	
+		SetMultiImageConfig()
+		
+		Local s:TStream = WriteFile("media/imagewritetest.txt")
+		Local result:Int = i.WritePropertiesToStream(s)
+		assertEqualsI(True, result)
+		
+	End Method
+	
+	'can we import settings from stream?
+	Method testReadSettings() {test}
+	
+		Local s:TStream = ReadFile("media/imagewritetest.txt")
+		i.ReadPropertiesFromStream(s)
+		
+		assertEqualsI(10, i.GetID())
+		assertEquals("My Image", i.getEditorName())
+		assertEquals("Handy Image", i.GetDescription())
+		assertEquals("media/stars.png", i.GetImageFileName())
+	
+		'the following asserts adress fields directly as they have no interface
+		assertEqualsI(4, i._frameCount)
+		assertEqualsI(8, i._frameDimensionX)
+		assertEqualsI(8, i._frameDimensionY)
+		assertEqualsI(HANDLE_CENTER, i._handlePoint)
+	End Method	
+	
+ '---------------------------------------------------------	
+	'configuration methods for tests
+	Method SetSingleImageConfig()
+		i.SetID(10)
+		i.SetEditorName("My Image")
+		i.SetDescription("Handy Image")
+		i.SetImageFileName("media/stars.png")
+		i._frameCount = 0
+		i._frameDimensionX = 0
+		i._frameDimensionY = 0
+		i._handlePoint = HANDLE_CENTER
+	End Method
+
+	Method SetMultiImageConfig()
+		i.SetID(10)
+		i.SetEditorName("My Image")
+		i.SetDescription("Handy Image")
+		i.SetImageFileName("media/stars.png")
+		i._frameCount = 4
+		i._frameDimensionX = 8
+		i._frameDimensionY = 8
+		i._handlePoint = HANDLE_CENTER
+	End Method
+	
+	
 End Type
