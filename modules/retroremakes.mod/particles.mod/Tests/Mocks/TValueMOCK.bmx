@@ -1,3 +1,4 @@
+
 Type TValueMOCK Extends TValue
 	
 	Method UpdateValue:Int()

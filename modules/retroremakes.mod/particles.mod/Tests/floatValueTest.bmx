@@ -1,6 +1,6 @@
 Rem
 '
-' Copyright (c) 2007-2010 Wiebo de Wit <wiebo.de.wit@gmail.com>.
+' Copyright (c) 2010 Wiebo de Wit <wiebo.de.wit@gmail.com>.
 '
 ' All rights reserved. Use of this code is allowed under the
 ' Artistic License 2.0 terms, as specified in the LICENSE file
@@ -116,78 +116,39 @@ Type floatValueTest Extends TTest
 		
 	End Method
 		
-	'does import throw exception when array header is not ok?
-	Method testDoesImportThrowExceptionOnBadLabel() {test}
-		Local array:String[7]
-		array[0] = "float_baaaad"
-		
-		Try
-			f.ImportSettings(array)
-		Catch result:String
-			assertEquals("Array not a float array!", result)
-		End Try
-		
-	End Method
-
-	'does import throw exception when array length is not ok?	
-	Method testDoesImportThrowExceptionOnWrongLength() {test}
-		Local array:String[18]
-		array[0] = "float"
-		
-		Try
-			f.ImportSettings(array)
-		Catch result:String
-			assertEquals("Float array not complete!", result)
-		End Try
-	End Method
+	'can we export settings to stream?
+	Method testWriteSettings() {test}
 	
-	'can we import settings from array?
-	Method testImportSettings() {test}
-	
-		Local array:String[7]
-		array[0] = "float"
-		array[1] = "1"
-		array[2] = String(BEHAVIOUR_REPEAT)
-		array[3] = "10"
-		array[4] = "2.0"
-		array[5] = "3.0"
-		array[6] = "0.2"
+		f.SetStartValue(1.0)
+		f.SetEndValue(2.0)
+		f.SetChangeAmount(0.2)
+		f.SetCountdown(12)
+		f.SetActive(True)
+		f.ResetValue()
+		f.SetBehaviour(BEHAVIOUR_REPEAT)
+		f.SetMode(MODE_RUNNING)
 		
-		f.ImportSettings(array)
+		Local s:TStream = WriteFile("media/floatwritetest.txt")
+		Local result:Int = f.WritePropertiesToStream(s, "float")
+		assertEqualsI(True, result)
 		
-		assertEqualsI(True, f.GetActive())
-		assertEqualsI(BEHAVIOUR_REPEAT, f.GetBehaviour())
-		assertEqualsF(1.0, f.GetActive())
-		assertEqualsI(10, f.GetCountDown())
-		assertEqualsF(2.0, f.GetStartValue())
-		assertEqualsF(3.0, f.GetEndValue())
-		assertEqualsF(0.2, f.GetChangeAmount())
-	
-	End Method
-	
-	'can we export settings to array?
-	Method testExportSettings() {test}
-	
-		Local array:String[7]
-		array[0] = "float"
-		array[1] = "1"
-		array[2] = String(BEHAVIOUR_REPEAT)
-		array[3] = "10"
-		array[4] = "2.0"
-		array[5] = "3.0"
-		array[6] = "0.2"
-		
-		f.ImportSettings(array)
-		Local array2:String[] = f.ExportSettings()
-		
-		assertEquals("float", array2[0])
-		assertEquals("1", array2[1])
-		assertEqualsI(BEHAVIOUR_REPEAT, Int(array2[2]))
-		assertEqualsI(10, Int(array2[3]))
-		assertEqualsF(2.0, Float(array2[4]))
-		assertEqualsF(3.0, Float(array2[5]))
-		assertEqualsF(0.2, Float(array2[6]))
 	End Method	
 	
+	'can we import settings from stream?
+	Method testReadSettings() {test}
 	
+		Local s:TStream = ReadFile("media/floatwritetest.txt")
+		
+		f.ReadPropertiesFromStream(s)
+		
+		assertEqualsI(True, f.GetActive(), "active")
+		assertEqualsI(BEHAVIOUR_REPEAT, f.GetBehaviour(), "behaviour")
+		assertEqualsI(12, f.GetCountDown(), "countdown")
+		assertEqualsF(1.0, f.GetStartValue(), 0, "start")
+		assertEqualsF(2.0, f.GetEndValue(), 0, "end")
+		assertEqualsF(0.2, f.GetChangeAmount(), 0, "change")
+	
+	End Method
+	
+		
 End Type

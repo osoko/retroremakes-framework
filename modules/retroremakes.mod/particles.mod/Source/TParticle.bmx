@@ -1,6 +1,6 @@
 Rem
 '
-' Copyright (c) 2007-2010 Wiebo de Wit <wiebo.de.wit@gmail.com>.
+' Copyright (c) 2010 Wiebo de Wit <wiebo.de.wit@gmail.com>.
 '
 ' All rights reserved. Use of this code is allowed under the
 ' Artistic License 2.0 terms, as specified in the LICENSE file
@@ -15,7 +15,7 @@ endrem
 Type TParticle Extends TParticleActor
 
 	'id of image in library
-	Field _imageID:String
+	Field _imageID:Int
 
 	'image to draw
 	Field _image:TImage
@@ -29,10 +29,7 @@ Type TParticle Extends TParticleActor
 	'changeable alpha over time
 	Field _alpha:TFloatValue
 
-	' length of the array used in import and export settings
-	Field settingsLength:Int = 48
-	
-	
+		
 	
 	rem
 	bbdoc: Default contructor
@@ -62,11 +59,10 @@ Type TParticle Extends TParticleActor
 	bbdoc: Sets reference to image
 	about: Called by the library for post processing.
 	endrem
-	Method SetImage(library:TLibraryConfiguration)
-	
-		Local i:TParticleImage = TParticleImage(library.GetObject(_imageID))
-		_image = i.GetImage()
-	End Method
+'	Method SetImage(library:TLibraryConfiguration)
+'		Local i:TParticleImage = TParticleImage(library.GetObject(_imageID))
+'		_image = i.GetImage()
+'	End Method
 
 	
 	
@@ -88,105 +84,105 @@ Type TParticle Extends TParticleActor
 
 	End Method
 	
+
+	
+	rem
+	bbdoc: Imports settings from a stream
+	endrem	
+	Method ReadPropertiesFromStream:Int(stream:TStream)
+	
+		Local value:String[]
+		Local line:String
+		
+		line = ReadLine(stream).Trim()
+		line.ToLower()
+	
+		While line <> "[end particle]"
+		
+			value = line.Split("=")
+			
+			Select value[0]
+				Case "id"
+					_libraryID = Int(value[1])
+				Case "name"
+					_editorName = value[1]
+				Case "description"
+					_description = value[1]
+				Case "imageid"
+					_imageID = Int(value[1])
+				Case "imageframe"
+					_imageFrame = Int(value[1])
+				Case "friction"
+					_friction = Float(value[1])
+				Case "life"
+					_life = Int(value[1])
+				Case "blendmode"
+					_blendMode = Int(value[1])
+					
+				Case "[rotation]"
+					_rotation.ReadPropertiesFromStream(stream)
+				Case "[alpha]"
+					_alpha.ReadPropertiesFromStream(stream)
+				Case "[sizex]"
+					_sizeX.ReadPropertiesFromStream(stream)
+				Case "[sizey]"
+					_sizeY.ReadPropertiesFromStream(stream)
+				Case "[color]"
+					_color.ReadPropertiesFromStream(stream)
+
+				Case "", "[particle]"
+				
+					'skip empty lines
+				Default
+					'Return False
+					Throw "" + value[0] + " is not a recognized label"
+			End Select
+		
+			line = ReadLine(stream).Trim()
+			line.ToLower()
+		Wend
+		Return True
+	End Method	
+	
 	
 	
 	rem
-	bbdoc: Imports particle settings from an string array
-	endrem
-	Method ImportSettings(settings:String[])
-	
-		If settings.length <> settingsLength Then Throw "Particle array not complete!"
-		If settings[0] <> "particle" Then Throw "Array not a particle array!"
+		bbdoc: Exports settings to stream
+	endrem	
+	Method WritePropertiesToStream:Int(stream:TStream)
+		WriteLine(stream, "[particle]")
+		WriteLine(stream, "id=" + String(_libraryID))
+		WriteLine(stream, "name=" + _editorName)
+		WriteLine(stream, "description=" + _description)
 		
-		_libraryID = settings[1]
-		_editorName = settings[2]
-		_description = settings[3]
-		_imageID = settings[4]
-		_imageFrame = Int(settings[5])
-		_friction = Float(settings[6])
-		_life = Int(settings[7])
-		_blendMode = Int(settings[8])
+		WriteLine(stream, "imageid=" + String(_imageID))
+		WriteLine(stream, "imageframe=" + String(_imageFrame))
+		WriteLine(stream, "friction=" + String(_friction))
+		WriteLine(stream, "life=" + String(_life))
+		WriteLine(stream, "blendmode=" + String(_blendMode))
 		
-		'slice up array to get float and color arrays
-		Local index:Int = 9
-		Local slice:String[]
-						
-		slice = settings[index..index + 7]
-		_rotation.ImportSettings(slice)
+		_rotation.WritePropertiesToStream(stream, "rotation")
+		_alpha.WritePropertiesToStream(stream, "alpha")
+		_sizeX.WritePropertiesToStream(stream, "sizeX")
+		_sizeY.WritePropertiesToStream(stream, "sizeY")
+		_color.WritePropertiesToStream(stream, "color")
 		
-		index:+7
-		slice = settings[index..index + 7]
-		_alpha.ImportSettings(slice)
-		
-		index:+7
-		slice = settings[index..index + 7]
-		_sizeX.ImportSettings(slice)
-		
-		index:+7
-		slice = settings[index..index + 7]
-		_sizeY.ImportSettings(slice)
-		
-		index:+7
-		slice = settings[index..index + 11]
-		_color.ImportSettings(slice)
-	End Method
+		WriteLine(stream, "[end particle]")
+		Return True
+	End Method	
 	
 	
-	
-	rem
-	bbdoc: Exports particle settings to string array
-	returns: String array
-	endrem
-	Method ExportSettings:String[] (settings:String[])
-		Local array:String[settingsLength]
-		array[0] = "particle"
-		array[1] = _libraryID
-		array[2] = _editorName
-		array[3] = _description
 
-		array[4] = String(_imageID)
-		array[5] = String(_imageFrame)
-		array[6] = String(_friction)
-		array[7] = String(_life)
-		array[8] = String(_blendMode)
-		
-		
-		Local index:Int = 9
-		Local floatSettings:String[] = _rotation.ExportSettings()
-		SetArrayValues(floatSettings, array, index)
-		
-		index:+7
-		floatSettings = _alpha.ExportSettings()
-		SetArrayValues(floatSettings, array, index)
-
-		index:+7
-		floatSettings = _sizeX.ExportSettings()
-		SetArrayValues(floatSettings, array, index)
-		
-		index:+7
-		floatSettings = _sizeY.ExportSettings()
-		SetArrayValues(floatSettings, array, index)
-	
-		index:+7
-		Local colorSettings:String[] = _color.ExportSettings()
-		SetArrayValues(colorSettings, array, index)
-	
-		Return array
-
-	End Method
-	
-	
-	
 	rem
 	bbdoc: Passes source array values to destination array, starting at the passed Index
 	endrem
-	Method SetArrayValues(source:String[], destination:String[], destinationIndex:Int)
-		Local sourceIndex:Int
-		For sourceIndex = 0 To source.Length - 1
-			destination[destinationIndex] = source[sourceIndex]
-			destinationIndex:+1
-		Next
-	End Method
+'	Method SetArrayValues(source:String[], destination:String[], destinationIndex:Int)
+'		Local sourceIndex:Int
+'		For sourceIndex = 0 To source.Length - 1
+'			destination[destinationIndex] = source[sourceIndex]
+'			destinationIndex:+1
+'		Next
+'	End Method
 
 	
 	

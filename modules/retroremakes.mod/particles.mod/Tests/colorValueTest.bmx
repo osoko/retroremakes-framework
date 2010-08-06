@@ -139,72 +139,46 @@ Type colorValueTest Extends TTest
 		
 	End Method
 	
-	'can we import settings from array?
-	Method testImportSettings() {test}
+	'can we export settings to stream?
+	Method testWriteSettings() {test}
+		c.SetActive(True)
+		c.SetBehaviour(BEHAVIOUR_REPEAT)
+		c.SetMode(MODE_RUNNING)
+		c.SetChangeAmount(0.2)
+		c.SetCountdown(12)
+		
+		c.SetStartColorValue(10, 20, 30)
+		c.SetEndColorValue(40, 50, 60)
 	
-		Local array:String[11]
-		array[0] = "color"
-		array[1] = "1"
-		array[2] = String(BEHAVIOUR_REPEAT)
-		array[3] = "10"
-		array[4] = "2.0"
-		array[5] = "100"
-		array[6] = "100"
-		array[7] = "100"
-		array[8] = "200"
-		array[9] = "200"
-		array[10] = "200"
+		c.ResetValue()
 		
-		c.ImportSettings(array)
-		
-		assertEqualsI(True, c.GetActive())
-		assertEqualsI(BEHAVIOUR_REPEAT, c.GetBehaviour())
-		assertEqualsF(1.0, c.GetActive())
-		assertEqualsI(10, c.GetCountDown())
-		assertEqualsF(2.0, c.GetChangeAmount())
-		
-		Local col:Trgb = c.GetStartColor()
-		assertEqualsF(100, col.r)
-		assertEqualsF(100, col.g)
-		assertEqualsF(100, col.b)
-
-		col = c.GetEndColor()
-		assertEqualsF(200, col.r)
-		assertEqualsF(200, col.g)
-		assertEqualsF(200, col.b)
+		Local s:TStream = WriteFile("media/colorwritetest.txt")
+		Local result:Int = c.WritePropertiesToStream(s, "color")
+		assertEqualsI(True, result)
 		
 	End Method
 	
-	'can we export settings to array?
-	Method testExportSettings() {test}
+	'can we import settings from stream?
+	Method testReadSettings() {test}
 	
-		Local array:String[11]
-		array[0] = "color"
-		array[1] = "1"
-		array[2] = String(BEHAVIOUR_REPEAT)
-		array[3] = "10"
-		array[4] = "2.0"
-		array[5] = "100"
-		array[6] = "100"
-		array[7] = "100"
-		array[8] = "200"
-		array[9] = "200"
-		array[10] = "200"
+		Local s:TStream = ReadFile("media/colorwritetest.txt")
 		
-		c.ImportSettings(array)
-		Local array2:String[] = c.ExportSettings()
+		c.ReadPropertiesFromStream(s)
 		
-		assertEquals("color", array2[0])
-		assertEquals("1", array2[1])
-		assertEqualsI(BEHAVIOUR_REPEAT, Int(array2[2]))
-		assertEqualsI(10, Int(array2[3]))
-		assertEqualsF(2.0, Float(array2[4]))
-		assertEqualsF(100, Float(array2[5]))
-		assertEqualsF(100, Float(array2[6]))
-		assertEqualsF(100, Float(array2[7]))
-		assertEqualsF(200, Float(array2[8]))
-		assertEqualsF(200, Float(array2[9]))
-		assertEqualsF(200, Float(array2[10]))
-	End Method	
+		assertEqualsI(True, c.GetActive(), "active")
+		assertEqualsI(BEHAVIOUR_REPEAT, c.GetBehaviour(), "behaviour")
+		assertEqualsI(12, c.GetCountDown(), "countdown")
+		assertEqualsF(0.2, c.GetChangeAmount(), 0, "change")
+		
+		assertEqualsF(10, c._startColor.r, 0)
+		assertEqualsF(20, c._startColor.g, 0)
+		assertEqualsF(30, c._startColor.b, 0)
+
+		assertEqualsF(40, c._endColor.r, 0)
+		assertEqualsF(50, c._endColor.g, 0)
+		assertEqualsF(60, c._endColor.b, 0)
+	
+	End Method
+	
 
 End Type
