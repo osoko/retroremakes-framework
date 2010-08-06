@@ -29,6 +29,8 @@ Type TEditorMain Extends TEditorGui
 	'true when item added/changed. false when library is saved.	
 	Field changed:Int
 	
+	Field library:TEditorLibrary
+	
 	'Field engineTimer:?
 	
 	
@@ -47,7 +49,12 @@ Type TEditorMain Extends TEditorGui
 		SyncMenusToConfiguration()
 		SetLayout()
 		
-		If configFile.GetBoolValue("Library", "AutoLoad") = True Then LoadLibrary()
+		SetUpLibrary()
+		
+
+		
+		If configFile.GetBoolValue("Library", "AutoLoad") = True Then ..
+			LoadLibrary(configFile.GetStringValue("Library", "LibraryName"))
 	End Method
 	
 
@@ -68,13 +75,26 @@ Type TEditorMain Extends TEditorGui
 	End Method
 	
 	
-	
-	Method LoadLibrary()
+	Method SetupLibrary()
 		
+		library = New TEditorLibrary
+		library.setreader()
+		library.setwriter()
+	
 	End Method
 	
 	
-	Method SaveLibrary()
+	Method LoadLibrary(filename:String)
+		
+		library.write
+	
+	
+	
+	
+	End Method
+	
+	
+	Method SaveLibrary(filename:String)
 		
 	End Method
 	
@@ -155,7 +175,6 @@ Type TEditorMain Extends TEditorGui
 	
 	
 	
-	
 	rem
 	bbdoc: Clears all items in the tree control
 	endrem
@@ -188,14 +207,9 @@ Type TEditorMain Extends TEditorGui
 	bbdoc: Sets window title to reflect loaded library
 	endrem
 	Method SetWindowTitle()
-		If changed = False Then SetGadgetText(main_window, APP_NAME + StripDir(configFile.GetStringValue("Library", "LibraryName")))
-		If changed = True Then SetGadgetText(main_window, APP_NAME + StripDir(configFile.GetStringValue("Library", "LibraryName") + "*"))
-	End Method	
-	
-	
-	
-	
-	
+		If changed = False Then SetGadgetText(main_window, APP_NAME + " - " + StripDir(configFile.GetStringValue("Library", "LibraryName")))
+		If changed = True Then SetGadgetText(main_window, APP_NAME + " - " + StripDir(configFile.GetStringValue("Library", "LibraryName") + "*"))
+	End Method
 	
 	
 	

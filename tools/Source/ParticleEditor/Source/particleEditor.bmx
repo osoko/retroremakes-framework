@@ -1,6 +1,6 @@
 Rem
 '
-' Copyright (c) 2007-2010 Wiebo de Wit <wiebo.de.wit@gmail.com>.
+' Copyright (c) 2010 Wiebo de Wit <wiebo.de.wit@gmail.com>.
 '
 ' All rights reserved. Use of this code is allowed under the
 ' Artistic License 2.0 terms, as specified in the LICENSE file
@@ -9,22 +9,9 @@ Rem
 '
 end rem
 
-'
-
-rem
-	'changed these lines at the end of wxglmax2d.bmx to prevent
-	'the function GLMax2DDriver from clashing with Max2D.GLMax2DDriver
-	
-	Function wxGLMax2DDriver:TGLMax2DDriver()   <<<<<
-		Global _driver:TGLMax2DDriver=New TGLMax2DDriver
-		Return _driver
-	End Function
-
-	SetGraphicsDriver wxGLMax2DDriver()  <<<<<
-end rem
 
 'use wxGL and not GL driver!!!
-SetGraphicsDriver wxGLMax2DDriver()
+'SetGraphicsDriver wxGLMax2DDriver()
 
 
 ' MAIN_FRAMEbase is in gui.bmx

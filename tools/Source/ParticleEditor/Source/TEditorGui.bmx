@@ -20,6 +20,13 @@ Type TEditorGui Extends TAppBase
 	Field render_canvas:TGadget
 	Field property_grid:TPropertyGrid
 	
+	'property groups
+	Field image_group:TPropertyGroup
+	Field particle_group:TPropertyGroup
+	Field emitter_group:TPropertyGroup
+	Field effect_group:TPropertyGroup
+	Field project_group:TPropertyGroup
+	
 	'menus
 	Field file_menu:TGadget
 	Field edit_menu:TGadget
@@ -54,7 +61,7 @@ Type TEditorGui Extends TAppBase
 	Const MENU_OPEN_LIBRARY:Int = 1018
 	Const MENU_SAVE_LIBRARY:Int = 1019
 	
-	'direct links to treeview main items
+	'treeview main nodes
 	Field imageRoot:TGadget
 	Field particleRoot:TGadget
 	Field emitterRoot:TGadget
@@ -64,7 +71,7 @@ Type TEditorGui Extends TAppBase
 	
 	'misc	
 	Const PROPERTY_GRID_WIDTH:Int = 300
-	Const APP_NAME:String = "ParticlesMAX RRFW Edition - "
+	Const APP_NAME:String = "ParticlesMAX RRFW Edition"
 	
 	
 	rem
@@ -73,6 +80,7 @@ Type TEditorGui Extends TAppBase
 	Method New()
 		SetUpForm()
 		SetupTree()
+		SetupPropertyGroups()
 		SetUpMenus()
 		SetUpEvents()
 	End Method
@@ -87,7 +95,7 @@ Type TEditorGui Extends TAppBase
 	
 		main_window = CreateWindow(APP_NAME, 0, 0, 800, 800, Null,  ..
 			WINDOW_TITLEBAR | WINDOW_MENU | WINDOW_RESIZABLE | WINDOW_CENTER | WINDOW_STATUS)
-		SetMinWindowSize(main_window, 800, 800)
+		SetMinWindowSize(main_window, 800, 400)
 		
 		splitter = CreateSplitter(0, 0, ClientWidth(main_window) - PROPERTY_GRID_WIDTH, ClientHeight(main_window), main_window)
 		SetSplitterPosition(splitter, 300)
@@ -103,10 +111,6 @@ Type TEditorGui Extends TAppBase
 
 		property_grid = TPropertyGrid.GetInstance()
 		PROPERTY_GRID.Initialize(ClientWidth(main_window) - PROPERTY_GRID_WIDTH, 0, PROPERTY_GRID_WIDTH, ClientHeight(main_window), main_window)
-		
-		'test
-		Local group:TPropertyGroup = CreatePropertyGroup("Image", property_grid)
-		CreatePropertyItemString("String", "Hoi!", group)
 		
 	End Method
 	
@@ -172,7 +176,7 @@ Type TEditorGui Extends TAppBase
 	
 	
 	rem
-	bbdoc: Sets up tree main items
+	bbdoc: Sets up treeview main items
 	endrem	
 	Method SetupTree()
 		imageRoot = AddTreeViewNode("Images", TreeViewRoot(tree_view))
@@ -183,6 +187,87 @@ Type TEditorGui Extends TAppBase
 	End Method
 	
 
+	
+	Rem
+	bbdoc: Creates the property groups for each item type, but does not add them to the group
+	endrem
+	Method SetupPropertyGroups()
+	
+		Local choice:TPropertyItemChoice
+		Local sub_group:TPropertySubGroup
+		
+		image_group = CreatePropertyGroup("Image", property_grid)', False)
+		CreatePropertyItemString("Name", "", image_group)
+		CreatePropertyItemPath("File Name", "", image_group)
+		CreatePropertyItemString("Description", "", image_group)
+		choice = CreatePropertyItemChoice("Handle", image_group)
+		choice.AddItem("Center")
+		choice.AddItem("Left")
+		choice.AddItem("Right")
+		choice.AddItem("Top")
+		choice.AddItem("Bottom")
+		CreatePropertyItemString("Resolution", "", image_group)
+		CreatePropertyItemString("Frame Size X", "", image_group)
+		CreatePropertyItemString("Frame Size Y", "", image_group)
+		CreatePropertyItemString("Frames", "", image_group)
+		
+
+'		emitter_group = CreatePropertyGroup("Emitter", property_grid, False)
+'		CreatePropertyItemString("Name", "", emitter_group)
+'		CreatePropertyItemString("Description", "", emitter_group)
+'		CreatePropertyItemChoice("Appearance", emitter_group)
+'		choice = CreatePropertyItemChoice("Shape", emitter_group)
+'		choice.AddItem("Radial")
+'		choice.AddItem("Fountain")
+'		choice.AddItem("Line")
+'		CreatePropertyItemInt("Life", -1, emitter_group)
+'		CreatePropertyItemBool("Sticky", False, emitter_group)
+'		CreatePropertyItemInt("X offset", 0, emitter_group)
+'		CreatePropertyItemInt("Y offset", 0, emitter_group)
+'		
+'		CreateValueSubGroup("Angle", emitter_group)
+'		CreateValueSubGroup("Size X", emitter_group)
+'		CreateValueSubGroup("Size Y", emitter_group)
+		
+		
+		'CreatePropertyItemString("String", "Hoi!", group)
+		'CreatePropertyItemInt("Integer", 50, group)
+		'CreatePropertyItemFloat("Float", 2.01, group)
+		'CreatePropertyItemColor("Color", 255, 255, 0, group)
+		'CreatePropertyItemBool("Bool", False, group)
+		
+
+		'Local choice:TPropertyItemChoice = CreatePropertyItemChoice("Choice", group)
+		'choice.AddItem("A")
+		'choice.AddItem("B")
+		'choice.AddItem("C")
+		
+	End Method
+	
+	
+	
+	rem
+	bbdoc: Creates property sub-group for editable values
+	endrem
+	Method CreateValueSubGroup:TPropertyGroup(name:String, parent:TPropertyGroup)
+		Local choice:TPropertyItemChoice
+		Local sub_group:TPropertyGroup = CreatePropertyGroup(name, parent)
+			
+		CreatePropertyItemFloat("Start Value", 1.0, sub_group)
+		CreatePropertyItemFloat("End Value", 1.0, sub_group)
+		CreatePropertyItemBool("Change over time", False, sub_group)
+		choice = CreatePropertyItemChoice("Behaviour", sub_group)
+		choice.AddItem("Once")
+		choice.AddItem("Repeat")
+		choice.AddItem("PingPong")
+		CreatePropertyItemInt("Start Delay", 0, sub_group)
+		CreatePropertyItemFloat("Change Amount", 0.1, sub_group)
+		
+		Return sub_group
+	
+	End Method
+	
+	
 	
 	Rem
 	bbdoc: Processes menu actions and calls On... methods
