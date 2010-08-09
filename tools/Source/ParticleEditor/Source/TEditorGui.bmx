@@ -10,7 +10,7 @@ Rem
 endrem
 
 Rem
-bbdoc: Contains all the gui elements and event handling for our application
+bbdoc: Contains gui elements and event handling for our application
 endrem
 Type TEditorGui Extends TAppBase
 
@@ -26,6 +26,13 @@ Type TEditorGui Extends TAppBase
 	Field emitter_group:TPropertyGroup
 	Field effect_group:TPropertyGroup
 	Field project_group:TPropertyGroup
+	
+	'treeview main nodes
+	Field image_root:TGadget
+	Field particle_root:TGadget
+	Field emitter_root:TGadget
+	Field effect_root:TGadget
+	Field project_root:TGadget	
 	
 	'menus
 	Field file_menu:TGadget
@@ -60,14 +67,7 @@ Type TEditorGui Extends TAppBase
 	Const MENU_NEW_LIBRARY:Int = 1017
 	Const MENU_OPEN_LIBRARY:Int = 1018
 	Const MENU_SAVE_LIBRARY:Int = 1019
-	
-	'treeview main nodes
-	Field imageRoot:TGadget
-	Field particleRoot:TGadget
-	Field emitterRoot:TGadget
-	Field effectRoot:TGadget
-	Field projectRoot:TGadget
-	
+
 	
 	'misc	
 	Const PROPERTY_GRID_WIDTH:Int = 300
@@ -84,8 +84,41 @@ Type TEditorGui Extends TAppBase
 		SetUpMenus()
 		SetUpEvents()
 	End Method
-
 	
+	
+	
+	rem
+		bbdoc: Main event loop
+		about: The methods are present in this type, but overridden in the main app type
+	endrem
+	Method Run()
+		Repeat
+			WaitEvent()
+			
+			'debug stuff
+			Print CurrentEvent.ToString()
+			
+			Select EventID()
+				Case EVENT_WINDOWCLOSE, EVENT_APPTERMINATE
+					OnMenuExit()
+				Case EVENT_MENUACTION
+					OnMenuAction()
+				Case EVENT_GADGETACTION
+					OnGadgetAction()
+				Case EVENT_GADGETSELECT
+					OnGadgetSelect()
+				Case EVENT_MOUSEDOWN
+					OnMouseDown()
+				Case EVENT_ITEMCHANGED
+					OnItemChange(TPropertyItem(EventSource()))
+				
+				Default
+					
+			End Select
+		Forever
+	End Method
+
+		
 
 	rem
 	bbdoc: Sets up the GUI form
@@ -176,41 +209,35 @@ Type TEditorGui Extends TAppBase
 	
 	
 	rem
-	bbdoc: Sets up treeview main items
+	bbdoc: Sets up treeview items
 	endrem	
 	Method SetupTree()
-		imageRoot = AddTreeViewNode("Images", TreeViewRoot(tree_view))
-		particleRoot = AddTreeViewNode("Particles", TreeViewRoot(tree_view))
-		emitterRoot = AddTreeViewNode("Emitters", TreeViewRoot(tree_view))
-		effectRoot = AddTreeViewNode("Effects", TreeViewRoot(tree_view))
-		projectRoot = AddTreeViewNode("Projects", TreeViewRoot(tree_view))
+		image_root = AddTreeViewNode("Images", TreeViewRoot(tree_view))
+		particle_root = AddTreeViewNode("Particles", TreeViewRoot(tree_view))
+		emitter_root = AddTreeViewNode("Emitters", TreeViewRoot(tree_view))
+		effect_root = AddTreeViewNode("Effects", TreeViewRoot(tree_view))
+		project_root = AddTreeViewNode("Projects", TreeViewRoot(tree_view))
 	End Method
 	
 
 	
 	Rem
-	bbdoc: Creates the property groups for each item type, but does not add them to the group
+	bbdoc: Creates the property groups for each item type
+	about: Groups are created hidden.
 	endrem
 	Method SetupPropertyGroups()
 	
-		Local choice:TPropertyItemChoice
-		Local sub_group:TPropertySubGroup
+		image_group = CreatePropertyGroup("Image", property_grid)
+		property_grid.HideGroup(image_group)
+		particle_group = CreatePropertyGroup("Particle", property_grid)
+		property_grid.HideGroup(particle_group)
 		
-		image_group = CreatePropertyGroup("Image", property_grid)', False)
-		CreatePropertyItemString("Name", "", image_group)
-		CreatePropertyItemPath("File Name", "", image_group)
-		CreatePropertyItemString("Description", "", image_group)
-		choice = CreatePropertyItemChoice("Handle", image_group)
-		choice.AddItem("Center")
-		choice.AddItem("Left")
-		choice.AddItem("Right")
-		choice.AddItem("Top")
-		choice.AddItem("Bottom")
-		CreatePropertyItemString("Resolution", "", image_group)
-		CreatePropertyItemString("Frame Size X", "", image_group)
-		CreatePropertyItemString("Frame Size Y", "", image_group)
-		CreatePropertyItemString("Frames", "", image_group)
+		New TEditorImage.SetupGroupItems(image_group)
 		
+
+		'particle
+'		CreatePropertyItemString("Name", "", particle_group)
+'		CreatePropertyItemString("Description", "", particle_group)
 
 '		emitter_group = CreatePropertyGroup("Emitter", property_grid, False)
 '		CreatePropertyItemString("Name", "", emitter_group)
@@ -247,25 +274,34 @@ Type TEditorGui Extends TAppBase
 	
 	
 	rem
-	bbdoc: Creates property sub-group for editable values
+	bbdoc: Creates items for editable values in a group
 	endrem
-	Method CreateValueSubGroup:TPropertyGroup(name:String, parent:TPropertyGroup)
+	Method CreateValueGroup:TPropertyGroup(name:String, parent:TPropertyGroup)
 		Local choice:TPropertyItemChoice
 		Local sub_group:TPropertyGroup = CreatePropertyGroup(name, parent)
 			
-		CreatePropertyItemFloat("Start Value", 1.0, sub_group)
-		CreatePropertyItemFloat("End Value", 1.0, sub_group)
-		CreatePropertyItemBool("Change over time", False, sub_group)
-		choice = CreatePropertyItemChoice("Behaviour", sub_group)
+		CreatePropertyItemFloat("Start Value", 1.0, 0, sub_group)
+		CreatePropertyItemFloat("End Value", 1.0, 0, sub_group)
+		CreatePropertyItemBool("Change over time", False, 0, sub_group)
+		choice = CreatePropertyItemChoice("Behaviour", 0, sub_group)
 		choice.AddItem("Once")
 		choice.AddItem("Repeat")
 		choice.AddItem("PingPong")
-		CreatePropertyItemInt("Start Delay", 0, sub_group)
-		CreatePropertyItemFloat("Change Amount", 0.1, sub_group)
+		CreatePropertyItemInt("Start Delay", 0, 0, sub_group)
+		CreatePropertyItemFloat("Change Amount", 0.1, 0, sub_group)
 		
 		Return sub_group
 	
 	End Method
+
+	
+	
+	rem
+	bbdoc:
+	endrem
+	Method OnGadgetAction()
+	End Method
+	
 	
 	
 	
@@ -288,6 +324,7 @@ Type TEditorGui Extends TAppBase
 			Case MENU_EXIT
 				OnMenuExit()
 			Case MENU_ADD_IMAGE
+				OnAddImage()
 
 			Case MENU_ADD_PARTICLE
 
@@ -320,7 +357,7 @@ Type TEditorGui Extends TAppBase
 	End Method
 	
 	'---------------------------------------------------------------------
-	'the following methods are over ridden in TEditorMain
+	'the following methods are overridden in TEditorMain
 	
 	Method OnMenuExit()
 		DebugLog "Override me!!"
@@ -342,6 +379,22 @@ Type TEditorGui Extends TAppBase
 		DebugLog "Override me!!"
 	End Method
 
+	Method OnAddImage()
+		DebugLog "Override me!!"
+	End Method
+		
+	Method OnMouseDown()
+		DebugLog "Override me!!"
+	End Method
+	
+	Method OnItemChange(i:TPropertyItem)
+		DebugLog "Override me!!"
+	End Method
+	
+	Method OnGadgetSelect()
+		DebugLog "Override me!!"
+	End Method
+	
 End Type
 
 

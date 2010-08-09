@@ -6,5 +6,5 @@ filename=media/stars.png
 framecount=4
 framedimensionX=8
 framedimensionY=8
-handlepoint=100
+handlepoint=0
 [end image]

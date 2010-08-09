@@ -9,7 +9,12 @@ Rem
 '
 endrem
 
-Type TEditorLibrary Extends TLibrary
+
+rem
+	bbdoc:
+	about:
+endrem
+Type TEditorLibrary Extends TParticleLibrary
 	
 
 

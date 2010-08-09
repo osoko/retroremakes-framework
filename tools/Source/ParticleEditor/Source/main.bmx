@@ -18,11 +18,14 @@ Import wdw.propertygrid
 Import wdw.LIBRARY
 
 Import muttley.inifilehandler
-'Import retroremakes.particles
+Import retroremakes.particles
 
 Include "TAppBase.bmx"
 Include "TEditorGui.bmx"
 Include "TEditorMain.bmx"
+Include "TEditorLibrary.bmx"
+Include "TParticleLibraryWriter.bmx"
+Include "TEditorImage.bmx"
 
 Local editor:TEditorMain = New TEditorMain
 editor.Run()
