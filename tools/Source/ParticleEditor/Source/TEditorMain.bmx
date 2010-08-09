@@ -36,7 +36,7 @@ Type TEditorMain Extends TEditorGui
 	
 			
 	rem
-	bbdoc: Default Constructor
+		bbdoc: Default Constructor
 	endrem
 	Method New()
 		 Init()
@@ -48,61 +48,37 @@ Type TEditorMain Extends TEditorGui
 		ReadConfiguration()
 		SyncMenusToConfiguration()
 		SetLayout()
-		
-		SetUpLibrary()
-		
-
+		SetupLibrary()
 		
 		If configFile.GetBoolValue("Library", "AutoLoad") = True Then ..
 			LoadLibrary(configFile.GetStringValue("Library", "LibraryName"))
 	End Method
 	
-
-
-	rem
-	bbdoc: Main execution loop
-	endrem
-	Method Run()
-		Repeat
-			WaitEvent()
-			Select EventID()
-				Case EVENT_WINDOWCLOSE, EVENT_APPTERMINATE
-					OnMenuExit()
-				Case EVENT_MENUACTION
-					OnMenuAction()
-			End Select
-		Forever
-	End Method
 	
 	
 	Method SetupLibrary()
-		
 		library = New TEditorLibrary
-		library.setreader()
-		library.setwriter()
-	
+		library.SetReader(New TParticleLibraryReader)	'located in the rrfw particles mod
+		library.SetWriter(New TParticleLibraryWriter)	'custom for this editor
 	End Method
 	
-	
+
+		
 	Method LoadLibrary(filename:String)
-		
-		library.write
-	
-	
-	
-	
+		library.ReadConfiguration(filename)
 	End Method
 	
-	
+
+
 	Method SaveLibrary(filename:String)
-		
+		library.writeconfiguration(filename)
 	End Method
 	
 	
 	
 	rem
-	bbdoc: Loads ini file
-	about: Creates default settings if ini file cannot be loaded
+		bbdoc: Loads editor configuration file
+		about: Creates default settings if ini file cannot be loaded
 	endrem
 	Method ReadConfiguration()
 		configFile = TINIFile.Create("editorconfig.ini")
@@ -133,7 +109,7 @@ Type TEditorMain Extends TEditorGui
 	
 	
 	rem
-	bbdoc: Sets menu flags according to settings in config file
+		bbdoc: Sets menu flags according to settings in config file
 	endrem
 	Method SyncMenusToConfiguration()
 		If configFile.GetBoolValue("Library", "AutoLoad") = True Then CheckMenu(item_autoload)
@@ -159,10 +135,10 @@ Type TEditorMain Extends TEditorGui
 	endrem
 	Method SetBGcolor()
 		Local array:Int[] = configFile.GetIntValues("Layout", "BackdropColor")
-'		SetClsColor(array[0], array[1], array[2])
+		SetGraphics(CanvasGraphics(render_canvas))
+		SetClsColor(array[0], array[1], array[2])
 	End Method
 	
-
 	
 	
 	rem
@@ -170,6 +146,12 @@ Type TEditorMain Extends TEditorGui
 	endrem
 	Method PopulateTree()
 		
+		ClearTree()
+		
+		'fill tree
+		
+		
+		'show all
 		ExpandTreeViewNode(TreeViewRoot(tree_view))
 	End Method
 	
@@ -193,7 +175,7 @@ Type TEditorMain Extends TEditorGui
 	bbdoc: Clean up, and end the editor
 	endrem	
 	Method CloseEditor()
-		If configFile.GetBoolValue("Library", "AutoSave") = True Then SaveLibrary()
+		If configFile.GetBoolValue("Library", "AutoSave") = True Then SaveLibrary("")
 		configFile.Save()
 		
 		'stop timers, etc
@@ -207,16 +189,94 @@ Type TEditorMain Extends TEditorGui
 	bbdoc: Sets window title to reflect loaded library
 	endrem
 	Method SetWindowTitle()
-		If changed = False Then SetGadgetText(main_window, APP_NAME + " - " + StripDir(configFile.GetStringValue("Library", "LibraryName")))
-		If changed = True Then SetGadgetText(main_window, APP_NAME + " - " + StripDir(configFile.GetStringValue("Library", "LibraryName") + "*"))
+		Local title:String = "" + APP_NAME + " - " + StripDir(configFile.GetStringValue("Library", "LibraryName"))
+		If changed Then title:+"*"
+		SetGadgetText(main_window, title)
+	End Method
+
+	
+	
+	rem
+	bbdoc: Determines the selected treeview gadget and refreshes the propertygrid
+	about: Called when user selects a treeview gadget
+	endrem
+	Method OnGadgetSelect()
+	
+		Local node:TGadget = SelectedTreeViewNode(tree_view)
+		Local extra:Object = GadgetExtra(node)
+		
+		If TEditorImage(extra) Then OnSelectImage(TEditorImage(extra)) ;Return
+		'etc
+
+	End Method
+	
+	
+	
+	Method OnSelectImage(i:TEditorImage)
+		selection = i
+		i.SetPropertyGroupItems()
+		property_grid.ShowGroup(image_group)
+		property_grid.HideGroup(particle_group)
+'		property_grid.HideGroup(emitter_group)
+'		property_grid.HideGroup(effect_group)
+'		property_grid.HideGroup(project_group)
+	End Method		
+
+	
+	
+	rem
+	bbdoc:
+	about: Called when user changes an item in the property grid
+	endrem
+	Method OnItemChange(i:TPropertyItem)
+	
+		If TEditorImage(selection) Then TEditorImage(selection).ChangeSetting(i) ;Return
+		
+		'etc		
+		
+	End Method
+	
+	
+	
+	rem
+	bbdoc: Adds a new image to the library
+	endrem
+	Method OnAddImage()
+		Local i:TEditorImage = New TEditorImage
+		
+		'add new node, no icon, attach image as EXTRA
+		Local node:TGadget = AddTreeViewNode(i.GetEditorName(), image_root, -1, i)
+		
+		'add node to new image
+		i.SetNode(node)
+		
+		'display it
+		ExpandTreeViewNode(image_root)
+		SelectTreeViewNode(node)
+		OnSelectImage(i)
+	End Method
+
+	
+		
+	
+	Method OnAddParticle()
+	End Method
+		
+	Method OnAddEmitter()
+	End Method
+	
+	Method OnAddEffect()
+	End Method
+	
+	Method OnAddProject()
 	End Method
 	
 	
 	
 	
+
 	
-	'---------------------------------------------------------
-	'GUI override methods
+	
 	
 	Method OnMenuExit()
 		CloseEditor()
@@ -225,8 +285,8 @@ Type TEditorMain Extends TEditorGui
 	
 	
 	Method OnAbout()
-		Notify("RRFW ParticlesMAX by Wiebo de Wit~nALPHA version!")
-	End Method	
+		Notify("ParticlesMAX RRFW Edition by Wiebo de Wit~nALPHA version!")
+	End Method
 	
 	
 	

@@ -10,7 +10,7 @@ Rem
 endrem
 
 rem
-bbdoc: Loads particle engine objects into the library
+    bbdoc: Loads particle engine objects into the library
 endrem
 Type TParticleLibraryReader Extends TLibraryReader
 	
@@ -31,11 +31,11 @@ Type TParticleLibraryReader Extends TLibraryReader
 					library.AddObject(o, id)
 					library.DetermineNextID(id)
 					
-'				Case "[particle]"
-'					Local o:TParticle = New TParticle
-'					id = o.ReadPropertiesFromStream(stream)
-'					library.AddObject(o, id)
-'					library.DetermineNextID(id)
+				Case "[particle]"
+					Local o:TParticle = New TParticle
+					id = o.ReadPropertiesFromStream(stream)
+					library.AddObject(o, id)
+					library.DetermineNextID(id)
 					
 '				Case "[effect]"
 '					Local ef:TParticleEffect = New TParticleEffect

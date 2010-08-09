@@ -10,11 +10,11 @@ Rem
 endrem
 
 'image handle locations
-Const HANDLE_CENTER:Int = 100
-Const HANDLE_TOP:Int = 101
-Const HANDLE_BOTTOM:Int = 102
-Const HANDLE_LEFT:Int = 103
-Const HANDLE_RIGHT:Int = 104
+Const HANDLE_CENTER:Int = 0
+Const HANDLE_TOP:Int = 1
+Const HANDLE_BOTTOM:Int = 2
+Const HANDLE_LEFT:Int = 3
+Const HANDLE_RIGHT:Int = 4
 
 
 
