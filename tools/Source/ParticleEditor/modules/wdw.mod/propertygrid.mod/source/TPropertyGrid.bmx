@@ -1,29 +1,40 @@
 
+'layout constants
+Const GRID_WIDTH:Int = 321
+Const INTERACT_WIDTH:Int = 150
+Const SLIDER_WIDTH:Int = 21
 
-rem
-bbdoc: Grids, just like the real thing
-endrem
+Const ITEM_INDENT_SIZE:Int = 16
+Const ITEM_SIZE:Int = 24
+Const ITEM_SPACING:Int = 1
+
+
 Type TPropertyGrid
 
 	Global instance:TPropertyGrid
-	Field gridPanel:TGadget
-	Field groupList:TList
 	
+	'scrollable panel
+	Field scrollPanel:TScrollPanel
+	
+	'items on this grid
+	Field groupList:TList
 
+	
+	
 	rem
 	bbdoc: Default constructor
 	endrem
 	Method New()
-		If instance Throw "Cannot create multiple instances of this Singleton Type"
+		If instance Throw "Cannot create multiple instances of TPropertyGrid!"
 		instance = Self
 		groupList = New TList
-		AddHook(EmitEventHook, MyEventHook)
+		AddHook(EmitEventHook, eventHandler, Self, -1)
 	End Method
 
 
 	
 	rem
-	bbdoc: Creates or returns property grid
+	bbdoc: Creates or returns property grid instance
 	endrem
 	Function GetInstance:TPropertyGrid()
 		If Not instance Then Return New TPropertyGrid
@@ -33,157 +44,141 @@ Type TPropertyGrid
 	
 	
 	rem
-	bbdoc: Sets up the property grid. hard-coded for position on the right of the window.
+	bbdoc: Sets up the property grid.
+	about: location=0 will result in a grid on the left of the parent window
 	endrem	
-	Method Initialize(x:Int, y:Int, w:Int, h:Int, parent:TGadget)
-		gridPanel = CreatePanel(x, y, w, h, parent)
-		SetGadgetColor(gridPanel, 255, 255, 255)
-		SetGadgetLayout(gridPanel, EDGE_CENTERED, EDGE_ALIGNED, EDGE_ALIGNED, EDGE_ALIGNED)
+	Method Initialize(parentwindow:TGadget, location:Int = 1)
+		Local xpos:Int = ClientWidth(parentwindow) - GRID_WIDTH
+		If location = 0 Then xpos = 0
+
+		scrollPanel = CreateScrollPanel(xpos, 0, GRID_WIDTH, ClientHeight(parentwindow), parentwindow, SCROLLPANEL_HNEVER | SCROLLPANEL_VALWAYS)
+		If location = 0 Then SetGadgetLayout(scrollPanel, EDGE_ALIGNED, EDGE_CENTERED, EDGE_ALIGNED, EDGE_ALIGNED)
+		If location = 1 Then SetGadgetLayout(scrollPanel, EDGE_CENTERED, EDGE_ALIGNED, EDGE_ALIGNED, EDGE_ALIGNED)
 		
-		'set interact gadget width
-		INTERACT_WIDTH = w / 2
+		SetGadgetColor(ScrollPanelClient(scrollPanel), 255, 255, 255)
+		
+	End Method
+	
+	
+	
+	Rem
+	bbdoc: returns panel to which groups are added
+	endrem	
+	Method GetPanel:Tgadget()
+		Return ScrollPanelClient(scrollPanel)
 	End Method
 	
 	
 	
 	rem
-	bbdoc: Frees the grid and all its contents
+	bbdoc: Frees the property grid
 	endrem
-	Method Free()
-		For Local g:TPropertyGroup = EachIn groupList
-			g.Free()
-		Next
+	Method CleanUp()
 		groupList.Clear()
-		FreeGadget gridPanel
+		scrollPanel.CleanUp()
 		instance = Null
+		RemoveHook(EmitEventHook, eventHandler, Self)
 	End Method	
 	
 	
 	
 	rem
-	bbdoc: arranges groups on the grid
+	bbdoc: do the layout
 	endrem	
-	Method DoLayout()
+	Method Refresh()
 		Local ypos:Int = 0
+			
 		For Local g:TPropertyGroup = EachIn groupList
-			g.DoLayout()
-			g.SetPosition(ypos)
-			ypos:+g.GetHeight()
+			g.SetVerticalPosition(ypos)
+			
+			'make sure group is sized properly
+			g.Refresh()
+			
+			ypos:+g.GetHeight() + ITEM_SPACING
 		Next
+		
+		scrollPanel.FitToChildren()
+		
 	End Method
 	
+		
 	
-
 	Rem
-	bbdoc: Returns list of property groups
-	returns: TList
+	bbdoc: Returns group list
 	endrem
 	Method GetGroups:TList()
 		Return groupList
 	End Method
-	
-	
-	
-	Rem
-	bbdoc: Returns main panel
-	endrem	
-	Method GetPanel:TGadget()
-		Return gridPanel
-	End Method
-	
-	
-	
-	rem
-	bbdoc: Retrieves group by name
-	returns: TPropertyGroup if found.
-	endrem
-	Method GetGroupByName:TPropertyGroup(name:String)
-		For Local g:TPropertyGroup = EachIn groupList
-			If g.getname() = name Then Return g
-		Next
-	End Method
 
 	
 	
 	rem
-	bbdoc: Adds a group to the grid
+	bbdoc: Adds group to the grid
 	endrem
 	Method AddGroup(g:TPropertyGroup)
 		If groupList.Contains(g) Then Return
-		groupList.addLast(g)
-		g.Show()
-		DoLayout()
-	End Method
-
-
-	
-	rem
-	bbdoc: Removes group from the grid. does not delete it
-	endrem
-	Method RemoveGroup(g:TPropertyGroup)
-		If Not groupList.Contains(g) Then Return
-		g.hide()
-		groupList.Remove(g)
-		DoLayout()
+		groupList.AddLast(g)
+		Refresh()
 	End Method
 	
 	
 		
 	rem
-	bbdoc: Hides group from the grid
+	bbdoc: Hides group
 	endrem
 	Method HideGroup(g:TPropertyGroup)
 		If Not groupList.Contains(g) Then Return
-		g.hide()
-		DoLayout()
-	End Method	
+		g.Hide()
+	End Method
 	
 	
 
 	rem
-	bbdoc: unhides group from the grid
+	bbdoc: Unhides group
 	endrem
 	Method ShowGroup(g:TPropertyGroup)
 		If Not groupList.Contains(g) Then Return
-		g.show()
-		DoLayout()
+		g.Show()
 	End Method
 	
-		
+	
 	
 	rem
-	bbdoc: Removes and deletes a property group
+	bbdoc: Retrieves group by label
 	endrem
-	Method DeleteGroup(g:TPropertyGroup)
-		If Not groupList.Contains(g) Then Return
-		RemoveGroup(g)
-		g.Free()
-		DoLayout()
+	Method GetGroupByLabel:TPropertyGroup(label:String)
+		For Local g:TPropertyGroup = EachIn groupList
+			If g.GetLabel() = label Then Return g
+		Next
 	End Method
 	
 	
-	
-	rem
-	bbdoc: Passes current event to groups and items to see if action is needed
-	endrem	
-	Function MyEventHook:Object(id:Int, data:Object, context:Object)
-		If Not data Then Return data
-		Local event:TEvent = TEvent(data)
-
-		'result wil be true if event for item was handled
-		'result will be 2 if a dolayout is needed
-		Local result:Int
 		
-		For Local group:TPropertyGroup = EachIn TPropertyGrid.GetInstance().GetGroups()
-			result = group.OnEvent(event)
-			
-			'handled
-			If result = 2 Then TPropertyGrid.GetInstance().DoLayout()
-			If result Then Return data
-		Next
-
-		'not handled
+	Function eventHandler:Object(id:Int, data:Object, context:Object)
+		Local tmpPropertyGrid:TPropertyGrid = TPropertyGrid(context)
+		If tmpPropertyGrid Then data = tmpPropertyGrid.eventHook(id, data, context)
 		Return data
 	End Function
-
+	
+	
+	
+	Method eventHook:Object(id:Int, data:Object, context:Object)
+		Local tmpEvent:TEvent = TEvent(data)
+		If Not tmpEvent Then Return data
+		
+		Select tmpEvent.id
+			Case EVENT_PG_GROUPTOGGLE, EVENT_PG_GROUPVISIBLE
+				Refresh()
+			
+			Default
+				'no event for this property grid
+				Return data
+		End Select
+		
+		'handled, so get rid of old data
+		data = Null
+	
+		Return data
+	End Method
+		
 End Type

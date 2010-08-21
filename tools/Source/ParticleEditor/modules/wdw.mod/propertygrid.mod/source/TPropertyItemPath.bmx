@@ -4,27 +4,34 @@ Function CreatePropertyItemPath:TPropertyItemPath(label:String, value:String = "
 End Function
 
 
+
 Type TPropertyItemPath Extends TPropertyItem
 
 	Global folderIcon:TPixmap = LoadPixmap("incbin::media/folder.bmp")
 
+	'mouse hit on folder panel
+	Field hit:Int
+	
 	Field selectorText:String
 	Field selectorFilter:String
 	Field folderPanel:TGadget
 
-	Method Create:TPropertyItemPath(newLabel:String, defaultValue:String, id, newParent:TPropertyGroup)
+	Method Create:TPropertyItemPath(newLabel:String, defaultValue:String, id:Int, newParent:TPropertyGroup)
 
+		itemID = id
+	
 		CreateItemPanel(newParent)
 		SetGadgetText(label, newLabel)
 
-		interact = CreateTextField(ClientWidth(mainPanel) - INTERACT_WIDTH, 2, INTERACT_WIDTH - ITEM_SIZE, ITEM_SIZE - 3, mainPanel)
-		'interact = CreateTextField(ClientWidth(mainPanel) - INTERACT_WIDTH, 2, INTERACT_WIDTH - 1, ITEM_SIZE - 3, mainPanel)
+		interact = CreateTextField(interactX, 1, INTERACT_WIDTH - ITEM_SIZE, ITEM_SIZE - 2, mainPanel)
 		SetGadgetLayout(interact, EDGE_ALIGNED, EDGE_ALIGNED, EDGE_ALIGNED, EDGE_CENTERED)
 		SetGadgetText(interact, String(defaultValue))
 		SetGadgetFilter(interact, FilterInput)
 		DisableGadget(interact)
 		
-		folderPanel = CreatePanel(ClientWidth(mainPanel) - ITEM_SIZE + 2, 2, ITEM_INDENT, ITEM_SIZe - 2, mainPanel)
+		Local xpos:Int = GadgetX(interact) + GadgetWidth(interact)
+		folderPanel = CreatePanel(xpos, 1, ITEM_SIZE, ITEM_SIZE - 2, mainPanel)
+		
 		SetGadgetLayout(folderPanel, EDGE_ALIGNED, EDGE_ALIGNED, EDGE_ALIGNED, EDGE_CENTERED)
 		SetGadgetColor(folderPanel, 255, 0, 0)
 		SetGadgetPixmap(folderPanel, folderIcon, PANELPIXMAP_STRETCH)
@@ -32,8 +39,11 @@ Type TPropertyItemPath Extends TPropertyItem
 		
 		selectorText = "Select file..."
 		selectorFilter = "*Image Files:png,jpg,bmp;Text Files:txt;All Files:*"
-		itemID = id
-		SetParent(newParent)
+
+		AddHook(EmitEventHook, eventHandler, Self, 0)
+		
+		newParent.AddItem(Self)
+		
 		Return Self
 	End Method
 	
@@ -57,23 +67,49 @@ Type TPropertyItemPath Extends TPropertyItem
 	End Method
 
 	
-		
-	rem
-	bbdoc: Event handler
-	endrem
-	Method OnEvent:Int(event:TEvent)
-		If event.source = folderPanel And event.id = EVENT_MOUSEUP And event.data = 1
-			Local path:String = RequestFile(selectorText, selectorFilter, False)
-			If path <> ""
-				SetGadgetText(interact, path)
-				CreateItemEvent(EVENT_ITEMCHANGED, GadgetText(interact))
-				Return True
-			EndIf
-		End If	
+	
+	Function eventHandler:Object(id:Int, data:Object, context:Object)
+		Local tmpItem:TPropertyItemPath = TPropertyItemPath(context)
+		If tmpItem Then data = tmpItem.eventHook(id, data, context)
+		Return data
+	End Function
 
-		'not handled
-		Return False
-	End Method
+	
+	
+	Method eventHook:Object(id:Int, data:Object, context:Object)
+	
+		Local tmpEvent:TEvent = TEvent(data)
+		If Not tmpEvent Then Return data
+		
+		Select tmpEvent.source
+			Case folderPanel
+				Select tmpEvent.id
+					Case EVENT_MOUSEUP
+						If tmpEvent.data = 1
+						
+							Local path:String = RequestFile(selectorText, selectorFilter, False, AppDir)
+						
+							If path <> ""
+								SetGadgetText(interact, path)
+								CreateItemEvent(EVENT_ITEMCHANGED, GadgetText(interact))
+							EndIf
+						EndIf
+						
+					Default
+						'it is an event we're not interested in.
+						Return data
+				End Select
+				
+				'handled, so get rid of old data
+				data = Null
+				
+			Default
+				'no event for this item
+				Return data
+		End Select
+
+		Return data
+	End Method		
 	
 	
 	
@@ -90,7 +126,8 @@ Type TPropertyItemPath Extends TPropertyItem
 	bbdoc: Sets file path string value
 	endrem
 	Method SetValue(value:String)
-		value = value.Replace(",", "_")
+		value = value.Replace("\", "/").Trim()
+'		value.Trim()
 		SetGadgetText(interact, String(value))
 	End Method
 	
@@ -112,11 +149,9 @@ Type TPropertyItemPath Extends TPropertyItem
 	rem
 	bbdoc: Exports string item to string
 	endrem
-	Method ExportToString:String()
-		Return "parameter,string," + GadgetText(label) + "," + GadgetText(interact)
-	End Method
-	
-	
+'	Method ExportToString:String()
+'		Return "parameter,string," + GadgetText(label) + "," + GadgetText(interact)
+'	End Method
 '	Method Clone:TPropertyItem()
 '		Return New TPropertyItemPath.Create(Self.GetName(), Self.GetValue(), Self.GetParent())
 '	End Method

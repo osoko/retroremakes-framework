@@ -6,25 +6,70 @@ End Function
 
 Type TPropertyItemColor Extends TPropertyItem
 
-	Field colorPanel:TGadget
+	Field colorLabel:TGadget
+	Field r:Int, g:Int, b:Int
 
-	Method Create:TPropertyItemColor(newLabel:String, defaultRed:Int, defaultGreen:Int, defaultBlue:Int, id, newParent:TPropertyGroup)
-
+	Method Create:TPropertyItemColor(newLabel:String, defaultRed:Int, defaultGreen:Int, defaultBlue:Int, id:Int, newParent:TPropertyGroup)
+		
+		itemID = id
 		CreateItemPanel(newParent)
 		SetGadgetText(label, newLabel)
+		
+'		Local xpos:Int = ClientWidth(mainPanel) - INTERACT_WIDTH
+		interact = CreatePanel(interactX, 2, ITEM_SIZE, ITEM_SIZE - 3, mainPanel, PANEL_BORDER)
+		SetGadgetSensitivity(interact, SENSITIZE_MOUSE)
 
-		interact = CreateTextField(ClientWidth(mainPanel) - INTERACT_WIDTH, 2, INTERACT_WIDTH - 4 - (ITEM_SIZE * 2), ITEM_SIZE - 3, mainPanel)
-		SetGadgetLayout(interact, EDGE_ALIGNED, EDGE_ALIGNED, EDGE_ALIGNED, EDGE_CENTERED)
-		SetGadgetText(interact, String(defaultRed) + "," + String(defaultGreen) + "," + String(defaultBlue))
-		SetGadgetFilter(interact, FilterInput)
-		SetGadgetToolTip(label, "Enter RGB components or click on color~nto choose a color.")
-				
-		colorPanel = CreatePanel(ClientWidth(mainPanel) - (ITEM_SIZE * 2) - 2, 2, ITEM_SIZE * 2, ITEM_SIZE - 3, mainPanel, PANEL_BORDER)
-		SetGadgetColor(colorPanel, defaultRed, defaultGreen, defaultBlue)
-		SetGadgetSensitivity(colorPanel, SENSITIZE_MOUSE)
-		SetParent(newParent)
-		itemID = id
+		colorLabel = CreateLabel("", interactX + ITEM_SIZE + 4, 3, ClientWidth(mainPanel) - ITEM_SIZE - 4, ITEM_SIZE, mainPanel)
+		SetGadgetLayout(colorLabel, EDGE_ALIGNED, EDGE_ALIGNED, EDGE_ALIGNED, EDGE_CENTERED)
+
+		SetColorValue(defaultRed, defaultGreen, defaultBlue)
+		
+		AddHook(EmitEventHook, eventHandler, Self, 0)
+		newParent.AddItem(Self)
+
 		Return Self
+	End Method
+	
+	
+	
+	Function eventHandler:Object(id:Int, data:Object, context:Object)
+		Local tmpItem:TPropertyItemColor = TPropertyItemColor(context)
+		If tmpItem Then data = tmpItem.eventHook(id, data, context)
+		Return data
+	End Function
+	
+	
+
+	Method eventHook:Object(id:Int, data:Object, context:Object)
+	
+		Local tmpEvent:TEvent = TEvent(data)
+		If Not tmpEvent Then Return data
+		
+		Select tmpEvent.source
+			Case interact
+				Select tmpEvent.id
+					Case EVENT_MOUSEUP					
+						If tmpEvent.data = 1
+							If RequestColor(r, g, b)
+								SetColorValue(RequestedRed(), RequestedGreen(), RequestedBlue())
+							EndIf
+						End If
+						CreateItemEvent(EVENT_PG_ITEMCHANGED, Self.GetColorValue())
+						
+					Default
+						'it is an event we're not interested in.
+						Return data
+				End Select
+				
+				'handled, so get rid of old data
+				data = Null
+				
+			Default
+				'no event for this item
+				Return data
+		End Select
+
+		Return data
 	End Method
 	
 	
@@ -34,7 +79,7 @@ Type TPropertyItemColor Extends TPropertyItem
 	endrem
 	Method Free()
 		FreeGadget interact
-		FreeGadget colorPanel
+		FreeGadget colorLabel
 	End Method
 	
 
@@ -43,8 +88,7 @@ Type TPropertyItemColor Extends TPropertyItem
 	bbdoc: Returns red component of color value
 	endrem	
 	Method GetRed:Int()
-		Local array:String[] = GadgetText(interact).Split(",")
-		Return Int(array[0])
+		Return r
 	End Method
 
 
@@ -53,8 +97,7 @@ Type TPropertyItemColor Extends TPropertyItem
 	bbdoc: Returns green component of color value
 	endrem	
 	Method GetGreen:Int()
-		Local array:String[] = GadgetText(interact).Split(",")
-		Return Int(array[1])
+		Return g
 	End Method	
 	
 	
@@ -63,8 +106,7 @@ Type TPropertyItemColor Extends TPropertyItem
 	bbdoc: Returns blue component of color value
 	endrem	
 	Method GetBlue:Int()
-		Local array:String[] = GadgetText(interact).Split(",")
-		Return Int(array[2])
+		Return b
 	End Method
 		
 	
@@ -74,9 +116,9 @@ Type TPropertyItemColor Extends TPropertyItem
 	endrem	
 	Method GetColorValue:Int[] ()
 		Local array:Int[3]
-		array[0] = GetRed()
-		array[1] = GetGreen()
-		array[2] = GetBlue()
+		array[0] = r
+		array[1] = g
+		array[2] = b
 		Return array
 	End Method
 	
@@ -85,10 +127,12 @@ Type TPropertyItemColor Extends TPropertyItem
 	Rem
 	bbdoc: Sets color values
 	endrem	
-	Method SetColorValue(r:Int, g:Int, b:Int)
-		SetGadgetColor(interact, 0, 0, 0, False)
-		SetGadgetText(interact, String(r) + "," + String(g) + "," + String(b))
-		SetGadgetColor(colorPanel, r, g, b)
+	Method SetColorValue(red:Int, green:Int, blue:Int)
+		r = red
+		g = green
+		b = blue
+		SetGadgetColor(interact, r, g, b)
+		SetGadgetText(colorLabel, "(" + String(r) + "," + String(g) + "," + String(b) + ")")
 	End Method
 	
 	
@@ -97,77 +141,23 @@ Type TPropertyItemColor Extends TPropertyItem
 	bbdoc: Filters user input
 	endrem
 	Function FilterInput:Int(event:TEvent, context:Object)
-		If event.id = EVENT_KEYCHAR
+'		If event.id = EVENT_KEYCHAR
 
 			'allow backspace
-			If event.data = 8 Then Return 1
+'			If event.data = 8 Then Return 1
 
 			'allow comma
-			If event.data = 44 Then Return 1
+'			If event.data = 44 Then Return 1
 
 			'allow only 0-9
-			If event.data < 48 Or event.data > 57 Return 0
-		EndIf
+'			If event.data < 48 Or event.data > 57 Return 0
+'		EndIf
 		Return 1
 	End Function
 
 	
 	
-	Rem
-	bbdoc: Event handler for this item
-	endrem
-	Method OnEvent:Int(event:TEvent)
-	
-		'clicked on color box?
-		If event.source = colorPanel And event.id = EVENT_MOUSEUP And event.data = 1
-			RequestColor(255, 255, 255)
 
-			SetGadgetColor(colorPanel, RequestedRed(), RequestedGreen(), RequestedBlue())
-			SetGadgetText(interact, String(RequestedRed()) + "," + String(RequestedGreen()) + "," ..
-				+ String(RequestedBlue()))
-				
-			CreateItemEvent(EVENT_ITEMCHANGED, Self.GetColorValue())
-			Return True
-		End If
-
-		'changed color in text field?
-		If event.source = interact And event.id = EVENT_GADGETLOSTFOCUS
-			If GadgetText(interact) = "" Then SetGadgetText(interact, "0,0,0")
-			
-			Local array:String[] = GadgetText(interact).Split(",")
-			
-			If array.Length <> 3 Then
-				SetGadgetColor(interact, 255, 0, 0, False)
-				CreateItemEvent(EVENT_ITEMCHANGED, Self.GetColorValue())
-				Return True
-			End If
-			
-			Local newColor:Int[3]
-			newColor[0] = Int(array[0])
-			newColor[1] = Int(array[1])
-			newColor[2] = Int(array[2])
-			
-			If newColor[0] > 255 Then newColor[0] = 255
-			If newColor[1] > 255 Then newColor[1] = 255
-			If newColor[2] > 255 Then newColor[2] = 255
-
-			If newColor[0] <= 255 And newColor[1] <= 255 And newColor[2] <= 255 Then
-				SetColorValue(newColor[0], newColor[1], newColor[2])
-			Else
-				'red text if not a correct color value
-				SetGadgetColor(interact, 255, 0, 0, False)
-				
-				'no change event, illegal value
-				Return True
-			End If
-			
-			CreateItemEvent(EVENT_ITEMCHANGED, Self.GetColorValue())
-			Return True
-		EndIf
-		
-		'not handled
-		Return False
-	End Method	
 	
 	
 	

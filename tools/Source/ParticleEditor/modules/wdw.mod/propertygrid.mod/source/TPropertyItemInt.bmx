@@ -8,32 +8,60 @@ Type TPropertyItemInt Extends TPropertyItem
 
 	Method Create:TPropertyItemInt(newLabel:String, defaultValue:Int, id:Int, newParent:TPropertyGroup)
 
+		itemID = id
+	
 		CreateItemPanel(newParent)
 		SetGadgetText(label, newLabel)
 
-		interact = CreateTextField(ClientWidth(mainPanel) - INTERACT_WIDTH, 2, INTERACT_WIDTH - 1, ITEM_SIZE - 3, mainPanel)
+		interact = CreateTextField(interactX, 1, INTERACT_WIDTH, ITEM_SIZE - 2, mainPanel)
 		SetGadgetLayout(interact, EDGE_ALIGNED, EDGE_ALIGNED, EDGE_ALIGNED, EDGE_CENTERED)
 		SetGadgetText(interact, String(defaultValue))
 		SetGadgetFilter(interact, FilterInput)
-		itemID = id
-		SetParent(newParent)
+		
+		AddHook(EmitEventHook, eventHandler, Self, 0)
+		
+		newParent.AddItem(Self)
 		Return Self
 	End Method
 	
 	
-
-	rem
-	bbdoc: Event handler for this item
-	endrem
-	Method OnEvent:Int(event:TEvent)
-		If event.source = interact And event.id = EVENT_GADGETLOSTFOCUS
-			If GadgetText(interact) = "" Then SetGadgetText(interact, "0")
-			CreateItemEvent(EVENT_ITEMCHANGED, GadgetText(interact))
-			Return True
-		EndIf
-		Return False
-	End Method
 	
+	Function eventHandler:Object(id:Int, data:Object, context:Object)
+		Local tmpItem:TPropertyItemInt = TPropertyItemInt(context)
+		If tmpItem Then data = tmpItem.eventHook(id, data, context)
+		Return data
+	End Function	
+	
+
+	
+	Method eventHook:Object(id:Int, data:Object, context:Object)
+	
+		Local tmpEvent:TEvent = TEvent(data)
+		If Not tmpEvent Then Return data
+		
+		Select tmpEvent.source
+			Case interact
+				Select tmpEvent.id
+					Case EVENT_GADGETLOSTFOCUS
+						If GadgetText(interact) = "" Then SetGadgetText(interact, "0")
+						CreateItemEvent(EVENT_PG_ITEMCHANGED, GadgetText(interact))
+						
+					Default
+						'it is an event we're not interested in.
+						Return data
+				End Select
+				
+				'handled, so get rid of old data
+				data = Null
+				
+			Default
+				'no event for this item
+				Return data
+		End Select
+
+		Return data
+	End Method		
+
 	
 
 	rem
@@ -54,11 +82,12 @@ Type TPropertyItemInt Extends TPropertyItem
 	
 	
 	rem
-	bbdoc: Filters user input. Only decimals allowed
+	bbdoc: Filters user input. Only decimals allowed, DEL or -
 	endrem	
 	Function FilterInput:Int(event:TEvent, context:Object)
 		If event.id = EVENT_KEYCHAR
-			If event.data = 8 Then Return 1
+			If event.data = 45 Then Return 1
+			If event.data = 8 Then Return 1	'del
 			If event.data < 48 Or event.data > 57 Return 0
 		EndIf
 		Return 1
@@ -69,11 +98,9 @@ Type TPropertyItemInt Extends TPropertyItem
 	rem
 	bbdoc: Exports integer item to csv string
 	endrem	
-	Method ExportToString:String()
-		Return "parameter,integer," + GadgetText(label) + "," + (GadgetText(interact))
-	End Method	
-	
-	
+'	Method ExportToString:String()
+'		Return "parameter,integer," + GadgetText(label) + "," + (GadgetText(interact))
+'	End Method	
 '	Method Clone:TPropertyItem()
 '		Local s:TPropertyItemInt = New TPropertyItemInt.Create(Self.GetName(), Self.GetValue(), Self.GetParent())
 '		Return s

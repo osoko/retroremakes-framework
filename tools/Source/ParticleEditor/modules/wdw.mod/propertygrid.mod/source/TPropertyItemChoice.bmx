@@ -7,31 +7,54 @@ End Function
 Type TPropertyItemChoice Extends TPropertyItem
 
 	Method Create:TPropertyItemChoice(newLabel:String, id:Int, newParent:TPropertyGroup)
-
+		itemID = id
 		CreateItemPanel(newParent)
 		SetGadgetText(label, newLabel)
 		
-		interact = CreateComboBox(ClientWidth(mainPanel) - INTERACT_WIDTH, 0, INTERACT_WIDTH - 1, ITEM_SIZE, mainPanel, 0)
+		interact = CreateComboBox(interactX, 0, INTERACT_WIDTH, ITEM_SIZE, mainPanel, 0)
 		SetGadgetLayout(interact, EDGE_ALIGNED, EDGE_ALIGNED, EDGE_ALIGNED, EDGE_CENTERED)
-		SetParent(newParent)
-		itemID = id
+		
+		AddHook(EmitEventHook, eventHandler, Self, 0)
+		newParent.AddItem(Self)
 		Return Self
 	End Method
 	
 	
+	
+	Function eventHandler:Object(id:Int, data:Object, context:Object)
+		Local tmpItem:TPropertyItemChoice = TPropertyItemChoice(context)
+		If tmpItem Then data = tmpItem.eventHook(id, data, context)
+		Return data
+	End Function
+	
+	
+	
+	Method eventHook:Object(id:Int, data:Object, context:Object)
+	
+		Local tmpEvent:TEvent = TEvent(data)
+		If Not tmpEvent Then Return data
+		
+		Select tmpEvent.source
+			Case interact
+				Select tmpEvent.id
+					Case EVENT_GADGETACTION
+						CreateItemEvent(EVENT_PG_ITEMCHANGED, GadgetText(interact))
+						
+					Default
+						'it is an event we're not interested in.
+						Return data
+				End Select
+				
+				'handled, so get rid of old data
+				data = Null
+				
+			Default
+				'no event for this item
+				Return data
+		End Select
 
-	rem
-	bbdoc: Event handler for this item
-	about: Raises an event if the item has been changed
-	returns: True if the passed event was for this item
-	endrem
-	Method OnEvent:Int(event:TEvent)
-		If event.source = interact And event.id = EVENT_GADGETACTION
-			CreateItemEvent(EVENT_ITEMCHANGED, String(SelectedGadgetItem(interact)))
-			Return True
-		EndIf
-		Return False
-	End Method
+		Return data
+	End Method		
 
 	
 

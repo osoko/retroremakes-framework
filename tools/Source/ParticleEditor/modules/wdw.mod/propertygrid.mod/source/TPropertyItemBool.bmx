@@ -8,31 +8,58 @@ Type TPropertyItemBool Extends TPropertyItem
 
 	Method Create:TPropertyItemBool(newLabel:String, defaultValue:Int, id:Int, newParent:TPropertyGroup)
 
+		itemID = id
+	
 		CreateItemPanel(newParent)
 		SetGadgetText(label, newLabel)
 		
-		interact = CreateButton("", ClientWidth(mainPanel) - INTERACT_WIDTH, 2, INTERACT_WIDTH - 1, ITEM_SIZE - 3, mainPanel, BUTTON_CHECKBOX)
+		interact = CreateButton("", interactX, 1, INTERACT_WIDTH - 1, ITEM_SIZE - 2, mainPanel, BUTTON_CHECKBOX)
 		SetGadgetLayout(interact, EDGE_ALIGNED, EDGE_ALIGNED, EDGE_ALIGNED, EDGE_CENTERED)
 		SetButtonState(interact, defaultValue)
 		UpdateBoolText()
-		itemID = id
-		SetParent(newParent)
+
+		AddHook(EmitEventHook, eventHandler, Self, 0)
+		newParent.AddItem(Self)
 		Return Self
 	End Method
 	
 	
 	
-	rem
-	bbdoc: Event handler for this item
-	endrem
-	Method OnEvent:Int(event:TEvent)
-		If event.source = interact And event.id = EVENT_GADGETACTION
-			UpdateBoolText()
-			CreateItemEvent(EVENT_ITEMCHANGED, GadgetText(interact))
-			Return True
-		EndIf
-		Return False
-	End Method
+	Function eventHandler:Object(id:Int, data:Object, context:Object)
+		Local tmpItem:TPropertyItemBool = TPropertyItemBool(context)
+		If tmpItem Then data = tmpItem.eventHook(id, data, context)
+		Return data
+	End Function
+	
+	
+	
+	Method eventHook:Object(id:Int, data:Object, context:Object)
+	
+		Local tmpEvent:TEvent = TEvent(data)
+		If Not tmpEvent Then Return data
+		
+		Select tmpEvent.source
+			Case interact
+				Select tmpEvent.id
+					Case EVENT_GADGETACTION
+						UpdateBoolText()
+						CreateItemEvent(EVENT_PG_ITEMCHANGED, GadgetText(interact))
+						
+					Default
+						'it is an event we're not interested in.
+						Return data
+				End Select
+				
+				'handled, so get rid of old data
+				data = Null
+				
+			Default
+				'no event for this item
+				Return data
+		End Select
+
+		Return data
+	End Method	
 	
 	
 	

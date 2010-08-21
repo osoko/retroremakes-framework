@@ -1,75 +1,77 @@
 
-'some sizing
-Const ITEM_INDENT:Int = 16
-Const ITEM_SIZE:Int = 23
-Const ITEM_SPACING:Int = 0
-Global INTERACT_WIDTH:Int = 0
-
-
-
-Rem
-bbdoc: Creates a property group on grid, or another group
-about: Default is auto-add to propertygrid
-EndRem
-Function CreatePropertyGroup:TPropertyGroup(title:String, id:Int, parent:Object, autoAdd:Int = True)
-	If TPropertyGrid(parent) Then Return New TPropertyGroup.Create(title, id, parent, autoAdd)
-	If TPropertyGroup(parent) Then Return New TPropertySubGroup.Create(title, id, parent, autoAdd)
-	If TPropertySubGroup(parent) Then Throw "sub group in sub group not supported!"
+Function CreatePropertyGroup:TPropertyGroup(label:String, id:Int, parent:Object)
+	Return New TPropertyGroup.Create(label, id, parent)
 End Function
-
 
 
 Type TPropertyGroup Extends TPropertyBase
 
 	Field titleIcon:TGadget
+	Field labelPanel:TGadget
 	
 	Field itemList:TList
 	Field collapsed:Int
+	Field hidden:Int
+	
+	'mouse hit on label flag
+	Field hit:Int
 	
 	Global barIcon1:TPixmap = LoadPixmap("incbin::media/header.bmp")		'closed
 	Global barIcon2:TPixmap = LoadPixmap("incbin::media/header2.bmp")		'open
 	
 		
 	
-	Method Create:TPropertyGroup(title:String, id:Int, parent:Object, autoAdd:Int)
+	Method Create:TPropertyGroup(title:String, id:Int, parent:Object)
+	
 		itemList = New TList
 		collapsed = False
 		hidden = False
+		itemIndent = 0
 		
-		Local parentPanel:TGadget
-		parentPanel = TPropertyGrid.GetInstance().GetPanel()
-	
-		mainPanel = CreatePanel(0, 0, ClientWidth(parentPanel), ITEM_SIZE + ITEM_SPACING, parentPanel)
+		Local tmpPanel:TGadget
+		If TPropertyGrid(parent) Then
+			tmpPanel = TPropertyGrid(parent).GetPanel()
+			itemIndent = 0
+		EndIf
+
+		If TPropertyGroup(parent) Then
+			tmpPanel = TPropertyGroup(parent).GetPanel()
+			itemIndent = TPropertyGroup(parent).GetItemIndent() + ITEM_INDENT_SIZE
+		EndIf
+		
+		mainPanel = CreatePanel(0, 0, ClientWidth(tmpPanel), ITEM_SIZE, tmpPanel)
 		SetGadgetLayout(mainPanel, EDGE_ALIGNED, EDGE_ALIGNED, EDGE_ALIGNED, EDGE_CENTERED)
 		SetGadgetColor(mainPanel, 225, 225, 225)
 		
-		titleIcon = CreatePanel(0, 2, ITEM_INDENT, ITEM_SIZE - 4, mainPanel)
+		titleIcon = CreatePanel(4, 2, ITEM_INDENT_SIZE, ITEM_SIZE - 4, mainPanel)
 		SetGadgetLayout(titleIcon, EDGE_ALIGNED, EDGE_ALIGNED, EDGE_ALIGNED, EDGE_CENTERED)
 		SetGadgetPixmap(titleIcon, barIcon2, PANELPIXMAP_CENTER)
 		
-		label = CreateLabel(title, ITEM_INDENT + 2, 3, ClientWidth(mainPanel) - (ITEM_INDENT + 2), ITEM_SIZE - 3, mainPanel)
+		labelPanel = CreatePanel(ITEM_SIZE, 0, ClientWidth(mainPanel) - ITEM_SIZE, ITEM_SIZE, mainPanel)
+		SetGadgetLayout(labelPanel, EDGE_ALIGNED, EDGE_ALIGNED, EDGE_ALIGNED, EDGE_CENTERED)
+				
+		Local labelX:Int = 2 + itemIndent - ITEM_INDENT_SIZE
+		If itemIndent = 0 Then labelX = 0
+		label = CreateLabel(title, labelX, 3, ClientWidth(labelPanel) - labelX, ITEM_SIZE - 3, labelPanel)
+		SetGadgetLayout(label, EDGE_ALIGNED, EDGE_ALIGNED, EDGE_ALIGNED, EDGE_CENTERED)
 		SetGadgetFont(label, LookupGuiFont(GUIFONT_SYSTEM, 0, FONT_BOLD))
 		SetGadgetTextColor(label, 100, 100, 100)
-		SetGadgetLayout(label, EDGE_ALIGNED, EDGE_ALIGNED, EDGE_ALIGNED, EDGE_CENTERED)
 		SetGadgetSensitivity(label, SENSITIZE_MOUSE)
+		
+		SetItemID(id)
 
-		If autoAdd Then TPropertyGrid.GetInstance().AddGroup(Self)
-		itemID = id
+		If TPropertyGrid(parent)
+			SetGadgetColor(labelPanel, 225, 225, 225)
+			TPropertyGrid(parent).AddGroup(Self)
+		ElseIf TPropertyGroup(parent)
+			SetGadgetColor(labelPanel, 255, 255, 255)
+			TPropertyGroup(parent).AddItem(Self)
+		EndIf
+				
+		AddHook(EmitEventHook, eventHandler, Self, -1)
+		
 		Return Self
 	End Method
-	
-	
-	
-	rem
-	bbdoc: Clones this property group
-	endrem	
-'	Method Clone:TPropertyGroup(autoAdd:Int = True)
-'		Local g:TPropertyGroup = New TPropertyGroup.Create(Self.GetName(), Self, autoAdd)
-'		For Local i:TPropertyItem = EachIn Self.itemList
-'			i.Clone()
-'		Next
-'		Return g
-'	End Method
 	
 	
 	
@@ -77,73 +79,104 @@ Type TPropertyGroup Extends TPropertyBase
 	bbdoc: Opens or closes group
 	endrem
 	Method Toggle()
+		
 		collapsed = Not collapsed
 		If collapsed
-'			HideItems()
 			SetGadgetPixmap(titleIcon, barIcon1, PANELPIXMAP_CENTER)
+			SetGadgetShape(mainPanel, GadgetX(mainPanel), GadgetY(mainPanel), GadgetWidth(mainPanel), ITEM_SIZE)
 		Else
-'			ShowItems()
 			SetGadgetPixmap(titleIcon, barIcon2, PANELPIXMAP_CENTER)
 		End If
 		
-	
-	End Method
-	
-		
-	
-	Rem
-	bbdoc: Resizes group and rearranges items
-	endrem	
-	Method DoLayout()
-		'set main group panel size
-		SetSize()
-		
-		'arrange items on group panel
-		Local ypos:Int = ITEM_SIZE
-		For Local i:TPropertyBase = EachIn itemList
-			i.SetPosition(ypos)
-			ypos:+i.GetHeight() + ITEM_SPACING
-		Next
-	End Method
-
-	
-	
-	Rem
-	bbdoc: Sets vertical size of group panel
-	EndRem
-	Method SetSize()
-		SetGadgetShape(mainPanel, 0, 0, GadgetWidth(mainPanel), CalculateSize())
+		EmitEvent CreateEvent(EVENT_PG_GROUPTOGGLE, Self, itemID)
 	End Method
 	
 	
 	
 	rem
-	bbdoc: Calculates and returns the group size
-	endrem	
-	Method CalculateSize:Int()
-		Local itemsSize:Int = ITEM_SIZE
-		If Not collapsed
-			For Local item:TPropertyBase = EachIn itemList
-			
-				If TPropertySubGroup(item)
-					itemsSize:+TPropertySubGroup(item).CalculateSize()
-				Else
-					itemsSize:+item.GetHeight() + ITEM_SPACING
-				End If
-			Next
-		EndIf
-		Return itemsSize
+	bbdoc: sizes panel to show all children
+	endrem
+'	Method FitToChildren()
+'	
+'		'this is the label size. always visible
+'		Local ysize:Int = ITEM_SIZE + ITEM_SPACING
+'		
+'		If collapsed = False
+'			For Local g:TPropertyBase = EachIn itemList
+'			
+'				If TPropertyGroup(g)
+'					ypos:+TPropertyGroup(g).GetHeight() + ITEM_SPACING
+'				Else
+'					ysize:+g.GetHeight() + ITEM_SPACING
+'				EndIf
+'			Next
+'		EndIf
+'		
+'		Print "fit: setting panel of '" + GadgetText(label) + "' to size " + ysize
+'		
+'		SetGadgetShape(mainPanel, 0, 0, GadgetWidth(mainPanel), ysize)
+'	End Method
+	
+	
+	
+	Method Refresh()
+		Local ypos:Int = ITEM_SIZE + ITEM_SPACING
+		
+'		Print "refresh: group '" + GadgetText(label) + "' item count: " + itemList.Count()
+	
+		'arrange items on group
+		For Local g:TPropertyBase = EachIn itemList
+			If TPropertyGroup(g)
+				TPropertyGroup(g).Refresh()
+				TPropertyGroup(g).SetVerticalPosition(ypos)
+				ypos:+TPropertyGroup(g).GetHeight()
+			Else
+				g.SetVerticalPosition(ypos)
+				ypos:+g.GetHeight() + ITEM_SPACING
+			End If
+		Next
+		
+		'fit group. ypos is now the total size
+		If collapsed Then ypos = ITEM_SIZE + ITEM_SPACING
+		
+	'	Print "fit: setting panel of '" + GadgetText(label) + "' to size " + ypos
+		
+		SetGadgetShape(mainPanel, 0, 0, GadgetWidth(mainPanel), ypos)
+	
 	End Method
 	
 	
 	
 	Rem
-	bbdoc: Returns y-size of group panel, or no size when hidden
-	about: Overrides super.setheight()
+	bbdoc: Sets vertical position
+	about: overrides TPropertyBase.SetVerticalPosition
+	endrem	
+	Method SetVerticalPosition(ypos:Int)
+		
+'		Print "setting group '" + GadgetText(label) + "' to ypos: " + ypos
+		
+		SetGadgetShape(mainPanel, 0, ypos, GadgetWidth(mainPanel), GadgetHeight(mainPanel))
+	End Method
+		
+	
+	
+	Rem
+	bbdoc: Returns y-size of group panel, or no size when group is hidden
+	about: Overrides TPropertyBase.getheight()
 	endrem
 	Method GetHeight:Int()
 		If GadgetHidden(mainPanel) Then Return 0
+		If collapsed Then Return ITEM_SIZE
 		Return GadgetHeight(mainPanel)
+	End Method
+
+	
+	
+	Rem
+	bbdoc: Returns a list containing the group items
+	endrem
+	Method GetItems:TList()
+		Return itemList
 	End Method	
 	
 	
@@ -151,99 +184,101 @@ Type TPropertyGroup Extends TPropertyBase
 	Rem
 	bbdoc: Adds an item to the group
 	endrem	
-	Method AddItem(i:Object)
+	Method AddItem(i:TPropertyBase)
 		itemList.AddLast(i)
-		DoLayout()
+	End Method
+	
+
+	
+	Rem
+	bbdoc: Frees property group and its items
+	endrem	
+	Method CleanUp()
+	
+'		For Local i:TPropertyItemBase = EachIn itemList
+'			i.CleanUp()
+'		Next
+		itemList.Clear()	
+
+		FreeGadget titleIcon
+		FreeGadget label
+		FreeGadget labelPanel
 	End Method
 	
 	
 	
 	rem
-	bbdoc: Removes an item from the group
+	bbdoc: Hides group
 	endrem
-	Method RemoveItem(i:TPropertyItem)
-		itemList.Remove(i)
-		DoLayout()
+	Method Hide()
+		If GadgetHidden(mainPanel) Then Return
+		HideGadget(mainPanel)
+		EmitEvent CreateEvent(EVENT_PG_GROUPVISIBLE, Self, itemID)
+	End Method
+	
+	
+	
+	rem
+	bbdoc: Shows group
+	endrem	
+	Method Show()
+		If Not GadgetHidden(mainPanel) Then Return
+		ShowGadget(mainPanel)
+		EmitEvent CreateEvent(EVENT_PG_GROUPVISIBLE, Self, itemID)
 	End Method
 	
 	
 
 	Rem
-	bbdoc: Returns a list containing the group items
-	returns: TList
-	endrem
-	Method GetItems:TList()
-		Return itemList
+	bbdoc: Returns hidden status of item
+	endrem	
+	Method GetHidden:Int()
+		Return GadgetHidden(mainPanel)
 	End Method
-		
 
-		
+	
+
 	Rem
 	bbdoc: Deletes item
 	endrem	
-	Method DeleteItemByLabel(label:String)
-		For Local i:TPropertyItem = EachIn itemList
-			If GadgetText(i.label) = label
-				i.Free()
-				itemList.Remove(i)
-				Return
-			EndIf
-		Next
-	End Method
-	
-	
-	
-	Rem
-	bbdoc: Removes and deletes all items from group
-	endrem		
-	Method DeleteAllItems()
-		For Local i:TPropertyItem = EachIn itemList
-			i.Free()
-		Next
-		itemList.Clear()
-	End Method
-	
-	
-	
-	Rem
-	bbdoc: Frees property group
-	endrem	
-	Method Free()
-		DeleteAllItems()
-		FreeGadget titleIcon
-		Super.Free()
-	End Method
-	
-	
+'	Method DeleteItemByLabel(label:String)
+'		For Local i:TPropertyItemBase = EachIn itemList
+'			If GadgetText(i.label) = label
+'				i.CleanUp()
+'				itemList.Remove(i)
+'				Return
+'			EndIf
+'		Next
+'	End Method
 	
 	Rem
 	bbdoc: Hides all items on the group
 	endrem	
-	Method HideItems()
-		For Local i:TPropertyItem = EachIn itemList
-			i.Hide()
-		Next		
-	End Method
+'	Method HideItems()
+'		For Local i:TPropertyItem = EachIn itemList
+'			i.Hide()
+'		Next		
+'	End Method
 	
 	
 
 	Rem
 	bbdoc: Shows all items on the group
 	endrem
-	Method ShowItems()
-		For Local i:TPropertyItem = EachIn itemList
-			i.Show()
-		Next
-	End Method
+'	Method ShowItems()
+'		For Local i:TPropertyItem = EachIn itemList
+'			i.Show()
+'		Next
+'	End Method
 	
 		
 	
 	Rem
 	bbdoc: Sets string value by item name
 	endrem	
-	Method SetStringByName(name:String, newValue:String)
+	Method SetStringByLabel(label:String, newValue:String)
 		For Local i:TPropertyItemString = EachIn itemList
-			If GadgetText(i.label) = name
+			If i.GetLabel().ToLower() = label.ToLower()
 				i.SetValue(newValue)
 				Return
 			End If
@@ -255,9 +290,9 @@ Type TPropertyGroup Extends TPropertyBase
 	Rem
 	bbdoc: Returns string value by item name
 	endrem	
-	Method GetStringByName:String(name:String)
+	Method GetStringByLabel:String(label:String)
 		For Local i:TPropertyItemString = EachIn itemList
-			If GadgetText(i.label).ToLower() = name.ToLower()
+			If i.GetLabel().ToLower() = label.ToLower()
 				Return i.GetValue()
 			End If
 		Next
@@ -268,7 +303,7 @@ Type TPropertyGroup Extends TPropertyBase
 	Rem
 	bbdoc: Sets int value by item name
 	endrem	
-	Method SetIntByName(name:String, newValue:Int)
+	Method SetIntByLabel(name:String, newValue:Int)
 		For Local i:TPropertyItemInt = EachIn itemList
 			If GadgetText(i.label) = name
 				i.setvalue(newValue)
@@ -282,7 +317,7 @@ Type TPropertyGroup Extends TPropertyBase
 	Rem
 	bbdoc: Returns int value by item name
 	endrem	
-	Method GetIntByName:Int(name:String)
+	Method GetIntByLabel:Int(name:String)
 		For Local i:TPropertyItemInt = EachIn itemList
 			If GadgetText(i.label).ToLower() = name.ToLower()
 				Return i.GetValue()
@@ -295,7 +330,7 @@ Type TPropertyGroup Extends TPropertyBase
 	Rem
 	bbdoc: Sets float value by item name
 	endrem	
-	Method SetFloatByName(name:String, newValue:Float)
+	Method SetFloatByLabel(name:String, newValue:Float)
 		For Local i:TPropertyItemFloat = EachIn itemList
 			If GadgetText(i.label) = name
 				i.setvalue(newValue)
@@ -309,7 +344,7 @@ Type TPropertyGroup Extends TPropertyBase
 	Rem
 	bbdoc: Returns float value by item name
 	endrem	
-	Method GetFloatByName:Float(name:String)
+	Method GetFloatByLabel:Float(name:String)
 		For Local i:TPropertyItemFloat = EachIn itemList
 			If GadgetText(i.label).ToLower() = name.ToLower()
 				Return i.GetValue()
@@ -322,7 +357,7 @@ Type TPropertyGroup Extends TPropertyBase
 	Rem
 	bbdoc: Sets color value by item name
 	endrem	
-	Method SetColorByName(name:String, r:Int, g:Int, b:Int)
+	Method SetColorByLabel(name:String, r:Int, g:Int, b:Int)
 		For Local i:TPropertyItemColor = EachIn itemList
 			If GadgetText(i.label) = name
 				'SetGadgetText(i.interact, i.FloatToString(newValue))
@@ -336,7 +371,7 @@ Type TPropertyGroup Extends TPropertyBase
 	Rem
 	bbdoc: Returns color value by item name
 	endrem	
-	Method GetColorByName:Int[] (name:String)
+	Method GetColorByLabel:Int[] (name:String)
 		For Local i:TPropertyItemColor = EachIn itemList
 			If GadgetText(i.label).ToLower() = name.ToLower()
 '				Return i.GetColorValue()
@@ -349,7 +384,7 @@ Type TPropertyGroup Extends TPropertyBase
 	Rem
 	bbdoc: Sets boolean value by item name
 	endrem	
-	Method SetBoolByName(name:String, bool:Int)
+	Method SetBoolByLabel(name:String, bool:Int)
 		For Local i:TPropertyItemBool = EachIn itemList
 			If GadgetText(i.label) = name
 				i.SetValue(bool)
@@ -363,7 +398,7 @@ Type TPropertyGroup Extends TPropertyBase
 	Rem
 	bbdoc: Returns boolean value by item name
 	endrem	
-	Method GetBoolByName:Int(name:String)
+	Method GetBoolByLabel:Int(name:String)
 		For Local i:TPropertyItemBool = EachIn itemList
 			If GadgetText(i.label).ToLower() = name.ToLower()
 				Return i.GetValue()
@@ -376,7 +411,7 @@ Type TPropertyGroup Extends TPropertyBase
 	Rem
 	bbdoc: Sets choice value by item name
 	endrem	
-	Method SetChoiceByName(name:String, index:Int)
+	Method SetChoiceByLabel(name:String, index:Int)
 		For Local i:TPropertyItemChoice = EachIn itemList
 			If GadgetText(i.label) = name
 				i.SetIndexValue(index)
@@ -390,7 +425,7 @@ Type TPropertyGroup Extends TPropertyBase
 	Rem
 	bbdoc: Gets choice value by item name
 	endrem	
-	Method GetChoiceByName:Int(name:String, index:Int)
+	Method GetChoiceByLabel:Int(name:String, index:Int)
 		For Local i:TPropertyItemChoice = EachIn itemList
 			If GadgetText(i.label).ToLower() = name.ToLower()
 				Return i.getValue()
@@ -398,44 +433,56 @@ Type TPropertyGroup Extends TPropertyBase
 		Next
 	End Method
 	
-	
 
-	Rem
-	bbdoc: Handles events for this group and its items
-	endrem	
-	Method OnEvent:Int(event:TEvent)
-		If event.source = label
-			Select event.id
-				Case EVENT_MOUSEENTER
-					SetGadgetTextColor(label, 0, 0, 0)
-					'handled
-					Return True
-		
-				Case EVENT_MOUSELEAVE
-					SetGadgetTextColor (label, 100, 100, 100)
-					'handled
-					Return True
-					
-				Case EVENT_MOUSEDOWN
-					
-				Case EVENT_MOUSEUP
-					If event.data = 1
-						Toggle()
-						TPropertyGrid.GetInstance().DoLayout()
-						'handled
-						Return True
-					End If
-			End Select
-		Else
-			For Local item:TPropertyBase = EachIn itemList
-				result = item.OnEvent(event)
-				
-				'handled
-				If result = True Then Return True
-			Next
-		EndIf
-		Return False
-	End Method
 	
+	
+	Function eventHandler:Object(id:Int, data:Object, context:Object)
+		Local tmpPropertyGroup:TPropertyGroup = TPropertyGroup(context)
+		If tmpPropertyGroup Then data = tmpPropertyGroup.eventHook(id, data, context)
+		Return data
+	End Function
+	
+	
+	
+	Method eventHook:Object(id:Int, data:Object, context:Object)
+	
+		Local tmpEvent:TEvent = TEvent(data)
+		If Not tmpEvent Then Return data
+		
+		Select tmpEvent.source
+			Case label
+				Select tmpEvent.id
+					Case EVENT_MOUSEENTER
+						SetGadgetTextColor(label, 0, 0, 0)
+						hit = False
+						
+					Case EVENT_MOUSELEAVE
+						SetGadgetTextColor (label, 100, 100, 100)
+						hit = False
+					
+					Case EVENT_MOUSEDOWN
+						If tmpEvent.data = 1 Then hit = True
+					
+					Case EVENT_MOUSEUP
+						If tmpEvent.data = 1 And hit = True Then Toggle()
+
+					Default
+						'it is an event from this label we're not interested in.
+						Return data
+				End Select
+				
+				'label handled, so get rid of old data
+				data = Null
+				
+				'create an event
+				'EmitEvent CreateEvent(EVENT_GADGETACTION, Self, GetItemID())
+				
+			Default
+				'no event for this group
+				Return data
+		End Select
+
+		Return data
+	End Method	
 
 End Type

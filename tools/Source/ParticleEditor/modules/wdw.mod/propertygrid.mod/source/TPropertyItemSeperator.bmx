@@ -13,7 +13,7 @@ Type TPropertyItemSeparator Extends TPropertyItem
 		SetGadgetFont(label, LookupGuiFont(GUIFONT_SYSTEM, 0, FONT_BOLD))
 		SetGadgetTextColor(label, 100, 100, 100)'225, 225, 225)
 
-		SetParent(newParent)
+		newParent.AddItem(Self)
 		Return Self
 	End Method
 	
@@ -24,29 +24,17 @@ Type TPropertyItemSeparator Extends TPropertyItem
 	End Method
 
 	
-		
-	rem
-	bbdoc: Event handler
-	endrem
-	Method OnEvent:Int(event:TEvent)
-		'nothing to handle
-		Return False
-	End Method
-	
-	
 	
 	rem
 	bbdoc: Exports string item to string
 	endrem
-	Method ExportToString:String()
-		Return "parameter,separator," + GadgetText(label)' + "," + GadgetText(interact)
-	End Method	
+'	Method ExportToString:String()
+'		Return "parameter,separator," + GadgetText(label)' + "," + GadgetText(interact)
+'	End Method	
 
-	
-	
-	Method Clone:TPropertyItem()
-		Return New TPropertyItemSeparator.Create(Self.GetName(), Self.GetParent())
-	End Method
+'	Method Clone:TPropertyItem()
+'		Return New TPropertyItemSeparator.Create(Self.GetLabel(), Self.GetParent())
+'	End Method
 	
 End Type
 
