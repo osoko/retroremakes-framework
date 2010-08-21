@@ -11,11 +11,24 @@ endrem
 
 
 rem
-	bbdoc:
-	about:
+	bbdoc: Editor extension for the particle library
+	about: Adds editor related methods.
 endrem
 Type TEditorLibrary Extends TParticleLibrary
 	
+	Method RemoveImage:Int(i:TEditorImage)
+	
+		Local result:Int
+	
+		'check if there are particles referencing this image.
+		
+		'ask permission to delete image if true
+		
+		'remove references to this image from particles
+		
+		Return True'result
+	
+	End Method
 
 
 End Type

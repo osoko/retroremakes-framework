@@ -18,9 +18,9 @@ Type TPropertyGroup Extends TPropertyBase
 	
 	Global barIcon1:TPixmap = LoadPixmap("incbin::media/header.bmp")		'closed
 	Global barIcon2:TPixmap = LoadPixmap("incbin::media/header2.bmp")		'open
+
 	
 		
-	
 	Method Create:TPropertyGroup(title:String, id:Int, parent:Object)
 	
 		itemList = New TList
@@ -93,37 +93,9 @@ Type TPropertyGroup Extends TPropertyBase
 	
 	
 	
-	rem
-	bbdoc: sizes panel to show all children
-	endrem
-'	Method FitToChildren()
-'	
-'		'this is the label size. always visible
-'		Local ysize:Int = ITEM_SIZE + ITEM_SPACING
-'		
-'		If collapsed = False
-'			For Local g:TPropertyBase = EachIn itemList
-'			
-'				If TPropertyGroup(g)
-'					ypos:+TPropertyGroup(g).GetHeight() + ITEM_SPACING
-'				Else
-'					ysize:+g.GetHeight() + ITEM_SPACING
-'				EndIf
-'			Next
-'		EndIf
-'		
-'		Print "fit: setting panel of '" + GadgetText(label) + "' to size " + ysize
-'		
-'		SetGadgetShape(mainPanel, 0, 0, GadgetWidth(mainPanel), ysize)
-'	End Method
-	
-	
-	
 	Method Refresh()
 		Local ypos:Int = ITEM_SIZE + ITEM_SPACING
-		
-'		Print "refresh: group '" + GadgetText(label) + "' item count: " + itemList.Count()
-	
+
 		'arrange items on group
 		For Local g:TPropertyBase = EachIn itemList
 			If TPropertyGroup(g)
@@ -138,11 +110,7 @@ Type TPropertyGroup Extends TPropertyBase
 		
 		'fit group. ypos is now the total size
 		If collapsed Then ypos = ITEM_SIZE + ITEM_SPACING
-		
-	'	Print "fit: setting panel of '" + GadgetText(label) + "' to size " + ypos
-		
 		SetGadgetShape(mainPanel, 0, 0, GadgetWidth(mainPanel), ypos)
-	
 	End Method
 	
 	
@@ -152,9 +120,6 @@ Type TPropertyGroup Extends TPropertyBase
 	about: overrides TPropertyBase.SetVerticalPosition
 	endrem	
 	Method SetVerticalPosition(ypos:Int)
-		
-'		Print "setting group '" + GadgetText(label) + "' to ypos: " + ypos
-		
 		SetGadgetShape(mainPanel, 0, ypos, GadgetWidth(mainPanel), GadgetHeight(mainPanel))
 	End Method
 		
@@ -271,7 +236,33 @@ Type TPropertyGroup Extends TPropertyBase
 '		Next
 '	End Method
 	
-		
+
+	Rem
+	bbdoc: Sets path value by item name
+	endrem	
+	Method SetPathByLabel(label:String, newValue:String)
+		For Local i:TPropertyItemPath = EachIn itemList
+			If i.GetLabel().ToLower() = label.ToLower()
+				i.SetValue(newValue)
+				Return
+			End If
+		Next
+	End Method
+	
+
+	
+	Rem
+	bbdoc: Returns path value by item name
+	endrem	
+	Method GetPathByLabel:String(label:String)
+		For Local i:TPropertyItemPath = EachIn itemList
+			If i.GetLabel().ToLower() = label.ToLower()
+				Return i.GetValue()
+			End If
+		Next
+	End Method
+	
+	
 	
 	Rem
 	bbdoc: Sets string value by item name
@@ -423,9 +414,9 @@ Type TPropertyGroup Extends TPropertyBase
 	
 	
 	Rem
-	bbdoc: Gets choice value by item name
+	bbdoc: Gets choice index by item name
 	endrem	
-	Method GetChoiceByLabel:Int(name:String, index:Int)
+	Method GetChoiceByLabel:Int(name:String)
 		For Local i:TPropertyItemChoice = EachIn itemList
 			If GadgetText(i.label).ToLower() = name.ToLower()
 				Return i.getValue()
@@ -465,7 +456,7 @@ Type TPropertyGroup Extends TPropertyBase
 					
 					Case EVENT_MOUSEUP
 						If tmpEvent.data = 1 And hit = True Then Toggle()
-
+						
 					Default
 						'it is an event from this label we're not interested in.
 						Return data

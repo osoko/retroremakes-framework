@@ -90,9 +90,8 @@ Type TPropertyItemString Extends TPropertyItem
 	endrem	
 	Function FilterInput:Int(event:TEvent, context:Object)
 		If event.id = EVENT_KEYCHAR
-			'no =
-			If event.data = 44 Then Return 0
-		EndIf
+			if event.data = 44 then return 0
+		EndIf		
 		Return 1
 	End Function	
 	

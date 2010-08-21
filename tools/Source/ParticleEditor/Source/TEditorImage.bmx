@@ -10,7 +10,7 @@ Rem
 endrem
 
 rem
-	bbdoc: Extension of the library image, adding editor specific functionality
+bbdoc: Extension of the library image, adding editor specific functionality
 endrem
 Type TEditorImage Extends TParticleImage
 
@@ -68,10 +68,13 @@ Type TEditorImage Extends TParticleImage
 		choice.AddItem("Right")
 		choice.AddItem("Top")
 		choice.AddItem("Bottom")
-		CreatePropertyItemString("Frame Size X", "", PROP_FRAMESIZEX, group)
-		CreatePropertyItemString("Frame Size Y", "", PROP_FRAMESIZEY, group)
-		CreatePropertyItemString("Resolution", "", PROP_RESOLUTION, group)
-		CreatePropertyItemString("Frames", "", PROP_FRAMECOUNT, group)
+		CreatePropertyItemInt("Frame Size X", 0, PROP_FRAMESIZEX, group)
+		CreatePropertyItemInt("Frame Size Y", 0, PROP_FRAMESIZEY, group)
+		Local item1:TPropertyItemString = CreatePropertyItemString("Resolution", "", PROP_RESOLUTION, group)
+		item1.SetReadOnly(True)
+		Local item2:TPropertyItemInt = CreatePropertyItemInt("Frames", 0, PROP_FRAMECOUNT, group)
+		item2.SetReadOnly(True)
+		
 	End Method
 	
 
@@ -79,11 +82,11 @@ Type TEditorImage Extends TParticleImage
 	rem
 	bbdoc: Sets property group settings to those in the image
 	about: Called when the user selects an image item in the editor
-	Strings are case sensitive!
 	endrem	
 	Method SetPropertyGroupItems()
 		group.SetStringByLabel("Name", _editorName)
 		group.SetStringByLabel("Description", _description)
+		group.SetPathByLabel("File Name", _imageFilename)
 		group.SetStringByLabel("Resolution", GetImageWidth() + " x " + GetImageHeight())
 		group.SetIntByLabel("Frames", _frameCount)
 		group.SetIntByLabel("Frame Size X", _frameDimensionX)
@@ -95,22 +98,23 @@ Type TEditorImage Extends TParticleImage
 	
 	
 	rem
-	bbdoc: Sets image settings to property group values
+	bbdoc: Sets settings to property group values
 	endrem
 	Method ApplyPropertyGroup()
 		_editorName = group.GetStringByLabel("Name")
 		_description = group.GetStringByLabel("Description")
+		_imageFilename = group.GetPathByLabel("File Name")
 		_frameCount = group.GetIntByLabel("Frames")
 		_frameDimensionX = group.GetIntByLabel("Frame Size X")
 		_frameDimensionY = group.GetIntByLabel("Frame Size Y")
-		_handlePoint = group.GetIntByLabel("Handle")
+		_handlePoint = group.GetChoiceByLabel("Handle")
 	End Method
 	
 	
 	
 	rem
 	bbdoc: Changes image setting according to changed item
-	about: changed item is in eventsource(), the name is retrieved and then
+	about: changed item is in eventsource(), the label is retrieved and then
 	the value is retrieved from the group
 	endrem
 	Method ChangeSetting(i:TPropertyItem)
@@ -121,12 +125,17 @@ Type TEditorImage Extends TParticleImage
 				SetGadgetText(node, _editorName)
 			Case "Description"
 				_description = group.GetStringByLabel(label)
+			Case "File Name"
+				ApplyImage( group.GetPathByLabel(label) )
 			Case "Frame Size X"
-				_frameDimensionX = group.GetIntByLabel(label)
+				SetFrameDimensionX( group.GetIntByLabel(label))
+				SetPropertyGroupItems()
 			Case "Frame Size Y"
-				_frameDimensionY = group.GetIntByLabel(label)
+				SetFrameDimensionY( group.GetIntByLabel(label))
+				SetPropertyGroupItems()
 			Case "Handle"
-'				_handlePoint = group.GetChoiceByLabel(label,)
+				_handlePoint = group.GetChoiceByLabel(label)
+				SetHandlePoint()
 		End Select
 	End Method
 
@@ -138,6 +147,8 @@ Type TEditorImage Extends TParticleImage
 		Return _baseImage.width
 	End Method
 
+	
+	
 	Method GetImageHeight:Int()
 		If _baseImage = Null Then Return 0
 		Return _baseImage.height
@@ -146,90 +157,91 @@ Type TEditorImage Extends TParticleImage
 		
 	
 	Method SetFrameDimensionX(value:Int)
+		If _baseImage=Null Then _frameDimensionX=0;Return
 		If value <= 0 Or value > _baseImage.width Then value = _baseImage.width
 		_frameDimensionX = value
-'		_DetermineFrameCount()
+		DetermineFrameCount()
 	End Method
 
+	
+	
 	Method SetFrameDimensionY(value:Int)
+		If _baseImage=Null Then _frameDimensionX=0;Return
 		If value <= 0 Or value > _baseImage.height Then value = _baseImage.height
 		_frameDimensionY = value
-'		_DetermineFrameCount()
+		DetermineFrameCount()
 	End Method
 	
+	
 
-	
-	
 	rem
-
-
-	Method ChangeSetting(Event:wxPropertyGridEvent, tree:wxTreeCtrl, treeItem:wxTreeItemId)', pg:wxPropertyGrid, lib:TEditorLibrary)
-		Select Event.GetPropertyName()
-			Case PROP_NAME
-				Local text:String = Event.GetPropertyValueAsString()
-				tree.SetItemText(treeItem, text)
-				_name = text
-			Case PROP_DESCRIPTION
-				_description = Event.GetPropertyValueAsString()
-			Case PROP_FILENAME
-				Self.ChangeImage( Event.GetPropertyValueAsString() )
-			Case PROP_FRAMESIZEX
-				Self.SetFrameDimensionX(Event.GetPropertyValueAsInt())
-			Case PROP_FRAMESIZEY
-				Self.SetFrameDimensionY(Event.GetPropertyValueAsInt())
-			Case PROP_HANDLEPOINT
-				_handlePoint = Event.GetPropertyValueAsInt()
-				If _image <> _baseImage Then Self.SetHandlePoint()
-		End Select
-		Self.FillGridProperty()
-	End Method
-
-
-	Method ChangeImage(newName:String)
-		If newName = "" Then Return
+	bbdoc: Tries to apply the _imagefileName value by loading the image
+	about:
+	endrem
+	Method ApplyImage(newName:String)
 		If newName = _imageFilename Then Return
-
-		Local ok:Int = _LoadImage(newName)
-		If ok
+		If _LoadImage(newName)
 			_frameDimensionX = _baseImage.width
 			_frameDimensionY = _baseImage.height
 			_frameCount = 0
 			_image = _baseImage
 			_handlePoint = HANDLE_CENTER
+			DetermineFrameCount()
+			SetPropertyGroupItems()
 		End If
 	End Method
-
-
-
-
-
-	Method CopySettingsTo( i:TEditorImage Var )
-		i._name = "Copy of " + _name
-		i._description = _description
-		i._imageFilename = _imageFilename
-		i._frameDimensionX = _frameDimensionX
-		i._frameDimensionY = _frameDimensionY
-		i._image = _image
-		i._baseImage = _baseImage
-		i._frameCount = _frameCount
-		i._handlePoint = _handlePoint
+	
+	
+	
+	rem
+	bbdoc: loads image into editor type
+	about: Uses _baseImage, not _image. Overrides TEditorImage._LoadImage()
+	endrem
+	Method _LoadImage:Int(name:String)
+		If Not FileType(name) Then Return 0
+		Local tempImage:TImage = LoadImage( name )
+		If tempImage = Null Then Return 0
+		
+		_baseImage = tempImage
+		_image = _baseImage
+		_imageFilename=name
+		SetImageHandle(_baseImage, _baseImage.width/2, _baseImage.height/2)
+		Return 1
+	End Method	
+	
+	
+	
+	rem
+	bbdoc: determines the amount of frames in the loaded baseimage by
+	looking at the entered frame dimensions
+	endrem
+	Method DetermineFrameCount()
+		If _baseImage=Null Then Return
+		Local x:Int = _baseImage.width / _frameDimensionX
+		Local y:Int = _baseImage.height / _frameDimensionY
+		_frameCount = x * y
+		If _frameCount = 1 Then Return
+		_LoadMultiFrameImage()				
 	End Method
 
-	Method SettingsToStream( s:TStream, imagePath:String="")
-		s.WriteLine("#image")
-		s.WriteLine("id=" + _id)
-		s.WriteLine("name=" + _name)
-		s.WriteLine("desc=" + _description)
-		Local name:String = _imageFilename
-		If imagePath <> "" Then name = imagePath + "/" + StripDir(name)
-		s.WriteLine("imagepath=" + name)
-		s.WriteLine("framex=" + _frameDimensionX)
-		s.WriteLine("framey=" + _frameDimensionY)
-		s.WriteLine("count=" + _frameCount)
-		s.WriteLine("handle=" + _handlePoint)
-		s.WriteLine("#endimage")
-	End Method
-
+	
+	
+	rem
+	bbdoc: Reloads the _baseImage as a multiframe image.
+	keeps single frame _baseImage for drawing in the editor.
+	endrem	
+	Method _LoadMultiFrameImage()
+		Local tempImage:TImage = LoadAnimImage( _imageFilename, _frameDimensionX, _frameDimensionY, 0, _frameCount )
+		If tempImage = Null Then Return
+		_image = tempImage
+		Self.SetHandlePoint()
+	End Method	
+	
+	
+	
+	rem
+	bbdoc: Draws the image in the editor. it adds boxes to show the frames
+	endrem
 	Method DrawBaseImage(dx:Float, dy:Float)
 		If _baseImage = Null Then Return
 		SetBlend ALPHABLEND
@@ -251,63 +263,26 @@ Type TEditorImage Extends TParticleImage
 			y:+ _frameDimensionY
 		Wend
 	End Method
-
-	'**** OVERRIDING METHODS *****
-
-	Method SettingsFromStream( s:TStream )
-		Local l:String, a:String[]
-		l = s.ReadLine()
-		l.Trim()
-		While l <> "#endimage"
-			a = l.split("=")
-			Select a[0]
-				Case "id"			_id = a[1]
-				Case "name"			_name = a[1]
-				Case "desc"			_description = a[1]
-				Case "imagepath"	_imageFilename = a[1]
-				Case "framex"		_frameDimensionX = Int( a[1] )
-				Case "framey"		_frameDimensionY = Int( a[1] )
-				Case "count"		_frameCount = Int( a[1] )
-				Case "handle"		_handlePoint = Int( a[1] )
-				Default 			DebugLog l
-			End Select
-			l = s.ReadLine()
-			l.Trim()
-		Wend
-		_LoadImage(_imageFileName)
-		If _frameCount > 1 Then _LoadMultiFrameImage
-	End Method
-
-	'***** PRIVATE *****
-
-	Method _LoadImage:Int(name:String)
-		Local tempImage:TImage = LoadImage( name )
-		If tempImage = Null Then Return 0
-		_baseImage = tempImage
-		_image = _baseImage
-		_imageFilename = name
-		SetImageHandle(_baseImage, _baseImage.width/2, _baseImage.height/2)
-		Return 1
-	End Method
-
-	Method _DetermineFrameCount()
-		Local x:Int = _baseImage.width / _frameDimensionX
-		Local y:Int = _baseImage.height / _frameDimensionY
-		_frameCount = x * y
-		If _frameCount = 1 Then Return
-		_LoadMultiFrameImage()				'load extra anim image. keep single frame image
-	End Method
-
-	Method _LoadMultiFrameImage()
-		Local tempImage:TImage = LoadAnimImage( _imageFilename, _frameDimensionX, _frameDimensionY, 0, _frameCount )
-		If tempImage = Null Then Return
-		_image = tempImage
-		Self.SetHandlePoint()
-	End Method
-
-
 	
+	
+	
+	rem
+	bbdoc: Returns a clone of this editor image
+	about: id is not copied.
 	endrem
+	Method Clone:TEditorImage()
+		Local i:TEditorImage = New TEditorImage		
+		i._editorName = "Copy of " + _editorName
+		i._description = _description
+		i._imageFilename = _imageFilename
+		i._frameDimensionX = _frameDimensionX
+		i._frameDimensionY = _frameDimensionY
+		i._image = _image
+		i._baseImage = _baseImage
+		i._frameCount = _frameCount
+		i._handlePoint = _handlePoint
+		Return i
+	End Method
 	
 End Type
 
