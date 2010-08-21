@@ -27,6 +27,13 @@ Type TEditorGui Extends TAppBase
 	Field effect_group:TPropertyGroup
 	Field project_group:TPropertyGroup
 	
+	'group identifiers
+	Const GROUP_IMAGE:Int = 2000
+	Const GROUP_PARTICLE:Int = 2001
+	Const GROUP_EMITTER:Int = 2002
+	Const GROUP_EFFECT:Int = 2003
+	Const GROUP_PROJECT:Int = 2004
+	
 	'treeview main nodes
 	Field image_root:TGadget
 	Field particle_root:TGadget
@@ -70,7 +77,6 @@ Type TEditorGui Extends TAppBase
 
 	
 	'misc	
-	Const PROPERTY_GRID_WIDTH:Int = 300
 	Const APP_NAME:String = "ParticlesMAX RRFW Edition"
 	
 	
@@ -83,6 +89,7 @@ Type TEditorGui Extends TAppBase
 		SetupPropertyGroups()
 		SetUpMenus()
 		SetUpEvents()
+		property_grid.refresh()
 	End Method
 	
 	
@@ -109,7 +116,7 @@ Type TEditorGui Extends TAppBase
 					OnGadgetSelect()
 				Case EVENT_MOUSEDOWN
 					OnMouseDown()
-				Case EVENT_ITEMCHANGED
+				Case EVENT_PG_ITEMCHANGED
 					OnItemChange(TPropertyItem(EventSource()))
 				
 				Default
@@ -130,7 +137,7 @@ Type TEditorGui Extends TAppBase
 			WINDOW_TITLEBAR | WINDOW_MENU | WINDOW_RESIZABLE | WINDOW_CENTER | WINDOW_STATUS)
 		SetMinWindowSize(main_window, 800, 400)
 		
-		splitter = CreateSplitter(0, 0, ClientWidth(main_window) - PROPERTY_GRID_WIDTH, ClientHeight(main_window), main_window)
+		splitter = CreateSplitter(0, 0, ClientWidth(main_window) - GRID_WIDTH, ClientHeight(main_window), main_window)
 		SetSplitterPosition(splitter, 300)
 		SetGadgetLayout(splitter, EDGE_ALIGNED, EDGE_CENTERED, EDGE_ALIGNED, EDGE_ALIGNED)
 		
@@ -143,7 +150,7 @@ Type TEditorGui Extends TAppBase
 		SetGadgetLayout(render_canvas, EDGE_ALIGNED, EDGE_CENTERED, EDGE_ALIGNED, EDGE_ALIGNED)
 
 		property_grid = TPropertyGrid.GetInstance()
-		PROPERTY_GRID.Initialize(ClientWidth(main_window) - PROPERTY_GRID_WIDTH, 0, PROPERTY_GRID_WIDTH, ClientHeight(main_window), main_window)
+		property_grid.Initialize(main_window)
 		
 	End Method
 	
@@ -227,9 +234,9 @@ Type TEditorGui Extends TAppBase
 	endrem
 	Method SetupPropertyGroups()
 	
-		image_group = CreatePropertyGroup("Image", property_grid)
+		image_group = CreatePropertyGroup("Image", GROUP_IMAGE, property_grid)
 		property_grid.HideGroup(image_group)
-		particle_group = CreatePropertyGroup("Particle", property_grid)
+		particle_group = CreatePropertyGroup("Particle", GROUP_PARTICLE, property_grid)
 		property_grid.HideGroup(particle_group)
 		
 		New TEditorImage.SetupGroupItems(image_group)
@@ -276,21 +283,21 @@ Type TEditorGui Extends TAppBase
 	rem
 	bbdoc: Creates items for editable values in a group
 	endrem
-	Method CreateValueGroup:TPropertyGroup(name:String, parent:TPropertyGroup)
+	Method CreateValueGroup:TPropertyGroup(name:String, id:Int, parent:TPropertyGroup)
 		Local choice:TPropertyItemChoice
-		Local sub_group:TPropertyGroup = CreatePropertyGroup(name, parent)
+		Local group:TPropertyGroup = CreatePropertyGroup(name, id, parent)
 			
-		CreatePropertyItemFloat("Start Value", 1.0, 0, sub_group)
-		CreatePropertyItemFloat("End Value", 1.0, 0, sub_group)
-		CreatePropertyItemBool("Change over time", False, 0, sub_group)
-		choice = CreatePropertyItemChoice("Behaviour", 0, sub_group)
+		CreatePropertyItemFloat("Start Value", 1.0, id + 1, group)
+		CreatePropertyItemFloat("End Value", 1.0, id + 2, group)
+		CreatePropertyItemBool("Change over time", False, id + 3, group)
+		choice = CreatePropertyItemChoice("Behaviour", id + 4, group)
 		choice.AddItem("Once")
 		choice.AddItem("Repeat")
 		choice.AddItem("PingPong")
-		CreatePropertyItemInt("Start Delay", 0, 0, sub_group)
-		CreatePropertyItemFloat("Change Amount", 0.1, 0, sub_group)
+		CreatePropertyItemInt("Start Delay", 0, id + 5, group)
+		CreatePropertyItemFloat("Change Amount", 0.1, id + 6, group)
 		
-		Return sub_group
+		Return group
 	
 	End Method
 
@@ -311,53 +318,52 @@ Type TEditorGui Extends TAppBase
 	endrem	
 	Method OnMenuAction()
 		Select EventData()
-			Case MENU_NEW_LIBRARY
-
-			Case MENU_OPEN_LIBRARY
-
-			Case MENU_SAVE_LIBRARY
-
-			Case MENU_SAVEAS_LIBRARY
-
-			Case MENU_EXPORT_PROJECT
-
-			Case MENU_EXIT
-				OnMenuExit()
-			Case MENU_ADD_IMAGE
-				OnAddImage()
-
-			Case MENU_ADD_PARTICLE
-
-			Case MENU_ADD_EMITTER
-
-			Case MENU_ADD_EFFECT
-
-			Case MENU_ADD_PROJECT
-
-			Case MENU_DELETE_OBJECT
-
-			Case MENU_CLONE_OBJECT
-
-			Case MENU_AUTOLOAD
-				OnChangeAutoLoad()
-			Case MENU_AUTOSAVE
-				OnChangeAutoSave()
-			Case MENU_SPAWN_SELECTION
-
-			Case MENU_TOGGLE_ENGINE
-
-			Case MENU_CLEAR_ENGINE
-
-			Case MENU_SHOWHELPERS
- 				OnChangeShowHelpers()
-			Case MENU_ABOUT
-				OnAbout()
+			Case MENU_NEW_LIBRARY		OnNewLibrary()
+			Case MENU_OPEN_LIBRARY		OnOpenLibrary()
+			Case MENU_SAVE_LIBRARY		OnSaveLibrary()
+			Case MENU_SAVEAS_LIBRARY	OnSaveLibraryAs()
+			Case MENU_EXPORT_PROJECT	OnExportProject()
+			Case MENU_EXIT				OnMenuExit()
+			Case MENU_ADD_IMAGE			OnAddImage()
+			Case MENU_ADD_PARTICLE		OnAddParticle()
+			Case MENU_ADD_EMITTER		OnAddEmitter()
+			Case MENU_ADD_EFFECT		OnAddEffect()
+			Case MENU_ADD_PROJECT		OnAddProject()
+			Case MENU_DELETE_OBJECT		OnDeleteObject()
+			Case MENU_CLONE_OBJECT		OnCloneObject()
+			Case MENU_AUTOLOAD			OnChangeAutoLoad()
+			Case MENU_AUTOSAVE			OnChangeAutoSave()
+			Case MENU_SPAWN_SELECTION	OnSpawnSelecton()
+			Case MENU_TOGGLE_ENGINE		OnToggleEngine()
+			Case MENU_CLEAR_ENGINE		OnClearEngine()
+			Case MENU_SHOWHELPERS		OnChangeShowHelpers()
+			Case MENU_ABOUT				OnAbout()
 
 		End Select
 	End Method
 	
 	'---------------------------------------------------------------------
 	'the following methods are overridden in TEditorMain
+	
+	Method OnNewLibrary()
+		DebugLog "Override me!!"
+	End Method
+	
+	Method OnOpenLibrary()
+		DebugLog "Override me!!"
+	End Method
+	
+	Method OnSaveLibrary()
+		DebugLog "Override me!!"
+	End Method
+	
+	Method OnSaveLibraryAs()
+		DebugLog "Override me!!"
+	End Method
+	
+	Method OnExportProject()
+		DebugLog "Override me!!"
+	End Method
 	
 	Method OnMenuExit()
 		DebugLog "Override me!!"
@@ -392,6 +398,42 @@ Type TEditorGui Extends TAppBase
 	End Method
 	
 	Method OnGadgetSelect()
+		DebugLog "Override me!!"
+	End Method
+	
+	Method OnAddParticle()
+		DebugLog "Override me!!"
+	End Method
+	
+	Method OnAddEmitter()
+		DebugLog "Override me!!"
+	End Method
+	
+	Method OnAddEffect()
+		DebugLog "Override me!!"
+	End Method
+	
+	Method OnAddProject()
+		DebugLog "Override me!!"
+	End Method
+	
+	Method OnDeleteObject()
+		DebugLog "Override me!!"
+	End Method
+
+	Method OnCloneObject()
+		DebugLog "Override me!!"
+	End Method
+
+	Method OnSpawnSelecton()
+		DebugLog "Override me!!"
+	End Method
+	
+	Method OnToggleEngine()
+		DebugLog "Override me!!"
+	End Method
+		
+	Method OnClearEngine()
 		DebugLog "Override me!!"
 	End Method
 	
