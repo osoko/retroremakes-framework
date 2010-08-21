@@ -273,6 +273,11 @@ Type TEditorMain Extends TEditorGui
 	
 	
 	
+	Method OnSaveLibrary()
+		
+		library.writeconfiguration()
+	
+	End Method
 	
 
 	

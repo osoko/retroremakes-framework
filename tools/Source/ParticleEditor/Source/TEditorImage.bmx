@@ -82,14 +82,14 @@ Type TEditorImage Extends TParticleImage
 	Strings are case sensitive!
 	endrem	
 	Method SetPropertyGroupItems()
-		group.SetStringByName("Name", _editorName)
-		group.SetStringByName("Description", _description)
-		group.SetStringByName("Resolution", GetImageWidth() + " x " + GetImageHeight())
-		group.SetIntByName("Frames", _frameCount)
-		group.SetIntByName("Frame Size X", _frameDimensionX)
-		group.SetIntByName("Frame Size Y", _frameDimensionY)
-		group.SetStringByName("File Name", _imageFilename)
-		group.SetChoiceByName("Handle", _handlePoint)
+		group.SetStringByLabel("Name", _editorName)
+		group.SetStringByLabel("Description", _description)
+		group.SetStringByLabel("Resolution", GetImageWidth() + " x " + GetImageHeight())
+		group.SetIntByLabel("Frames", _frameCount)
+		group.SetIntByLabel("Frame Size X", _frameDimensionX)
+		group.SetIntByLabel("Frame Size Y", _frameDimensionY)
+		group.SetStringByLabel("File Name", _imageFilename)
+		group.SetChoiceByLabel("Handle", _handlePoint)
 	End Method
 	
 	
@@ -98,12 +98,12 @@ Type TEditorImage Extends TParticleImage
 	bbdoc: Sets image settings to property group values
 	endrem
 	Method ApplyPropertyGroup()
-		_editorName = group.GetStringByName("Name")
-		_description = group.GetStringByName("Description")
-		_frameCount = group.GetIntByName("Frames")
-		_frameDimensionX = group.GetIntByName("Frame Size X")
-		_frameDimensionY = group.GetIntByName("Frame Size Y")
-		_handlePoint = group.GetIntByName("Handle")
+		_editorName = group.GetStringByLabel("Name")
+		_description = group.GetStringByLabel("Description")
+		_frameCount = group.GetIntByLabel("Frames")
+		_frameDimensionX = group.GetIntByLabel("Frame Size X")
+		_frameDimensionY = group.GetIntByLabel("Frame Size Y")
+		_handlePoint = group.GetIntByLabel("Handle")
 	End Method
 	
 	
@@ -114,19 +114,19 @@ Type TEditorImage Extends TParticleImage
 	the value is retrieved from the group
 	endrem
 	Method ChangeSetting(i:TPropertyItem)
-		Local label:String = i.GetName()
+		Local label:String = i.GetLabel()
 		Select label
 			Case "Name"
-				_editorName = group.GetStringByName(label)
+				_editorName = group.GetStringByLabel(label)
 				SetGadgetText(node, _editorName)
 			Case "Description"
-				_description = group.GetStringByName(label)
+				_description = group.GetStringByLabel(label)
 			Case "Frame Size X"
-				_frameDimensionX = group.GetIntByName(label)
+				_frameDimensionX = group.GetIntByLabel(label)
 			Case "Frame Size Y"
-				_frameDimensionY = group.GetIntByName(label)
+				_frameDimensionY = group.GetIntByLabel(label)
 			Case "Handle"
-'				_handlePoint = group.GetChoiceByName(label,)
+'				_handlePoint = group.GetChoiceByLabel(label,)
 		End Select
 	End Method
 
@@ -143,11 +143,7 @@ Type TEditorImage Extends TParticleImage
 		Return _baseImage.height
 	End Method	
 
-	
-	
-	
-	
-	
+		
 	
 	Method SetFrameDimensionX(value:Int)
 		If value <= 0 Or value > _baseImage.width Then value = _baseImage.width
