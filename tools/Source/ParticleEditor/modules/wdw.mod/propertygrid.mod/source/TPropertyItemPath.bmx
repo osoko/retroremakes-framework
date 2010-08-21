@@ -27,7 +27,6 @@ Type TPropertyItemPath Extends TPropertyItem
 		SetGadgetLayout(interact, EDGE_ALIGNED, EDGE_ALIGNED, EDGE_ALIGNED, EDGE_CENTERED)
 		SetGadgetText(interact, String(defaultValue))
 		SetGadgetFilter(interact, FilterInput)
-		DisableGadget(interact)
 		
 		Local xpos:Int = GadgetX(interact) + GadgetWidth(interact)
 		folderPanel = CreatePanel(xpos, 1, ITEM_SIZE, ITEM_SIZE - 2, mainPanel)
@@ -91,7 +90,7 @@ Type TPropertyItemPath Extends TPropertyItem
 						
 							If path <> ""
 								SetGadgetText(interact, path)
-								CreateItemEvent(EVENT_ITEMCHANGED, GadgetText(interact))
+								CreateItemEvent(EVENT_PG_ITEMCHANGED, GadgetText(interact))
 							EndIf
 						EndIf
 						
@@ -102,7 +101,17 @@ Type TPropertyItemPath Extends TPropertyItem
 				
 				'handled, so get rid of old data
 				data = Null
+			case interact
+				Select tmpEvent.id
+					case EVENT_GADGETLOSTFOCUS
+						CreateItemEvent(EVENT_PG_ITEMCHANGED, GadgetText(interact))
+					Default
+						'it is an event we're not interested in.
+						Return data
+				End Select
 				
+				'handled, so get rid of old data
+				data = Null
 			Default
 				'no event for this item
 				Return data

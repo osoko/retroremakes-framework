@@ -89,7 +89,7 @@ Type TEditorGui Extends TAppBase
 		SetupPropertyGroups()
 		SetUpMenus()
 		SetUpEvents()
-		property_grid.refresh()
+		property_grid.Refresh()
 	End Method
 	
 	
@@ -112,6 +112,8 @@ Type TEditorGui Extends TAppBase
 					OnMenuAction()
 				Case EVENT_GADGETACTION
 					OnGadgetAction()
+				Case EVENT_GADGETMENU
+					OnGadgetMenu()				
 				Case EVENT_GADGETSELECT
 					OnGadgetSelect()
 				Case EVENT_MOUSEDOWN
@@ -164,7 +166,7 @@ Type TEditorGui Extends TAppBase
 		edit_menu = CreateMenu("Edit", 1, WindowMenu(main_window))
 		engine_menu = CreateMenu("Engine", 2, WindowMenu(main_window))
 		options_menu = CreateMenu("Options", 3, WindowMenu(main_window))
-		about_menu = CreateMenu("About", 3, WindowMenu(main_window))
+		about_menu = CreateMenu("About", 4, WindowMenu(main_window))
 		
 		'file
 		CreateMenu("New Library", MENU_NEW_LIBRARY, file_menu, KEY_N, MODIFIER_COMMAND)
@@ -178,11 +180,11 @@ Type TEditorGui Extends TAppBase
 		CreateMenu("Exit", MENU_EXIT, file_menu, KEY_F4, MODIFIER_OPTION)
 		
 		'edit
-		CreateMenu("Add Image", MENU_ADD_IMAGE, edit_menu)
-		CreateMenu("Add Particle", MENU_ADD_PARTICLE, edit_menu)
-		CreateMenu("Add Emitter", MENU_ADD_EMITTER, edit_menu)
-		CreateMenu("Add Effect", MENU_ADD_EFFECT, edit_menu)
-		CreateMenu("Add Project", MENU_ADD_PROJECT, edit_menu)
+		CreateMenu("Add Image", MENU_ADD_IMAGE, edit_menu, KEY_I, MODIFIER_COMMAND|MODIFIER_SHIFT)
+		CreateMenu("Add Particle", MENU_ADD_PARTICLE, edit_menu, KEY_P, MODIFIER_COMMAND|MODIFIER_SHIFT)
+		CreateMenu("Add Emitter", MENU_ADD_EMITTER, edit_menu, KEY_E, MODIFIER_COMMAND|MODIFIER_SHIFT)
+		CreateMenu("Add Effect", MENU_ADD_EFFECT, edit_menu, KEY_F, MODIFIER_COMMAND|MODIFIER_SHIFT)
+		CreateMenu("Add Project", MENU_ADD_PROJECT, edit_menu, KEY_R, MODIFIER_COMMAND|MODIFIER_SHIFT)
 		CreateMenu("", 0, edit_menu)
 		CreateMenu("Delete Selection", MENU_DELETE_OBJECT, edit_menu, KEY_DELETE, MODIFIER_COMMAND)
 		CreateMenu("Clone Selection", MENU_CLONE_OBJECT, edit_menu, KEY_C, MODIFIER_COMMAND)
@@ -211,6 +213,7 @@ Type TEditorGui Extends TAppBase
 	endrem	
 	Method SetUpEvents()
 		
+	'redraw canvas when resizing
 	End Method
 
 	
@@ -282,6 +285,7 @@ Type TEditorGui Extends TAppBase
 	
 	rem
 	bbdoc: Creates items for editable values in a group
+	about: the group ID is used to generate the sub item IDs
 	endrem
 	Method CreateValueGroup:TPropertyGroup(name:String, id:Int, parent:TPropertyGroup)
 		Local choice:TPropertyItemChoice
@@ -296,20 +300,9 @@ Type TEditorGui Extends TAppBase
 		choice.AddItem("PingPong")
 		CreatePropertyItemInt("Start Delay", 0, id + 5, group)
 		CreatePropertyItemFloat("Change Amount", 0.1, id + 6, group)
-		
 		Return group
-	
 	End Method
 
-	
-	
-	rem
-	bbdoc:
-	endrem
-	Method OnGadgetAction()
-	End Method
-	
-	
 	
 	
 	Rem
@@ -317,6 +310,7 @@ Type TEditorGui Extends TAppBase
 	about: On.. methods are located in the TEditorMain type.
 	endrem	
 	Method OnMenuAction()
+	
 		Select EventData()
 			Case MENU_NEW_LIBRARY		OnNewLibrary()
 			Case MENU_OPEN_LIBRARY		OnOpenLibrary()
@@ -341,6 +335,38 @@ Type TEditorGui Extends TAppBase
 
 		End Select
 	End Method
+	
+	
+	
+	rem
+	bbdoc: Creates pop-up menus
+	endrem	
+	Method OnGadgetMenu()
+		Local node:TGadget = SelectedTreeViewNode(tree_view)
+		Local popup:TGadget
+		
+		'create menus for roots		
+		If node = image_root
+			popup=CreateMenu("popup",0,Null)
+			CreateMenu("Add Image", MENU_ADD_IMAGE, popup)
+			PopupWindowMenu(main_window, popup)
+			Return
+		EndIf		
+		'etc
+		
+		'create menus for library objects
+		Local extra:Object = GadgetExtra(node)
+				
+		If TEditorImage(extra)
+			popup=CreateMenu("popup",0,Null)
+			CreateMenu("Clone", MENU_CLONE_OBJECT, popup)
+			CreateMenu("Delete", MENU_DELETE_OBJECT, popup)
+			PopupWindowMenu(main_window, popup)
+			Return
+		EndIf
+		'etc
+
+	End Method	
 	
 	'---------------------------------------------------------------------
 	'the following methods are overridden in TEditorMain
@@ -434,6 +460,10 @@ Type TEditorGui Extends TAppBase
 	End Method
 		
 	Method OnClearEngine()
+		DebugLog "Override me!!"
+	End Method
+
+	Method OnGadgetAction()
 		DebugLog "Override me!!"
 	End Method
 	

@@ -36,7 +36,5 @@ Type TAppBase Abstract
 	Method SetPosition(x:Int, y:Int)
 		SetGadgetShape(main_window, x, y, GadgetWidth(main_window), GadgetHeight(main_window))
 	End Method	
-	
-	
-	
+		
 End Type

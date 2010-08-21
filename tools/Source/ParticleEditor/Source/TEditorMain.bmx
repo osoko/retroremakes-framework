@@ -21,7 +21,7 @@ Type TEditorMain Extends TEditorGui
 	Field selection:Object
 	
 	'currently selected tree item
-	Field selectedTreeItem:TGadget
+'	Field selectedTreeItem:TGadget
 	
 	'last dragged object
 	Field draggedItem:Object
@@ -58,20 +58,33 @@ Type TEditorMain Extends TEditorGui
 	
 	Method SetupLibrary()
 		library = New TEditorLibrary
-		library.SetReader(New TParticleLibraryReader)	'located in the rrfw particles mod
+		library.SetReader(New TParticleLibraryReader)	'reader is located in the rrfw particles mod
 		library.SetWriter(New TParticleLibraryWriter)	'custom for this editor
 	End Method
 	
 
-		
+	
 	Method LoadLibrary(filename:String)
 		library.ReadConfiguration(filename)
 	End Method
 	
 
 
-	Method SaveLibrary(filename:String)
-		library.writeconfiguration(filename)
+	Method OnSaveLibrary()
+		If Not changed Return
+		library.WriteConfiguration(library.filename)
+		changed=False
+		SetWindowTitle()
+	End Method
+	
+	
+	
+	Method OnSaveLibraryAs()
+		Local newName:String = RequestFile("Save Library as...","Library Files:lib",True,AppDir)
+		If newName="" Then Return	
+		library.WriteConfiguration(newName)
+		changed = False
+		SetWindowTitle()
 	End Method
 	
 	
@@ -175,24 +188,13 @@ Type TEditorMain Extends TEditorGui
 	bbdoc: Clean up, and end the editor
 	endrem	
 	Method CloseEditor()
-		If configFile.GetBoolValue("Library", "AutoSave") = True Then SaveLibrary("")
+		If configFile.GetBoolValue("Library", "AutoSave") = True Then OnSaveLibrary()
 		configFile.Save()
 		
 		'stop timers, etc
 		
 		End
 	End Method	
-		
-	
-	
-	rem
-	bbdoc: Sets window title to reflect loaded library
-	endrem
-	Method SetWindowTitle()
-		Local title:String = "" + APP_NAME + " - " + StripDir(configFile.GetStringValue("Library", "LibraryName"))
-		If changed Then title:+"*"
-		SetGadgetText(main_window, title)
-	End Method
 
 	
 	
@@ -201,27 +203,22 @@ Type TEditorMain Extends TEditorGui
 	about: Called when user selects a treeview gadget
 	endrem
 	Method OnGadgetSelect()
-	
 		Local node:TGadget = SelectedTreeViewNode(tree_view)
 		Local extra:Object = GadgetExtra(node)
 		
-		If TEditorImage(extra) Then OnSelectImage(TEditorImage(extra)) ;Return
+		If TEditorImage(extra)
+			selection = extra
+			TEditorImage(extra).SetPropertyGroupItems()
+			property_grid.HideAllGroups()
+			property_grid.ShowGroup(image_group)
+			Return
+		EndIf
+
+		
 		'etc
 
 	End Method
 	
-	
-	
-	Method OnSelectImage(i:TEditorImage)
-		selection = i
-		i.SetPropertyGroupItems()
-		property_grid.ShowGroup(image_group)
-		property_grid.HideGroup(particle_group)
-'		property_grid.HideGroup(emitter_group)
-'		property_grid.HideGroup(effect_group)
-'		property_grid.HideGroup(project_group)
-	End Method		
-
 	
 	
 	rem
@@ -232,8 +229,10 @@ Type TEditorMain Extends TEditorGui
 	
 		If TEditorImage(selection) Then TEditorImage(selection).ChangeSetting(i) ;Return
 		
-		'etc		
+		'etc
 		
+		changed=True
+		SetWindowTitle()
 	End Method
 	
 	
@@ -244,20 +243,23 @@ Type TEditorMain Extends TEditorGui
 	Method OnAddImage()
 		Local i:TEditorImage = New TEditorImage
 		
-		'add new node, no icon, attach image as EXTRA
+		'add it to the library
+		Local id:Int = library.AddObject(i)
+		i.SetID(id)
+				
+		'add treeview node, no icon, attach image as EXTRA
 		Local node:TGadget = AddTreeViewNode(i.GetEditorName(), image_root, -1, i)
 		
 		'add node to new image
 		i.SetNode(node)
 		
-		'display it
 		ExpandTreeViewNode(image_root)
-		SelectTreeViewNode(node)
-		OnSelectImage(i)
+		
+		changed=True
+		SetWindowTitle()
 	End Method
 
-	
-		
+			
 	
 	Method OnAddParticle()
 	End Method
@@ -271,16 +273,53 @@ Type TEditorMain Extends TEditorGui
 	Method OnAddProject()
 	End Method
 	
-	
-	
-	Method OnSaveLibrary()
-		
-		library.writeconfiguration()
-	
-	End Method
-	
 
 	
+	Method OnCloneObject()
+		Local obj:Object = GadgetExtra(SelectedTreeViewNode(tree_view))
+		If obj = Null Then Return
+		
+		If TEditorImage(obj) 
+			Local newImage:TEditorImage = TEditorImage(obj).Clone()
+			Local id:Int=library.AddObject(newImage)
+			newImage.SetID(id)
+			Local node:TGadget = AddTreeViewNode(newImage.GetEditorName(), image_root, -1, newImage)
+			newImage.SetNode(node)
+			ExpandTreeViewNode(image_root)
+			Return
+		EndIf
+		
+		'etc
+		
+		changed=True
+		SetWindowTitle()
+	End Method
+	
+	
+	
+	Method OnDeleteObject()
+		Local obj:Object = GadgetExtra(SelectedTreeViewNode(tree_view))
+		If obj=Null Then Return
+		
+		Local removed:Int=False
+				
+		If TEditorImage(obj) Then removed = library.RemoveImage(TEditorImage(obj))
+		
+		'etc
+		
+		
+		'continue
+		If removed
+			FreeGadget(SelectedTreeViewNode(tree_view))
+			SelectTreeViewNode(image_root)
+			selection = Null
+			property_grid.HideAllGroups()
+
+			changed=True
+			SetWindowTitle()
+		End If
+		
+	End Method
 	
 	
 	Method OnMenuExit()
@@ -331,5 +370,16 @@ Type TEditorMain Extends TEditorGui
 		EndIf
 		UpdateWindowMenu(main_window)
 	End Method	
+	
+		
+	
+	rem
+	bbdoc: Sets window title to reflect loaded library
+	endrem
+	Method SetWindowTitle()
+		Local title:String = "" + APP_NAME + " - " + StripDir(configFile.GetStringValue("Library", "LibraryName"))
+		If changed Then title:+"*"
+		SetGadgetText(main_window, title)
+	End Method
 			
 End Type

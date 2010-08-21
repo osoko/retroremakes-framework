@@ -132,7 +132,29 @@ Type TPropertyGrid
 	End Method
 	
 	
+	
+	rem
+	bbdoc: Hides all groups on the grid
+	endrem
+	Method HideAllGroups()
+		For Local g:TPropertyGroup = EachIn groupList
+			g.Hide()
+		Next	
+	End Method
+	
+	
 
+	rem
+	bbdoc: Unhides all groups on the grid
+	endrem
+	Method ShowAllGroups()
+		For Local g:TPropertyGroup = EachIn groupList
+			g.Show()
+		Next	
+	End Method
+	
+	
+	
 	rem
 	bbdoc: Unhides group
 	endrem
@@ -169,7 +191,7 @@ Type TPropertyGrid
 		Select tmpEvent.id
 			Case EVENT_PG_GROUPTOGGLE, EVENT_PG_GROUPVISIBLE
 				Refresh()
-			
+				
 			Default
 				'no event for this property grid
 				Return data
