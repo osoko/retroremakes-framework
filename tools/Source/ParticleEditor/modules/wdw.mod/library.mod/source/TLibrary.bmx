@@ -39,6 +39,7 @@ Type TLibrary
 	Method Clear()
 		objectList.Clear()
 		nextID = 0
+        filename = ""
 	End Method
 	
 	
