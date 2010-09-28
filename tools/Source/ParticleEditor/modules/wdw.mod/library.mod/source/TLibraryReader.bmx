@@ -42,6 +42,9 @@ Type TLibraryReader Abstract
 		
 		CloseFile(fileHandle)
 		library.SetConfigurationName(filename)
+        
+        'to add: determine last ID.        
+        
 		Return result
 	End Method
 	

@@ -10,13 +10,14 @@ Rem
 endrem
 
 rem
-    bbdoc: Loads particle engine objects into the library
+bbdoc: Loads objects into the editor library
 endrem
-Type TParticleLibraryReader Extends TLibraryReader
+Type TEditorReader Extends TLibraryReader
 	
 	Method Read:Int(stream:TStream)
 	
 		Local id:Int
+        local maxid:int
 	
 		While Not Eof(stream)
 			Local line:String = stream.ReadLine()
@@ -26,17 +27,16 @@ Type TParticleLibraryReader Extends TLibraryReader
 			If line = "" Then Continue
 			Select line
 				Case "[image]"
-					Local o:TParticleImage = New TParticleImage
+					Local o:TEditorImage = New TEditorImage
 					id = o.ReadPropertiesFromStream(stream)
 					library.AddObject(o, id)
-					library.DetermineNextID(id)
+                    maxid = Max(maxid, id)
 					
 				Case "[particle]"
-					Local o:TParticle = New TParticle
-					id = o.ReadPropertiesFromStream(stream)
-					library.AddObject(o, id)
-					library.DetermineNextID(id)
-					
+'					Local o:TEditorParticle = New TEditorParticle
+'					id = o.ReadPropertiesFromStream(stream)
+'					library.AddObject(o, id)
+'					maxid = Max(maxid, id)
 '				Case "[effect]"
 '					Local ef:TParticleEffect = New TParticleEffect
 '					ef.LoadConfiguration(in)
@@ -52,13 +52,14 @@ Type TParticleLibraryReader Extends TLibraryReader
 '					_StoreObject(e, e._gameName)
 '
 				Default
-					Return False
+					'Return False
 					'Throw "" + line + " is not a recognized object!"
 			End Select
 		Wend
 
 		stream.Close()
-
+        library.nextID = maxid + 1
+        
 		Return True
 	End Method
 	

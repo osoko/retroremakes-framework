@@ -12,17 +12,13 @@ endrem
 rem
 bbdoc: Writes particle library to stream
 endrem
-Type TParticleLibraryWriter Extends TLibraryWriter
+Type TEditorWriter Extends TLibraryWriter
 
 	Method Write(stream:TStream)
-	
+
+		'debug	
 		Print "starting write, objects: " + library.GetObjectList().Count()
 	
-		'first, some library information
-		WriteLine(stream, "[library]")
-		WriteLine(stream, "lastID=" + library.nextID)
-		WriteLine(stream, "[end library]")
-
 		Local obj:Object		
 		
 		For Local o:TLibraryObject = EachIn library.GetObjectList()
