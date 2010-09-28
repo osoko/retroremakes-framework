@@ -312,7 +312,7 @@ Type TEditorGui Extends TAppBase
 	Method OnMenuAction()
 	
 		Select EventData()
-			Case MENU_NEW_LIBRARY		OnNewLibrary()
+			Case MENU_NEW_LIBRARY		OnClearLibrary()
 			Case MENU_OPEN_LIBRARY		OnOpenLibrary()
 			Case MENU_SAVE_LIBRARY		OnSaveLibrary()
 			Case MENU_SAVEAS_LIBRARY	OnSaveLibraryAs()
@@ -371,7 +371,7 @@ Type TEditorGui Extends TAppBase
 	'---------------------------------------------------------------------
 	'the following methods are overridden in TEditorMain
 	
-	Method OnNewLibrary()
+	Method OnClearLibrary()
 		DebugLog "Override me!!"
 	End Method
 	

@@ -20,13 +20,10 @@ Type TEditorMain Extends TEditorGui
 	'currently selected object
 	Field selection:Object
 	
-	'currently selected tree item
-'	Field selectedTreeItem:TGadget
-	
 	'last dragged object
 	Field draggedItem:Object
 
-	'true when item added/changed. false when library is saved.	
+	'true when library items have changed
 	Field changed:Int
 	
 	Field library:TEditorLibrary
@@ -51,21 +48,58 @@ Type TEditorMain Extends TEditorGui
 		SetupLibrary()
 		
 		If configFile.GetBoolValue("Library", "AutoLoad") = True Then ..
-			LoadLibrary(configFile.GetStringValue("Library", "LibraryName"))
+			library.ReadConfiguration(configFile.GetStringValue("Library", "LibraryName"))
+			
 	End Method
-	
+
 	
 	
 	Method SetupLibrary()
 		library = New TEditorLibrary
-		library.SetReader(New TParticleLibraryReader)	'reader is located in the rrfw particles mod
-		library.SetWriter(New TParticleLibraryWriter)	'custom for this editor
+		library.SetReader(New TEditorReader)
+		library.SetWriter(New TEditorWriter)
 	End Method
 	
 
 	
-	Method LoadLibrary(filename:String)
-		library.ReadConfiguration(filename)
+	Method OnClearLibrary:Int()
+	
+		If changed
+			Local result:Int, choice:Int
+
+			choice = Proceed("Current library contains unsaved changes!~rSave it first?")
+			If choice = -1 Then Return False
+			If choice = 1 Then result = OnSaveLibraryAs()
+			If result = False Then Return False
+		End If
+
+		property_grid.HideAllGroups()
+		ClearTreeView(tree_view)
+
+		library.Clear()
+		SetupTree()
+		
+		Return True
+		
+	End Method
+	
+	
+	
+	Method OnOpenLibrary()
+	
+		If OnClearLibrary() = False Then Return
+
+		'load a new library
+		Local fileName:String=RequestFile("Open Library", "Library Files:lib",False,AppDir)
+		library.ReadConfiguration(fileName)
+		
+		'save name in editor config file
+		configFile.SetStringValue("Library","LibraryName", fileName)
+		
+		PopulateTree()
+		changed=False
+		SetWindowTitle()
+
 	End Method
 	
 
@@ -79,12 +113,13 @@ Type TEditorMain Extends TEditorGui
 	
 	
 	
-	Method OnSaveLibraryAs()
+	Method OnSaveLibraryAs:Int()
 		Local newName:String = RequestFile("Save Library as...","Library Files:lib",True,AppDir)
-		If newName="" Then Return	
+		If newName="" Then Return False
 		library.WriteConfiguration(newName)
 		changed = False
 		SetWindowTitle()
+		Return True
 	End Method
 	
 	
@@ -158,29 +193,31 @@ Type TEditorMain Extends TEditorGui
 	bbdoc: Populates tree view with items from the loaded library
 	endrem
 	Method PopulateTree()
-		
-		ClearTree()
-		
-		'fill tree
-		
+	
+		Local o:Object
+		For Local l:TLibraryObject= EachIn library.GetObjectList()
+			o = l.GetObject()
+			
+			If TEditorImage(o)
+				Local i:TEditorImage=TEditorImage(o)
+				Local node:TGadget = AddTreeViewNode(i.GetEditorName(), image_root, -1, i)
+				i.SetNode(node)
+			EndIf
+			
+			'etc
+			
+			
+			
+		Next
 		
 		'show all
-		ExpandTreeViewNode(TreeViewRoot(tree_view))
+		ExpandTreeViewNode(image_root)
+		ExpandTreeViewNode(particle_root)
+		ExpandTreeViewNode(emitter_root)
+		ExpandTreeViewNode(effect_root)
+		ExpandTreeViewNode(project_root)
+		
 	End Method
-	
-	
-	
-	rem
-	bbdoc: Clears all items in the tree control
-	endrem
-	Method ClearTree()
-'		RemoveGadgetItem()
-'		LIBRARY_TREE.DeleteChildren(_imageRoot)
-'		LIBRARY_TREE.DeleteChildren(_particleRoot)
-'		LIBRARY_TREE.DeleteChildren(_effectRoot)
-'		LIBRARY_TREE.DeleteChildren(_emitterRoot)
-'		LIBRARY_TREE.DeleteChildren(_projectRoot)
-	End Method	
 	
 
 	
@@ -204,6 +241,9 @@ Type TEditorMain Extends TEditorGui
 	endrem
 	Method OnGadgetSelect()
 		Local node:TGadget = SelectedTreeViewNode(tree_view)
+		
+		If node=Null Then Return
+		
 		Local extra:Object = GadgetExtra(node)
 		
 		If TEditorImage(extra)
@@ -227,7 +267,7 @@ Type TEditorMain Extends TEditorGui
 	endrem
 	Method OnItemChange(i:TPropertyItem)
 	
-		If TEditorImage(selection) Then TEditorImage(selection).ChangeSetting(i) ;Return
+		If TEditorImage(selection) Then TEditorImage(selection).ChangeSetting(i) ; Return
 		
 		'etc
 		
@@ -329,7 +369,7 @@ Type TEditorMain Extends TEditorGui
 	
 	
 	Method OnAbout()
-		Notify("ParticlesMAX RRFW Edition by Wiebo de Wit~nALPHA version!")
+		Notify("ParticlesMAX RRFW Edition by Wiebo de Wit~nWay To Early version!")
 	End Method
 	
 	
