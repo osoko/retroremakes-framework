@@ -24,7 +24,8 @@ Include "TAppBase.bmx"
 Include "TEditorGui.bmx"
 Include "TEditorMain.bmx"
 Include "TEditorLibrary.bmx"
-Include "TParticleLibraryWriter.bmx"
+Include "TEditorReader.bmx"
+Include "TEditorWriter.bmx"
 Include "TEditorImage.bmx"
 
 Local editor:TEditorMain = New TEditorMain
