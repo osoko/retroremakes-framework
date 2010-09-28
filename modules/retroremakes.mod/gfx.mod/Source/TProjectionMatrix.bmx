@@ -114,6 +114,9 @@ Type TProjectionMatrix
 		TLogger.GetInstance().LogInfo("[" + toString() + "] Settings projection matrix to " + Int(GetWidth()) + "x" + Int(GetHeight()))
 
 		SetVirtualResolution(GetWidth(), GetHeight())
+
+		'added to force resize of viewport		
+		SetViewport(0, 0, rrGetGraphicsWidth(), rrGetGraphicsHeight())
 	End Method
 	
 	
