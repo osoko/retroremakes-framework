@@ -52,7 +52,6 @@ Import retroremakes.manager
 Import retroremakes.maths
 Import retroremakes.menu
 Import retroremakes.messages
-Import retroremakes.particles
 Import retroremakes.registry
 Import retroremakes.renderable
 Import retroremakes.resource
