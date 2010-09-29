@@ -16,7 +16,7 @@ Type TJoystickAxisMapping Extends TVirtualControlMapping
 	
 	Field axisId_:Int
 
-	Field axisDirection_:Int	' -1 or 1
+	Field axisDirection_:Int	' -1 or 1 for absolute directional values. 2 for values -1.0 to 1.0
 
 	Field joystickId_:Int
 	
@@ -72,8 +72,13 @@ Type TJoystickAxisMapping Extends TVirtualControlMapping
 							digitalAxisValue = 1
 						End If
 					End If
+
+					If axisDirection_ = 1 Or axisDirection_ = -1
+						SetAnalogueStatus(Abs(analogueAxisValue))
+					Else
+						SetAnalogueStatus(analogueAxisValue)
+					EndIf
 					
-					SetAnalogueStatus(Abs(analogueAxisValue))
 					SetDigitalStatus(digitalAxisValue)
 										
 					If digitalAxisValue = 0
@@ -97,6 +102,10 @@ Type TJoystickAxisMapping Extends TVirtualControlMapping
 		SetName(Null)
 	End Method
 	
+	Method GetAxisDirection:Int()
+		Return axisDirection_
+	End Method
+		
 	Method GetName:String()
 		Local name:String = Super.GetName()
 
@@ -109,6 +118,8 @@ Type TJoystickAxisMapping Extends TVirtualControlMapping
 				direction = "-"
 			ElseIf axisDirection_ = 1
 				direction = "+"
+			ElseIf axisDirection_ = 2
+				direction = ""
 			End If
 				
 			Select axisId_

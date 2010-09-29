@@ -1,4 +1,4 @@
-rem
+Rem
 '
 ' Copyright (c) 2007-2010 Paul Maskelyne <muttley@muttleyville.org>.
 '
@@ -43,7 +43,7 @@ Type TVirtualControl
 	
 
 		
-	rem
+	Rem
 		bbdoc: Enable or Disable programming mode for this control.
 		about: When programming mode is enabled the control will listen for the next
 		input from all supported devices and then use it for this control's input
@@ -62,7 +62,7 @@ Type TVirtualControl
 	
 	
 	
-	rem
+	Rem
 		bbdoc: Work out which joystick axis has changed and in which direction it moved
 		from the provided message data
 	endrem	
@@ -121,7 +121,7 @@ Type TVirtualControl
 
 
 
-	rem
+	Rem
 		bbdoc: Work out which mouse axis has changed and in which direction it moved
 		from the provided message data
 	endrem
@@ -152,7 +152,7 @@ Type TVirtualControl
 	
 	
 		
-	rem
+	Rem
 		bbdoc: Get the analogue status of this control
 		returns: Float in the range 0.0 to 1.0
 	endrem
@@ -166,7 +166,7 @@ Type TVirtualControl
 
 	
 		
-	rem
+	Rem
 		bbdoc: Gets the input mapped to this control
 	endrem	
 	Method GetControlMap:TVirtualControlMapping()
@@ -175,7 +175,7 @@ Type TVirtualControl
 
 	
 	
-	rem
+	Rem
 		bbdoc: Get the reference to the default input for this control
 	endrem
 	Method GetDefaultControlMap:TVirtualControlMapping()
@@ -184,7 +184,7 @@ Type TVirtualControl
 	
 	
 	
-	rem
+	Rem
 		bbdoc: Get the digital status of this control
 		returns: 1 if the control is down, otherwise 0
 	endrem	
@@ -198,7 +198,7 @@ Type TVirtualControl
 
 		
 	
-	rem
+	Rem
 		bbdoc: Get a reference to the instance of TVirtualGamepad this TVirtualControl
 		is attached to.
 	endrem
@@ -208,7 +208,7 @@ Type TVirtualControl
 	
 	
 	
-	rem
+	Rem
 		bbdoc: Get the number of times this control has been pressed
 		about: The value returned is the amount of times the control has been
 		pressed since the last time this method was called.  Calling this method
@@ -224,7 +224,7 @@ Type TVirtualControl
 	
 	
 		
-	rem
+	Rem
 		bbdoc: Get the id of this control
 	endrem
 	Method GetId:Int()
@@ -233,7 +233,7 @@ Type TVirtualControl
 
 
 	
-	rem
+	Rem
 		bbdoc: Translate a string representation of a joystick axis into the
 		relavant constant
 	endrem
@@ -266,7 +266,7 @@ Type TVirtualControl
 	
 	
 	
-	rem
+	Rem
 		bbdoc: Translate a string representation of a mouse axis into the
 		relavant constant
 	endrem	
@@ -285,7 +285,7 @@ Type TVirtualControl
 	
 	
 	
-	rem
+	Rem
 		bbdoc: Translate a string representation of a mouse button into the
 		relavant constant
 	endrem	
@@ -304,7 +304,7 @@ Type TVirtualControl
 
 	
 
-	rem
+	Rem
 		bbdoc: Get the name of the control
 	endrem
 	Method GetName:String()
@@ -313,7 +313,7 @@ Type TVirtualControl
 	
 	
 
-	rem
+	Rem
 		bbdoc: Create a control identifier using a padded id value
 		about: This is used to identify a control when gamepad settings are
 		saved to a configuration file
@@ -328,7 +328,7 @@ Type TVirtualControl
 	
 	
 			
-	rem
+	Rem
 		bbdoc: Get the key to use for cancelling programming mode
 	endrem
 	Method GetProgrammingCancelKey:Int()
@@ -337,7 +337,7 @@ Type TVirtualControl
 	
 	
 
-	rem
+	Rem
 		bbdoc: Get the programming status of the control.
 		returns: True if it is being programmed, otherwise False.
 	endrem
@@ -347,7 +347,7 @@ Type TVirtualControl
 	
 	
 	
-	rem
+	Rem
 		bbdoc: Process joystick input messages during programming mode
 	endrem
 	Method HandleJoystickInput(message:TMessage)
@@ -376,6 +376,12 @@ Type TVirtualControl
 		Local direction:Int
 		FindJoystickAxis(data, axis, direction)
 		If axis <> 0
+		
+			'retain analogue axis direction if default control has it
+			If GetDefaultControlMap()
+				If TJoystickAxisMapping(GetDefaultControlMap()).GetAxisDirection() = 2 Then direction = 2
+			EndIf
+		
 			SetControlMap(New TJoystickAxisMapping)
 			TJoystickAxisMapping(GetControlMap()).SetAxis(axis, direction)
 			TJoystickAxisMapping(GetControlMap()).SetJoystickId(data.port)
@@ -385,7 +391,7 @@ Type TVirtualControl
 	
 	
 		
-	rem
+	Rem
 		bbdoc: Process keyboard input messages during programming mode
 	endrem
 	Method HandleKeyboardInput(message:TMessage)
@@ -407,7 +413,7 @@ Type TVirtualControl
 	
 	
 		
-	rem
+	Rem
 		bbdoc: Process mouse input messages during programming mode
 	endrem	
 	Method HandleMouseInput(message:TMessage)
@@ -436,7 +442,7 @@ Type TVirtualControl
 	
 	
 	
-	rem
+	Rem
 		bbdoc: Default constructor
 	endrem
 	Method New()
@@ -446,7 +452,7 @@ Type TVirtualControl
 	
 	
 	
-	rem
+	Rem
 		bbdoc: Handler for input messages in programming mode
 	endrem
 	Method Program(message:TMessage)
@@ -462,7 +468,7 @@ Type TVirtualControl
 	
 	
 						
-	rem
+	Rem
 		bbdoc: Sets the inpu mapped to this control
 	endrem	
 	Method SetControlMap(controlMap:TVirtualControlMapping)
@@ -471,7 +477,7 @@ Type TVirtualControl
 
 	
 	
-	rem
+	Rem
 		bbdoc: Set the default input for this control
 	endrem	
 	Method SetDefaultControlMap(defaultControlMap:TVirtualControlMapping)
@@ -480,15 +486,16 @@ Type TVirtualControl
 
 	
 	
-	rem
+	Rem
 		bbdoc: Set the default mapping for this control to the specified joystick axis and direction
 	endrem
 	Method SetDefaultJoystickAxisControl(port:Int, axis:String, direction:Int)
 		Local axisId:Int = GetJoystickAxisId(axis)
-		If axisId And (direction = -1 Or direction = 1)
+		If axisId And (direction = -1 Or direction = 1 Or direction = 2)
 			SetDefaultControlMap(New TJoystickAxisMapping)
 			TJoystickAxisMapping(GetDefaultControlMap()).SetAxis(axisId, direction)
 			TJoystickAxisMapping(GetDefaultControlMap()).SetJoystickId(port)
+			
 			If Not GetControlMap()
 				SetControlMap(GetDefaultControlMap())
 			End If
@@ -497,7 +504,7 @@ Type TVirtualControl
 	
 	
 	
-	rem
+	Rem
 		bbdoc: Set the default mapping for this control to the specified joystick button
 	endrem	
 	Method SetDefaultJoystickButtonControl(port:Int, buttonId:Int)
@@ -513,7 +520,7 @@ Type TVirtualControl
 	
 	
 		
-	rem
+	Rem
 		bbdoc: Set the default mapping for this control to the specified joystick hat direction
 	endrem	
 	Method SetDefaultJoystickHatControl(port:Int, hatId:Float)
@@ -527,7 +534,7 @@ Type TVirtualControl
 	
 	
 		
-	rem
+	Rem
 		bbdoc: Set the default mapping for this control to the specified key
 	endrem		
 	Method SetDefaultKeyboardControl(keyId:Int)
@@ -542,7 +549,7 @@ Type TVirtualControl
 	
 	
 		
-	rem
+	Rem
 		bbdoc: Set the default for this control to the specified mouse axis and direction
 	endrem	
 	Method SetDefaultMouseAxisControl(axis:String, direction:Int)
@@ -558,7 +565,7 @@ Type TVirtualControl
 		
 	
 	
-	rem
+	Rem
 		bbdoc: Set the default mapping for this control to the specified mouse button
 	endrem	
 	Method SetDefaultMouseButtonControl(button:String)
@@ -574,7 +581,7 @@ Type TVirtualControl
 	
 	
 		
-	rem
+	Rem
 		bbdoc: Set the instance of TVirtualGamepad this TVirtualControl is attached to.
 	endrem	
 	Method SetGamepad(gamepad:TVirtualGamepad)
@@ -583,7 +590,7 @@ Type TVirtualControl
 
 
 	
-	rem
+	Rem
 		bbdoc: Set the id of this control.
 		about: This should only be used by the gamepad this control belongs to
 	endrem
@@ -593,12 +600,18 @@ Type TVirtualControl
 	
 	
 	
-	rem
+	Rem
 		bbdoc: Map this control to the specified joystick axis and direction
 	endrem	
 	Method SetJoystickAxisControl(port:Int, axis:String, direction:Int)
 		Local axisId:Int = GetJoystickAxisId(axis)
-		If axisId And (direction = -1 Or direction = 1)
+		If axisId And (direction = 1 Or direction = -1 Or direction = 2)
+
+			'retain analogue axis direction if default control has it
+			If GetDefaultControlMap()
+				If TJoystickAxisMapping(GetDefaultControlMap()).GetAxisDirection() = 2 Then direction = 2
+			EndIf
+		
 			SetControlMap(New TJoystickAxisMapping)
 			TJoystickAxisMapping(GetControlMap()).SetAxis(axisId, direction)
 			TJoystickAxisMapping(GetControlMap()).SetJoystickId(port)
@@ -607,7 +620,7 @@ Type TVirtualControl
 	
 	
 	
-	rem
+	Rem
 		bbdoc: Map this control to the specified joystick button
 	endrem	
 	Method SetJoystickButtonControl(port:Int, buttonId:Int)
@@ -620,7 +633,7 @@ Type TVirtualControl
 	
 	
 	
-	rem
+	Rem
 		bbdoc: Map this control to the specified joystick hat direction
 	endrem			
 	Method SetJoystickHatControl(port:Int, hatId:Float)
@@ -631,7 +644,7 @@ Type TVirtualControl
 	
 	
 		
-	rem
+	Rem
 		bbdoc: Map this control to the specified key
 	endrem		
 	Method SetKeyboardControl(keyId:Int)
@@ -643,7 +656,7 @@ Type TVirtualControl
 	
 	
 		
-	rem
+	Rem
 		bbdoc: Map this control to the specified mouse axis and direction
 	endrem		
 	Method SetMouseAxisControl(axis:String, direction:Int)
@@ -656,7 +669,7 @@ Type TVirtualControl
 
 	
 		
-	rem
+	Rem
 		bbdoc: Map this control to the specified mouse button
 	endrem		
 	Method SetMouseButtonControl(button:String)
@@ -669,7 +682,7 @@ Type TVirtualControl
 	
 	
 		
-	rem
+	Rem
 		bbdoc: Set the name of the control
 	endrem	
 	Method SetName(name:String)
@@ -687,7 +700,7 @@ Type TVirtualControl
 
 	
 	
-	rem
+	Rem
 		bbdoc: Set the programming status of the control.
 	endrem
 	Method SetProgrammingStatus(bool:Int)
@@ -696,7 +709,7 @@ Type TVirtualControl
 
 
 			
-	rem
+	Rem
 		bbdoc: Update this control
 		about: This is where the control receives raw input messages from the gamepad
 		it belongs to.  If programming mode is enable for this control, the message is
