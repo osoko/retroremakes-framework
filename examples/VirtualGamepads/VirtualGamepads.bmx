@@ -4,9 +4,8 @@ Framework retroremakes.rrfw
 
 Incbin "media/crate.png"
 
-rrEngineInitialise()
-
 rrUseExeDirectoryForData()
+rrEngineInitialise()
 
 TGameEngine.GetInstance().SetGameManager(New GameManager)
 
@@ -43,6 +42,8 @@ Type GameManager Extends TGameManager
 		gamepad = New TVirtualGamepad
 		
 		' We then add the controls we want to it (no limit)
+		gamepad.AddControl("Analogue Horizontal")
+		gamepad.AddControl("Analogue Vertical")
 		gamepad.AddControl("Left")
 		gamepad.AddControl("Right")
 		gamepad.AddControl("Up")
@@ -54,6 +55,12 @@ Type GameManager Extends TGameManager
 		gamepad.AddControl("Zoom Out")
 
 		' We then need to specify what the default control mappings are
+		
+		'control direction of 2 indicates that the following mappings
+		'must return values from -0.1 to 1.0
+		gamepad.SetDefaultJoystickAxisControl("Analogue Horizontal", 0, "X", 2)
+		gamepad.SetDefaultJoystickAxisControl("Analogue Vertical", 0, "Y", 2)
+
 		gamepad.SetDefaultKeyboardControl("Left", KEY_O)
 		gamepad.SetDefaultKeyboardControl("Right", KEY_P)
 		gamepad.SetDefaultKeyboardControl("Up", KEY_Q)
@@ -85,25 +92,14 @@ Type GameManager Extends TGameManager
 		CheckProgrammingStatus()
 		
 		' Now we check the inputs on our virtual gamepad and do the necessary
-		If gamepad.GetDigitalControlStatus("Up")
-			boxY:-boxSpeed
-			If boxY < 0 Then boxY = 0
-		EndIf
 		
-		If gamepad.GetDigitalControlStatus("Down")
-			boxY:+boxSpeed
-			If boxY > 600 Then boxY = 600
-		EndIf
+		boxX:+ gamepad.GetAnalogueControlStatus("Analogue Horizontal") * 4
+		boxY:+ gamepad.GetAnalogueControlStatus("Analogue Vertical") *  4
 		
-		If gamepad.GetDigitalControlStatus("Left")
-			boxX:-boxSpeed
-			If boxX < 0 Then boxX = 0
-		EndIf
-		
-		If gamepad.GetDigitalControlStatus("Right")
-			boxX:+boxSpeed
-			If boxX > 800 Then boxX = 800
-		EndIf				
+		If gamepad.GetDigitalControlStatus("Up") Then boxY:-boxSpeed
+		If gamepad.GetDigitalControlStatus("Down") Then boxY:+boxSpeed
+		If gamepad.GetDigitalControlStatus("Left") Then boxX:-boxSpeed
+		If gamepad.GetDigitalControlStatus("Right") Then boxX:+boxSpeed
 
 		If gamepad.GetDigitalControlStatus("Left Rotate")
 			boxAngle:-rotateSpeed
@@ -124,6 +120,14 @@ Type GameManager Extends TGameManager
 			boxZoom:-zoomSpeed
 			If boxZoom < 0.1 Then boxZoom = 0.1
 		EndIf
+		
+		If boxY < 0 Then boxY = 0
+		If boxY > 600 Then boxY = 600
+		If boxX > 800 Then boxX = 800
+		If boxX < 0 Then boxX = 0
+
+		
+		
 	End Method
 	
 	
@@ -152,6 +156,10 @@ Type GameManager Extends TGameManager
 			If gamepad.GetDigitalControlStatus(name)
 				SetColor 255, 0, 0
 			EndIf
+			If gamepad.GetAnalogueControlStatus(name)
+				SetColor 255, 0, 0
+			EndIf			
+			
 			DrawText(name + " : " + mappedControl, 50, y)
 			y:+20
 			i:+1
