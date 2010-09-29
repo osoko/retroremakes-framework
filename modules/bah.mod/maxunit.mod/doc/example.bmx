@@ -1,4 +1,4 @@
-Import bah.MaxUnit
+Import BaH.MaxUnit
 
 New TTestSuite.run()             ' <-- run all the tests!
 

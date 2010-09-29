@@ -44,8 +44,8 @@ Type PairTest Extends TTest
 
 	Method testMixed() { test }
 	
-		Local text:String = "There''s nothin''' doin''. abc'''e'."
-		Local expectedText:String = "There''s nothin'''' doin''. abc''''e''."
+		Local text:String = "There''s nothin' doin''. abc'''e'."
+		Local expectedText:String = "There''s nothin'' doin''. abc''''e''."
 		
 		assertEquals(expectedText, PairApostrophes(text))
 	
