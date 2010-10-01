@@ -149,6 +149,16 @@ Type TColourRGB Extends TColour
 	End Method
 
 	
+	rem
+	bbdoc: Sets this colour RGB and A values
+	endrem
+	Method SetComponents(red:Int, green:Int, blue:Int, alpha:Float)
+		r = red
+		g = green
+		b = blue
+		a = alpha
+	End Method
+	
 	
 	rem
 	bbdoc: Sets the current draw colour to this colour, ignoring the alpha
