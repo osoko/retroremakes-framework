@@ -389,8 +389,7 @@ Type TMenuManager
     Rem
         bbdoc: render the current menu
     endrem	
-	Method Render(tweening:Double, fixed:Int = False)
-		'SetImageFont _imageFont
+	Method Render()
 		_currentMenu.Render(_menuYpos)
 	End Method
     
