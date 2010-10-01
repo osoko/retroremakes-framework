@@ -21,8 +21,8 @@ Type MyGameManager Extends TGameManager
 	Method New()
 	End Method
 		
-	Method Render(tweening:Double, fixed:Int)
-		menuManager.Render(tweening, fixed)
+	Method Render(tweening:Double, fixed:Int = False)
+		menuManager.Render()
 		If TGameEngine.GetInstance().GetPaused()
 			DrawText("Paused", 0, 100)
 		End If
@@ -34,11 +34,7 @@ Type MyGameManager Extends TGameManager
 	Method Start()
 		SetUpMenus()
 
-		'layerManager = New TLayerManager
-		'layerManager.CreateLayer(0, "main")
-		'layerManager.AddRenderableToLayerById(menuManager, 0)
-
-		TMessageService.GetInstance().SubscribeToChannel(CHANNEL_INPUT, Self)			' get keyboard input
+		TMessageService.GetInstance().SubscribeToChannel(CHANNEL_INPUT, Self)			' get keyboard input so we can navigate menu items
 		TMessageService.GetInstance().SubscribeToChannel(CHANNEL_MENU, Self)			' get messages from menu action items
 	End Method
 		
