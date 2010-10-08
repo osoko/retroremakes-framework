@@ -46,6 +46,7 @@ Type TRenderLayer Extends TRenderable
 		If locked
 			_deferredAdds.AddLast(renderable)
 		Else
+			ProcessDeferred(False)
 			If _renderables.AddLast(renderable)
 				renderable.SetLayer(_id)
 				_renderables.Sort(True, TRenderable.SortByZDepth)
@@ -130,15 +131,15 @@ Type TRenderLayer Extends TRenderable
 		bbdoc: Process any add/removes that were deferred during the update process
 	endrem
 	Method ProcessDeferred(locked:Int)
+		For Local renderable:TRenderable = EachIn _deferredRemoves
+			RemoveRenderable(renderable, locked)
+			_deferredRemoves.Remove(renderable)
+		Next
+
 		For Local renderable:TRenderable = EachIn _deferredAdds
 			AddRenderable(renderable, locked)
 			_deferredAdds.Remove(renderable)
 		Next
-		
-		For Local renderable:TRenderable = EachIn _deferredRemoves
-			RemoveRenderable(renderable, locked)
-			_deferredRemoves.Remove(renderable)
-		Next		
 	End Method
 	
 	
