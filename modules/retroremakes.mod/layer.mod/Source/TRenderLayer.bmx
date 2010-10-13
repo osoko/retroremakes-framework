@@ -26,6 +26,9 @@ Type TRenderLayer Extends TRenderable
 	' A list of render object removes that have been deferred
 	Field _deferredRemoves:TList
 	
+	' Whether the layer is disabled or not
+	Field _disabled:Int
+	
 	' The layers unique id
 	Field _id:Int
 	
@@ -69,6 +72,30 @@ Type TRenderLayer Extends TRenderable
 	
 	
 	
+	Rem
+		bbdoc: Disables the layer
+		about: If disabled, the layer will not Update or Render
+		returns: True if the layer has been disabled, otherwise False
+	EndRem
+	Method Disable:Int()
+		_disabled = True
+		Return _disabled
+	End Method
+	
+	
+	
+	Rem
+		bbdoc: Enabled the layer
+		about: If enabled, the layer will Update and Render
+		returns: True if the layer has been enabled, otherwise False
+	EndRem
+	Method Enable:Int()
+		_disabled = False
+		Return Not _disabled
+	End Method
+	
+	
+		
 	rem
 		bbdoc: Flush the layer
 		about: This clear the layer's render object list
@@ -100,6 +127,16 @@ Type TRenderLayer Extends TRenderable
 	
 	
 	
+	Rem
+		bbdoc: Is this layer disabled?
+		returns: True if the layer is disabled, otherwise False
+	EndRem
+	Method IsDisabled:Int()
+		Return _disabled
+	End Method
+	
+	
+	
 	rem
 		bbdoc: Write log information about renderables
 		about: Logs the ToString() value of every renderable assigned to the layer
@@ -123,6 +160,7 @@ Type TRenderLayer Extends TRenderable
 		_renderables = New TList
 		_deferredAdds = New TList
 		_deferredRemoves = New TList
+		_disabled = False
 	End Method
 	
 	
@@ -167,6 +205,8 @@ Type TRenderLayer Extends TRenderable
 		otherwise sub-pixel rendering is used.
 	endrem
 	Method Render(tweening:Double, fixed:Int)
+		If _disabled Then Return
+		
 		For Local renderable:TRenderable = EachIn _renderables
 			If TGameEngine.GetInstance().GetPaused()
 				' This avoids twitching objects when the engine is paused
@@ -206,6 +246,8 @@ Type TRenderLayer Extends TRenderable
 		bbdoc: Calls the Update() method of all actors in this layer
 	endrem
 	Method Update()
+		If _disabled Then Return
+		
 		For Local renderable:TRenderable = EachIn _renderables
 			renderable.Update()
 		Next

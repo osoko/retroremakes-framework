@@ -27,6 +27,23 @@ Type TLayerManager Extends TGameService
 	
 	
 	
+	Rem
+		bbdoc: Adds the specified layer to the layer manager
+		returns: True if the layer has been added, otherwise False
+	EndRem
+	Method AddLayer:Int(layer:TRenderLayer)
+		If Not layer Then Return False
+		
+		If Not LayerNameExists(layer.GetName()) And Not LayerIdExists(layer.GetId())
+			_layers.AddLast(layer)
+			_layers.Sort()
+		EndIf
+		
+		Return True
+	End Method
+	
+	
+	
 	rem
 		bbdoc: Add a renderable object to the layer referred to by the specified id
 		returns: True if successfull, otherwise false		
@@ -79,9 +96,7 @@ Type TLayerManager Extends TGameService
 			Local layer:TRenderLayer = New TRenderLayer
 			layer.SetId(id)
 			layer.SetName(name)
-			_layers.AddLast(layer)
-			_layers.Sort()
-			Return True
+			Return AddLayer(layer)
 		Else
 			LogWarning("[" + ToString() + "] Unable to create layer with id: " + id + ", name: " + name + ..
 				". A layer already exists with one or more of those values")
@@ -117,13 +132,79 @@ Type TLayerManager Extends TGameService
 	
 	
 	rem
-		bbdoc: Flush the layer referred to by the specified name
-		returns: True if it has been flushed, otherwise False
+		bbdoc: Destroy the layer referred to by the specified name
+		returns: True if it has been destroyed, otherwise False
 	endrem
-	Method FlushLayerByName:Int(name:Int)
-		Return FlushLayer(GetLayerByName(name))
+	Method DestroyLayerByName:Int(name:String)
+		Return DestroyLayer(GetLayerByName(name))
 	End Method
+	
+	
+	
+	Rem
+		bbdoc: Disable the specified layer
+		about: Disabled layers are neither Updated or Rendered
+		returns: True if the layer has been disabled, otherwise False
+	EndRem
+	Method DisableLayer:Int(layer:TRenderLayer)
+		If Not layer Then Return False
 		
+		Return layer.Disable()
+	End Method
+	
+	
+	
+	Rem
+		bbdoc: Disable the layer referred to by the specified id
+		returns: True if the layer has been disabled, otherwise False
+	endrem
+	Method DisableLayerById:Int(id:Int)
+		Return DisableLayer(GetLayerById(id))
+	End Method
+	
+	
+	
+	Rem
+		bbdoc: Disable the layer referred to by the specified id
+		returns: True if the layer has been disabled, otherwise False
+	endrem
+	Method DisableLayerByName:Int(name:String)
+		Return DisableLayer(GetLayerByName(name))
+	End Method
+	
+	
+	
+	Rem
+		bbdoc: Enable the specified layer
+		about: Disabled layers are neither Updated or Rendered
+		returns: True if the layer has been enabled, otherwise False
+	EndRem
+	Method EnableLayer:Int(layer:TRenderLayer)
+		If Not layer Then Return False
+		
+		Return layer.Enable()
+	End Method
+	
+	
+	
+	Rem
+		bbdoc: Enable the layer referred to by the specified id
+		returns: True if the layer has been enabled, otherwise False
+	endrem
+	Method EnableLayerById:Int(id:Int)
+		Return EnableLayer(GetLayerById(id))
+	End Method
+	
+	
+	
+	Rem
+		bbdoc: Enable the layer referred to by the specified id
+		returns: True if the layer has been enabled, otherwise False
+	endrem
+	Method EnableLayerByName:Int(name:String)
+		Return EnableLayer(GetLayerByName(name))
+	End Method
+	
 	
 		
 	rem
@@ -151,12 +232,13 @@ Type TLayerManager Extends TGameService
 	
 	
 	rem
-		bbdoc: Destroy the layer referred to by the specified name
-		returns: True if it has been destroyed, otherwise False
+		bbdoc: Flush the layer referred to by the specified name
+		returns: True if it has been flushed, otherwise False
 	endrem
-	Method DestroyLayerByName:Int(name:Int)
-		Return DestroyLayer(GetLayerByName(name))
+	Method FlushLayerByName:Int(name:Int)
+		Return FlushLayer(GetLayerByName(name))
 	End Method
+
 
 		
 	rem
