@@ -19,14 +19,11 @@
  * SOFTWARE.
  */
 
-#ifndef CHIPMUNK_HEADER
-#define CHIPMUNK_HEADER
-
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-#include "chipmunk_types.h"
+	
+typedef float cpFloat;
 	
 static inline cpFloat
 cpfmax(cpFloat a, cpFloat b)
@@ -40,54 +37,9 @@ cpfmin(cpFloat a, cpFloat b)
 	return (a < b) ? a : b;
 }
 
-static inline cpFloat
-cpfabs(cpFloat n)
-{
-	return (n < 0) ? -n : n;
-}
-
-static inline cpFloat
-cpfclamp(cpFloat f, cpFloat min, cpFloat max)
-{
-	return cpfmin(cpfmax(f, min), max);
-}
-
-static inline cpFloat
-cpflerp(cpFloat f1, cpFloat f2, cpFloat t)
-{
-	return f1*(1.0f - t) + f2*t;
-}
-
-static inline cpFloat
-cpflerpconst(cpFloat f1, cpFloat f2, cpFloat d)
-{
-	return f1 + cpfclamp(f2 - f1, -d, d);
-}
-
 #ifndef INFINITY
-	#ifdef _MSC_VER
-		union MSVC_EVIL_FLOAT_HACK
-		{
-			unsigned __int8 Bytes[4];
-			float Value;
-		};
-		static union MSVC_EVIL_FLOAT_HACK INFINITY_HACK = {{0x00, 0x00, 0x80, 0x7F}};
-		#define INFINITY (INFINITY_HACK.Value)
-	#endif
-	
-	#ifdef __GNUC__
-		#define INFINITY (__builtin_inf())
-	#endif
-	
-	#ifndef INFINITY
 		#define INFINITY (1e1000)
 	#endif
-#endif
-
-#define cpmalloc malloc
-#define cpcalloc calloc
-#define cprealloc realloc
-#define cpfree free
 
 #include "cpVect.h"
 #include "cpBB.h"
@@ -102,28 +54,20 @@ cpflerpconst(cpFloat f1, cpFloat f2, cpFloat d)
 #include "cpArbiter.h"
 #include "cpCollision.h"
 	
-#include "constraints/cpConstraint.h"
+#include "cpJoint.h"
 
 #include "cpSpace.h"
 
 #define CP_HASH_COEF (3344921057ul)
-#define CP_HASH_PAIR(A, B) ((cpHashValue)(A)*CP_HASH_COEF ^ (cpHashValue)(B)*CP_HASH_COEF)
+#define CP_HASH_PAIR(A, B) ((unsigned int)(A)*CP_HASH_COEF ^ (unsigned int)(B)*CP_HASH_COEF)
 
-extern char *cpVersionString;
 void cpInitChipmunk(void);
 
-// Calculate the moment of inertia for a circle, r1 and r2 are the inner and outer diameters.
-// (A solid circle has an inner diameter of 0)
 cpFloat cpMomentForCircle(cpFloat m, cpFloat r1, cpFloat r2, cpVect offset);
-
-// Calculate the moment of inertia for a line segment. (beveling radius not supported)
-cpFloat cpMomentForSegment(cpFloat m, cpVect a, cpVect b);
-
-// Calculate the moment of inertia for a solid polygon shape.
 cpFloat cpMomentForPoly(cpFloat m, int numVerts, cpVect *verts, cpVect offset);
+
+void cpunbind(void *obj);
 
 #ifdef __cplusplus
 }
-#endif
-
 #endif

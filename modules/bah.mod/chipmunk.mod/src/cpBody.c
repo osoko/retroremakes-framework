@@ -20,6 +20,7 @@
  */
  
 #include <stdlib.h>
+#include <math.h>
 #include <float.h>
 
 #include "chipmunk.h"
@@ -27,17 +28,14 @@
 cpBody*
 cpBodyAlloc(void)
 {
-	return (cpBody *)cpmalloc(sizeof(cpBody));
+	return (cpBody *)malloc(sizeof(cpBody));
 }
-
-cpBodyVelocityFunc cpBodyUpdateVelocityDefault = cpBodyUpdateVelocity;
-cpBodyPositionFunc cpBodyUpdatePositionDefault = cpBodyUpdatePosition;
 
 cpBody*
 cpBodyInit(cpBody *body, cpFloat m, cpFloat i)
 {
-	body->velocity_func = cpBodyUpdateVelocityDefault;
-	body->position_func = cpBodyUpdatePositionDefault;
+	body->velocity_func = cpBodyUpdateVelocity;
+	body->position_func = cpBodyUpdatePosition;
 	
 	cpBodySetMass(body, m);
 	cpBodySetMoment(body, i);
@@ -54,8 +52,6 @@ cpBodyInit(cpBody *body, cpFloat m, cpFloat i)
 	body->w_bias = 0.0f;
 	
 	body->data = NULL;
-	body->v_limit = (cpFloat)INFINITY;
-	body->w_limit = (cpFloat)INFINITY;
 //	body->active = 1;
 
 	return body;
@@ -67,52 +63,50 @@ cpBodyNew(cpFloat m, cpFloat i)
 	return cpBodyInit(cpBodyAlloc(), m, i);
 }
 
-void cpBodyDestroy(cpBody *body){}
+void cpBodyDestroy(cpBody *body){
+	cpunbind(body);
+}
 
 void
 cpBodyFree(cpBody *body)
 {
-	if(body){
-		cpBodyDestroy(body);
-		cpfree(body);
-	}
+	if(body) cpBodyDestroy(body);
+	free(body);
 }
 
 void
-cpBodySetMass(cpBody *body, cpFloat mass)
+cpBodySetMass(cpBody *body, cpFloat m)
 {
-	body->m = mass;
-	body->m_inv = 1.0f/mass;
+	body->m = m;
+	body->m_inv = 1.0f/m;
 }
 
 void
-cpBodySetMoment(cpBody *body, cpFloat moment)
+cpBodySetMoment(cpBody *body, cpFloat i)
 {
-	body->i = moment;
-	body->i_inv = 1.0f/moment;
+	body->i = i;
+	body->i_inv = 1.0f/i;
 }
 
 void
-cpBodySetAngle(cpBody *body, cpFloat angle)
+cpBodySetAngle(cpBody *body, cpFloat a)
 {
-	body->a = angle;//fmod(a, (cpFloat)M_PI*2.0f);
-	body->rot = cpvforangle(angle);
+	body->a = fmod(a, (cpFloat)M_PI*2.0f);
+	body->rot = cpvforangle(a);
 }
 
 void
 cpBodySlew(cpBody *body, cpVect pos, cpFloat dt)
 {
-	cpVect delta = cpvsub(pos, body->p);
-	body->v = cpvmult(delta, 1.0f/dt);
+	cpVect delta = cpvsub(body->p, pos);
+	body->v = cpvmult(delta, 1.0/dt);
 }
 
 void
 cpBodyUpdateVelocity(cpBody *body, cpVect gravity, cpFloat damping, cpFloat dt)
 {
-	body->v = cpvclamp(cpvadd(cpvmult(body->v, damping), cpvmult(cpvadd(gravity, cpvmult(body->f, body->m_inv)), dt)), body->v_limit);
-	
-	cpFloat w_limit = body->w_limit;
-	body->w = cpfclamp(body->w*damping + body->t*body->i_inv*dt, -w_limit, w_limit);
+	body->v = cpvadd(cpvmult(body->v, damping), cpvmult(cpvadd(gravity, cpvmult(body->f, body->m_inv)), dt));
+	body->w = body->w*damping + body->t*body->i_inv*dt;
 }
 
 void
@@ -133,14 +127,14 @@ cpBodyResetForces(cpBody *body)
 }
 
 void
-cpBodyApplyForce(cpBody *body, cpVect force, cpVect r)
+cpBodyApplyForce(cpBody *body, cpVect f, cpVect r)
 {
-	body->f = cpvadd(body->f, force);
-	body->t += cpvcross(r, force);
+	body->f = cpvadd(body->f, f);
+	body->t += cpvcross(r, f);
 }
 
 void
-cpApplyDampedSpring(cpBody *a, cpBody *b, cpVect anchr1, cpVect anchr2, cpFloat rlen, cpFloat k, cpFloat dmp, cpFloat dt)
+cpDampedSpring(cpBody *a, cpBody *b, cpVect anchr1, cpVect anchr2, cpFloat rlen, cpFloat k, cpFloat dmp, cpFloat dt)
 {
 	// Calculate the world space anchor coordinates.
 	cpVect r1 = cpvrotate(anchr1, a->rot);

@@ -19,8 +19,7 @@
  * SOFTWARE.
  */
  
-#include <stdlib.h>
-#include <stdio.h>
+#include "stdlib.h"
 
 #include "chipmunk.h"
 
@@ -32,15 +31,10 @@ extern "C" {
 }
 #endif
 
-char *cpVersionString = "5.0.0";
 
 void
 cpInitChipmunk(void)
 {
-#ifndef NDEBUG	
-	printf("Initializing Chipmunk v%s (Debug Enabled)\n", cpVersionString);
-#endif
-	
 	cpInitCollisionFuncs();
 }
 
@@ -51,18 +45,9 @@ cpMomentForCircle(cpFloat m, cpFloat r1, cpFloat r2, cpVect offset)
 }
 
 cpFloat
-cpMomentForSegment(cpFloat m, cpVect a, cpVect b)
-{
-	cpFloat length = cpvlength(cpvsub(b, a));
-	cpVect offset = cpvmult(cpvadd(a, b), 1.0f/2.0f);
-	
-	return m*length*length/12.0f + m*cpvdot(offset, offset);
-}
-
-cpFloat
 cpMomentForPoly(cpFloat m, const int numVerts, cpVect *verts, cpVect offset)
 {
-	cpVect *tVerts = (cpVect *)cpcalloc(numVerts, sizeof(cpVect));
+	cpVect *tVerts = (cpVect *)calloc(numVerts, sizeof(cpVect));
 	for(int i=0; i<numVerts; i++)
 		tVerts[i] = cpvadd(verts[i], offset);
 	
@@ -79,8 +64,6 @@ cpMomentForPoly(cpFloat m, const int numVerts, cpVect *verts, cpVect offset)
 		sum2 += a;
 	}
 	
-	cpfree(tVerts);
+	free(tVerts);
 	return (m*sum1)/(6.0f*sum2);
 }
-
-#include "chipmunk_ffi.h"
