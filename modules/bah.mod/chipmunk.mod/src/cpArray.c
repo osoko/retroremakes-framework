@@ -25,14 +25,14 @@
 #include "chipmunk.h"
 
 
-//#define CP_ARRAY_INCREMENT 10
+#define CP_ARRAY_INCREMENT 10
 
 // NOTE: cpArray is rarely used and will probably go away.
 
 cpArray*
 cpArrayAlloc(void)
 {
-	return (cpArray *)cpcalloc(1, sizeof(cpArray));
+	return (cpArray *)calloc(1, sizeof(cpArray));
 }
 
 cpArray*
@@ -40,9 +40,9 @@ cpArrayInit(cpArray *arr, int size)
 {
 	arr->num = 0;
 	
-	size = (size ? size : 4);
+	size = (size ? size : CP_ARRAY_INCREMENT);
 	arr->max = size;
-	arr->arr = (void **)cpmalloc(size*sizeof(void**));
+	arr->arr = (void **)malloc(size*sizeof(void**));
 	
 	return arr;
 }
@@ -56,24 +56,23 @@ cpArrayNew(int size)
 void
 cpArrayDestroy(cpArray *arr)
 {
-	cpfree(arr->arr);
+	free(arr->arr);
 }
 
 void
 cpArrayFree(cpArray *arr)
 {
-	if(arr){
-		cpArrayDestroy(arr);
-		cpfree(arr);
-	}
+	if(!arr) return;
+	cpArrayDestroy(arr);
+	free(arr);
 }
 
 void
 cpArrayPush(cpArray *arr, void *object)
 {
 	if(arr->num == arr->max){
-		arr->max *= 2;
-		arr->arr = (void **)cprealloc(arr->arr, arr->max*sizeof(void**));
+		arr->max += CP_ARRAY_INCREMENT;
+		arr->arr = (void **)realloc(arr->arr, arr->max*sizeof(void**));
 	}
 	
 	arr->arr[arr->num] = object;
@@ -81,10 +80,10 @@ cpArrayPush(cpArray *arr, void *object)
 }
 
 void
-cpArrayDeleteIndex(cpArray *arr, int idx)
+cpArrayDeleteIndex(cpArray *arr, int index)
 {
 	int last = --arr->num;
-	arr->arr[idx] = arr->arr[last];
+	arr->arr[index] = arr->arr[last];
 }
 
 void
