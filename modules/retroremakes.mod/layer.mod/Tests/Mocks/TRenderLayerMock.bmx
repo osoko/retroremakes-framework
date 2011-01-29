@@ -3,6 +3,7 @@ Type TRenderLayerMock extends TRenderLayer
 	
 	Field _renderCalls:Int
 	Field _updateCalls:Int
+	
 
 	Rem
 		bbdoc:Calls the Render method of all actors on this layer
