@@ -35,6 +35,9 @@ Type TRenderLayer Extends TRenderable
 	' The layers unique name
 	Field _name:String
 	
+	' True if we are currently processing deferred updates
+	Field _processingDeferred:Int
+	
 	' The list of objects to render for this layer
 	Field _renderables:TList
 
@@ -169,6 +172,12 @@ Type TRenderLayer Extends TRenderable
 		bbdoc: Process any add/removes that were deferred during the update process
 	endrem
 	Method ProcessDeferred(locked:Int)
+		If _processingDeferred = True
+			Return
+		Else
+			_processingDeferred = True
+		EndIf
+		
 		For Local renderable:TRenderable = EachIn _deferredRemoves
 			RemoveRenderable(renderable, locked)
 			_deferredRemoves.Remove(renderable)
@@ -178,6 +187,8 @@ Type TRenderLayer Extends TRenderable
 			AddRenderable(renderable, locked)
 			_deferredAdds.Remove(renderable)
 		Next
+		
+		_processingDeferred = False
 	End Method
 	
 	
