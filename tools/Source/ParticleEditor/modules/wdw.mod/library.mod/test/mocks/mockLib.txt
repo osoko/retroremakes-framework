@@ -1,0 +1,7 @@
+
+[testobject]
+id=10
+name=test object
+integer=20
+float=20.3
+[end object]

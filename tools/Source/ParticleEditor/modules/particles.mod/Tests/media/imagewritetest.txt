@@ -1,0 +1,10 @@
+[image]
+id=10
+name=My Image
+description=Handy Image
+filename=media/stars.png
+framecount=4
+framedimensionX=8
+framedimensionY=8
+handlepoint=0
+[end image]

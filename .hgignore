@@ -1,0 +1,14 @@
+# use glob syntax.
+syntax: glob
+*.orig
+*.log
+*.exe
+*.i
+*.a
+*.o
+*.s
+*.layout
+glob:*.bak
+glob:*cairo.mod*
+glob:*commands.html
+glob:*.debug.ini
