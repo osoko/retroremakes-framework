@@ -7,7 +7,7 @@ Rem
 ' distributed with this code, or available from
 ' http://www.opensource.org/licenses/artistic-license-2.0.php
 '
-endrem
+EndRem
 
 Rem
 	bbdoc: A control attached to a virtual gamepad
@@ -378,7 +378,7 @@ Type TVirtualControl
 		If axis <> 0
 		
 			'retain analogue axis direction if default control has it
-			If GetDefaultControlMap()
+			If TJoystickAxisMapping(GetDefaultControlMap())
 				If TJoystickAxisMapping(GetDefaultControlMap()).GetAxisDirection() = 2 Then direction = 2
 			EndIf
 		
