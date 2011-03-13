@@ -1,4 +1,4 @@
-rem
+Rem
 '
 ' Copyright (c) 2007-2010 Paul Maskelyne <muttley@muttleyville.org>.
 '
@@ -12,7 +12,7 @@ endrem
 Const GSH_MUSIC:Int = 0
 Const GSH_SFX:Int = 1
 
-rem
+Rem
 	bbdoc: Manages audio channels and sounds.
 	about: The #TGameSoundHandler service manages audio channels and sounds.  When the
 	service starts it allocates a specific number of channels and then uses/reuses these
@@ -20,7 +20,7 @@ rem
 endrem
 Type TGameSoundHandler Extends TGameService
 
-	rem
+	Rem
 	bbdoc:The default number of channels that will be allocated when the service starts
 	endrem
 	Const MAX_CHANNELS:Int = 64
@@ -34,49 +34,49 @@ Type TGameSoundHandler Extends TGameService
 	Global LChannelsActive:TList = New TList
 	Global LChannelsIdle:TList = New TList
 	
-	rem
+	Rem
 	bbdoc: The maximum number of channels that will be allocated
 	endrem
 	Global maxChannels:Int = MAX_CHANNELS
 	
-	rem
+	Rem
 	bbdoc: The maximum number of channels that have been used
 	endrem
 	Global maxUsed:Int = 0
 	
-	rem
+	Rem
 	bbdoc: The total number of sounds played
 	endrem
 	Global soundsPlayed:Int = 0
 	
-	rem
+	Rem
 	bbdoc: The current number of audio channels allocated
 	endrem
 	Global channelsAllocated:Int = 0
 	
-	rem
+	Rem
 	bbdoc: The current number of active audio channels
 	endrem
 	Global activeChannels:Int = 0
 	
-	rem
+	Rem
 	bbdoc: The current number of idle audio channels
 	endrem
 	Global idleChannels:Int = 0
 	
-	rem
+	Rem
 	bbdoc: True if the sound engine is paused
 	endrem
 	Global soundPaused:Int = False
 
 	Field LSounds:TList = New TList
 	
-	rem
+	Rem
 	bbdoc: Array containing the volume settings for SFX and Music (0.0 to 1.0)
 	endrem
 	Field volumeSettings:Float[] = [0.8, 1.0]
 	
-	rem
+	Rem
 	bbdoc: The current master volume
 	endrem
 	Field masterVolume:Float = 100
@@ -91,7 +91,7 @@ Type TGameSoundHandler Extends TGameService
 		Return TGameSoundHandler.GetInstance()		
 	End Function
 	
-	rem
+	Rem
 	bbdoc: Get the instance of the #TGameSoundHandler
 	about: Either returns the current instance of #TGameSoundHandler or creates and returns a new instance
 	returns: #TGameSoundHandler
@@ -104,7 +104,7 @@ Type TGameSoundHandler Extends TGameService
 		EndIf
 	EndFunction
 	
-	rem
+	Rem
 	bbdoc: Initialises the instance of #TGameSoundHandler.  This method is called automatically on instantiation
 	endrem
 	Method Initialise()
@@ -113,7 +113,7 @@ Type TGameSoundHandler Extends TGameService
 	End Method
 
 	
-	rem
+	Rem
 	bbdoc: Shuts down the instance of #TGameSoundHandler.  This method is called automatically by the #TGameEngine instance
 	endrem
 	Method Shutdown()
@@ -122,9 +122,9 @@ Type TGameSoundHandler Extends TGameService
 		Super.Shutdown()  'Call TGameService shutdown routines
 	End Method	
 		
-	rem
+	Rem
 	bbdoc: Starts the instance of #TGameSoundHandler.  This method is called automatically by the #TGameEngine instance
-	endrem
+	EndRem
 	Method Start()
 		EnableOpenALAudio()
 		SetAudioDriver("OpenAL Default")
@@ -141,7 +141,7 @@ Type TGameSoundHandler Extends TGameService
 		SetSfxVolume(sfxVolume)			
 	End Method
 	
-	rem
+	Rem
 	bbdoc: Sets the Master Volume for all audio channels
 	about: Volume is in the range of 0-100
 	endrem
@@ -153,7 +153,7 @@ Type TGameSoundHandler Extends TGameService
 		TGameSettings.GetInstance().SetIntVariable("AUDIO_MASTER_VOLUME", vol, "Engine")
 	End Method
 
-	rem
+	Rem
 	bbdoc: Gets the current master volume
 	about: Volume is in the range of 0 to 100
 	returns: Int
@@ -162,7 +162,7 @@ Type TGameSoundHandler Extends TGameService
 		Return masterVolume
 	End Method
 
-	rem
+	Rem
 	bbdoc: Gets the current volume setting for Music channels
 	about: Volume is in the range of 0.0 to 1.0 and is used as a multiplier of the Master Volume
 	returns: Float
@@ -171,7 +171,7 @@ Type TGameSoundHandler Extends TGameService
 		Return volumeSettings[GSH_MUSIC]
 	End Method
 
-	rem
+	Rem
 	bbdoc: Gets the current volume setting for SFX channels
 	about: Volume is in the range of 0.0 to 1.0 and is used as a multiplier of the Master Volume
 	returns: Float
@@ -180,7 +180,7 @@ Type TGameSoundHandler Extends TGameService
 		Return volumeSettings[GSH_SFX]
 	End Method
 
-	rem
+	Rem
 	bbdoc: Sets the volume for music channels
 	about: Volume is in the range of 0.0 to 1.0 and is used as a multiplier of the Master Volume
 	endrem		
@@ -192,7 +192,7 @@ Type TGameSoundHandler Extends TGameService
 		TGameSettings.GetInstance().SetFloatVariable("AUDIO_MUSIC_VOLUME", vol, "Engine")
 	End Method
 
-	rem
+	Rem
 	bbdoc: Sets the volume for SFX channels
 	about: Volume is in the range of 0.0 to 1.0 and is used as a multiplier of the Master Volume
 	endrem	
@@ -214,7 +214,7 @@ Type TGameSoundHandler Extends TGameService
 		SetSfxVolume(DEFAULT_SFX_VOLUME)
 	End Method
 	
-	rem
+	Rem
 	bbdoc: Sets the volume for all channels
 	about: Uses the master volume and MUSIC and SFX volumes to set each audio channel's volume
 	endrem
@@ -226,7 +226,7 @@ Type TGameSoundHandler Extends TGameService
 		Next
 	EndMethod
 	
-	rem
+	Rem
 	bbdoc: Resets the audio handler
 	endrem
 	Method ResetSoundHandler()
@@ -239,7 +239,7 @@ Type TGameSoundHandler Extends TGameService
 		idleChannels = 0		
 	End Method
 	
-	rem
+	Rem
 	bbdoc: Allocates all Audio Channels
 	about: This is called automatically when the #TGameSoundHandler starts
 	endrem
@@ -275,7 +275,7 @@ Type TGameSoundHandler Extends TGameService
 		End If
 	End Method
 	
-	Method PlaySound:TGameSoundChannel(sound:TGameSound, volume:Float = Null, pan:Float = 0.0, depth:Float = 0.0, rate:Float = 1.0)
+	Method PlaySound:TGameSoundChannel(sound:TGameSound, volume:Float = 1.0, pan:Float = 0.0, depth:Float = 0.0, rate:Float = 1.0)
 		If Not sound Then Return Null
 		Local channel:TGameSoundChannel
 		If ListIsEmpty(LChannelsIdle) 
@@ -284,7 +284,7 @@ Type TGameSoundHandler Extends TGameService
 			For Local c:TGameSoundChannel = EachIn LChannelsActive
 				If c.sound.gsPriority <= sound.gsPriority
 					'channel is a lower priority so replace it.
-					Print "Replacing Channel"
+					'Print "Replacing Channel"
 					ListRemove(LChannelsActive, c) 
 					ListAddLast(LChannelsActive, c)  	'move it to the end of the list as it's the newest soudd
 					c.PauseChannel() 
@@ -302,7 +302,7 @@ Type TGameSoundHandler Extends TGameService
 		
 		If channel
 			channel.CueSound(sound) 
-			channel.SetVolume(volumeSettings[sound.gsClass] * (Float(masterVolume) / 100.0))
+			channel.SetVolume((volumeSettings[sound.gsClass] * (Float(masterVolume) / 100.0))* volume)
 			channel.SetPan(pan) 
 			channel.SetDepth(depth) 
 			channel.SetRate(rate) 
@@ -322,8 +322,8 @@ Type TGameSoundHandler Extends TGameService
 				ListRemove(LChannelsActive, c)
 				ListAddLast(LChannelsIdle, c)  	'move it to the end of the list as it's the newest soudd
 				c.sound = Null
-				idleChannels:-1
-				activeChannels:+1
+				idleChannels:+1
+				activeChannels:-1
 				Exit
 			End If
 		Next
@@ -337,7 +337,7 @@ Type TGameSoundHandler Extends TGameService
 		ResumeSound()
 	End Method
 	
-	rem
+	Rem
 	bbdoc: Pause all sound channels
 	endrem
 	Method PauseSound(pause:Int = True)
@@ -347,7 +347,7 @@ Type TGameSoundHandler Extends TGameService
 		soundPaused = True
 	End Method
 	
-	rem
+	Rem
 	bbdoc: Resume all paused sound channels
 	endrem
 	Method ResumeSound()
@@ -357,42 +357,42 @@ Type TGameSoundHandler Extends TGameService
 		soundPaused = False
 	End Method	
 	
-	rem
+	Rem
 	bbdoc: Get the number of currently active channels
 	endrem
 	Method GetActiveChannels:Int() 
 		Return activeChannels
 	End Method
 
-	rem
+	Rem
 	bbdoc: Get the number of currently idle channels
 	endrem
 	Method GetIdleChannels:Int()
 		Return idleChannels
 	End Method
 
-	rem
+	Rem
 	bbdoc: Get the current max channels setting
 	endrem
 	Method GetMaxChannels:Int()
 		Return maxChannels
 	End Method
 
-	rem
+	Rem
 	bbdoc: Set the max number of channels that can be used
 	endrem
 	Method SetMaxChannels(value:Int)
 		maxChannels = value
 	End Method
 	
-	rem
+	Rem
 	bbdoc: Get the maximum number of channels that have been used
 	endrem
 	Method GetMaxUsedChannels:Int() 
 		Return maxUsed
 	End Method
 	
-	rem
+	Rem
 	bbdoc: Get the number of sounds currently loaded
 	endrem
 	Method GetNumSoundsLoaded:Int() 
