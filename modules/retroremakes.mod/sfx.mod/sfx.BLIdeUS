@@ -4,16 +4,17 @@
     <Main_File>sfx.bmx</Main_File>
     <Included_File>
       <FileName>Source\HelperFunctions.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>20</Y>
+        <X>50</X>
+        <Y>18</Y>
       </Caret_Position>
       <SplitVisible>false</SplitVisible>
       <SplitVertical>false</SplitVertical>
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
+        <OutlineColor>Gray</OutlineColor>
         <Ranges>
           <Range>
             <StartPoint>
@@ -80,7 +81,7 @@
     </Included_File>
     <Included_File>
       <FileName>Source\TGameSound.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
         <X>0</X>
         <Y>20</Y>
@@ -90,6 +91,7 @@
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
+        <OutlineColor>Gray</OutlineColor>
         <Ranges>
           <Range>
             <StartPoint>
@@ -135,16 +137,17 @@
     </Included_File>
     <Included_File>
       <FileName>Source\TGameSoundHandler.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>0</X>
-        <Y>420</Y>
+        <X>39</X>
+        <Y>145</Y>
       </Caret_Position>
       <SplitVisible>false</SplitVisible>
       <SplitVertical>false</SplitVertical>
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
+        <OutlineColor>Gray</OutlineColor>
         <Ranges>
           <Range>
             <StartPoint>
@@ -1289,15 +1292,15 @@
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
-        <OutlineColor>255:173:173:173</OutlineColor>
+        <OutlineColor>Gray</OutlineColor>
         <Ranges />
       </Folding>
     </Included_File>
     <Compilation_Mode>GUI_Application</Compilation_Mode>
-    <Context_Directory>C:\Development\Languages\BlitzMax-RRFW\mod\retroremakes.mod\sfx.mod</Context_Directory>
+    <Context_Directory>\</Context_Directory>
     <Project_Name>sfx.mod</Project_Name>
     <BuildStep>1</BuildStep>
-    <Icon_File_Location>C:\Program Files (x86)\BLIde for BlitzMax\blide.ico</Icon_File_Location>
+    <Icon_File_Location>C:\Program Files (x86)\BLIde\blide.ico</Icon_File_Location>
     <Embed_Os_Theme>false</Embed_Os_Theme>
     <Publish_as_ConsoleApp>false</Publish_as_ConsoleApp>
     <Debug_Enabled_Publish>false</Debug_Enabled_Publish>

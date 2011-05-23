@@ -24,7 +24,10 @@ Type TMouse Extends TInputDevice
 
 	' The Singletone instance of this class
 	Global _instance:TMouse
-	
+
+	' Set to true if a mouse event has occured
+	Field _changed:Int
+		
 	' The last mouse location values for all axis
 	Field _lastMouseLocation:Int[4]
 	
@@ -101,14 +104,18 @@ Type TMouse Extends TInputDevice
 				If Not mouse._mouseStates[ev.data]
 					mouse._mouseStates[ev.data] = 1
 					mouse._mouseHits[ev.data]:+1
+					mouse._changed = True
 				EndIf
 			Case EVENT_MOUSEUP
 				mouse._mouseStates[ev.data] = 0
+				mouse._changed = True
 			Case EVENT_MOUSEMOVE
 				mouse._mouseLocation[0] = Int(TProjectionMatrix.GetInstance().ProjectMouseX(ev.x))
 				mouse._mouseLocation[1] = Int(TProjectionMatrix.GetInstance().ProjectMouseY(ev.y))
+				mouse._changed = True
 			Case EVENT_MOUSEWHEEL
 				mouse._mouseLocation[2]:+ev.data
+				mouse._changed = True
 		EndSelect
 
 		Return data
@@ -146,14 +153,16 @@ Type TMouse Extends TInputDevice
 		bbdoc: Updates the mouse input device
 	endrem
 	Method Update()
-		BroadcastMouseStateMessage()
-
-		For Local i:Int = 0 To 3
-			_lastMouseStates[i] = _mouseStates[i]
-			_mouseStates[i] = 0
-			_mouseHits[i] = 0
-			_lastMouseLocation[i] = _mouseLocation[i]
-		Next				
+		If _changed
+			BroadcastMouseStateMessage()
+			For Local i:Int = 0 To 3
+				_lastMouseStates[i] = _mouseStates[i]
+				'_mouseStates[i] = 0
+				_mouseHits[i] = 0
+				_lastMouseLocation[i] = _mouseLocation[i]
+			Next
+			_changed = False
+		EndIf
 	End Method
 
 End Type

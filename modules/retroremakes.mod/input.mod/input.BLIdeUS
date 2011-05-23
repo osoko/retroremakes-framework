@@ -934,16 +934,17 @@
     </Included_File>
     <Included_File>
       <FileName>Source\Devices\Mouse\TMouse.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>4</X>
-        <Y>107</Y>
+        <X>5</X>
+        <Y>159</Y>
       </Caret_Position>
       <SplitVisible>false</SplitVisible>
       <SplitVertical>false</SplitVertical>
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
+        <OutlineColor>255:173:173:173</OutlineColor>
         <Ranges>
           <Range>
             <StartPoint>
@@ -976,7 +977,7 @@
             </StartPoint>
             <EndPoint>
               <X>8</X>
-              <Y>158</Y>
+              <Y>167</Y>
             </EndPoint>
             <Visible>true</Visible>
             <Level>0</Level>
@@ -984,11 +985,11 @@
           <Range>
             <StartPoint>
               <X>1</X>
-              <Y>44</Y>
+              <Y>47</Y>
             </StartPoint>
             <EndPoint>
               <X>8</X>
-              <Y>50</Y>
+              <Y>53</Y>
             </EndPoint>
             <Visible>true</Visible>
             <Level>1</Level>
@@ -996,11 +997,11 @@
           <Range>
             <StartPoint>
               <X>36</X>
-              <Y>51</Y>
+              <Y>54</Y>
             </StartPoint>
             <EndPoint>
               <X>11</X>
-              <Y>72</Y>
+              <Y>75</Y>
             </EndPoint>
             <Visible>true</Visible>
             <Level>1</Level>
@@ -1008,11 +1009,11 @@
           <Range>
             <StartPoint>
               <X>11</X>
-              <Y>62</Y>
+              <Y>65</Y>
             </StartPoint>
             <EndPoint>
               <X>6</X>
-              <Y>65</Y>
+              <Y>68</Y>
             </EndPoint>
             <Visible>true</Visible>
             <Level>2</Level>
@@ -1020,11 +1021,11 @@
           <Range>
             <StartPoint>
               <X>1</X>
-              <Y>76</Y>
+              <Y>79</Y>
             </StartPoint>
             <EndPoint>
               <X>8</X>
-              <Y>78</Y>
+              <Y>81</Y>
             </EndPoint>
             <Visible>true</Visible>
             <Level>1</Level>
@@ -1032,11 +1033,11 @@
           <Range>
             <StartPoint>
               <X>30</X>
-              <Y>79</Y>
+              <Y>82</Y>
             </StartPoint>
             <EndPoint>
               <X>13</X>
-              <Y>85</Y>
+              <Y>88</Y>
             </EndPoint>
             <Visible>true</Visible>
             <Level>1</Level>
@@ -1044,11 +1045,11 @@
           <Range>
             <StartPoint>
               <X>18</X>
-              <Y>80</Y>
+              <Y>83</Y>
             </StartPoint>
             <EndPoint>
               <X>7</X>
-              <Y>84</Y>
+              <Y>87</Y>
             </EndPoint>
             <Visible>true</Visible>
             <Level>2</Level>
@@ -1056,11 +1057,11 @@
           <Range>
             <StartPoint>
               <X>1</X>
-              <Y>89</Y>
+              <Y>92</Y>
             </StartPoint>
             <EndPoint>
               <X>8</X>
-              <Y>91</Y>
+              <Y>94</Y>
             </EndPoint>
             <Visible>true</Visible>
             <Level>1</Level>
@@ -1068,11 +1069,11 @@
           <Range>
             <StartPoint>
               <X>58</X>
-              <Y>92</Y>
+              <Y>95</Y>
             </StartPoint>
             <EndPoint>
               <X>13</X>
-              <Y>114</Y>
+              <Y>121</Y>
             </EndPoint>
             <Visible>true</Visible>
             <Level>1</Level>
@@ -1080,11 +1081,11 @@
           <Range>
             <StartPoint>
               <X>11</X>
-              <Y>94</Y>
+              <Y>97</Y>
             </StartPoint>
             <EndPoint>
               <X>23</X>
-              <Y>94</Y>
+              <Y>97</Y>
             </EndPoint>
             <Visible>true</Visible>
             <Level>2</Level>
@@ -1092,11 +1093,11 @@
           <Range>
             <StartPoint>
               <X>14</X>
-              <Y>98</Y>
+              <Y>101</Y>
             </StartPoint>
             <EndPoint>
               <X>11</X>
-              <Y>111</Y>
+              <Y>118</Y>
             </EndPoint>
             <Visible>true</Visible>
             <Level>2</Level>
@@ -1104,11 +1105,11 @@
           <Range>
             <StartPoint>
               <X>38</X>
-              <Y>100</Y>
+              <Y>103</Y>
             </StartPoint>
             <EndPoint>
               <X>9</X>
-              <Y>103</Y>
+              <Y>107</Y>
             </EndPoint>
             <Visible>true</Visible>
             <Level>3</Level>
@@ -1116,22 +1117,10 @@
           <Range>
             <StartPoint>
               <X>1</X>
-              <Y>118</Y>
+              <Y>125</Y>
             </StartPoint>
             <EndPoint>
               <X>8</X>
-              <Y>120</Y>
-            </EndPoint>
-            <Visible>true</Visible>
-            <Level>1</Level>
-          </Range>
-          <Range>
-            <StartPoint>
-              <X>20</X>
-              <Y>121</Y>
-            </StartPoint>
-            <EndPoint>
-              <X>11</X>
               <Y>127</Y>
             </EndPoint>
             <Visible>true</Visible>
@@ -1139,23 +1128,23 @@
           </Range>
           <Range>
             <StartPoint>
-              <X>1</X>
-              <Y>131</Y>
+              <X>20</X>
+              <Y>128</Y>
             </StartPoint>
             <EndPoint>
-              <X>8</X>
-              <Y>133</Y>
+              <X>11</X>
+              <Y>134</Y>
             </EndPoint>
             <Visible>true</Visible>
             <Level>1</Level>
           </Range>
           <Range>
             <StartPoint>
-              <X>13</X>
-              <Y>134</Y>
+              <X>1</X>
+              <Y>138</Y>
             </StartPoint>
             <EndPoint>
-              <X>11</X>
+              <X>8</X>
               <Y>140</Y>
             </EndPoint>
             <Visible>true</Visible>
@@ -1163,12 +1152,24 @@
           </Range>
           <Range>
             <StartPoint>
+              <X>13</X>
+              <Y>141</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>11</X>
+              <Y>147</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>1</Level>
+          </Range>
+          <Range>
+            <StartPoint>
               <X>14</X>
-              <Y>135</Y>
+              <Y>142</Y>
             </StartPoint>
             <EndPoint>
               <X>73</X>
-              <Y>135</Y>
+              <Y>142</Y>
             </EndPoint>
             <Visible>true</Visible>
             <Level>2</Level>
@@ -1176,11 +1177,11 @@
           <Range>
             <StartPoint>
               <X>1</X>
-              <Y>144</Y>
+              <Y>151</Y>
             </StartPoint>
             <EndPoint>
               <X>8</X>
-              <Y>146</Y>
+              <Y>153</Y>
             </EndPoint>
             <Visible>true</Visible>
             <Level>1</Level>
@@ -1188,35 +1189,47 @@
           <Range>
             <StartPoint>
               <X>16</X>
-              <Y>147</Y>
+              <Y>154</Y>
             </StartPoint>
             <EndPoint>
               <X>11</X>
-              <Y>156</Y>
+              <Y>165</Y>
             </EndPoint>
             <Visible>true</Visible>
             <Level>1</Level>
           </Range>
           <Range>
             <StartPoint>
-              <X>11</X>
-              <Y>150</Y>
+              <X>13</X>
+              <Y>155</Y>
             </StartPoint>
             <EndPoint>
-              <X>6</X>
-              <Y>155</Y>
+              <X>7</X>
+              <Y>164</Y>
             </EndPoint>
             <Visible>true</Visible>
             <Level>2</Level>
           </Range>
           <Range>
             <StartPoint>
-              <X>0</X>
-              <Y>162</Y>
+              <X>12</X>
+              <Y>157</Y>
             </StartPoint>
             <EndPoint>
               <X>7</X>
-              <Y>164</Y>
+              <Y>162</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>3</Level>
+          </Range>
+          <Range>
+            <StartPoint>
+              <X>0</X>
+              <Y>171</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>7</X>
+              <Y>173</Y>
             </EndPoint>
             <Visible>true</Visible>
             <Level>0</Level>
@@ -1224,11 +1237,11 @@
           <Range>
             <StartPoint>
               <X>44</X>
-              <Y>165</Y>
+              <Y>174</Y>
             </StartPoint>
             <EndPoint>
               <X>12</X>
-              <Y>167</Y>
+              <Y>176</Y>
             </EndPoint>
             <Visible>true</Visible>
             <Level>0</Level>
@@ -1238,7 +1251,7 @@
     </Included_File>
     <Included_File>
       <FileName>Source\Devices\Mouse\TMouseMessageData.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
         <X>0</X>
         <Y>0</Y>
@@ -1248,6 +1261,7 @@
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
+        <OutlineColor>255:173:173:173</OutlineColor>
         <Ranges>
           <Range>
             <StartPoint>
@@ -1374,17 +1388,16 @@
     </Included_File>
     <Included_File>
       <FileName>Source\Devices\VirtualGamepad\TVirtualControls\JoystickMapping\TJoystickAxisMapping.bmx</FileName>
-      <Document_Active>true</Document_Active>
+      <Document_Active>false</Document_Active>
       <Caret_Position>
-        <X>11</X>
-        <Y>102</Y>
+        <X>16</X>
+        <Y>161</Y>
       </Caret_Position>
       <SplitVisible>false</SplitVisible>
       <SplitVertical>false</SplitVertical>
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
-        <OutlineColor>255:70:150:176</OutlineColor>
         <Ranges>
           <Range>
             <StartPoint>
@@ -2029,16 +2042,17 @@
     </Included_File>
     <Included_File>
       <FileName>Source\Devices\VirtualGamepad\TVirtualControls\MouseMapping\TMouseButtonMapping.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>55</X>
-        <Y>14</Y>
+        <X>40</X>
+        <Y>36</Y>
       </Caret_Position>
       <SplitVisible>false</SplitVisible>
       <SplitVertical>false</SplitVertical>
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
+        <OutlineColor>255:173:173:173</OutlineColor>
         <Ranges>
           <Range>
             <StartPoint>
@@ -2143,15 +2157,15 @@
       <FileName>Source\Devices\VirtualGamepad\TVirtualControls\TVirtualControl.bmx</FileName>
       <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>58</X>
-        <Y>623</Y>
+        <X>1</X>
+        <Y>190</Y>
       </Caret_Position>
       <SplitVisible>false</SplitVisible>
       <SplitVertical>false</SplitVertical>
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
-        <OutlineColor>255:70:150:176</OutlineColor>
+        <OutlineColor>255:173:173:173</OutlineColor>
         <Ranges>
           <Range>
             <StartPoint>
@@ -2798,7 +2812,7 @@
               <X>13</X>
               <Y>302</Y>
             </EndPoint>
-            <Visible>false</Visible>
+            <Visible>true</Visible>
             <Level>1</Level>
           </Range>
           <Range>
@@ -3098,7 +3112,7 @@
               <X>11</X>
               <Y>440</Y>
             </EndPoint>
-            <Visible>false</Visible>
+            <Visible>true</Visible>
             <Level>1</Level>
           </Range>
           <Range>
@@ -3494,7 +3508,7 @@
               <X>11</X>
               <Y>579</Y>
             </EndPoint>
-            <Visible>false</Visible>
+            <Visible>true</Visible>
             <Level>1</Level>
           </Range>
           <Range>
@@ -3912,15 +3926,15 @@
       <FileName>Source\Devices\VirtualGamepad\TVirtualControls\TVirtualControlMapping.bmx</FileName>
       <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>36</X>
-        <Y>19</Y>
+        <X>23</X>
+        <Y>51</Y>
       </Caret_Position>
       <SplitVisible>false</SplitVisible>
       <SplitVertical>false</SplitVertical>
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
-        <OutlineColor>255:70:150:176</OutlineColor>
+        <OutlineColor>255:173:173:173</OutlineColor>
         <Ranges>
           <Range>
             <StartPoint>
@@ -4304,15 +4318,15 @@
       <FileName>Source\Devices\VirtualGamepad\TVirtualGamepad.bmx</FileName>
       <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>34</X>
-        <Y>404</Y>
+        <X>13</X>
+        <Y>386</Y>
       </Caret_Position>
       <SplitVisible>false</SplitVisible>
       <SplitVertical>false</SplitVertical>
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
-        <OutlineColor>255:70:150:176</OutlineColor>
+        <OutlineColor>255:173:173:173</OutlineColor>
         <Ranges>
           <Range>
             <StartPoint>
@@ -6275,7 +6289,7 @@
     </Included_File>
     <Included_File>
       <FileName>input.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
         <X>0</X>
         <Y>2</Y>
@@ -6285,7 +6299,7 @@
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
-        <OutlineColor>255:70:150:176</OutlineColor>
+        <OutlineColor>255:173:173:173</OutlineColor>
         <Ranges />
       </Folding>
     </Included_File>
@@ -6293,15 +6307,15 @@
     <Context_Directory>\</Context_Directory>
     <Project_Name>input.mod</Project_Name>
     <BuildStep>1</BuildStep>
-    <Icon_File_Location>C:\Program Files (x86)\BLIde for BlitzMax\blide.ico</Icon_File_Location>
+    <Icon_File_Location>C:\Program Files (x86)\BLIde\blide.ico</Icon_File_Location>
     <Embed_Os_Theme>false</Embed_Os_Theme>
     <Publish_as_ConsoleApp>false</Publish_as_ConsoleApp>
     <Debug_Enabled_Publish>false</Debug_Enabled_Publish>
     <Publish_NRV_Level>0</Publish_NRV_Level>
   </Project>
   <Compiler_Configuration>
-    <Quick_Build>true</Quick_Build>
-    <Debugging>true</Debugging>
+    <Quick_Build>false</Quick_Build>
+    <Debugging>false</Debugging>
     <Threaded>false</Threaded>
   </Compiler_Configuration>
 </UnmanagedSolution>
