@@ -34,7 +34,6 @@ Type GameManager Extends TGameManager
 	
 	Field activeControl:Int = 0
 	Field controlDelay:Int
-	Field mousePosZ:Int
 	Field box:TImage
 	
 	Method Initialise()
@@ -177,14 +176,7 @@ Type GameManager Extends TGameManager
 		Select message.messageID
 			Case MSG_KEY
 				HandleKeyboardInput(message)
-			Case MSG_MOUSE
-				HandleMouseInput(message)
 		EndSelect
-	End Method
-	
-	Method HandleMouseInput(message:TMessage)
-		Local data:TMouseMessageData = TMouseMessageData(message.data)
-		mousePosZ = data.mousePosZ
 	End Method
 	
 	Method HandleKeyboardInput(message:TMessage)
