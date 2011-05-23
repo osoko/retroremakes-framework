@@ -1,6 +1,6 @@
 rem
 '
-' Copyright (c) 2007-2010 Paul Maskelyne <muttley@muttleyville.org>.
+' Copyright (c) 2007-2011 Paul Maskelyne <muttley@muttleyville.org>.
 '
 ' All rights reserved. Use of this code is allowed under the
 ' Artistic License 2.0 terms, as specified in the LICENSE file
@@ -40,8 +40,6 @@ Type TScoreService Extends TGameService
 
 	Method Initialise()
 		SetName("Score Service")
-		'Local dataDir:String = TGameEngine.GetInstance().GetDataDirectory()
-		'highScoreTable = THighScoreTable.Create(dataDir + "hiscore.dat")
 		Super.Initialise()  'Call TGameService initialisation routines
 	End Method
 

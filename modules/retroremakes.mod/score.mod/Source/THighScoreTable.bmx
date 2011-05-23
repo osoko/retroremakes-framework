@@ -12,7 +12,7 @@ endrem
 Type THighScoreTable
 
 	Field maxEntries:Int
-	Field Filename:String
+	Field filename:String
 	Field cryptKey:String
 	
 	Field allEntries:THighScoreEntry[]
@@ -57,7 +57,7 @@ Type THighScoreTable
 					cryptScore = String.FromShorts( scoreArray, numShorts )	'convert to string
 					cryptScore = RC4(cryptScore, cryptKey) 	'decrypt
 					allEntries[i].SetScore( cryptScore.ToInt() )
-	
+
 					numShorts = ReadInt( fileHandle )
 					Local nameArray:Short[ numShorts ]
 					For Local x:Int = 0 To numShorts - 1
@@ -171,4 +171,5 @@ Type THighScoreTable
 		If Position < 1 Or Position > maxEntries Then Return Null
 		Return allEntries[Position-1]
 	End Method
+	
 EndType

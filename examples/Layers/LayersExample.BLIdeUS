@@ -19,17 +19,163 @@
     </Included_File>
     <Included_File>
       <FileName>src\TGameplayScreen.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>34</X>
-        <Y>41</Y>
+        <X>11</X>
+        <Y>42</Y>
       </Caret_Position>
       <SplitVisible>false</SplitVisible>
       <SplitVertical>false</SplitVertical>
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
-        <Ranges />
+        <OutlineColor>255:173:173:173</OutlineColor>
+        <Ranges>
+          <Range>
+            <StartPoint>
+              <X>0</X>
+              <Y>0</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>8</X>
+              <Y>2</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>0</Level>
+          </Range>
+          <Range>
+            <StartPoint>
+              <X>20</X>
+              <Y>3</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>8</X>
+              <Y>51</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>0</Level>
+          </Range>
+          <Range>
+            <StartPoint>
+              <X>47</X>
+              <Y>8</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>11</X>
+              <Y>14</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>1</Level>
+          </Range>
+          <Range>
+            <StartPoint>
+              <X>17</X>
+              <Y>10</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>12</X>
+              <Y>13</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>2</Level>
+          </Range>
+          <Range>
+            <StartPoint>
+              <X>24</X>
+              <Y>12</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>46</X>
+              <Y>12</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>3</Level>
+          </Range>
+          <Range>
+            <StartPoint>
+              <X>41</X>
+              <Y>16</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>11</X>
+              <Y>21</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>1</Level>
+          </Range>
+          <Range>
+            <StartPoint>
+              <X>26</X>
+              <Y>17</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>12</X>
+              <Y>20</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>2</Level>
+          </Range>
+          <Range>
+            <StartPoint>
+              <X>13</X>
+              <Y>23</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>11</X>
+              <Y>29</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>1</Level>
+          </Range>
+          <Range>
+            <StartPoint>
+              <X>15</X>
+              <Y>31</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>11</X>
+              <Y>36</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>1</Level>
+          </Range>
+          <Range>
+            <StartPoint>
+              <X>14</X>
+              <Y>38</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>11</X>
+              <Y>42</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>1</Level>
+          </Range>
+          <Range>
+            <StartPoint>
+              <X>16</X>
+              <Y>44</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>11</X>
+              <Y>49</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>1</Level>
+          </Range>
+          <Range>
+            <StartPoint>
+              <X>20</X>
+              <Y>46</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>8</X>
+              <Y>48</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>2</Level>
+          </Range>
+        </Ranges>
       </Folding>
     </Included_File>
     <Included_File>
@@ -49,9 +195,9 @@
     </Included_File>
     <Included_File>
       <FileName>src\TModeMessageData.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>44</X>
+        <X>0</X>
         <Y>2</Y>
       </Caret_Position>
       <SplitVisible>false</SplitVisible>
@@ -59,37 +205,295 @@
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
-        <Ranges />
+        <OutlineColor>255:173:173:173</OutlineColor>
+        <Ranges>
+          <Range>
+            <StartPoint>
+              <X>21</X>
+              <Y>3</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>8</X>
+              <Y>13</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>0</Level>
+          </Range>
+        </Ranges>
       </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\TPlayer.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>13</X>
-        <Y>28</Y>
+        <X>14</X>
+        <Y>41</Y>
       </Caret_Position>
       <SplitVisible>false</SplitVisible>
       <SplitVertical>false</SplitVertical>
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
-        <Ranges />
+        <OutlineColor>255:173:173:173</OutlineColor>
+        <Ranges>
+          <Range>
+            <StartPoint>
+              <X>0</X>
+              <Y>0</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>8</X>
+              <Y>2</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>0</Level>
+          </Range>
+          <Range>
+            <StartPoint>
+              <X>12</X>
+              <Y>3</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>8</X>
+              <Y>45</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>0</Level>
+          </Range>
+          <Range>
+            <StartPoint>
+              <X>42</X>
+              <Y>12</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>11</X>
+              <Y>14</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>1</Level>
+          </Range>
+          <Range>
+            <StartPoint>
+              <X>15</X>
+              <Y>16</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>11</X>
+              <Y>19</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>1</Level>
+          </Range>
+          <Range>
+            <StartPoint>
+              <X>13</X>
+              <Y>21</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>11</X>
+              <Y>30</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>1</Level>
+          </Range>
+          <Range>
+            <StartPoint>
+              <X>16</X>
+              <Y>32</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>11</X>
+              <Y>43</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>1</Level>
+          </Range>
+          <Range>
+            <StartPoint>
+              <X>22</X>
+              <Y>34</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>8</X>
+              <Y>36</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>2</Level>
+          </Range>
+          <Range>
+            <StartPoint>
+              <X>60</X>
+              <Y>35</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>78</X>
+              <Y>35</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>3</Level>
+          </Range>
+          <Range>
+            <StartPoint>
+              <X>23</X>
+              <Y>37</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>8</X>
+              <Y>39</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>2</Level>
+          </Range>
+          <Range>
+            <StartPoint>
+              <X>99</X>
+              <Y>38</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>116</X>
+              <Y>38</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>3</Level>
+          </Range>
+          <Range>
+            <StartPoint>
+              <X>23</X>
+              <Y>40</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>8</X>
+              <Y>42</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>2</Level>
+          </Range>
+        </Ranges>
       </Folding>
     </Included_File>
     <Included_File>
       <FileName>src\TPlayerBullet.bmx</FileName>
-      <Document_Active>false</Document_Active>
+      <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>8</X>
-        <Y>29</Y>
+        <X>68</X>
+        <Y>22</Y>
       </Caret_Position>
       <SplitVisible>false</SplitVisible>
       <SplitVertical>false</SplitVertical>
       <SplitSize>138</SplitSize>
       <Folding>
         <AllowOutlining>true</AllowOutlining>
-        <Ranges />
+        <OutlineColor>255:173:173:173</OutlineColor>
+        <Ranges>
+          <Range>
+            <StartPoint>
+              <X>0</X>
+              <Y>0</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>8</X>
+              <Y>2</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>0</Level>
+          </Range>
+          <Range>
+            <StartPoint>
+              <X>18</X>
+              <Y>3</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>8</X>
+              <Y>44</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>0</Level>
+          </Range>
+          <Range>
+            <StartPoint>
+              <X>50</X>
+              <Y>11</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>13</X>
+              <Y>24</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>1</Level>
+          </Range>
+          <Range>
+            <StartPoint>
+              <X>34</X>
+              <Y>12</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>46</X>
+              <Y>12</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>2</Level>
+          </Range>
+          <Range>
+            <StartPoint>
+              <X>13</X>
+              <Y>26</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>11</X>
+              <Y>30</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>1</Level>
+          </Range>
+          <Range>
+            <StartPoint>
+              <X>14</X>
+              <Y>27</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>8</X>
+              <Y>29</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>2</Level>
+          </Range>
+          <Range>
+            <StartPoint>
+              <X>50</X>
+              <Y>32</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>11</X>
+              <Y>34</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>1</Level>
+          </Range>
+          <Range>
+            <StartPoint>
+              <X>16</X>
+              <Y>36</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>11</X>
+              <Y>43</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>1</Level>
+          </Range>
+          <Range>
+            <StartPoint>
+              <X>53</X>
+              <Y>37</Y>
+            </StartPoint>
+            <EndPoint>
+              <X>8</X>
+              <Y>42</Y>
+            </EndPoint>
+            <Visible>true</Visible>
+            <Level>2</Level>
+          </Range>
+        </Ranges>
       </Folding>
     </Included_File>
     <Included_File>
@@ -544,8 +948,8 @@
       <FileName>Shooty.bmx</FileName>
       <Document_Active>true</Document_Active>
       <Caret_Position>
-        <X>43</X>
-        <Y>20</Y>
+        <X>28</X>
+        <Y>13</Y>
       </Caret_Position>
       <SplitVisible>false</SplitVisible>
       <SplitVertical>false</SplitVertical>
@@ -560,7 +964,7 @@
     <Context_Directory>\Layers Example\</Context_Directory>
     <Project_Name>Shooty</Project_Name>
     <BuildStep>1</BuildStep>
-    <Icon_File_Location>C:\Program Files (x86)\BLIde for BlitzMax\blide.ico</Icon_File_Location>
+    <Icon_File_Location>C:\Program Files (x86)\BLIde\blide.ico</Icon_File_Location>
     <Embed_Os_Theme>false</Embed_Os_Theme>
     <Publish_as_ConsoleApp>false</Publish_as_ConsoleApp>
     <Debug_Enabled_Publish>false</Debug_Enabled_Publish>
