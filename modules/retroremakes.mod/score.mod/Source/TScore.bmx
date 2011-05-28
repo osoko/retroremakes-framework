@@ -10,7 +10,7 @@ Rem
 EndRem
 
 Rem
-bbdoc: Type representing a player's score
+bbdoc: Score
 about: This Type tracks both a player's score and the length of time they
 have played the game. It also applies any specified multiplier to any
 scores added if required and can optionally track a separate display score
@@ -57,10 +57,10 @@ Type TScore
 		about: This constructor creates a new TScore instance.
 		returns: #TScore
 	EndRem
-	Function Create:TScore(displayIncrement:Int = 0, maxMultiplier:Int = 9)
+	Function Create:TScore (displayIncrement:Int = 0, maxMultiplier:Int = 9)
 		Local n:TScore = New TScore
-		n.SetMaxMultiplier(maxMultiplier)
-		n.SetDisplayScoreIncrement(displayIncrement)
+		n.SetMaxMultiplier (maxMultiplier)
+		n.SetDisplayScoreIncrement (displayIncrement)
 		Return n
 	EndFunction
 	
@@ -71,8 +71,8 @@ Type TScore
 		about: Adds the supplied value to the score multiplied by the current
 		multiplier value.
 	EndRem
-	Method Add( value:Int )
-		SetScore(GetScore() + (value * GetMultiplier()))
+	Method Add (value:Int)
+		SetScore (GetScore() + (value * GetMultiplier()))
 	EndMethod
 
 	
@@ -84,7 +84,7 @@ Type TScore
 	Method DecreaseMultiplier()
 		Local multiplier:Int = GetMultiplier()
 		If multiplier > 1
-			SetMultiplier(multiplier - 1)
+			SetMultiplier (multiplier - 1)
 		EndIf
 	EndMethod
 	
@@ -171,7 +171,7 @@ Type TScore
 	Method IncreaseMultiplier()
 		Local multiplier:Int = GetMultiplier()
 		If multiplier < GetMaxMultiplier()
-			SetMultiplier(multiplier + 1)
+			SetMultiplier (multiplier + 1)
 		EndIf
 	EndMethod
 	
@@ -195,12 +195,12 @@ Type TScore
 		value is accurate.
 	EndRem
 	Method Initialise()
-		SetScore(0)
-		SetDisplayScore(0)
-		SetTimePlayed(0)
-		SetMultiplier(1)
-		SetLastUpdateTime(MilliSecs())
-		SetPaused(False)
+		SetScore (0)
+		SetPaused (False)
+		SetMultiplier (1)
+		SetTimePlayed (0)
+		SetDisplayScore (0)
+		SetLastUpdateTime (MilliSecs())
 	End Method
 	
 	
@@ -221,7 +221,7 @@ Type TScore
 		it will be updated automatically each logic update loop.
 	EndRem
 	Method New()
-		TScoreService.GetInstance().AddScore(Self)
+		TScoreService.GetInstance().AddScore (Self)
 	End Method
 	
 	
@@ -231,8 +231,8 @@ Type TScore
 		about: Use the SetPaused() method instead.
 	EndRem
 	Method Pause()
-		DebugLog("The TScore.Pause() method is deprecated and may be removed in future versions, please use the TScore.SetPaused() method instead.")
-		SetPaused(True)
+		DebugLog ("The TScore.Pause() method is deprecated and may be removed in future versions, please use the TScore.SetPaused() method instead.")
+		SetPaused (True)
 	EndMethod
 	
 	
@@ -241,7 +241,7 @@ Type TScore
 		bbdoc: Set the display score
 		about: Sets the display score to the specified value.
 	EndRem
-	Method SetDisplayScore(value:Int)
+	Method SetDisplayScore (value:Int)
 		_displayScore = value
 	End Method
 	
@@ -254,7 +254,7 @@ Type TScore
 		score will step up to the actual score by that amount every time the Update()
 		method is called until it reaches the current score.
 	EndRem
-	Method SetDisplayScoreIncrement(value:Int)
+	Method SetDisplayScoreIncrement (value:Int)
 		If value >= 0
 			_displayScoreIncrement = value
 		EndIf
@@ -266,7 +266,7 @@ Type TScore
 		bbdoc: Sets the last update time
 		about: Value is in milliseconds
 	EndRem	
-	Method SetLastUpdateTime(value:Int)
+	Method SetLastUpdateTime (value:Int)
 		_lastUpdateTime = value
 	End Method
 	
@@ -276,7 +276,7 @@ Type TScore
 		bbdoc: Sets the maximum multiplier value
 		about: Maximum can be no lower than 1
 	EndRem
-	Method SetMaxMultiplier(value:Int)
+	Method SetMaxMultiplier (value:Int)
 		If value > 0
 			_maxMultiplier = value
 		EndIf
@@ -290,7 +290,7 @@ Type TScore
 		multiplier value. Any attempt to set the multiplier to an illegal value
 		will be silently ignored.
 	EndRem
-	Method SetMultiplier(value:Int)
+	Method SetMultiplier (value:Int)
 		If value < 1 Or value > GetMaxMultiplier() Then Return
 		_multiplier = value
 	EndMethod
@@ -305,7 +305,7 @@ Type TScore
 		method, and the time played counter is frozen. This allows you
 		to accurately measure the actual time spent playing the game.
 	EndRem
-	Method SetPaused(value:Int)
+	Method SetPaused (value:Int)
 		If value
 			_paused = True
 		Else
@@ -323,7 +323,7 @@ Type TScore
 		about: This bypasses the multiplier calculator and sets the score to
 		exactly the value specified
 	EndRem
-	Method SetScore(value:Long)
+	Method SetScore (value:Long)
 		_score = value
 	End Method
 	
@@ -332,7 +332,7 @@ Type TScore
 	Rem
 		bbdoc: Sets the time played in milliseconds
 	EndRem
-	Method SetTimePlayed(value:Int)
+	Method SetTimePlayed (value:Int)
 		_timePlayed = value
 	End Method
 	
@@ -343,8 +343,8 @@ Type TScore
 		about: Use the SetPaused() method instead.
 	EndRem		
 	Method Unpause()
-		DebugLog("The TScore.Unpause() method is deprecated and may be removed in future versions, please use the TScore.SetPaused() method instead.")
-		SetPaused(False)
+		DebugLog ("The TScore.Unpause() method is deprecated and may be removed in future versions, please use the TScore.SetPaused() method instead.")
+		SetPaused (False)
 	EndMethod	
 
 	
@@ -363,20 +363,21 @@ Type TScore
 		
 		If displayScore <> score
 			If displayScoreIncrement = 0
-				SetDisplayScore(score)
+				SetDisplayScore (score)
 			Else
 				If (score - displayScore) < displayScoreIncrement
-					SetDisplayScore(score)
+					SetDisplayScore (score)
 				Else
-					SetDisplayScore(displayScore + displayScoreIncrement)
+					SetDisplayScore (displayScore + displayScoreIncrement)
 				EndIf
 			EndIf
 		EndIf
 		
+		' Update time played
 		Local lastUpdateTime:Int = GetLastUpdateTime()
 		Local now:Int = MilliSecs()
-		SetTimePlayed(GetTimePlayed() + (now - lastUpdateTime))
-		SetLastUpdateTime(now)
+		SetTimePlayed (GetTimePlayed() + (now - lastUpdateTime))
+		SetLastUpdateTime (now)
 	EndMethod
 	
 EndType

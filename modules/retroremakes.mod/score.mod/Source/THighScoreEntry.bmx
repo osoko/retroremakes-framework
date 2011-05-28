@@ -10,35 +10,74 @@ Rem
 EndRem
 
 Rem
-	bbdoc: 
+bbdoc: High-Score Table Entry class
+about: This Type contains a player's name, score and the length of time they
+played the game which resulted in this score.
 EndRem
 Type THighScoreEntry
-	Field score:Int = 0
-	Field playerName:String = ""
-	Field timePlayed:Long = 0
+
+	' The player's name
+	Field _playerName:String
 	
-	Method GetScore:Int()
-		Return score
-	End Method
+	' The player's score
+	Field _score:Long
 	
-	Method SetScore( value:Int )
-		score = value
-	End Method
+	' The length of time played in milliseconds
+	Field _timePlayed:Long
 	
-	Method SetPlayerName( value:String )
-		playerName = value
-	End Method
 	
+	Rem
+	bbdoc: Get the player name for this high-score entry
+	EndRem
 	Method GetPlayerName:String()
-		Return playerName
+		Return _playerName
 	End Method
+
 	
+			
+	Rem
+	bbdoc: Get the score value of this high-score entry
+	EndRem
+	Method GetScore:Long()
+		Return _score
+	End Method
+
+	
+	
+	Rem
+	bbdoc: Gets the length of time played for this high-score entry
+	about: Returned value is in milliseconds
+	EndRem
 	Method GetTimePlayed:Long()
-		Return timePlayed
+		Return _timePlayed
+	End Method
+
+
+
+	Rem
+	bbdoc: Sets the player name for this high-score entry
+	EndRem
+	Method SetPlayerName (value:String)
+		_playerName = value
+	End Method
+
+	
+	
+	Rem
+	bbdoc: Sets the high-score entry score to the specified value
+	EndRem
+	Method SetScore (value:Long)
+		_score = value
 	End Method
 	
-	Method SetTimePlayed( value:Long )
-		timePlayed = value
+	
+	
+	Rem
+	bbdoc: Sets the time played for this high-score entry
+	about: value is in milliseconds
+	EndRem
+	Method SetTimePlayed (value:Long)
+		_timePlayed = value
 	End Method
 
 EndType
