@@ -1,4 +1,4 @@
-rem
+Rem
 '
 ' Copyright (c) 2007-2011 Paul Maskelyne <muttley@muttleyville.org>.
 '
@@ -7,7 +7,7 @@ rem
 ' distributed with this code, or available from
 ' http://www.opensource.org/licenses/artistic-license-2.0.php
 '
-endrem
+EndRem
 
 Type TScoreService Extends TGameService
 

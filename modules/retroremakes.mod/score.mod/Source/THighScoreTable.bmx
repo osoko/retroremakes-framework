@@ -1,14 +1,19 @@
-rem
+Rem
 '
-' Copyright (c) 2007-2010 Paul Maskelyne <muttley@muttleyville.org>.
+' Copyright (c) 2007-2011 Paul Maskelyne <muttley@muttleyville.org>.
 
 ' All rights reserved. Use of this code is allowed under the
 ' Artistic License 2.0 terms, as specified in the LICENSE file
 ' distributed with this code, or available from
 ' http://www.opensource.org/licenses/artistic-license-2.0.php
 '
-endrem
+EndRem
 
+Rem
+bbdoc: High-Score Table
+about: A High-Score table consists of one or more THighScoreEntry objects
+which 
+EndRem
 Type THighScoreTable
 
 	Field maxEntries:Int
@@ -122,33 +127,33 @@ Type THighScoreTable
 		EndIf	
 	EndMethod
 	
-	Method AddScore:Int( score:Long, playerName:String, ctime:Long )
+	Method AddScore:Int (score:Long, playerName:String, ctime:Long)
 		Local Position:Int
-		If score > allEntries[ maxEntries - 1 ].Score
+		If score > allEntries [maxEntries - 1].GetScore()
 			For Local i:Int = 0 To maxEntries - 1
-				If score => allEntries[ i ].Score
+				If score >= allEntries [i].GetScore()
 					Position = i
 					Exit
 				EndIf
 			Next
 			Local newPosition:Int = maxEntries - 1
 			For Local i:Int = maxEntries - 2 To Position Step - 1
-				allEntries[ newPosition ].Score = allEntries[ i ].Score
-				allEntries[ newPosition ].playerName = allEntries[ i ].playerName
-				allEntries[ newPosition ].timePlayed = allEntries[ i ].timePlayed
+				allEntries [newPosition].SetScore (allEntries [i].GetScore())
+				allEntries [newPosition].SetPlayerName (allEntries [i].GetPlayerName())
+				allEntries [newPosition].SetTimePlayed (allEntries [i].GetTimePlayed())
 				newPosition :- 1
 			Next
-			allEntries[ Position ].score = score
-			allEntries[ Position ].playerName = playerName
-			allEntries[ Position ].timePlayed = ctime
-			Return Position+1
+			allEntries [Position].SetScore (score)
+			allEntries [Position].SetPlayerName (playerName)
+			allEntries [Position].SetTimePlayed (ctime)
+			Return Position + 1
 		Else
 			Return 0
 		EndIf
 	EndMethod
 	
-	Method ScoreInTable:Int( score:Long )
-		If score > allEntries[ maxEntries - 1 ].Score
+	Method ScoreInTable:Int (score:Long)
+		If score > allEntries [maxEntries - 1].GetScore()
 			Return True
 		Else
 			Return False
