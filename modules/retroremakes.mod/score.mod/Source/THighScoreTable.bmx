@@ -12,88 +12,254 @@ EndRem
 Rem
 bbdoc: High-Score Table
 about: A High-Score table consists of one or more THighScoreEntry objects
-which 
+which contain player's scores, names and time played information. They can
+be written out to disk in either encrypted (using an RC4 cipher) or
+unencypted format.
 EndRem
 Type THighScoreTable
 
-	Field maxEntries:Int
+	Const DEFAULT_FILENAME:String = "hiscore.dat"
+	Const DEFAULT_MAX_ENTRIES:Int = 10
+	Const DEFAULT_NAME:String = "High-Score Table"
+	
+	Field _maxEntries:Int
 	Field filename:String
 	Field cryptKey:String
 	
+	' The name of this high-score table
+	Field _name:string
+	
 	Field allEntries:THighScoreEntry[]
 	
-	Function Create:THighScoreTable(hstFile:String = "hiscore.dat", entries:Int = 10)
-		Local n:THighScoreTable = New THighScoreTable
-		n.maxEntries = entries
-		n.Filename = hstFile		
-		n.allEntries = New THighScoreEntry[ n.maxEntries ]
-		For Local i:Int = 0 To n.maxEntries - 1
-			n.allEntries[i] = New THighScoreEntry
-		Next
-		Return n
-	EndFunction
-
-	Method Load:Int()
-		If FileType( Filename ) = 1	'File exists
-			Local fileHandle:TStream
-			If Not cryptKey	
-				'load saved high-score table
-				fileHandle = ReadFile( Filename )
-				For Local i:Int = 0 To maxEntries - 1
-					allEntries[ i ].SetScore( Int(ReadLine(fileHandle ) ))
-					allEntries[ i ].SetTimePlayed( Long(ReadLine( fileHandle ) ))
-					allEntries[ i ].SetPlayerName(ReadLine( fileHandle ) )
-				Next
-				CloseFile( fileHandle )
-			Else
-				'load saved high-score table
-				Local cryptScore:String
-				Local cryptName:String
-				Local cryptTimePlayed:String
-				Local numShorts:Int
-				fileHandle = ReadFile( Filename )
-				For Local i:Int = 0 To maxEntries - 1
-
-					numShorts = ReadInt( fileHandle )	'number of characters in the score
-					Local scoreArray:Short[ numShorts ]
-					For Local x:Int = 0 To numShorts - 1
-						scoreArray[x] = ReadShort( fileHandle )
-					Next
-					cryptScore = String.FromShorts( scoreArray, numShorts )	'convert to string
-					cryptScore = RC4(cryptScore, cryptKey) 	'decrypt
-					allEntries[i].SetScore( cryptScore.ToInt() )
-
-					numShorts = ReadInt( fileHandle )
-					Local nameArray:Short[ numShorts ]
-					For Local x:Int = 0 To numShorts - 1
-						nameArray[x] = ReadShort( fileHandle )
-					Next				
-					cryptName = String.FromShorts( nameArray, numShorts )
-					cryptName = RC4(cryptName, cryptKey) 
-					allEntries[i].SetPlayerName( cryptName )
 	
-					numShorts = ReadInt( fileHandle )
-					Local timeArray:Short[ numShorts ]
-					For Local x:Int = 0 To numShorts - 1
-						timeArray[x] = ReadShort( fileHandle )
-					Next				
-					cryptTimePlayed = String.FromShorts( timeArray, numShorts )
-					cryptTimePlayed = RC4(cryptTimePlayed, cryptKey) 
-					allEntries[i].SetTimePlayed( cryptTimePlayed.ToLong() )
-				Next
-				CloseFile( fileHandle )
+	
+	Rem
+	bbdoc: Creates a high-score table instance
+	about: This creates and returns a high-score table with the specified
+	filename, maximum number of entries and name
+	EndRem
+	Function Create:THighScoreTable(filename:String = DEFAULT_FILENAME, entries:Int = DEFAULT_MAX_ENTRIES, name:String = DEFAULT_NAME)
+		Local n:THighScoreTable = New THighScoreTable
+		n.SetMaxEntries (entries)
+		n.SetFilename (filename)
+		n.SetName (name)
+		Return n
+	End Function
+
+	
+	
+	Rem
+	bbdoc: Returns an array containing all THighScoreTableEntry objects in this
+	high-score table
+	EndRem
+	Method GetEntries:THighScoreEntry[] ()
+		Return allEntries	
+	End Method
+	
+	
+	
+	Rem
+	bbdoc: Returns the filename to be used when writing this high-score table
+	EndRem
+	Method GetFilename:String()
+		Return filename
+	End Method
+	
+	
+
+	Rem
+	bbdoc: Returns the maximum number of entries in this table
+	EndRem
+	Method GetMaxEntries:Int()
+		Return _maxEntries
+	End Method
+	
+	
+			
+	Rem
+	bbdoc: Returns the name of this high-score table
+	EndRem
+	Method GetName:String()
+		Return _name
+	End Method
+	
+	
+
+	Rem
+	bbdoc: Initialises the array of THighScoreEntry objects to the correct size
+	EndRem
+	Method InitialiseEntries()
+		allEntries = New THighScoreEntry [_maxEntries]
+		For Local i:Int = 0 To _maxEntries - 1
+		        allEntries[i] = New THighScoreEntry
+		Next
+	End Method
+	
+	
+	
+	Rem
+	bbdoc: Resizes the array of THighScoreEntry objects if the Max Entries value
+	has been modified
+	EndRem
+	Method ResizeEntries()
+		allEntries = allEntries [.._maxEntries]
+		For Local i:Int = 0 to _maxEntries - 1
+			if Not allEntries [i]
+				allEntries [i] = New THighScoreEntry
+			End If
+		Next
+	End Method
+	
+	
+	
+	Rem
+	bbdoc: Sets the filename to ve used when reading/writing this high-score table
+	EndRem
+	Method SetFilename (filename:String)
+		Self.filename = filename
+	End Method
+	
+	
+	
+	Rem
+	bbdoc: Sets the maximum amount of entries to the value specified
+	EndRem
+	Method SetMaxEntries (maxEntries:Int)
+		_maxEntries = maxEntries
+		
+		If Not GetEntries()
+			InitialiseEntries()
+		Else
+			ResizeEntries()
+		End If
+	End Method
+	
+
+		
+	Rem
+	bbdoc: Sets the name of this high-score table
+	EndRem
+	Method SetName (name:String)
+		_name = name
+	End Method
+	
+	
+	
+	Rem
+	bbdoc: Attempts to load the high-score table from disk
+	returns: True if succeeded, otherwise False
+	EndRem
+	Method Load:Int()
+		Local succeeded:Int = True
+		
+		Local filename:String = GetFilename()
+		
+		If FileType (filename) = FILETYPE_FILE
+			Local stream:TStream = ReadFile (filename)
+			
+			If stream
+				If GetCryptKey()
+					succeeded = LoadEncrypted (stream)
+				Else
+					succeeded = LoadUnencrypted (stream)
+				EndIf	
+				CloseFile (stream)
+			Else
+				'faled to open file for reading
+				succeeded = False
 			EndIf
 		Else
-			Return False 'file doesn't exist
-		EndIf		
-		Return True 'loaded HST
+			'file doesn't exist
+			succeeded = False
+		EndIf	
+			
+		Return succeeded
 	End Method
+	
+	
+
+	Rem
+	bbdoc: Attempts to load an encrypted table from the specified stream
+	EndRem
+	Method LoadEncrypted:Int (stream:TStream)
+		'TODO: Add error checking
+		Local data:String
+		Local numShorts:Int
+		Local shortArray:Short[]
+
+
+		For Local i:Int = 0 To _maxEntries - 1
+			Local score:Long
+			Local timePlayed:Long
+			Local name:String
+			
+			'read and decrypt the score
+			numShorts = ReadInt (stream)
+			shortArray = New Short [numShorts]
+			For Local x:Int = 0 To numShorts - 1
+				shortArray [x] = ReadShort (stream)
+			Next
+			data = String.FromShorts (shortArray, numShorts)
+			data = RC4 (data, cryptKey)
+			score = data.ToLong()
+						
+			'read and decrypt the name
+			numShorts = ReadInt (stream)
+			shortArray = New Short [numShorts]
+			For Local x:Int = 0 To numShorts - 1
+				shortArray [x] = ReadShort (stream)
+			Next				
+			data = String.FromShorts (shortArray, numShorts)
+			name = RC4 (data, cryptKey) 
+	
+			'read and decrypt the time played
+			numShorts = ReadInt( stream )
+			shortArray = New Short [numShorts]
+			For Local x:Int = 0 To numShorts - 1
+				shortArray [x] = ReadShort (stream)
+			Next				
+			data = String.FromShorts (shortArray, numShorts)
+			data = RC4 (data, cryptKey) 
+			timePlayed = data.ToLong()
+			
+			' Finally set the entry
+			allEntries [i].SetScore (score)
+			allEntries [i].SetPlayerName (name)
+			allEntries [i].SetTimePlayed (timePlayed)
+		Next
+		
+		Return True
+	End Method
+	
+	
+	
+	Rem
+	bbdoc: Attempts to load an unencrypted table from the specified stream
+	EndRem
+	Method LoadUnencrypted:Int (stream:TStream)
+		'TODO: Add error checking
+		Local score:Long
+		Local time:Long
+		Local name:String
+		For Local i:Int = 0 To _maxEntries - 1
+			score = Long (ReadLine (stream))
+			time = Long (ReadLine (stream))
+			name = ReadLine (stream) 
+			
+			allEntries [i].SetScore (score)
+			allEntries [i].SetTimePlayed (time)
+			allEntries [i].SetPlayerName (name)
+		Next
+		Return True
+	End Method
+	
+	
 	
 	Method Save()
 		If Not cryptKey
 			'save high-score table
 			Local fileHandle:TStream = WriteFile( Filename )
-			For Local i:Int = 0 To maxEntries - 1
+			For Local i:Int = 0 To _maxEntries - 1
 				WriteLine( fileHandle, String(allEntries[ i ].GetScore()) )
 				WriteLine( fileHandle, String(allEntries[ i ].GetTimePlayed()) )
 				WriteLine( fileHandle, allEntries[ i ].GetPlayerName() )
@@ -106,7 +272,7 @@ Type THighScoreTable
 			Local cryptTimePlayed:String
 			Local fileHandle:TStream = WriteFile( Filename )
 
-			For Local i:Int = 0 To maxEntries - 1
+			For Local i:Int = 0 To (GetMaxEntries() - 1)
 				cryptScore = RC4(String(allEntries[i].GetScore()), cryptKey) 
 				cryptName = RC4(allEntries[i].GetPlayerName(), cryptKey) 
 				cryptTimePlayed = RC4(String(allEntries[i].GetTimePlayed()), cryptKey) 
@@ -128,16 +294,16 @@ Type THighScoreTable
 	EndMethod
 	
 	Method AddScore:Int (score:Long, playerName:String, ctime:Long)
-		Local Position:Int
-		If score > allEntries [maxEntries - 1].GetScore()
-			For Local i:Int = 0 To maxEntries - 1
+		Local position:Int
+		If score > allEntries [_maxEntries - 1].GetScore()
+			For Local i:Int = 0 To _maxEntries - 1
 				If score >= allEntries [i].GetScore()
 					Position = i
 					Exit
 				EndIf
 			Next
-			Local newPosition:Int = maxEntries - 1
-			For Local i:Int = maxEntries - 2 To Position Step - 1
+			Local newPosition:Int = _maxEntries - 1
+			For Local i:Int = _maxEntries - 2 To Position Step - 1
 				allEntries [newPosition].SetScore (allEntries [i].GetScore())
 				allEntries [newPosition].SetPlayerName (allEntries [i].GetPlayerName())
 				allEntries [newPosition].SetTimePlayed (allEntries [i].GetTimePlayed())
@@ -152,29 +318,36 @@ Type THighScoreTable
 		EndIf
 	EndMethod
 	
+	
+	
 	Method ScoreInTable:Int (score:Long)
-		If score > allEntries [maxEntries - 1].GetScore()
+		If score > allEntries [_maxEntries - 1].GetScore()
 			Return True
 		Else
 			Return False
 		EndIf
 	EndMethod
 
+	
+	
 	Method SetCryptKey( newCryptKey:String )
 		cryptKey = newCryptKey
 	End Method
+	
+	
 	
 	Method GetCryptKey:String()
 		Return cryptKey
 	End Method
 	
-	Method GetMaxEntries:Int()
-		Return maxEntries
-	End Method
+
 	
 	Method GetHighScoreEntry:THighScoreEntry( Position:Int )
-		If Position < 1 Or Position > maxEntries Then Return Null
-		Return allEntries[Position-1]
+		If Position < 1 Or Position > _maxEntries
+			Return Null
+		Else
+			Return allEntries[Position-1]
+		Endif
 	End Method
 	
 EndType

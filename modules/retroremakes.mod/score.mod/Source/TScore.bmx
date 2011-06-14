@@ -52,6 +52,7 @@ Type TScore
 	Field _timePlayed:Int
 
 	
+	
 	Rem
 		bbdoc: Create a new TScore instance
 		about: This constructor creates a new TScore instance.
