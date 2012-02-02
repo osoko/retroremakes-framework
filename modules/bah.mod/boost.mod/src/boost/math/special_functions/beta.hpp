@@ -157,7 +157,7 @@ T beta_imp(T a, T b, const lanczos::undefined_lanczos& /* l */, const Policy& po
    // set integration limits:
    T la = (std::max)(T(10), a);
    T lb = (std::max)(T(10), b);
-   T lc = (std::max)(T(10), a+b);
+   T lc = (std::max)(T(10), T(a+b));
 
    // calculate the fraction parts:
    T sa = detail::lower_gamma_series(a, la, pol) / a;
@@ -326,6 +326,10 @@ T ibeta_power_terms(T a,
       T b2 = (y * cgh) / bgh;
       l1 = a * log(b1);
       l2 = b * log(b2);
+      BOOST_MATH_INSTRUMENT_VARIABLE(b1);
+      BOOST_MATH_INSTRUMENT_VARIABLE(b2);
+      BOOST_MATH_INSTRUMENT_VARIABLE(l1);
+      BOOST_MATH_INSTRUMENT_VARIABLE(l2);
       if((l1 >= tools::log_max_value<T>())
          || (l1 <= tools::log_min_value<T>())
          || (l2 >= tools::log_max_value<T>())
@@ -384,9 +388,8 @@ T ibeta_power_terms(T a,
       return pow(x, a) * pow(y, b);
    }
 
-   T result;
+   T result= 0; // assignment here silences warnings later
 
-   T prefix = 1;
    T c = a + b;
 
    // integration limits for the gamma functions:
@@ -503,7 +506,7 @@ T ibeta_series(T a, T b, T x, T s0, const L&, bool normalised, T* p_derivative, 
    ibeta_series_t<T> s(a, b, x, result);
    boost::uintmax_t max_iter = policies::get_max_series_iterations<Policy>();
    result = boost::math::tools::sum_series(s, boost::math::policies::get_epsilon<T, Policy>(), max_iter, s0);
-   policies::check_series_iterations("boost::math::ibeta<%1%>(%1%, %1%, %1%) in ibeta_series (with lanczos)", max_iter, pol);
+   policies::check_series_iterations<T>("boost::math::ibeta<%1%>(%1%, %1%, %1%) in ibeta_series (with lanczos)", max_iter, pol);
    return result;
 }
 //
@@ -519,7 +522,6 @@ T ibeta_series(T a, T b, T x, T s0, const boost::math::lanczos::undefined_lanczo
 
    if(normalised)
    {
-      T prefix = 1;
       T c = a + b;
 
       // figure out integration limits for the gamma function:
@@ -583,7 +585,7 @@ T ibeta_series(T a, T b, T x, T s0, const boost::math::lanczos::undefined_lanczo
    ibeta_series_t<T> s(a, b, x, result);
    boost::uintmax_t max_iter = policies::get_max_series_iterations<Policy>();
    result = boost::math::tools::sum_series(s, boost::math::policies::get_epsilon<T, Policy>(), max_iter, s0);
-   policies::check_series_iterations("boost::math::ibeta<%1%>(%1%, %1%, %1%) in ibeta_series (without lanczos)", max_iter, pol);
+   policies::check_series_iterations<T>("boost::math::ibeta<%1%>(%1%, %1%, %1%) in ibeta_series (without lanczos)", max_iter, pol);
    return result;
 }
 
@@ -884,21 +886,36 @@ T ibeta_imp(T a, T b, T x, const Policy& pol, bool inv, bool normalised, T* p_de
    if(p_derivative)
       *p_derivative = -1; // value not set.
 
-   if(normalised)
-   {
-      // extend to a few very special cases:
-      if((a == 0) && (b != 0))
-         return inv ? 0 : 1;
-      else if(b == 0)
-         return inv ? 1 : 0;
-   }
-
-   if(a <= 0)
-      policies::raise_domain_error<T>(function, "The argument a to the incomplete beta function must be greater than zero (got a=%1%).", a, pol);
-   if(b <= 0)
-      policies::raise_domain_error<T>(function, "The argument b to the incomplete beta function must be greater than zero (got b=%1%).", b, pol);
    if((x < 0) || (x > 1))
       policies::raise_domain_error<T>(function, "Parameter x outside the range [0,1] in the incomplete beta function (got x=%1%).", x, pol);
+
+   if(normalised)
+   {
+      if(a < 0)
+         policies::raise_domain_error<T>(function, "The argument a to the incomplete beta function must be >= zero (got a=%1%).", a, pol);
+      if(b < 0)
+         policies::raise_domain_error<T>(function, "The argument b to the incomplete beta function must be >= zero (got b=%1%).", b, pol);
+      // extend to a few very special cases:
+      if(a == 0)
+      {
+         if(b == 0)
+            policies::raise_domain_error<T>(function, "The arguments a and b to the incomplete beta function cannot both be zero, with x=%1%.", x, pol);
+         if(b > 0)
+            return inv ? 0 : 1;
+      }
+      else if(b == 0)
+      {
+         if(a > 0)
+            return inv ? 1 : 0;
+      }
+   }
+   else
+   {
+      if(a <= 0)
+         policies::raise_domain_error<T>(function, "The argument a to the incomplete beta function must be greater than zero (got a=%1%).", a, pol);
+      if(b <= 0)
+         policies::raise_domain_error<T>(function, "The argument b to the incomplete beta function must be greater than zero (got b=%1%).", b, pol);
+   }
 
    if(x == 0)
    {

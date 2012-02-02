@@ -33,6 +33,7 @@
 #include <boost/intrusive/options.hpp>
 #include <boost/intrusive/rbtree_algorithms.hpp>
 #include <boost/intrusive/link_mode.hpp>
+#include <boost/move/move.hpp>
 
 namespace boost {
 namespace intrusive {
@@ -110,10 +111,8 @@ class rbtree_impl
    typedef std::reverse_iterator<const_iterator>                     const_reverse_iterator;
    typedef typename real_value_traits::node_traits                   node_traits;
    typedef typename node_traits::node                                node;
-   typedef typename boost::pointer_to_other
-      <pointer, node>::type                                          node_ptr;
-   typedef typename boost::pointer_to_other
-      <node_ptr, const node>::type                                   const_node_ptr;
+   typedef typename node_traits::node_ptr                            node_ptr;
+   typedef typename node_traits::const_node_ptr                      const_node_ptr;
    typedef rbtree_algorithms<node_traits>                            node_algorithms;
 
    static const bool constant_time_size = Config::constant_time_size;
@@ -123,8 +122,7 @@ class rbtree_impl
    typedef detail::size_holder<constant_time_size, size_type>        size_traits;
 
    //noncopyable
-   rbtree_impl (const rbtree_impl&);
-   rbtree_impl operator =(const rbtree_impl&);
+   BOOST_MOVABLE_BUT_NOT_COPYABLE(rbtree_impl)
 
    enum { safemode_or_autounlink  = 
             (int)real_value_traits::link_mode == (int)auto_unlink   ||
@@ -152,12 +150,18 @@ class rbtree_impl
       {}
       node_plus_pred_t node_plus_pred_;
    } data_;
-  
+
    const value_compare &priv_comp() const
    {  return data_.node_plus_pred_.get();  }
 
    value_compare &priv_comp()
    {  return data_.node_plus_pred_.get();  }
+
+   const value_traits &priv_value_traits() const
+   {  return data_;  }
+
+   value_traits &priv_value_traits()
+   {  return data_;  }
 
    const node &priv_header() const
    {  return data_.node_plus_pred_.header_plus_size_.header_;  }
@@ -167,7 +171,8 @@ class rbtree_impl
 
    static node_ptr uncast(const_node_ptr ptr)
    {
-      return node_ptr(const_cast<node*>(detail::get_pointer(ptr)));
+      return node_ptr(const_cast<node*>(detail::boost_intrusive_get_pointer(ptr)));
+//iG pending return node_ptr(boost::const_pointer_cast<node>(ptr));
    }
 
    size_traits &priv_size_traits()
@@ -187,6 +192,19 @@ class rbtree_impl
 
    real_value_traits &get_real_value_traits(detail::bool_<true>)
    {  return data_.get_value_traits(*this);  }
+
+   protected:
+   value_compare &prot_comp()
+   {  return priv_comp(); }
+
+   const node &prot_header_node() const
+   {  return priv_header(); }
+
+   node &prot_header_node()
+   {  return priv_header(); }
+
+   void prot_set_size(size_type s)
+   {  this->priv_size_traits().set_size(s);  }
 
    /// @endcond
 
@@ -240,6 +258,21 @@ class rbtree_impl
       else
          this->insert_equal(b, e);
    }
+
+   //! <b>Effects</b>: to-do
+   //!   
+   rbtree_impl(BOOST_RV_REF(rbtree_impl) x)
+      : data_(::boost::move(x.priv_comp()), ::boost::move(x.priv_value_traits()))
+   {
+      node_algorithms::init_header(&priv_header());  
+      this->priv_size_traits().set_size(size_type(0));
+      this->swap(x);
+   }
+
+   //! <b>Effects</b>: to-do
+   //!   
+   rbtree_impl& operator=(BOOST_RV_REF(rbtree_impl) x) 
+   {  this->swap(x); return *this;  }
 
    //! <b>Effects</b>: Detaches all elements from this. The objects in the set 
    //!   are not deleted (i.e. no destructors are called), but the nodes according to 
@@ -465,9 +498,10 @@ class rbtree_impl
       node_ptr to_insert(get_real_value_traits().to_node_ptr(value));
       if(safemode_or_autounlink)
          BOOST_INTRUSIVE_SAFE_HOOK_DEFAULT_ASSERT(node_algorithms::unique(to_insert));
-      this->priv_size_traits().increment();
-      return iterator(node_algorithms::insert_equal_upper_bound
+      iterator ret(node_algorithms::insert_equal_upper_bound
          (node_ptr(&priv_header()), to_insert, key_node_comp), this);
+      this->priv_size_traits().increment();
+      return ret;
    }
 
    //! <b>Requires</b>: value must be an lvalue, and "hint" must be
@@ -491,9 +525,10 @@ class rbtree_impl
       node_ptr to_insert(get_real_value_traits().to_node_ptr(value));
       if(safemode_or_autounlink)
          BOOST_INTRUSIVE_SAFE_HOOK_DEFAULT_ASSERT(node_algorithms::unique(to_insert));
-      this->priv_size_traits().increment();
-      return iterator(node_algorithms::insert_equal
+      iterator ret(node_algorithms::insert_equal
          (node_ptr(&priv_header()), hint.pointed_node(), to_insert, key_node_comp), this);
+      this->priv_size_traits().increment();
+      return ret;
    }
 
    //! <b>Requires</b>: Dereferencing iterator must yield an lvalue 
@@ -698,9 +733,9 @@ class rbtree_impl
       node_ptr to_insert(get_real_value_traits().to_node_ptr(value));
       if(safemode_or_autounlink)
          BOOST_INTRUSIVE_SAFE_HOOK_DEFAULT_ASSERT(node_algorithms::unique(to_insert));
-      this->priv_size_traits().increment();
       node_algorithms::insert_unique_commit
                (node_ptr(&priv_header()), to_insert, commit_data);
+      this->priv_size_traits().increment();
       return iterator(to_insert, this);
    }
 
@@ -1271,6 +1306,8 @@ class rbtree_impl
       node_algorithms::replace_node( get_real_value_traits().to_node_ptr(*replace_this)
                                    , node_ptr(&priv_header())
                                    , get_real_value_traits().to_node_ptr(with_this));
+      if(safemode_or_autounlink)
+         node_algorithms::init(replace_this.pointed_node());
    }
 
    //! <b>Requires</b>: value must be an lvalue and shall be in a set of
@@ -1390,7 +1427,7 @@ class rbtree_impl
    static rbtree_impl &priv_container_from_end_iterator(const const_iterator &end_iterator)
    {
       header_plus_size *r = detail::parent_from_member<header_plus_size, node>
-         ( detail::get_pointer(end_iterator.pointed_node()), &header_plus_size::header_);
+         ( detail::boost_intrusive_get_pointer(end_iterator.pointed_node()), &header_plus_size::header_);
       node_plus_pred_t *n = detail::parent_from_member
          <node_plus_pred_t, header_plus_size>(r, &node_plus_pred_t::header_plus_size_);
       data_t *d = detail::parent_from_member<data_t, node_plus_pred_t>(n, &data_t::node_plus_pred_);
@@ -1596,6 +1633,7 @@ class rbtree
       Options...
       #endif
       >::type   Base;
+   BOOST_MOVABLE_BUT_NOT_COPYABLE(rbtree)
 
    public:
    typedef typename Base::value_compare      value_compare;
@@ -1618,6 +1656,13 @@ class rbtree
          , const value_traits &v_traits = value_traits())
       :  Base(unique, b, e, cmp, v_traits)
    {}
+
+   rbtree(BOOST_RV_REF(rbtree) x)
+      :  Base(::boost::move(static_cast<Base&>(x)))
+   {}
+
+   rbtree& operator=(BOOST_RV_REF(rbtree) x)
+   {  this->Base::operator=(::boost::move(static_cast<Base&>(x))); return *this;  }
 
    static rbtree &container_from_end_iterator(iterator end_iterator)
    {  return static_cast<rbtree &>(Base::container_from_end_iterator(end_iterator));   }

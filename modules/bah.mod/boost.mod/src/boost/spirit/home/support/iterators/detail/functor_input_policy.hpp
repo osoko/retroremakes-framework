@@ -1,4 +1,4 @@
-//  Copyright (c) 2001-2010 Hartmut Kaiser
+//  Copyright (c) 2001-2011 Hartmut Kaiser
 // 
 //  Distributed under the Boost Software License, Version 1.0. (See accompanying
 //  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -46,7 +46,7 @@ namespace boost { namespace spirit { namespace iterator_policies
 
             void swap(unique& x)
             {
-                spirit::detail::swap(ftor, x.ftor);
+                boost::swap(ftor, x.ftor);
             }
 
         public:
@@ -58,8 +58,8 @@ namespace boost { namespace spirit { namespace iterator_policies
 
         public:
             // get the next token
-            template <typename ValueType, typename MultiPass>
-            static ValueType const& get_input(MultiPass& mp)
+            template <typename MultiPass>
+            static typename MultiPass::reference get_input(MultiPass& mp)
             {
                 value_type& curtok = mp.shared()->curtok;
                 if (!input_is_valid(mp, curtok))
@@ -84,7 +84,7 @@ namespace boost { namespace spirit { namespace iterator_policies
             }
 
             template <typename MultiPass>
-            static bool input_is_valid(MultiPass const& mp, value_type const& t) 
+            static bool input_is_valid(MultiPass const&, value_type const& t) 
             {
                 using namespace is_valid_test_;
                 return token_is_valid(t);
@@ -103,9 +103,9 @@ namespace boost { namespace spirit { namespace iterator_policies
         template <typename Functor>
         struct shared
         {
-            explicit shared(Functor const& x) : curtok(0) {}
+            explicit shared(Functor const&) : curtok(0) {}
 
-            result_type curtok;
+            typename Functor::result_type curtok;
         };
     };
 

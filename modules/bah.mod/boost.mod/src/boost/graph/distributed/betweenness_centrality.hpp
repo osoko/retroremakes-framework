@@ -20,6 +20,7 @@
 #include <boost/graph/distributed/concepts.hpp>
 #include <boost/graph/graph_traits.hpp>
 #include <boost/config.hpp>
+#include <boost/assert.hpp>
 
 // For additive_reducer
 #include <boost/graph/distributed/distributed_graph_utility.hpp>
@@ -929,7 +930,7 @@ namespace boost {
         for (incoming_iterator vw = el.begin(); vw != el.end(); ++vw) {
           vertex_descriptor v = *vw;
 
-          assert(get(path_count, w) != 0);
+          BOOST_ASSERT(get(path_count, w) != 0);
 
           dependency_type factor = dependency_type(get(path_count, v))
             / dependency_type(get(path_count, w));
@@ -1701,7 +1702,7 @@ central_point_dominance(const Graph& g, CentralityMap centrality
   // Find max centrality
   centrality_type max_centrality(0);
   vertex_iterator v, v_end;
-  for (tie(v, v_end) = vertices(g); v != v_end; ++v) {
+  for (boost::tie(v, v_end) = vertices(g); v != v_end; ++v) {
     max_centrality = (max)(max_centrality, get(centrality, *v));
   }
 
@@ -1710,7 +1711,7 @@ central_point_dominance(const Graph& g, CentralityMap centrality
 
   // Compute central point dominance
   centrality_type sum(0);
-  for (tie(v, v_end) = vertices(g); v != v_end; ++v) {
+  for (boost::tie(v, v_end) = vertices(g); v != v_end; ++v) {
     sum += (max_centrality - get(centrality, *v));
   }
 
