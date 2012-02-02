@@ -8,82 +8,71 @@ our $binPath;
 our $modulePath;
 our $showUsage;
 
-
-
-sub compileAndRunTests
-{
+sub compileAndRunTests {
 	my ($module) = @_;
-	
+
 	my $testsDirectory = "$modulePath/$module/Tests";
-	
+
 	# Check that the module actually has some tests
-	if (-e "$testsDirectory/Main.bmx")
-	{
+	if ( -e "$testsDirectory/Main.bmx" ) {
 		my $prefix = "test-$module";
+
+		print "Building and running single-threaded tests for module: $module\n";
+
+		# Build/run unit tests in single-threaded mode
+		runCommand("$binPath/bmk makeapp -t console -o $testsDirectory/$prefix.debug.exe $testsDirectory/Main.bmx");
+		runCommand("$testsDirectory/$prefix.debug.exe");
+
+		print "\nBuilding and running multi-threaded tests for module: $module\n";
+
+		# Build/run unit tests in multi-threaded mode		
+		runCommand("$binPath/bmk makeapp -h -t console -o $testsDirectory/$prefix.mt.debug.exe $testsDirectory/Main.bmx");
+		runCommand("$testsDirectory/$prefix.mt.debug.exe");
 		
-		print "Building and running tests for module: $module\n";
-		
-		runCommand ("$binPath/bmk makeapp -t console -o $testsDirectory/$prefix.debug.exe $testsDirectory/Main.bmx");
-		runCommand ("$testsDirectory/$prefix.debug.exe");
 		print "\n";
 	}
-	else
-	{
+	else {
 		print "No tests defined for module: $module\n";
 	}
 }
 
-
-
-sub findAllModules
-{
+sub findAllModules {
 	my ($modulePath) = @_;
-	
+
 	my @modules = ();
-	
-	if (-d $modulePath)
-	{
-		opendir (my $dir, $modulePath) or die ("Cannot open directory: $modulePath");
-		
-		my @allFiles = readdir ($dir);
-		
-		closedir ($dir);
-		
-		foreach my $testFile (@allFiles)
-		{
-			unless (($testFile eq '.') || ($testFile eq '..'))
-			{
-				if (-d "$modulePath/$testFile")
-				{
+
+	if ( -d $modulePath ) {
+		opendir( my $dir, $modulePath ) or die("Cannot open directory: $modulePath");
+
+		my @allFiles = readdir($dir);
+
+		closedir($dir);
+
+		foreach my $testFile (@allFiles) {
+			unless ( ( $testFile eq '.' ) || ( $testFile eq '..' ) ) {
+				if ( -d "$modulePath/$testFile" ) {
 					push @modules, $testFile;
 				}
 			}
 		}
-	} 
-	
+	}
+
 	return @modules;
 }
 
-
-
-sub runCommand
-{
+sub runCommand {
 	my ($cmd) = @_;
 
-	my $returnCode = system ($cmd);
-	
-	if ($returnCode)
-	{
+	my $returnCode = system($cmd);
+
+	if ($returnCode) {
 		$returnCode = $returnCode >> 8;
 		print "$cmd exited with code: $returnCode\n";
 		exit $returnCode;
 	}
 }
 
-
-
-sub showUsage
-{
+sub showUsage {
 	print <<EOF;
 	
     build-and-test: RetroRemakes Framework Build/Test Tool
@@ -109,53 +98,49 @@ sub showUsage
 
 EOF
 
-   exit 1
+	exit 1;
 }
 
-
-
-if (@ARGV > 0)
-{
-    GetOptions ('blitzmax=s' => \$blitzmaxPath,
-    			'help|?|usage' => \$showUsage);
+if ( @ARGV > 0 ) {
+	GetOptions(
+		'blitzmax=s'   => \$blitzmaxPath,
+		'help|?|usage' => \$showUsage
+	);
 }
 
-unless ($blitzmaxPath)
-{
+unless ($blitzmaxPath) {
 	$blitzmaxPath = $ENV{BLITZMAX};
 }
 
-if ($showUsage)
-{
+if ($showUsage) {
 	showUsage();
 }
-	
-if (-d $blitzmaxPath)
-{
-	$binPath = $blitzmaxPath . "/bin";
-	$modulePath = $blitzmaxPath . "/mod/retroremakes.mod";
-	
-	print "Using BlitzMax directory: $blitzmaxPath\n";
-    
-	print "\nBuilding modules...\n\n";
-    
-	# Build single-threaded debug and release versions of the modules
-	runCommand ("$binPath/bmk makemods retroremakes");
-    
-    print "\nBuilding and running all tests...\n\n";
 
-	my @modules = findAllModules ($modulePath);
-    
-	foreach my $module (@modules)
-	{
-		compileAndRunTests ($module);
+if ( -d $blitzmaxPath ) {
+	$binPath    = $blitzmaxPath . "/bin";
+	$modulePath = $blitzmaxPath . "/mod/retroremakes.mod";
+
+	print "Using BlitzMax directory: $blitzmaxPath\n";
+	print "\nBuilding modules...\n\n";
+
+	# Build single-threaded debug and release versions of the modules
+	runCommand("$binPath/bmk makemods retroremakes");
+
+	# Now build mutli-threaded versions
+	runCommand("$binPath/bmk makemods -h retroremakes");
+
+	print "\nBuilding and running all tests...\n\n";
+
+	my @modules = findAllModules($modulePath);
+
+	foreach my $module (@modules) {
+		compileAndRunTests($module);
 	}
 
 	print "\nAll tests ran successfully.\n";
-	exit 0
+	exit 0;
 }
-else
-{
+else {
 	print "BlitzMax path not specified and BLITZMAX environemnt variable not set.\n";
 	showUsage();
 }
