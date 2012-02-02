@@ -1,4 +1,4 @@
-' Copyright (c) 2006-2009 Bruce A Henderson
+' Copyright (c) 2006-2011 Bruce A Henderson
 ' 
 ' Permission is hereby granted, free of charge, to any person obtaining a copy
 ' of this software and associated documentation files (the "Software"), to deal
@@ -25,16 +25,22 @@ bbdoc: Volumes
 End Rem
 Module BaH.Volumes
 
-ModuleInfo "Version: 1.06"
+ModuleInfo "Version: 1.08"
 ModuleInfo "License: MIT"
 ModuleInfo "Author: Bruce A Henderson"
-ModuleInfo "Copyright: (c) 2006-2009 Bruce A Henderson"
-ModuleInfo "Modserver: BRL"
+ModuleInfo "Copyright: (c) 2006-2011 Bruce A Henderson"
 
+ModuleInfo "History: 1.08"
+ModuleInfo "History: Added support for FOLDERID paths for Win32. Automatically maps CSIDL to FOLDERID."
+ModuleInfo "History: 1.07"
+ModuleInfo "History: Added support for all native CSIDL paths on Win32 using GetCustomDir."
+ModuleInfo "History: Added support for 'k' paths on Mac using GetCustomDir."
+ModuleInfo "History: Updated documentation."
 ModuleInfo "History: 1.06"
 ModuleInfo "History: Improved unicode support."
-ModuleInfo "History: Added custom dir access for Pictures, Movies and Music - Win32 and Mac."
+ModuleInfo "History: Added custom dir access for Pictures, Movies and Music."
 ModuleInfo "History: Added Win32 volume search code. (Artemis)"
+ModuleInfo "History: Fixed Linux folder localisation (xdg-user-dirs)."
 ModuleInfo "History: 1.05"
 ModuleInfo "History: Added GetCustomDir function."
 ModuleInfo "History: 1.04"
