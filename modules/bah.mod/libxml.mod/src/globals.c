@@ -46,7 +46,8 @@ static xmlMutexPtr xmlThrDefMutex = NULL;
  */
 void xmlInitGlobals(void)
 {
-    xmlThrDefMutex = xmlNewMutex();
+    if (xmlThrDefMutex == NULL)
+        xmlThrDefMutex = xmlNewMutex();
 }
 
 /**
@@ -60,6 +61,7 @@ void xmlCleanupGlobals(void)
 	xmlFreeMutex(xmlThrDefMutex);
 	xmlThrDefMutex = NULL;
     }
+    __xmlGlobalInitMutexDestroy();
 }
 
 /************************************************************************
@@ -147,6 +149,7 @@ xmlStrdupFunc xmlMemStrdup = (xmlStrdupFunc) xmlStrdup;
 #undef	xmlGenericError
 #undef	xmlStructuredError
 #undef	xmlGenericErrorContext
+#undef	xmlStructuredErrorContext
 #undef	xmlGetWarningsDefaultValue
 #undef	xmlIndentTreeOutput
 #undef  xmlTreeIndentString
@@ -160,7 +163,7 @@ xmlStrdupFunc xmlMemStrdup = (xmlStrdupFunc) xmlStrdup;
 #undef	xmlSubstituteEntitiesDefaultValue
 #undef	xmlRegisterNodeDefaultValue
 #undef	xmlDeregisterNodeDefaultValue
-#undef	xmlLastError1
+#undef	xmlLastError
 
 #undef  xmlParserInputBufferCreateFilenameValue
 #undef  xmlOutputBufferCreateFilenameValue
@@ -313,7 +316,14 @@ static xmlStructuredErrorFunc xmlStructuredErrorThrDef = NULL;
  */
 void *xmlGenericErrorContext = NULL;
 static void *xmlGenericErrorContextThrDef = NULL;
-xmlError xmlLastError1;
+/**
+ * xmlStructuredErrorContext:
+ *
+ * Global setting passed to structured error callbacks
+ */
+void *xmlStructuredErrorContext = NULL;
+static void *xmlStructuredErrorContextThrDef = NULL;
+xmlError xmlLastError;
 
 /*
  * output defaults
@@ -544,12 +554,13 @@ xmlInitializeGlobalState(xmlGlobalStatePtr gs)
     gs->xmlGenericError = xmlGenericErrorThrDef;
     gs->xmlStructuredError = xmlStructuredErrorThrDef;
     gs->xmlGenericErrorContext = xmlGenericErrorContextThrDef;
+    gs->xmlStructuredErrorContext = xmlStructuredErrorContextThrDef;
     gs->xmlRegisterNodeDefaultValue = xmlRegisterNodeDefaultValueThrDef;
     gs->xmlDeregisterNodeDefaultValue = xmlDeregisterNodeDefaultValueThrDef;
 
 	gs->xmlParserInputBufferCreateFilenameValue = xmlParserInputBufferCreateFilenameValueThrDef;
 	gs->xmlOutputBufferCreateFilenameValue = xmlOutputBufferCreateFilenameValueThrDef;
-    memset(&gs->xmlLastError1, 0, sizeof(xmlError));
+    memset(&gs->xmlLastError, 0, sizeof(xmlError));
 
     xmlMutexUnlock(xmlThrDefMutex);
 }
@@ -572,7 +583,7 @@ xmlThrDefSetGenericErrorFunc(void *ctx, xmlGenericErrorFunc handler) {
 void
 xmlThrDefSetStructuredErrorFunc(void *ctx, xmlStructuredErrorFunc handler) {
     xmlMutexLock(xmlThrDefMutex);
-    xmlGenericErrorContextThrDef = ctx;
+    xmlStructuredErrorContextThrDef = ctx;
     xmlStructuredErrorThrDef = handler;
     xmlMutexUnlock(xmlThrDefMutex);
 }
@@ -700,13 +711,13 @@ __htmlDefaultSAXHandler(void) {
 }
 #endif
 
-#undef xmlLastError1
+#undef xmlLastError
 xmlError *
-__xmlLastError1(void) {
+__xmlLastError(void) {
     if (IS_MAIN_THREAD)
-	return (&xmlLastError1);
+	return (&xmlLastError);
     else
-	return (&xmlGetGlobalState()->xmlLastError1);
+	return (&xmlGetGlobalState()->xmlLastError);
 }
 
 /*
@@ -875,6 +886,15 @@ __xmlGenericErrorContext(void) {
 	return (&xmlGetGlobalState()->xmlGenericErrorContext);
 }
 
+#undef	xmlStructuredErrorContext
+void * *
+__xmlStructuredErrorContext(void) {
+    if (IS_MAIN_THREAD)
+	return (&xmlStructuredErrorContext);
+    else
+	return (&xmlGetGlobalState()->xmlStructuredErrorContext);
+}
+
 #undef	xmlGetWarningsDefaultValue
 int *
 __xmlGetWarningsDefaultValue(void) {
@@ -909,7 +929,7 @@ int xmlThrDefIndentTreeOutput(int v) {
     return ret;
 }
 
-#undef xmlTreeIndentString
+#undef	xmlTreeIndentString
 const char * *
 __xmlTreeIndentString(void) {
     if (IS_MAIN_THREAD)

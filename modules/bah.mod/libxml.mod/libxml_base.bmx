@@ -1,4 +1,4 @@
-' Copyright (c) 2006-2008 Bruce A Henderson
+' Copyright (c) 2006-2010 Bruce A Henderson
 ' 
 ' Permission is hereby granted, free of charge, to any person obtaining a copy
 ' of this software and associated documentation files (the "Software"), to deal
@@ -22,68 +22,59 @@ SuperStrict
 
 Import Pub.zlib
 Import BRL.LinkedList
+Import BRL.Stream
 
 Import "../../pub.mod/zlib.mod/*.h"
 
 Import "src/libxml/*.h"
 Import "src/*.h"
 
-Import "src/SAX.c"
-Import "src/entities.c"
+Import "src/c14n.c"
+Import "src/xpointer.c"
+Import "src/catalog.c"
+Import "src/chvalid.c"
+Import "src/debugXML.c"
+Import "src/dict.c"
+'Import "src/DOCBparser.c"
 Import "src/encoding.c"
+Import "src/entities.c"
 Import "src/error.c"
-Import "src/parserInternals.c"
-Import "src/parser.c"
-Import "src/tree.c"
+Import "src/globals.c"
 Import "src/hash.c"
-Import "src/list.c"
-Import "src/xmlIO.c"
-Import "src/xmlmemory.c"
-Import "src/uri.c"
-Import "src/valid.c"
-Import "src/xlink.c"
 Import "src/HTMLparser.c"
 Import "src/HTMLtree.c"
-Import "src/debugXML.c"
-Import "src/xpath.c"
-Import "src/xpointer.c"
-Import "src/xinclude.c"
-Import "src/nanohttp.c"
+Import "src/legacy.c"
+Import "src/list.c"
 Import "src/nanoftp.c"
-'Import "src/DOCBparser.c"
-Import "src/catalog.c"
-Import "src/globals.c"
+Import "src/nanohttp.c"
+Import "src/parser.c"
+Import "src/parserInternals.c"
+Import "src/pattern.c"
+Import "src/relaxng.c"
+Import "src/SAX.c"
+Import "src/SAX2.c"
+Import "src/schematron.c"
 Import "src/threads.c"
-Import "src/c14n.c"
-Import "src/xmlstring.c"
+Import "src/tree.c"
+Import "src/uri.c"
+Import "src/valid.c"
+Import "src/xinclude.c"
+Import "src/xlink.c"
+'Import "src/xmlcatalog.c" ' is an app
+Import "src/xmlIO.c"
+'Import "src/xmllint.c" ' is an app
+Import "src/xmlmemory.c"
+Import "src/xmlmodule.c"
+Import "src/xmlreader.c"
 Import "src/xmlregexp.c"
+Import "src/xmlsave.c"
 Import "src/xmlschemas.c"
 Import "src/xmlschemastypes.c"
+Import "src/xmlstring.c"
 Import "src/xmlunicode.c"
-Import "src/xmlreader.c"
-Import "src/relaxng.c"
-Import "src/dict.c"
-Import "src/SAX2.c"
 Import "src/xmlwriter.c"
-Import "src/legacy.c"
-Import "src/chvalid.c"
-Import "src/pattern.c"
-Import "src/xmlsave.c"
-Import "src/schematron.c"
+Import "src/xpath.c"
 
-' NOTES :
-' Issue - Cannot use unless DEBUG is enabled... otherwise lots of memory errors.
-' However, we disable the debug output.
-' Seems that memory stuff works properly when DEBUG flag is set.
-'
-' xmlmemory.h has :
-' #define DEBUG 1
-'
-' xmlmemory.c has xmlGenericError within DEBUG_MEMORY sections commented out.
-
-' errror.c - changed xmllasterror to xmllasterror1
-' globals.c - changed xmllasterror to xmllasterror1
-' globals.h - changed xmllasterror to xmllasterror1
 
 Extern
 	Function _strlen:Int(s:Byte Ptr) = "strlen"
@@ -110,8 +101,12 @@ Extern
 	Function xmlCreateIntSubset:Byte Ptr(doc:Byte Ptr, name:Byte Ptr, externalID:Byte Ptr, systemID:Byte Ptr)
 	Function xmlCopyDoc:Byte Ptr(doc:Byte Ptr, recursive:Int)
 	Function xmlGetIntSubset:Byte Ptr(doc:Byte Ptr)
+	Function xmlReadFile:Byte Ptr(filename:Byte Ptr, encoding:Byte Ptr, options:Int)
+	Function xmlReadMemory:Byte Ptr(buf:Byte Ptr, size:Int, url:Byte Ptr, encoding:Byte Ptr, options:Int)
+	Function xmlReadDoc:Byte Ptr(text:Byte Ptr, url:Byte Ptr, encoding:Byte Ptr, options:Int)
+	Function xmlReadIO:Byte Ptr(readCallback:Int(context:Object, buf:Byte Ptr, length:Int), closeCallback:Int(context:Object), context:Object, url:Byte Ptr, encoding:Byte Ptr, options:Int)
 	
-	Function xmlSetDocCompressMode(doc:Byte Ptr, mode:Int)
+	Function xmlSetDocCompressMode(doc:Byte Ptr, Mode:Int)
 	Function xmlGetDocCompressMode:Int(doc:Byte Ptr)
 	
 	Function xmlNewNode:Byte Ptr(ns:Byte Ptr, name:Byte Ptr)
@@ -387,7 +382,8 @@ Extern
 	
 	Function xmlOutputBufferCreateBuffer:Byte Ptr(buffer:Byte Ptr, encoder:Byte Ptr)
 	Function xmlSaveFormatFileTo:Int(outputBuffer:Byte Ptr, doc:Byte Ptr, encoder:Byte Ptr, format:Int)
-
+	Function xmlOutputBufferCreateIO:Byte Ptr(writeCallback:Int(context:TStream, buffer:Byte Ptr, length:Int), ..
+		closeCallback:Int(context:TStream), context:TStream, encoder:Byte Ptr)
 End Extern
 
 Const XML_SGML_DEFAULT_CATALOG:String = "file:///etc/sgml/catalog"
@@ -410,6 +406,10 @@ Const XML_PARSE_NSCLEAN:Int = 8192
 Const XML_PARSE_NOCDATA:Int = 16384
 Const XML_PARSE_NOXINCNODE:Int = 32768
 Const XML_PARSE_COMPACT:Int = 65536
+Const XML_PARSE_OLD10:Int = 1 Shl 17
+Const XML_PARSE_NOBASEFIX:Int = 1 Shl 18
+Const XML_PARSE_HUGE:Int = 1 Shl 19
+Const XML_PARSE_OLDSAX:Int = 1 Shl 20
 
 ' attribute default
 Const XML_ATTRIBUTE_NONE:Int = 1
@@ -577,3 +577,36 @@ Const XML_ERR_NONE:Int = 0
 Const XML_ERR_WARNING:Int = 1
 Const XML_ERR_ERROR:Int = 2
 Const XML_ERR_FATAL:Int = 3
+
+' BOM - UTF-8
+Const BOM_UTF8:String = Chr(239) + Chr(187) + Chr(191)
+
+
+Type TxmlOutputStreamHandler
+
+	Global stream:TStream
+	Global autoClose:Int
+	
+	Function writeCallback:Int(context:TStream, buffer:Byte Ptr, length:Int)
+		If Not stream Then
+			Return -1
+		End If
+	
+		Local count:Int = stream.WriteBytes(buffer, length)
+	End Function
+
+	Function closeCallback:Int(context:TStream)
+		If Not stream Then
+			Return -1
+		End If
+		
+		If autoClose Then
+			stream.Close()
+		End If
+		
+		stream = Null
+		Return 0
+	End Function
+
+
+End Type
