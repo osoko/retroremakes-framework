@@ -1,4 +1,4 @@
-' Copyright (c) 2007-2009 Bruce A Henderson
+' Copyright (c) 2007-2011 Bruce A Henderson
 ' 
 ' Permission is hereby granted, free of charge, to any person obtaining a copy
 ' of this software and associated documentation files (the "Software"), to deal
@@ -21,9 +21,11 @@
 SuperStrict
 
 Import brl.LinkedList
+Import BRL.Blitz
 Import Pub.Stdc
 
 Import "main.bmx"
+Import "linuxglue.c"
 
 Extern
 	Function _setmntent:Int(filename:Byte Ptr, _type:Byte Ptr) = "setmntent"
@@ -33,6 +35,8 @@ Extern
 	
 	Function _getuid:Int() = "getuid"
 	Function _getpwuid:Byte Ptr(uid:Int) = "getpwuid"
+	
+	Function bmx_userdirlookup:String(dirType:String)
 End Extern
 
 Type Tmntent
@@ -215,7 +219,7 @@ Type TLinuxVolume Extends TVolume
 	End Method
 	
 	Method GetUserDesktopDir:String()
-		Return getHome() + "/Desktop"
+		Return bmx_userdirlookup("DESKTOP")
 	End Method
 	
 	Method GetUserAppDir:String()
@@ -223,11 +227,22 @@ Type TLinuxVolume Extends TVolume
 	End Method
 	
 	Method GetUserDocumentsDir:String()
-		Return getHome() + "/Documents"
+		Return bmx_userdirlookup("DOCUMENTS")
 	End Method
 
-	Method GetCustomDir:String(dirType:Int)
-		Return Null
+	Method GetCustomDir:String(dirType:Int, flags:Int = 0)
+
+		Select dirType
+			Case DT_SHAREDUSERDATA
+				Return bmx_userdirlookup("PUBLICSHARE")
+			Case DT_USERPICTURES
+				Return bmx_userdirlookup("PICTURES")
+			Case DT_USERMUSIC
+				Return bmx_userdirlookup("MUSIC")
+			Case DT_USERMOVIES
+				Return bmx_userdirlookup("VIDEOS")
+		End Select
+
 	End Method
 
 End Type
