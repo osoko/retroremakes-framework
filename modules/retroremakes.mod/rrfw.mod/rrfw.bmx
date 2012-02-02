@@ -30,11 +30,6 @@ Import brl.freetypefont
 Import brl.pngloader
 Import brl.timer
 
-Import gman.zipengine
-
-Import koriolis.bufferedstream
-Import koriolis.zipstream
-
 Import muttley.inifilehandler
 Import muttley.logger
 Import muttley.stack
