@@ -1414,7 +1414,7 @@ xmlCleanupCharEncodingHandlers(void) {
 void
 xmlRegisterCharEncodingHandler(xmlCharEncodingHandlerPtr handler) {
     if (handlers == NULL) xmlInitCharEncodingHandlers();
-    if (handler == NULL) {
+    if ((handler == NULL) || (handlers == NULL)) {
         xmlEncodingErr(XML_I18N_NO_HANDLER,
 		"xmlRegisterCharEncodingHandler: NULL handler !\n", NULL);
 	return;
@@ -1457,6 +1457,8 @@ xmlGetCharEncodingHandler(xmlCharEncoding enc) {
             handler = xmlFindCharEncodingHandler("EBCDIC");
             if (handler != NULL) return(handler);
             handler = xmlFindCharEncodingHandler("ebcdic");
+            if (handler != NULL) return(handler);
+            handler = xmlFindCharEncodingHandler("EBCDIC-US");
             if (handler != NULL) return(handler);
 	    break;
         case XML_CHAR_ENCODING_UCS4BE:
@@ -1600,14 +1602,17 @@ xmlFindCharEncodingHandler(const char *name) {
     }
     upper[i] = 0;
 
-    for (i = 0;i < nbCharEncodingHandler; i++)
-        if (!strcmp(upper, handlers[i]->name)) {
+    if (handlers != NULL) {
+        for (i = 0;i < nbCharEncodingHandler; i++) {
+            if (!strcmp(upper, handlers[i]->name)) {
 #ifdef DEBUG_ENCODING
-            xmlGenericError(xmlGenericErrorContext,
-		    "Found registered handler for encoding %s\n", name);
+                xmlGenericError(xmlGenericErrorContext,
+                        "Found registered handler for encoding %s\n", name);
 #endif
-	    return(handlers[i]);
-	}
+                return(handlers[i]);
+            }
+        }
+    }
 
 #ifdef LIBXML_ICONV_ENABLED
     /* check whether iconv can handle this */
@@ -1703,7 +1708,7 @@ xmlIconvWrapper(iconv_t cd, unsigned char *out, int *outlen,
     }
     icv_inlen = *inlen;
     icv_outlen = *outlen;
-    ret = iconv(cd, (char **) &icv_in, &icv_inlen, &icv_out, &icv_outlen);
+    ret = iconv(cd, (ICONV_CONST char **) &icv_in, &icv_inlen, &icv_out, &icv_outlen);
     *inlen -= icv_inlen;
     *outlen -= icv_outlen;
     if ((icv_inlen != 0) || (ret == -1)) {
@@ -1735,24 +1740,28 @@ xmlIconvWrapper(iconv_t cd, unsigned char *out, int *outlen,
  *		The real API used by libxml for on-the-fly conversion	*
  *									*
  ************************************************************************/
+int
+xmlCharEncFirstLineInt(xmlCharEncodingHandler *handler, xmlBufferPtr out,
+                       xmlBufferPtr in, int len);
 
 /**
- * xmlCharEncFirstLine:
+ * xmlCharEncFirstLineInt:
  * @handler:	char enconding transformation data structure
  * @out:  an xmlBuffer for the output.
  * @in:  an xmlBuffer for the input
- *     
+ * @len:  number of bytes to convert for the first line, or -1
+ *
  * Front-end for the encoding handler input function, but handle only
  * the very first line, i.e. limit itself to 45 chars.
- *     
- * Returns the number of byte written if success, or 
+ *
+ * Returns the number of byte written if success, or
  *     -1 general error
  *     -2 if the transcoding fails (for *in is not valid utf8 string or
  *        the result of transformation can't fit into the encoding we want), or
  */
 int
-xmlCharEncFirstLine(xmlCharEncodingHandler *handler, xmlBufferPtr out,
-                 xmlBufferPtr in) {
+xmlCharEncFirstLineInt(xmlCharEncodingHandler *handler, xmlBufferPtr out,
+                       xmlBufferPtr in, int len) {
     int ret = -2;
     int written;
     int toconv;
@@ -1761,19 +1770,28 @@ xmlCharEncFirstLine(xmlCharEncodingHandler *handler, xmlBufferPtr out,
     if (out == NULL) return(-1);
     if (in == NULL) return(-1);
 
+    /* calculate space available */
     written = out->size - out->use;
     toconv = in->use;
-    if (toconv * 2 >= written) {
-        xmlBufferGrow(out, toconv);
-	written = out->size - out->use - 1;
-    }
-
     /*
      * echo '<?xml version="1.0" encoding="UCS4"?>' | wc -c => 38
      * 45 chars should be sufficient to reach the end of the encoding
      * declaration without going too far inside the document content.
+     * on UTF-16 this means 90bytes, on UCS4 this means 180
+     * The actual value depending on guessed encoding is passed as @len
+     * if provided
      */
-    written = 45;
+    if (len >= 0) {
+        if (toconv > len)
+            toconv = len;
+    } else {
+        if (toconv > 180)
+            toconv = 180;
+    }
+    if (toconv * 2 >= written) {
+        xmlBufferGrow(out, toconv);
+	written = out->size - out->use - 1;
+    }
 
     if (handler->input != NULL) {
 	ret = handler->input(&out->content[out->use], &written,
@@ -1824,14 +1842,34 @@ xmlCharEncFirstLine(xmlCharEncodingHandler *handler, xmlBufferPtr out,
 }
 
 /**
+ * xmlCharEncFirstLine:
+ * @handler:	char enconding transformation data structure
+ * @out:  an xmlBuffer for the output.
+ * @in:  an xmlBuffer for the input
+ *
+ * Front-end for the encoding handler input function, but handle only
+ * the very first line, i.e. limit itself to 45 chars.
+ *
+ * Returns the number of byte written if success, or
+ *     -1 general error
+ *     -2 if the transcoding fails (for *in is not valid utf8 string or
+ *        the result of transformation can't fit into the encoding we want), or
+ */
+int
+xmlCharEncFirstLine(xmlCharEncodingHandler *handler, xmlBufferPtr out,
+                 xmlBufferPtr in) {
+    return(xmlCharEncFirstLineInt(handler, out, in, -1));
+}
+
+/**
  * xmlCharEncInFunc:
  * @handler:	char encoding transformation data structure
  * @out:  an xmlBuffer for the output.
  * @in:  an xmlBuffer for the input
- *     
+ *
  * Generic front-end for the encoding handler input function
- *     
- * Returns the number of byte written if success, or 
+ *
+ * Returns the number of byte written if success, or
  *     -1 general error
  *     -2 if the transcoding fails (for *in is not valid utf8 string or
  *        the result of transformation can't fit into the encoding we want), or
@@ -1990,16 +2028,18 @@ retry:
     toconv = in->use;
     if (toconv == 0)
 	return(0);
-    if (toconv * 2 >= written) {
-        xmlBufferGrow(out, toconv * 2);
+    if (toconv * 4 >= written) {
+        xmlBufferGrow(out, toconv * 4);
 	written = out->size - out->use - 1;
     }
     if (handler->output != NULL) {
 	ret = handler->output(&out->content[out->use], &written,
 	                      in->content, &toconv);
-	xmlBufferShrink(in, toconv);
-	out->use += written;
-	writtentot += written;
+	if (written > 0) {
+	    xmlBufferShrink(in, toconv);
+	    out->use += written;
+	    writtentot += written;
+	} 
 	out->content[out->use] = 0;
     }
 #ifdef LIBXML_ICONV_ENABLED

@@ -1,4 +1,4 @@
-' Copyright (c) 2006-2008 Bruce A Henderson
+' Copyright (c) 2006-2010 Bruce A Henderson
 ' 
 ' Permission is hereby granted, free of charge, to any person obtaining a copy
 ' of this software and associated documentation files (the "Software"), to deal
@@ -25,12 +25,26 @@ bbdoc: Libxml
 End Rem
 Module BaH.LibXml
 
-ModuleInfo "Version: 1.13"
+ModuleInfo "Version: 1.16"
 ModuleInfo "License: MIT"
-ModuleInfo "Copyright: (libxml2) 1998-2007 Daniel Veillard"
-ModuleInfo "Copyright: (wrapper) 2006-2008 Bruce A Henderson"
+ModuleInfo "Copyright: (libxml2) 1998-2009 Daniel Veillard"
+ModuleInfo "Copyright: (wrapper) 2006-2010 Bruce A Henderson"
 ModuleInfo "Modserver: BRL"
 
+ModuleInfo "History: 1.16"
+ModuleInfo "History: Updated to Libxml 2.7.7."
+ModuleInfo "History: 1.15"
+ModuleInfo "History: Updated to Libxml 2.7.6."
+ModuleInfo "History: Added missing xmlParserOptions."
+ModuleInfo "History: Added TxmlDoc readFile() and readDoc() functions."
+ModuleInfo "History: 1.14"
+ModuleInfo "History: Updated to Libxml 2.7.4."
+ModuleInfo "History: Fixed TxmlTextReader cleaning up string before it had finished using it."
+ModuleInfo "History: Added xmlParserMaxDepth global variable."
+ModuleInfo "History: Added utf-8 BOM detection/strip for doc string parsing."
+ModuleInfo "History: Fixed Win32 saving issue when compression was set."
+ModuleInfo "History: Added TStream support to saveFile() and saveFormatFile()."
+ModuleInfo "History: Removed some source files which were not part of the library."
 ModuleInfo "History: 1.13"
 ModuleInfo "History: Fixed getLineNumber() returning wrong type."
 ModuleInfo "History: Added TxmlDoc ToString() and ToStringFormat() methods."
@@ -96,6 +110,14 @@ ModuleInfo "History: 1.00 Initial Release (Libxml 2.6.23)"
 
 Import "libxml_base.bmx"
 
+'
+' Build Notes :
+'
+' config.h : customized for multi-platform builds.
+'
+' xmlversion.h : disable LIBXML_ICONV_ENABLED, LIBXML_THREAD_ENABLED and LIBXML_MODULES_ENABLED.
+'
+
 Extern
 	Rem
 	bbdoc: Global setting, asking the parser to print out debugging informations while handling entities.
@@ -139,6 +161,12 @@ Extern
 	Disabled by default.
 	End Rem
 	Global xmlSaveNoEmptyTags:Int
+
+	Rem
+	bbdoc: Arbitrary depth limit for the XML documents that we allow to process.
+	about: This is not a limitation of the parser but a safety boundary feature. 
+	End Rem
+	Global xmlParserMaxDepth:Int
 
 End Extern
 
@@ -538,6 +566,8 @@ Type TxmlDoc Extends TxmlBase
 
 	' reference to the actual document
 	Field _xmlDocPtr:Byte Ptr
+	
+	Field _readStream:TStream
 
 	Rem
 	bbdoc: Creates a new XML document.
@@ -606,6 +636,11 @@ Type TxmlDoc Extends TxmlBase
 	End Rem
 	Function parseDoc:TxmlDoc(text:String)
 		Assert text, XML_ERROR_PARAM
+
+		' strip utf8 BOM		
+		If text[..3] = BOM_UTF8 Then
+			text = text[3..]
+		End If
 		
 		Local cStr:Byte Ptr = _xmlConvertMaxToUTF8(text).toCString()
 		Local _xmlDocPtr:Byte Ptr = xmlParseDoc(cStr)
@@ -617,6 +652,236 @@ Type TxmlDoc Extends TxmlBase
 			Return TxmlDoc._create(_xmlDocPtr)
 		End If
 		
+	End Function
+	
+	Rem
+	bbdoc: Parse an XML file from the filesystem or the network.
+	returns: The resulting document tree.
+	about: The parsing flags @options are a combination of the following:
+	<table>
+	<tr><th>Constant</th><th>Meaning</th></tr>
+	<tr><td>XML_PARSE_RECOVER</td><td>recover on errors</td></tr>
+	<tr><td>XML_PARSE_NOENT</td><td>substitute entities</td></tr>
+	<tr><td>XML_PARSE_DTDLOAD</td><td>load the external subset</td></tr>
+	<tr><td>XML_PARSE_DTDATTR</td><td>default DTD attributes</td></tr>
+	<tr><td>XML_PARSE_DTDVALID</td><td>validate with the DTD</td></tr>
+	<tr><td>XML_PARSE_NOERROR</td><td>suppress error reports</td></tr>
+	<tr><td>XML_PARSE_NOWARNING</td><td>suppress warning reports</td></tr>
+	<tr><td>XML_PARSE_PEDANTIC</td><td>pedantic error reporting</td></tr>
+	<tr><td>XML_PARSE_NOBLANKS</td><td>remove blank nodes</td></tr>
+	<tr><td>XML_PARSE_SAX1</td><td>use the SAX1 interface internally</td></tr>
+	<tr><td>XML_PARSE_XINCLUDE</td><td>Implement XInclude substitition</td></tr>
+	<tr><td>XML_PARSE_NONET</td><td>Forbid network access</td></tr>
+	<tr><td>XML_PARSE_NODICT</td><td>Do not reuse the context dictionnary</td></tr>
+	<tr><td>XML_PARSE_NSCLEAN</td><td>remove redundant namespaces declarations</td></tr>
+	<tr><td>XML_PARSE_NOCDATA</td><td>merge CDATA as text nodes</td></tr>
+	<tr><td>XML_PARSE_NOXINCNODE</td><td>do not generate XINCLUDE START/END nodes</td></tr>
+	<tr><td>XML_PARSE_COMPACT</td><td>compact small text nodes. no modification of the tree allowed
+	afterwards (will possibly crash if you try to modify the tree)</td></tr>
+	<tr><td>XML_PARSE_OLD10</td><td>parse using XML-1.0 before update 5</td></tr>
+	<tr><td>XML_PARSE_NOBASEFIX</td><td>do not fixup XINCLUDE xml:base uris</td></tr>
+	<tr><td>XML_PARSE_HUGE</td><td>relax any hardcoded limit from the parser</td></tr>
+	<tr><td>XML_PARSE_OLDSAX</td><td>parse using SAX2 interface from before 2.7.0</td></tr>
+	</table>
+	Parameters:
+	<ul>
+	<li><b> filename </b> : a file or URL.</li>
+	<li><b> encoding </b> : the document encoding, or NULL.</li>
+	<li><b> options </b> : a combination of parser options.</li>
+	</ul>
+	End Rem
+	Function ReadFile:TxmlDoc(filename:String, encoding:String = "", options:Int = 0)
+		Assert filename, XML_ERROR_PARAM
+		
+		Local i:Int = filename.Find( "::",0 )
+		' a "normal" url?
+		If i = -1 Then
+			Local cStr:Byte Ptr = filename.toCString()
+			Local cStr1:Byte Ptr
+			If encoding Then
+				cStr1 = encoding.toCString()
+			End If
+			Local doc:TxmlDoc
+			If cStr1 Then
+				doc = TxmlDoc._create(xmlReadFile(cStr, cStr1, options))
+				MemFree cStr1
+			Else
+				doc = TxmlDoc._create(xmlReadFile(cStr, Null, options))
+			End If
+			MemFree cStr
+			Return doc
+		Else
+			Local proto:String = filename[..i].ToLower()
+			Local path:String = filename[i+2..]
+			
+			If proto = "incbin" Then
+				Local buf:Byte Ptr = IncbinPtr( path )
+				If Not buf Then
+					Return Null
+				End If
+				Local size:Int = IncbinLen( path )
+				
+				Local cStr1:Byte Ptr
+				If encoding Then
+					cStr1 = encoding.toCString()
+				End If
+				
+				Local doc:TxmlDoc
+				If cStr1 Then
+					doc = TxmlDoc._create(xmlReadMemory(buf, size, Null, cStr1, options))
+					MemFree cStr1
+				Else
+					doc = TxmlDoc._create(xmlReadMemory(buf, size, Null, Null, options))
+				End If
+				Return doc
+			End If
+		End If
+		
+		Return Null
+	End Function
+	
+	Rem
+	bbdoc: Parse an XML document from a String or TStream and build a tree.
+	returns: The resulting document tree.
+	about: The parsing flags @options are a combination of the following:
+	<table>
+	<tr><th>Constant</th><th>Meaning</th></tr>
+	<tr><td>XML_PARSE_RECOVER</td><td>recover on errors</td></tr>
+	<tr><td>XML_PARSE_NOENT</td><td>substitute entities</td></tr>
+	<tr><td>XML_PARSE_DTDLOAD</td><td>load the external subset</td></tr>
+	<tr><td>XML_PARSE_DTDATTR</td><td>default DTD attributes</td></tr>
+	<tr><td>XML_PARSE_DTDVALID</td><td>validate with the DTD</td></tr>
+	<tr><td>XML_PARSE_NOERROR</td><td>suppress error reports</td></tr>
+	<tr><td>XML_PARSE_NOWARNING</td><td>suppress warning reports</td></tr>
+	<tr><td>XML_PARSE_PEDANTIC</td><td>pedantic error reporting</td></tr>
+	<tr><td>XML_PARSE_NOBLANKS</td><td>remove blank nodes</td></tr>
+	<tr><td>XML_PARSE_SAX1</td><td>use the SAX1 interface internally</td></tr>
+	<tr><td>XML_PARSE_XINCLUDE</td><td>Implement XInclude substitition</td></tr>
+	<tr><td>XML_PARSE_NONET</td><td>Forbid network access</td></tr>
+	<tr><td>XML_PARSE_NODICT</td><td>Do not reuse the context dictionnary</td></tr>
+	<tr><td>XML_PARSE_NSCLEAN</td><td>remove redundant namespaces declarations</td></tr>
+	<tr><td>XML_PARSE_NOCDATA</td><td>merge CDATA as text nodes</td></tr>
+	<tr><td>XML_PARSE_NOXINCNODE</td><td>do not generate XINCLUDE START/END nodes</td></tr>
+	<tr><td>XML_PARSE_COMPACT</td><td>compact small text nodes. no modification of the tree allowed
+	afterwards (will possibly crash if you try to modify the tree)</td></tr>
+	<tr><td>XML_PARSE_OLD10</td><td>parse using XML-1.0 before update 5</td></tr>
+	<tr><td>XML_PARSE_NOBASEFIX</td><td>do not fixup XINCLUDE xml:base uris</td></tr>
+	<tr><td>XML_PARSE_HUGE</td><td>relax any hardcoded limit from the parser</td></tr>
+	<tr><td>XML_PARSE_OLDSAX</td><td>parse using SAX2 interface from before 2.7.0</td></tr>
+	</table>
+	Parameters:
+	<ul>
+	<li><b> doc </b> : a string for parsing, or an open TStream.</li>
+	<li><b> url </b> : the base URL to use for the document.</li>
+	<li><b> encoding </b> : the document encoding, or NULL.</li>
+	<li><b> options </b> : a combination of parser options.</li>
+	</ul>
+	End Rem
+	Function ReadDoc:TxmlDoc(doc:Object, url:String = "", encoding:String = "", options:Int = 0)
+		Assert doc, XML_ERROR_PARAM
+		
+		If String(doc) Then
+			Local text:String = String(doc)
+	
+			' strip utf8 BOM		
+			If text[..3] = BOM_UTF8 Then
+				text = text[3..]
+			End If
+			
+			Local cStr:Byte Ptr = _xmlConvertMaxToUTF8(text).toCString()
+			
+			Local cStr1:Byte Ptr, cStr2:Byte Ptr
+			If url Then
+				cStr1 = url.toCString()
+			End If
+			If encoding Then
+				cStr2 = encoding.toCString()
+			End If
+			
+			Local _xmlDocPtr:Byte Ptr
+			
+			If cStr1 Then
+				If cStr2 Then
+					_xmlDocPtr = xmlReadDoc(cStr, cStr1, cStr2, options)
+				Else
+					_xmlDocPtr = xmlReadDoc(cStr, cStr1, Null, options)
+				End If
+			Else
+				If cStr2 Then
+					_xmlDocPtr = xmlReadDoc(cStr, Null, cStr2, options)
+				Else
+					_xmlDocPtr = xmlReadDoc(cStr, Null, Null, options)
+				End If
+			End If
+			
+			If cStr1 Then
+				MemFree cStr1
+			End If
+			If cStr2 Then
+				MemFree cStr2
+			End If
+			
+			MemFree cStr
+			
+			If _xmlDocPtr = Null Then
+				Return Null
+			Else
+				Return TxmlDoc._create(_xmlDocPtr)
+			End If
+		
+		Else If TStream(doc) Then
+		
+			Local tempDoc:TxmlDoc = New TxmlDoc
+			tempDoc._readStream = TStream(doc)
+			
+			
+			Local cStr1:Byte Ptr, cStr2:Byte Ptr
+			If url Then
+				cStr1 = url.toCString()
+			End If
+			If encoding Then
+				cStr2 = encoding.toCString()
+			End If
+			
+			Local _xmlDocPtr:Byte Ptr
+			
+			If cStr1 Then
+				If cStr2 Then
+					_xmlDocPtr = xmlReadIO(_xmlInputReadCallback, _xmlInputCloseCallback, tempDoc, cStr1, cStr2, options)
+				Else
+					_xmlDocPtr = xmlReadIO(_xmlInputReadCallback, _xmlInputCloseCallback, tempDoc, cStr1, Null, options)
+				End If
+			Else
+				If cStr2 Then
+					_xmlDocPtr = xmlReadIO(_xmlInputReadCallback, _xmlInputCloseCallback, tempDoc, Null, cStr2, options)
+				Else
+					_xmlDocPtr = xmlReadIO(_xmlInputReadCallback, _xmlInputCloseCallback, tempDoc, Null, Null, options)
+				End If
+			End If
+			
+			If cStr1 Then
+				MemFree cStr1
+			End If
+			If cStr2 Then
+				MemFree cStr2
+			End If
+
+			If _xmlDocPtr = Null Then
+				Return Null
+			Else
+				Return TxmlDoc._create(_xmlDocPtr)
+			End If
+		
+		End If
+		
+	End Function
+	
+	Function _xmlInputReadCallback:Int(doc:Object, buffer:Byte Ptr, length:Int)
+		Return TxmlDoc(doc)._readStream.Read(buffer, length)
+	End Function
+	
+	Function _xmlInputCloseCallback:Int(doc:Object)
+		Return 0
 	End Function
 
 	Rem
@@ -785,10 +1050,10 @@ Type TxmlDoc Extends TxmlBase
 	<li><b>mode</b> : the compression ratio</li>
 	</ul>
 	End Rem
-	Method setCompressMode(mode:Int)
+	Method setCompressMode(Mode:Int)
 		' make sure it's in the valid range, 0-9
-		mode = Max(Min(mode, 9), 0)
-		xmlSetDocCompressMode(_xmlDocPtr, mode)
+		Mode = Max(Min(Mode, 9), 0)
+		xmlSetDocCompressMode(_xmlDocPtr, Mode)
 	End Method
 	
 	Rem
@@ -805,16 +1070,36 @@ Type TxmlDoc Extends TxmlBase
 	about: Will use compression if set. If @filename is "-" the standard out (console) is used.
 	<p>Parameters:
 	<ul>
-	<li><b>filename</b> : the filename (or URL)</li>
+	<li><b>file</b> : either the filename or URL (String), or stream (TStream).</li>
+	<li><b>autoClose</b> : for streams only. When True, will automatically Close the stream. (default)</li>
 	</ul>
 	</p>
 	End Rem
-	Method saveFile:Int(filename:String)
-		Assert filename, XML_ERROR_PARAM
+	Method saveFile:Int(file:Object, autoClose:Int = True)
+		Assert file, XML_ERROR_PARAM
+		Local ret:Int
 		
-		Local cStr:Byte Ptr = filename.toCString()
-		Local ret:Int = xmlSaveFile(cStr, _xmlDocPtr)
-		MemFree cStr
+		If String(file) Then
+			Local filename:String = String(file)
+			
+?win32
+			filename = filename.Replace("/","\") ' compression requires Windows backslashes
+?
+		
+			Local cStr:Byte Ptr = filename.toCString()
+			ret = xmlSaveFile(cStr, _xmlDocPtr)
+			MemFree cStr
+			
+		Else If TStream(file) Then
+			Local stream:TStream = TStream(file)
+			
+			TxmlOutputStreamHandler.stream = stream
+			TxmlOutputStreamHandler.autoClose = autoClose
+			
+			Local outputBuffer:TxmlOutputBuffer = TxmlOutputBuffer.createIO()
+			ret = xmlSaveFormatFileTo(outputBuffer._xmlOutputBufferPtr, _xmlDocPtr, Null, True)
+		End If
+		
 		Return ret
 	End Method
 	
@@ -825,17 +1110,37 @@ Type TxmlDoc Extends TxmlBase
 	is used. If @format is set to true then the document will be indented on output.
 	<p>Parameters:
 	<ul>
-	<li><b>filename</b> : the filename (or URL)</li>
+	<li><b>file</b> : either the filename or URL (String), or stream (TStream).</li>
 	<li><b>format</b> : should formatting spaces been added</li>
+	<li><b>autoClose</b> : for streams only. When True, will automatically Close the stream. (default)</li>
 	</ul>
 	</p>
 	End Rem
-	Method saveFormatFile:Int(filename:String, format:Int)
-		Assert filename, XML_ERROR_PARAM
+	Method saveFormatFile:Int(file:Object, format:Int, autoClose:Int = True)
+		Assert file, XML_ERROR_PARAM
+		Local ret:Int
+
+		If String(file) Then
+			Local filename:String = String(file)
+
+?win32
+			filename = filename.Replace("/","\") ' compression requires Windows backslashes
+?
 		
-		Local cStr:Byte Ptr = filename.toCString()
-		Local ret:Int = xmlSaveFormatFile(cStr, _xmlDocPtr, format)
-		MemFree cStr
+			Local cStr:Byte Ptr = filename.toCString()
+			ret = xmlSaveFormatFile(cStr, _xmlDocPtr, format)
+			MemFree cStr
+	
+		Else If TStream(file) Then
+			Local stream:TStream = TStream(file)
+			
+			TxmlOutputStreamHandler.stream = stream
+			TxmlOutputStreamHandler.autoClose = autoClose
+			
+			Local outputBuffer:TxmlOutputBuffer = TxmlOutputBuffer.createIO()
+			ret = xmlSaveFormatFileTo(outputBuffer._xmlOutputBufferPtr, _xmlDocPtr, Null, format)
+		End If
+
 		Return ret
 	End Method
 	
@@ -2477,6 +2782,11 @@ Type TxmlOutputBuffer
 		Return TxmlOutputBuffer._create(xmlOutputBufferCreateBuffer(buffer._xmlBufferPtr, Null))
 	End Function
 
+	Function createIO:TxmlOutputBuffer()
+		Return TxmlOutputBuffer._create(xmlOutputBufferCreateIO(TxmlOutputStreamHandler.writeCallback, ..
+				TxmlOutputStreamHandler.closeCallback, Null, Null))
+	End Function
+	
 End Type
 
 Rem
@@ -3690,6 +4000,10 @@ Type TxmlTextReader
 	
 	Field _xmlTextReaderPtr:Byte Ptr
 	
+	Field docTextPtr:Byte Ptr
+	Field urlTextPtr:Byte Ptr
+	Field encTextPtr:Byte Ptr
+	
 	' internal function... not part of the API !
 	Function _create:TxmlTextReader(_xmlTextReaderPtr:Byte Ptr)
 		If _xmlTextReaderPtr <> Null Then
@@ -3702,6 +4016,23 @@ Type TxmlTextReader
 			Return Null
 		End If
 	End Function
+	
+	Method Delete()
+		If docTextPtr Then
+			MemFree docTextPtr
+			docTextPtr = Null
+		End If
+		
+		If urlTextPtr Then
+			MemFree urlTextPtr
+			urlTextPtr = Null
+		End If
+		
+		If encTextPtr Then
+			MemFree encTextPtr
+			encTextPtr = Null
+		End If
+	End Method
 
 	Rem
 	bbdoc: Parse an XML file from the filesystem or the network.
@@ -3724,13 +4055,18 @@ Type TxmlTextReader
 	<tr><td>XML_PARSE_NSCLEAN</td><td>remove redundant namespaces declarations</td></tr>
 	<tr><td>XML_PARSE_NOCDATA</td><td>merge CDATA as text nodes</td></tr>
 	<tr><td>XML_PARSE_NOXINCNODE</td><td>do not generate XINCLUDE START/END nodes</td></tr>
-	<tr><td>XML_PARSE_COMPACT</td><td>compact small text nodes</td></tr>
+	<tr><td>XML_PARSE_COMPACT</td><td>compact small text nodes. no modification of the tree allowed
+	afterwards (will possibly crash if you try to modify the tree)</td></tr>
+	<tr><td>XML_PARSE_OLD10</td><td>parse using XML-1.0 before update 5</td></tr>
+	<tr><td>XML_PARSE_NOBASEFIX</td><td>do not fixup XINCLUDE xml:base uris</td></tr>
+	<tr><td>XML_PARSE_HUGE</td><td>relax any hardcoded limit from the parser</td></tr>
+	<tr><td>XML_PARSE_OLDSAX</td><td>parse using SAX2 interface from before 2.7.0</td></tr>
 	</table>
 	<p>Parameters:
 	<ul>
 	<li><b>filename</b> : a file or URL. Supports "incbin::" paths.</li>
 	<li><b>encoding</b> : the document encoding, or Null.</li>
-	<li><b>options</b> : the new reader or Null in case of error.</li>
+	<li><b>options</b> : a combination of xmlParserOptions.</li>
 	</ul>
 	</p>
 	End Rem
@@ -3787,7 +4123,7 @@ Type TxmlTextReader
 	<li><b>text</b> : the string to be parsed.</li>
 	<li><b>url</b> : the base URL to use for the document.</li>
 	<li><b>encoding</b> : the document encoding, or Null.</li>
-	<li><b>options</b> : a combination of xmlParserOption</li>
+	<li><b>options</b> : a combination of xmlParserOptions</li>
 	</ul>
 	</p>
 	End Rem
@@ -3795,20 +4131,24 @@ Type TxmlTextReader
 		Assert text, XML_ERROR_PARAM
 		Assert url, XML_ERROR_PARAM
 		
-		Local cStr1:Byte Ptr = _xmlConvertMaxToUTF8(text).toCString()
-		Local cStr2:Byte Ptr = _xmlConvertMaxToUTF8(url).toCString()
+		Local docTextPtr:Byte Ptr = _xmlConvertMaxToUTF8(text).toCString()
+		Local urlTextPtr:Byte Ptr = _xmlConvertMaxToUTF8(url).toCString()
 		
 		Local t:TxmlTextReader = Null
 		If encoding <> Null Then
-			Local cStr3:Byte Ptr = _xmlConvertMaxToUTF8(encoding).toCString()
-			t = _create(xmlReaderForDoc(cStr1, cStr2, cStr3, options))
-			MemFree cStr3
+			Local encTextPtr:Byte Ptr = _xmlConvertMaxToUTF8(encoding).toCString()
+			t = _create(xmlReaderForDoc(docTextPtr, urlTextPtr, encTextPtr, options))
+			If t Then
+				t.encTextPtr = encTextPtr
+			End If
 		Else
-			t = _create(xmlReaderForDoc(cStr1, cStr2, Null, options))
+			t = _create(xmlReaderForDoc(docTextPtr, urlTextPtr, Null, options))
 		End If
 		
-		MemFree cStr1
-		MemFree cStr2
+		If t Then
+			t.docTextPtr = docTextPtr
+			t.urlTextPtr = urlTextPtr
+		End If
 		
 		Return t
 	End Function
@@ -4105,10 +4445,10 @@ Type TxmlTextReader
 	about: The parser property can be one of the following values:
 	<table>
 	<tr><th>Constant</th></tr>
-	<tr><td>XXML_PARSER_LOADDTD</td></tr>
-	<tr><td>XXML_PARSER_DEFAULTATTRS</td></tr>
-	<tr><td>XXML_PARSER_VALIDATE</td></tr>
-	<tr><td>XXML_PARSER_SUBST_ENTITIES</td></tr>
+	<tr><td>XML_PARSER_LOADDTD</td></tr>
+	<tr><td>XML_PARSER_DEFAULTATTRS</td></tr>
+	<tr><td>XML_PARSER_VALIDATE</td></tr>
+	<tr><td>XML_PARSER_SUBST_ENTITIES</td></tr>
 	</table>
 	<p>Parameters:
 	<ul>
