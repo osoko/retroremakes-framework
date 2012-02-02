@@ -4,16 +4,16 @@ Framework retroremakes.rrfw
 
 Import bah.chipmunk
 
-Include "TGameState.bmx"
-Include "TIntroState.bmx"
-Include "TDemoState1.bmx"
-Include "TDemoState2.bmx"
-Include "TDemoState3.bmx"
-Include "TDemoState4.bmx"
-Include "TDemoState5.bmx"
-Include "TDemoState6.bmx"
-Include "TDemoState7.bmx"
-Include "TDemoState8.bmx"
+Include "includes\TGameState.bmx"
+Include "includes\TIntroState.bmx"
+Include "includes\TDemoState1.bmx"
+Include "includes\TDemoState2.bmx"
+Include "includes\TDemoState3.bmx"
+Include "includes\TDemoState4.bmx"
+Include "includes\TDemoState5.bmx"
+Include "includes\TDemoState6.bmx"
+Include "includes\TDemoState7.bmx"
+Include "includes\TDemoState8.bmx"
 
 Incbin "media\ball.png"
 Incbin "media\crate.png"
