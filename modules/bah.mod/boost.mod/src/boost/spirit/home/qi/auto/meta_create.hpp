@@ -1,4 +1,4 @@
-//  Copyright (c) 2001-2010 Hartmut Kaiser
+//  Copyright (c) 2001-2011 Hartmut Kaiser
 //
 //  Distributed under the Boost Software License, Version 1.0. (See accompanying
 //  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -18,6 +18,7 @@
 #include <boost/variant.hpp>
 #include <boost/optional.hpp>
 #include <boost/config.hpp>
+#include <boost/mpl/and.hpp>
 #include <boost/mpl/not.hpp>
 #include <boost/mpl/fold.hpp>
 #include <boost/mpl/vector.hpp>
@@ -30,8 +31,8 @@ namespace boost { namespace spirit { namespace qi
 {
     ///////////////////////////////////////////////////////////////////////////
     // compatible STL containers
-    template <typename Container> 
-    struct meta_create_container 
+    template <typename Container>
+    struct meta_create_container
     {
         typedef make_unary_proto_expr<
             typename Container::value_type
@@ -48,13 +49,13 @@ namespace boost { namespace spirit { namespace qi
 
     ///////////////////////////////////////////////////////////////////////////
     // Fusion sequences
-    template <typename Sequence> 
-    struct meta_create_sequence 
+    template <typename Sequence>
+    struct meta_create_sequence
     {
         // create a mpl sequence from the given fusion sequence
         typedef typename mpl::fold<
             typename fusion::result_of::as_vector<Sequence>::type
-          , mpl::vector<>, mpl::push_back<mpl::_, mpl::_> 
+          , mpl::vector<>, mpl::push_back<mpl::_, mpl::_>
         >::type sequence_type;
 
         typedef make_nary_proto_expr<
@@ -70,10 +71,10 @@ namespace boost { namespace spirit { namespace qi
     };
 
     ///////////////////////////////////////////////////////////////////////////
-    // the default is to use the standard streaming operator unless it's a 
+    // the default is to use the standard streaming operator unless it's a
     // STL container or a fusion sequence
 
-    // The default implementation will be chosen if no predefined mapping of 
+    // The default implementation will be chosen if no predefined mapping of
     // the data type T to a Qi component is defined.
     struct no_auto_mapping_exists {};
 
@@ -82,12 +83,15 @@ namespace boost { namespace spirit { namespace qi
 
     template <typename T>
     struct meta_create_impl<T
-          , typename enable_if<traits::is_container<T> >::type>
+          , typename enable_if<mpl::and_<
+                traits::is_container<T>, mpl::not_<traits::is_string<T> > >
+            >::type>
       : meta_create_container<T> {};
 
     template <typename T>
-    struct meta_create_impl<T
-          , typename enable_if<fusion::traits::is_sequence<T> >::type>
+    struct meta_create_impl<T, typename enable_if<
+                spirit::detail::is_fusion_sequence_but_not_proto_expr<T>
+            >::type>
       : meta_create_sequence<T> {};
 
     template <typename T, typename Enable = void>
@@ -95,8 +99,8 @@ namespace boost { namespace spirit { namespace qi
 
     ///////////////////////////////////////////////////////////////////////////
     // optional
-    template <typename T> 
-    struct meta_create<boost::optional<T> > 
+    template <typename T>
+    struct meta_create<boost::optional<T> >
     {
         typedef make_unary_proto_expr<
             T, proto::tag::negate, qi::domain
@@ -112,8 +116,8 @@ namespace boost { namespace spirit { namespace qi
 
     ///////////////////////////////////////////////////////////////////////////
     // alternatives
-    template <BOOST_VARIANT_ENUM_PARAMS(typename T)> 
-    struct meta_create<boost::variant<BOOST_VARIANT_ENUM_PARAMS(T)> > 
+    template <BOOST_VARIANT_ENUM_PARAMS(typename T)>
+    struct meta_create<boost::variant<BOOST_VARIANT_ENUM_PARAMS(T)> >
     {
         typedef make_nary_proto_expr<
             typename boost::variant<BOOST_VARIANT_ENUM_PARAMS(T)>::types
@@ -132,100 +136,113 @@ namespace boost { namespace spirit { namespace qi
     // predefined specializations for primitive components
 
     // character generator
-    template <> 
-    struct meta_create<char> 
-    { 
-        typedef spirit::standard::char_type type; 
-        static type const& call() { return spirit::standard::char_; }
+    template <>
+    struct meta_create<char>
+    {
+        typedef spirit::standard::char_type type;
+        static type call() { return type(); }
     };
-    template <> 
-    struct meta_create<wchar_t> 
-    { 
-        typedef spirit::standard_wide::char_type type; 
-        static type const& call() { return spirit::standard_wide::char_; }
+    template <>
+    struct meta_create<signed char>
+    {
+        typedef spirit::standard::char_type type;
+        static type call() { return type(); }
+    };
+    template <>
+    struct meta_create<wchar_t>
+    {
+        typedef spirit::standard_wide::char_type type;
+        static type call() { return type(); }
+    };
+
+    template <>
+    struct meta_create<unsigned char>
+    {
+        typedef spirit::standard::char_type type;
+        static type call() { return type(); }
     };
 
     // boolean generator
-    template <> 
-    struct meta_create<bool> 
-    { 
-        typedef spirit::bool__type type; 
-        static type const& call() { return spirit::bool_; }
+    template <>
+    struct meta_create<bool>
+    {
+        typedef spirit::bool_type type;
+        static type call() { return type(); }
     };
 
     // integral generators
-    template <> 
-    struct meta_create<int> 
-    { 
-        typedef spirit::int__type type; 
-        static type const& call() { return spirit::int_; }
-    };
-    template <> 
-    struct meta_create<short> 
-    { 
-        typedef spirit::short__type type; 
-        static type const& call() { return spirit::short_; }
-    };
-    template <> 
-    struct meta_create<long> 
+    template <>
+    struct meta_create<int>
     {
-        typedef spirit::long__type type; 
-        static type const& call() { return spirit::long_; }
+        typedef spirit::int_type type;
+        static type call() { return type(); }
     };
-    template <> 
-    struct meta_create<unsigned int> 
-    { 
-        typedef spirit::uint__type type; 
-        static type const& call() { return spirit::uint_; }
+    template <>
+    struct meta_create<short>
+    {
+        typedef spirit::short_type type;
+        static type call() { return type(); }
+    };
+    template <>
+    struct meta_create<long>
+    {
+        typedef spirit::long_type type;
+        static type call() { return type(); }
+    };
+    template <>
+    struct meta_create<unsigned int>
+    {
+        typedef spirit::uint_type type;
+        static type call() { return type(); }
     };
 #if !defined(BOOST_NO_INTRINSIC_WCHAR_T)
-    template <> 
-    struct meta_create<unsigned short> 
-    { 
-        typedef spirit::ushort__type type; 
-        static type const& call() { return spirit::ushort_; }
+    template <>
+    struct meta_create<unsigned short>
+    {
+        typedef spirit::ushort_type type;
+        static type call() { return type(); }
     };
 #endif
-    template <> 
-    struct meta_create<unsigned long> 
-    { 
-        typedef spirit::ulong__type type; 
-        static type const& call() { return spirit::ulong_; }
+    template <>
+    struct meta_create<unsigned long>
+    {
+        typedef spirit::ulong_type type;
+        static type call() { return type(); }
     };
 
 #ifdef BOOST_HAS_LONG_LONG
-    template <> 
-    struct meta_create<boost::long_long_type> 
-    { 
-        typedef spirit::long_long_type type; 
-        static type const& call() { return spirit::long_long; }
+    template <>
+    struct meta_create<boost::long_long_type>
+    {
+        typedef spirit::long_long_type type;
+        static type call() { return type(); }
     };
-    template <> 
-    struct meta_create<boost::ulong_long_type> 
-    { 
-        typedef spirit::ulong_long_type type; 
-        static type const& call() { return spirit::ulong_long; }
+    template <>
+    struct meta_create<boost::ulong_long_type>
+    {
+        typedef spirit::ulong_long_type type;
+        static type call() { return type(); }
     };
 #endif
 
     // floating point generators
-    template <> 
-    struct meta_create<float> 
-    { 
-        typedef spirit::float__type type; 
-        static type const& call() { return spirit::float_; }
+    template <>
+    struct meta_create<float>
+    {
+        typedef spirit::float_type type;
+        static type call() { return type(); }
     };
-    template <> 
-    struct meta_create<double> 
-    { 
-        typedef spirit::double__type type; 
-        static type const& call() { return spirit::double_; }
+    template <>
+    struct meta_create<double>
+    {
+        typedef spirit::double_type type;
+        static type call() { return type(); }
     };
-    template <> 
-    struct meta_create<long double> 
-    { 
-        typedef spirit::long_double_type type; 
-        static type const& call() { return spirit::long_double; }
+    template <>
+    struct meta_create<long double>
+    {
+        typedef spirit::long_double_type type;
+        static type call() { return type(); }
     };
 }}}
 
@@ -238,16 +255,16 @@ namespace boost { namespace spirit { namespace traits
     struct create_parser : qi::meta_create<T> {};
 
     ///////////////////////////////////////////////////////////////////////////
-    // dispatch this to the qi related specializations
+    // dispatch this to the Qi related specializations
     template <typename T>
-    struct meta_create<qi::domain, T> 
+    struct meta_create<qi::domain, T>
       : create_parser<typename spirit::detail::remove_const_ref<T>::type> {};
 
     ///////////////////////////////////////////////////////////////////////////
-    // Check whether a valid mapping exits for the given data type to a Karma 
-    // component 
+    // Check whether a valid mapping exits for the given data type to a Qi
+    // component
     template <typename T>
-    struct meta_create_exists<qi::domain, T> 
+    struct meta_create_exists<qi::domain, T>
       : mpl::not_<is_same<
             qi::no_auto_mapping_exists
           , typename meta_create<qi::domain, T>::type

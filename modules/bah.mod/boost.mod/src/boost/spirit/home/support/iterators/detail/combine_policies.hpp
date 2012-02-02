@@ -1,4 +1,4 @@
-//  Copyright (c) 2001-2010 Hartmut Kaiser
+//  Copyright (c) 2001-2011 Hartmut Kaiser
 // 
 //  Distributed under the Boost Software License, Version 1.0. (See accompanying
 //  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -95,7 +95,7 @@ namespace boost { namespace spirit { namespace iterator_policies
       : Ownership, Checking, Storage
     {
         multi_pass_unique() {}
-        multi_pass_unique(T const& x) {}
+        multi_pass_unique(T const&) {}
 
         template <typename MultiPass>
         static void destroy(MultiPass& mp)
@@ -117,9 +117,9 @@ namespace boost { namespace spirit { namespace iterator_policies
         inline static void advance_input(MultiPass& mp)
             { Input::advance_input(mp); }
 
-        template <typename TokenType, typename MultiPass>
-        inline static TokenType const& get_input(MultiPass& mp)
-            { return Input::template get_input<TokenType>(mp); }
+        template <typename MultiPass>
+        inline static typename MultiPass::reference get_input(MultiPass& mp)
+            { return Input::get_input(mp); }
 
         template <typename MultiPass>
         inline static bool input_at_eof(MultiPass const& mp)
@@ -157,8 +157,8 @@ namespace boost { namespace spirit { namespace iterator_policies
 
         // checking policy functions are forwarded to the Checking type
         template <typename MultiPass>
-        inline static void check(MultiPass const& mp) 
-            { Checking::check(mp); }
+        inline static void docheck(MultiPass const& mp) 
+            { Checking::docheck(mp); }
 
         template <typename MultiPass>
         inline static void clear_queue(MultiPass& mp) 
@@ -173,7 +173,7 @@ namespace boost { namespace spirit { namespace iterator_policies
       : Ownership, Storage
     {
         multi_pass_unique() {}
-        multi_pass_unique(T const& x) {}
+        multi_pass_unique(T const&) {}
 
         template <typename MultiPass>
         static void destroy(MultiPass& mp)
@@ -193,9 +193,9 @@ namespace boost { namespace spirit { namespace iterator_policies
         inline static void advance_input(MultiPass& mp)
             { Input::advance_input(mp); }
 
-        template <typename TokenType, typename MultiPass>
-        inline static TokenType const& get_input(MultiPass& mp)
-            { return Input::template get_input<TokenType>(mp); }
+        template <typename MultiPass>
+        inline static typename MultiPass::reference get_input(MultiPass& mp)
+            { return Input::get_input(mp); }
 
         template <typename MultiPass>
         inline static bool input_at_eof(MultiPass const& mp)
@@ -207,8 +207,8 @@ namespace boost { namespace spirit { namespace iterator_policies
 
         // checking policy functions are forwarded to the Checking type
         template <typename MultiPass>
-        inline static void check(MultiPass const& mp) 
-            { Checking::check(mp); }
+        inline static void docheck(MultiPass const& mp) 
+            { Checking::docheck(mp); }
 
         template <typename MultiPass>
         inline static void clear_queue(MultiPass& mp) 
@@ -262,7 +262,7 @@ namespace boost { namespace spirit { namespace iterator_policies
       : Checking, Storage
     {
         multi_pass_unique() {}
-        multi_pass_unique(T const& x) {}
+        multi_pass_unique(T const&) {}
 
         template <typename MultiPass>
         static void destroy(MultiPass& mp)
@@ -282,9 +282,9 @@ namespace boost { namespace spirit { namespace iterator_policies
         inline static void advance_input(MultiPass& mp)
             { Input::advance_input(mp); }
 
-        template <typename TokenType, typename MultiPass>
-        inline static TokenType const& get_input(MultiPass& mp)
-            { return Input::template get_input<TokenType>(mp); }
+        template <typename MultiPass>
+        inline static typename MultiPass::reference get_input(MultiPass& mp)
+            { return Input::get_input(mp); }
 
         template <typename MultiPass>
         inline static bool input_at_eof(MultiPass const& mp)
@@ -333,8 +333,8 @@ namespace boost { namespace spirit { namespace iterator_policies
 
         // checking policy functions are forwarded to the Checking type
         template <typename MultiPass>
-        inline static void check(MultiPass const& mp) 
-            { Checking::check(mp); }
+        inline static void docheck(MultiPass const& mp) 
+            { Checking::docheck(mp); }
 
         template <typename MultiPass>
         inline static void clear_queue(MultiPass& mp) 
@@ -380,9 +380,9 @@ namespace boost { namespace spirit { namespace iterator_policies
         inline static void advance_input(MultiPass& mp)
             { Input::advance_input(mp); }
 
-        template <typename TokenType, typename MultiPass>
-        inline static TokenType const& get_input(MultiPass& mp)
-            { return Input::template get_input<TokenType>(mp); }
+        template <typename MultiPass>
+        inline static typename MultiPass::reference get_input(MultiPass& mp)
+            { return Input::get_input(mp); }
 
         template <typename MultiPass>
         inline static bool input_at_eof(MultiPass const& mp)
@@ -394,8 +394,8 @@ namespace boost { namespace spirit { namespace iterator_policies
 
         // checking policy functions are forwarded to the Checking type
         template <typename MultiPass>
-        inline static void check(MultiPass const& mp) 
-            { Checking::check(mp); }
+        inline static void docheck(MultiPass const& mp) 
+            { Checking::docheck(mp); }
 
         template <typename MultiPass>
         inline static void clear_queue(MultiPass& mp) 
