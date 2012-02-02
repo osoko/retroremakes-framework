@@ -161,6 +161,8 @@ Type GameManager Extends TGameManager
 					Local deadzone:Float = TJoystickManager.GetInstance().GetJoystickDeadzone(displayData.port)
 					TJoystickManager.GetInstance().SetJoystickDeadzone(displayData.port, deadzone + 0.01)
 				EndIf
+			Case KEY_ESCAPE
+				If data.keyHits Then rrEngineStop()					
 		End Select
 	End Method
 	
