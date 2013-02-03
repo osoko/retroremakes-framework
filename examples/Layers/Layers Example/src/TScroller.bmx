@@ -1,4 +1,4 @@
-rem
+Rem
 	bbdoc: Type description
 end rem
 Type TScroller Extends TFontActor
@@ -9,6 +9,7 @@ Type TScroller Extends TFontActor
 							"to show how to use the Layer system to manage " + ..
 							"rendering in a game.....                                 "
 	
+	Field disabled:Int = 0
 	Field messageLength:Int
 	Field yPos:Int
 		
@@ -29,13 +30,20 @@ Type TScroller Extends TFontActor
 	End Method
 	
 	Method Render(tweening:Double, fixed:Int)
-		Super.Render(tweening, fixed)
+		If Not disabled
+			Super.Render(tweening, fixed)
+		EndIf
 	End Method
 	
 	Method Update()
 		Super.Update()
 		Move(-SCROLL_SPEED, 0.0)
-		If GetCurrentPosition().x < - messageLength Then Reset()
+		If GetCurrentPosition().x < - messageLength
+			Reset()
+			disabled = 1
+		ElseIf disabled = 1
+			disabled = 0
+		EndIf
 	End Method
 	
 	Method Reset()
