@@ -17,9 +17,10 @@ bbdoc: A log writer that outputs to a Syslog server via UDP
 EndRem
 Type TSyslogLogWriter Extends TLogWriter
 
-	Const DEFAULT_FACILITY:Int = 16	' local0
+	Const DEFAULT_FACILITY:Int = 16 ' Default facility will be set to local0
+
 	Const DEFAULT_SERVER:String = "127.0.0.1"
-	Const DEFAULT_UDP_PORT:Int = 514
+	Const DEFAULT_UDP_PORT:Int  = 514
 
 	Const SYSLOG_VERSION:Int = 1 ' defined in RFC5424
 	
@@ -43,10 +44,10 @@ Type TSyslogLogWriter Extends TLogWriter
 		Local app:String = AppTitle
 		
 		For Local i:Int = 0 To app.Length - 1
-			If (Asc(app[i..i + 1]) >= 33) And (Asc(app[i..i + 1]) <= 126)
-				appName:+app[i..i + 1]
+			If (Asc (app[i..i + 1]) >= 33) And (Asc (app[i..i + 1]) <= 126)
+				appName :+ app[i..i + 1]
 			Else
-				appName:+"_"
+				appName :+ "_"
 			EndIf
 		Next
 		
@@ -56,9 +57,9 @@ Type TSyslogLogWriter Extends TLogWriter
 	
 	
 	Method New()
-		server = DEFAULT_SERVER
-		udpPort = DEFAULT_UDP_PORT
 		facility = DEFAULT_FACILITY
+		server   = DEFAULT_SERVER
+		udpPort  = DEFAULT_UDP_PORT
 	EndMethod
 	
 	
@@ -66,8 +67,8 @@ Type TSyslogLogWriter Extends TLogWriter
 	Method openSyslogStream()
 		DebugLog ("Opening syslog stream")
 		Local socket:TSocket = TSocket.CreateUDP()
-		socket.Connect(HostIp(server), udpPort)
-		stream = TSocketStream.Create(socket)
+		socket.Connect (HostIp (server), udpPort)
+		stream = TSocketStream.Create (socket)
 	EndMethod
 	
 	
@@ -117,7 +118,7 @@ Type TSyslogLogWriter Extends TLogWriter
 	bbdoc: Sets the hostname/IP address of the Syslog server to deliver the messages to
 	about: Must be a valid/resolvable hostname/IP address
 	EndRem
-	Method setServer(value:String)
+	Method setServer (value:String)
 		server = value
 	End Method
 	
@@ -127,13 +128,13 @@ Type TSyslogLogWriter Extends TLogWriter
 	bbdoc: Set the UDP port to use to talk with the Syslog server
 	about: The default is 514. You shouldn't need to change this
 	EndRem
-	Method setUdpPort(value:Int)
+	Method setUdpPort (value:Int)
 		udpPort = value
 	End Method
 	
 	
 	
-	Method write(message:TLoggerMessage)
+	Method write (message:TLoggerMessage)
 		If message.severity > level Then Return
 		
 		If Not stream Then openSyslogStream()
@@ -150,25 +151,25 @@ Type TSyslogLogWriter Extends TLogWriter
 		Local line:String
 		
 		' Start header
-		line:+"<" + priority + ">"
-		line:+SYSLOG_VERSION
-		line:+" "
-		line:+message.timestamp
-		line:+" "
-		line:+message.host
-		line:+" "
-		line:+appName
-		line:+" - -"	' contains empty PROCID and MSGID fields
+		line :+ "<" + priority + ">"
+		line :+ SYSLOG_VERSION
+		line :+ " "
+		line :+ message.timestamp
+		line :+ " "
+		line :+ message.host
+		line :+ " "
+		line :+ appName
+		line :+ " - -"	' contains empty PROCID and MSGID fields
 		' End header
 		
-		line:+" - " ' no structured data at this time
+		line :+ " - " ' no structured data at this time
 		
-		line:+message.message
+		line :+ message.message
 		
 		' Syslog messages have a maximum length of 1024 chars
 		If line.length > 1024 Then line = line[..1024]
 		
-		stream.WriteString(line)
+		stream.WriteString (line)
 		stream.Flush()
 	EndMethod
 	

@@ -1,9 +1,15 @@
-'Version: 1.0.1
+'Version: 1.0.4
 'License: Artistic License 2.0
 'Author: Paul Maskelyne (Muttley)
-'Copyright: (c) 2009 Paul Maskelyne
+'Copyright: (c) 2009-2011 Paul Maskelyne
 'E-Mail: muttley@muttleyville.org
 'Website: http://www.muttleyville.org
+'History: 1.0.4
+'History: Added Shrink() method
+'History: 1.0.3
+'History: Added GetCount() method
+'History: 1.0.2
+'History: Added example
 'History: 1.0.1
 'History: Missing README added
 'History: 1.0.0
@@ -16,7 +22,7 @@ EndRem
 'Program: Array based Stack implementation
 'Version: 1
 'Subversion: 0
-'Revision: 1
+'Revision: 4
 '#EndRegion &HFF
 
 
@@ -24,6 +30,25 @@ EndRem
 '------------------------------------------------------------------------------------------------------------------------------------------------------
 '#Region &H01 Compile Options
 SuperStrict
+Rem
+    bbdoc:muttley\stack
+End Rem
+Module muttley.stack
+ModuleInfo "Version: 1.0.3"
+ModuleInfo "License: Artistic License 2.0"
+ModuleInfo "Author: Paul Maskelyne (Muttley)"
+ModuleInfo "Copyright: (c) 2009 Paul Maskelyne"
+ModuleInfo "E-Mail: muttley@muttleyville.org"
+ModuleInfo "Website: http://www.muttleyville.org"
+ModuleInfo "History: 1.0.3"
+ModuleInfo "History: Added GetCount() method"
+ModuleInfo "History: 1.0.2"
+ModuleInfo "History: Added example"
+ModuleInfo "History: 1.0.1"
+ModuleInfo "History: Missing README added"
+ModuleInfo "History: 1.0.0"
+ModuleInfo "History: Initial Release"
+ModuleInfo ""
 '#EndRegion &H01
 
 
@@ -55,7 +80,7 @@ TYPE z_blide_bgf05c3637_a1cf_4380_b37b_2d623459e62a Abstract
     Const Name:string = "Array based Stack implementation" 'This string contains the name of the program
     Const MajorVersion:Int = 1  'This Const contains the major version number of the program
     Const MinorVersion:Int = 0  'This Const contains the minor version number of the program
-    Const Revision:Int =  1  'This Const contains the revision number of the current program version
+    Const Revision:Int =  4  'This Const contains the revision number of the current program version
     Const VersionString:String = MajorVersion + "." + MinorVersion + "." + Revision   'This string contains the assembly version in format (MAJOR.MINOR.REVISION)
     Const AssemblyInfo:String = Name + " " + MajorVersion + "." + MinorVersion + "." + Revision   'This string represents the available assembly info.
     ?win32
