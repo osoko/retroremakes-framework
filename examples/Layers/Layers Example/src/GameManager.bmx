@@ -84,18 +84,19 @@ Type GameManager Extends TGameManager
 	
 	' This is where we process any mode change messages
 	Method HandleModeChange(message:TMessage)
-		Local data:TModeMessageData = TModeMessageData(message.data)
+		Local data:TModeMessageData = TModeMessageData (message.data)
+		
 		Select data.modeId
 			Case TModeMessageData.MODE_START_GAME
 				' Start the Game
-				ChangeScreen("GameplayScreen")
+				ChangeScreen ("GameplayScreen")
 			Case TModeMessageData.MODE_HIGH_SCORES
 				' Show the high-score table
-				ChangeScreen("HighScoreTableScreen")
+				ChangeScreen ("HighScoreTableScreen")
 			Case TModeMessageData.MODE_QUIT
 				Quit()
 			Case TModeMessageData.MODE_TITLE_SCREEN
-				ChangeScreen("TitleScreen")
+				ChangeScreen ("TitleScreen")
 		End Select
 	End Method	
 	

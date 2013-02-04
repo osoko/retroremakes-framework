@@ -53,8 +53,8 @@ Type TFileLogWriter Extends TLogWriter
 	
 	
 	Method openLogFile()
-		Assert (filename <> "", "No filename specified for log file.")
-		Assert (FileType (filename) <> 2, "Requested log file ~q" + filename + "~q is a directory.")
+		Assert filename <> "", "No filename specified for log file."
+		Assert FileType (filename) <> 2, "Requested log file ~q" + filename + "~q is a directory."
 		
 		If (FileSize (filename) = -1) Or (overwrite = True)
 			' log file doesn't exist already are we want to overwrite it
