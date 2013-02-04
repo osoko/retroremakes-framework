@@ -3,8 +3,8 @@ This file was created by the BLIde solution explorer and should not be modified 
 EndRem
 '------------------------------------------------------------------------------------------------------------------------------------------------------
 '#Region &HFF Program Info
-'Program: Logger Module Unit Tests
-'Version: 1
+'Program: StackExample
+'Version: 0
 'Subversion: 0
 'Revision: 1
 '#EndRegion &HFF
@@ -20,8 +20,7 @@ SuperStrict
 
 '------------------------------------------------------------------------------------------------------------------------------------------------------
 '#Region &H0F Framework
-Import muttley.logger
-Import bah.maxunit
+Import muttley.stack
 '#EndRegion &H0F
 
 
@@ -35,16 +34,16 @@ Import bah.maxunit
 
 '------------------------------------------------------------------------------------------------------------------------------------------------------
 '#Region &H04 MyNamespace
-'GUI
-'guid:ba3abab7_c10d_4cdf_b4ec_d325fc1f3c7d
+'CONSOLE
+'guid:5a89ed68_d7ae_4130_8616_6bd760bc137c
 Private
-TYPE z_ba3abab7_c10d_4cdf_b4ec_d325fc1f3c7d_3_0 abstract  'Resource folder
+TYPE z_5a89ed68_d7ae_4130_8616_6bd760bc137c_3_0 abstract  'Resource folder
 End Type
 
 
-TYPE z_blide_bgba3abab7_c10d_4cdf_b4ec_d325fc1f3c7d Abstract
-    Const Name:string = "Logger Module Unit Tests" 'This string contains the name of the program
-    Const MajorVersion:Int = 1  'This Const contains the major version number of the program
+TYPE z_blide_bg5a89ed68_d7ae_4130_8616_6bd760bc137c Abstract
+    Const Name:string = "StackExample" 'This string contains the name of the program
+    Const MajorVersion:Int = 0  'This Const contains the major version number of the program
     Const MinorVersion:Int = 0  'This Const contains the minor version number of the program
     Const Revision:Int =  1  'This Const contains the revision number of the current program version
     Const VersionString:String = MajorVersion + "." + MinorVersion + "." + Revision   'This string contains the assembly version in format (MAJOR.MINOR.REVISION)
@@ -73,25 +72,20 @@ TYPE z_blide_bgba3abab7_c10d_4cdf_b4ec_d325fc1f3c7d Abstract
 EndType
 
 
-Type z_My_ba3abab7_c10d_4cdf_b4ec_d325fc1f3c7d Abstract 'This type has all the run-tima binary information of your assembly
-    Global Application:z_blide_bgba3abab7_c10d_4cdf_b4ec_d325fc1f3c7d  'This item has all the currently available assembly version information.
-    Global Resources:z_ba3abab7_c10d_4cdf_b4ec_d325fc1f3c7d_3_0  'This item has all the currently available incbined files names and relative location.
+Type z_My_5a89ed68_d7ae_4130_8616_6bd760bc137c Abstract 'This type has all the run-tima binary information of your assembly
+    Global Application:z_blide_bg5a89ed68_d7ae_4130_8616_6bd760bc137c  'This item has all the currently available assembly version information.
+    Global Resources:z_5a89ed68_d7ae_4130_8616_6bd760bc137c_3_0  'This item has all the currently available incbined files names and relative location.
 End Type
 
 
-Global My:z_My_ba3abab7_c10d_4cdf_b4ec_d325fc1f3c7d 'This GLOBAL has all the run-time binary information of your assembly, and embeded resources shortcuts.
+Global My:z_My_5a89ed68_d7ae_4130_8616_6bd760bc137c 'This GLOBAL has all the run-time binary information of your assembly, and embeded resources shortcuts.
 Public
 '#EndRegion &H04 MyNamespace
 
 
 '------------------------------------------------------------------------------------------------------------------------------------------------------
 '#Region &H03 Includes
-Include "src\Main.bmx"
-Include "src\LoggerTests.bmx"
-Include "src\UnitTestLogWriterTests.bmx"
-Include "src\TUnitTestLogWriter.bmx"
-Include "src\FileLogWriterTests.bmx"
-Include "src\TLoggerMock.bmx"
+Include "Main.bmx"
  
 '#EndRegion &H03
 
