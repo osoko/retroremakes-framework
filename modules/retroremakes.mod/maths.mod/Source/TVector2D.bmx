@@ -52,12 +52,25 @@ Type TVector2D
 	End Method
 
 	
+	Method Cross :Float (v :TVector2D)
+		Return (x * v.y - y * v.x)
+	End Method
+	
+	
 	Method Distance :Float (v :TVector2D)
 		Local dx :Float = x - v.x
 		Local dy :Float = y - v.y
 		
 		Return Sqr (dx * dx + dy * dy)
 	End Method
+
+	
+	Method Distance2 :Float (v :TVector2D)
+		Local dx :Float = x - v.x
+		Local dy :Float = y - v.y
+		
+		Return (dx * dx + dy * dy)
+	End Method	
 	
 			
 	Method DivF :TVector2D (f :Float)
@@ -148,12 +161,6 @@ Type TVector2D
 	EndMethod
 	
 				
-	Method Set :TVector2D (x :Float, y :Float)
-		DebugLog "TVector2D.Set() method is deprecated and may be removed in future versions"
-		Return SetF (x, y)
-	End Method
-	
-	
 	Method SetF :TVector2D (x :Float, y :Float)
 		Self.x = x
 		Self.y = y
