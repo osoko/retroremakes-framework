@@ -38,8 +38,6 @@ Type TVector2D
 	
 		
 	Method Compare :Int (o :Object)
-		Const EPSILON :Float = 0.00001 :Float
-		
 		Local v :TVector2D = TVector2D (o)
 		If ((Abs (v.x - x) < EPSILON) And (Abs (v.y - y) < EPSILON)) Then Return 0
 		
