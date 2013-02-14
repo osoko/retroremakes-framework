@@ -1,4 +1,6 @@
 
+Const EPSILON :Float = 0.00001
+
 Function CapValueToByte:Int(val:Int)
 	If val < 0 Then val = 0
 	If val > 255 Then val = 255

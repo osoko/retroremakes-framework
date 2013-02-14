@@ -13,20 +13,29 @@ rem
 end rem
 Type TPlane2D
 
-	Field _distance :Float	
-	Field _normal   :TVector2D
-	
+	Field _normal :TVector2D
+	Field _origin :TVector2D
+
+	Field _distance :Float
+	Field _equation :Float[]
+
 	
 	rem
 		bbdoc: Create a new plane from a TVector2D normal and a point on the plane
 		returns: TPlane2D
 	endrem	
-	Function Create :TPlane2D (normal :TVector2D, point :TVector2D)
+	Function Create :TPlane2D (normal :TVector2D, origin :TVector2D)
 		Local plane :TPlane2D = New TPlane2D
 
 		plane._normal.SetV (normal).Normalise()
-		plane._distance = -plane._normal.Dot (point)
+		plane._origin.SetV (origin)
 		
+		plane._distance = -(plane._normal.Dot (origin))
+		
+		plane._equation[0] = plane._normal.x
+		plane._equation[1] = plane._normal.y
+		plane._equation[2] = -(plane._normal.Dot (plane._origin))
+
 		Return plane
 	End Function
 	
@@ -64,14 +73,22 @@ Type TPlane2D
 		returns: Int
 	endrem		
 	Method IsFacing :Int (direction :TVector2D) 
-		Local dot :Float = _normal.Dot (direction)
-		Return dot <= 0 
+		Return (_normal.Dot (direction) < 0.0)
 	End Method
 	
 	
 	Method New()
-		_normal   = New TVector2D
+		_normal = New TVector2D
+		_origin = New TVector2D
 		_distance = 0.0
+		_equation = New Float[3]
 	End Method
 	
+	Method SignedDistance :Float (point :TVector2D)
+		Return (point.Dot (_normal)) + _equation[2]
+	End Method
+	
+	Method ToString :String()
+		Return "TPlane2D: [normal: " + _normal.ToString() + ", origin: " + _origin.ToString() + ", distance: " + _distance + "]"
+	End Method
 End Type
