@@ -16,7 +16,6 @@ End Function
 
 Function IntersectRayAABB (point:TVector2D, direction:TVector2D, box:TAABB2D, tmin:Float Var, q:TVector2D Var)
 	tmin = 0.0
-	Local tmax:Float = 1.e+38
-	
+	Local tmax:Float = 1'01.e+38
 	
 End Function
