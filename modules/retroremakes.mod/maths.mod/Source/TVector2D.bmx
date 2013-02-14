@@ -108,6 +108,13 @@ Type TVector2D
 	End Method
 	
 	
+	Method MulV :TVector2D (v :TVector2D)
+		x :* v.x
+		y :* v.y
+		Return Self
+	End Method	
+	
+	
 	Method New()
 		x = 0.0
 		y = 0.0	
@@ -203,4 +210,8 @@ Type TVector2D
 		Return Self
 	End Method
 	
+	
+	Method ToString :String()
+		Return "TVector2D: [" + x + ", " + y + "]"
+	End Method
 End Type

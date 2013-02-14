@@ -407,15 +407,10 @@ Function rrLineToCircle:Int(x1:Float, y1:Float, x2:Float, y2:Float, px:Float, py
 	Local dy:Float = py - cy
 	
 	If (dx * dx + dy * dy) < (r * r)
-		
 		Return True
-		
 	Else
-		
 		Return False
-		
 	EndIf
-
 	
 End Function
 
