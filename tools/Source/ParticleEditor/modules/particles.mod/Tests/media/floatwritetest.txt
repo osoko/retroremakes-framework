@@ -1,0 +1,8 @@
+[float]
+active=1
+behaviour=11
+countdown=12
+start=1.00000000
+end=2.00000000
+change=0.200000003
+[end float]

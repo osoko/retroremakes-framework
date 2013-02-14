@@ -1,0 +1,14 @@
+# use glob syntax.
+syntax: glob
+*.a
+*.bak
+*.blpo
+*.i
+*.ini
+*.exe
+*.layout
+*.log
+*.o
+*.orig
+*.s
+commands.html
