@@ -3,27 +3,28 @@ rem
 end rem
 Type TCircle
 	
-	Field _center :TVector2D
-	Field _radius :Float
+	Field c:TVector2D
+	Field r:Float
 	
 	
-	Method Create :TCircle (center :TVector2D, radius: Float)
+	Function Create :TCircle (center:TVector2D, radius: Float)
 		Local circle :TCircle = New TCircle
-		circle._center = center
-		circle._radius = radius
+		circle.c = center
+		circle.r = radius
 		Return circle
-	End Method
+	End Function
 	
 	
 	Method New()
-		_center = New TVector2D
-		_radius = 0.0
+		c = New TVector2D
+		r = 0.0
 	End Method
 
 	
 	Method Overlaps :Int (circle :TCircle)
-		Local radius2 :Float = (_radius + circle._radius) * (_radius + circle._radius)
-		Return _center.Distance2 (circle._center) < radius2
+		Local radius2 :Float = (r + circle.r) * (r + circle.r)
+		Local distance:Float = c.Distance2 (circle.c)
+		Return distance < radius2
 	End Method
 		
 End Type

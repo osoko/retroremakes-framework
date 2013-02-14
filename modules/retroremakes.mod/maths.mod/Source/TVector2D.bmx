@@ -66,9 +66,9 @@ Type TVector2D
 
 	
 	Method Distance2 :Float (v :TVector2D)
+	
 		Local dx :Float = x - v.x
 		Local dy :Float = y - v.y
-		
 		Return (dx * dx + dy * dy)
 	End Method	
 	
